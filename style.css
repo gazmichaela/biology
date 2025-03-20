@@ -325,24 +325,3 @@ ul li a.active {
     text-decoration: none;
 } */
 
-.nav-item {
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    color: #333; /* Stejná barva jako odkazy */
-    text-decoration: none;
-    display: inline-block;
-    padding: 5px 10px;
-}
-
-/* Zabrání podtržení a změně barvy při najetí */
-.nav-item:hover {
-    text-decoration: none;
-    color: #333; 
-}
-
-/* Pouze odkazy mají zelenou barvu při hoveru */
-a.nav-item:hover {
-    color: #b9fe01;
-    text-decoration: underline;
-}
