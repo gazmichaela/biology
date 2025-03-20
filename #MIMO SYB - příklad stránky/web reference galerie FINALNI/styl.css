@@ -1,0 +1,217 @@
+@font-face {
+    font-family: Poppins;
+    src: url(fonty/Poppins-Regular.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url(fonty/Poppins-ExtraBold.ttf);
+    font-weight: bold;
+}
+html {
+          background: #414042;
+}
+body {
+    font: 14px "Poppins";
+    background: #f9f9f9;
+    color: #414042;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 100px 0px 0px 0px;
+    min-width: 960px;
+}
+
+body > header {
+    height: 100px;
+    width: 100%;
+    background: #00386B;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+}
+
+#logo {
+    height: 40px;
+    margin: auto 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: url('obrazky/logo.png') no-repeat;
+    background-size: 40px 40px;
+}
+
+#logo > * {
+    margin: 0 0 0 50px;
+}
+
+#logo h1 {
+    font-weight: normal;
+    font-size: 1.5em;
+    line-height: 1.2em;
+    color: white;
+}
+
+#logo h1 span {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#logo small {
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+nav ul {
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+nav ul li {
+    padding: 0 25px;
+    margin: 0 5px;
+    font-size: 1em;
+    line-height: 4.3em;
+}
+
+nav ul a {
+    color: white;
+    padding: 8px 0;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+nav ul a:hover,
+.aktivni a {
+    border-bottom: 2px solid #EF6534;
+}
+
+article {
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 50px 50px 10px 50px;
+}
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+    padding: 10px 0;
+    color: #00386B;
+}
+
+article h1 {
+    margin: 0;
+    font-size: 2.3em;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: max-content;
+    border-bottom: 4px solid #EF6534;
+}
+
+article h2 {
+    font-size: 2em;
+}
+
+article header {
+    height: 80px;
+}
+
+article section p {
+    margin-bottom: 1.5em;
+    line-height: 1.8em;
+}
+
+article section a {
+    color: #EF6534;
+}
+
+footer {
+    box-sizing: border-box;
+    text-align: center;
+    height: 100px;
+    color: white;
+    background: #414042;
+    padding: 50px 0 0 0;
+    clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%);
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.avatar{
+	float: right;
+	width: 300px;
+	padding-left: 10px;
+	filter: grayscale(1);
+}
+
+.cistic {
+    clear: both;
+}
+
+.centrovany {
+    text-align: center;
+}
+
+.reference-tlacitko {
+    background: #70B73A;
+    color: white;
+    font-size: 0.9em;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 12px 25px;
+    border-radius: 25px;
+}
+
+#reference a {
+    text-decoration: none;
+}
+
+#reference a:hover {
+    text-decoration: none;
+}
+
+.kontakt-tlacitko {
+    background: #EF6534;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.kontakt-tlacitko:hover,
+.reference-tlacitko:hover {
+    filter: brightness(115%) contrast(85%);
+    border: 0;
+}
+
+.vlevo {
+    float: left;
+}
+
+#dovednosti td {
+    width: 33%;
+    padding: 10px;
+    vertical-align: top;
+    border: 1px solid gray;
+}
+
+#dovednosti {
+    border-collapse: collapse;
+}
+
+#reference img {
+    border: 1px solid gray;
+    padding: 6px;
+    box-shadow: 3px 3px 6px #999999;
+    margin-right: 6px;
+}
