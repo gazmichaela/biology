@@ -325,3 +325,38 @@ ul li a.active {
     text-decoration: none;
 } */
 
+/* Vzhled pro všechny prvky navigace */
+.nav-item, .nav-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;  /* Barva textu */
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+/* Odkazy v navigaci */
+.nav-item {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Zvýraznění odkazu při najetí myší */
+.nav-item:hover {
+    color: #b9fe01;
+    text-decoration: underline;
+}
+
+/* Styl pro "Úvod", který není odkaz */
+.nav-text {
+    cursor: default;  /* Zabrání klikání */
+    text-decoration: none !important;
+    color: #333 !important; /* Barva stejná jako u odkazů */
+}
+
+/* Zabrání jakékoliv změně při najetí */
+.nav-text:hover {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
+
