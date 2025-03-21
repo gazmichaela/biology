@@ -119,14 +119,15 @@ section {
     background-color: #ddd;
 }
 
-a:hover {
+/* a:hover {
     color: #b9fe01;
     text-decoration: underline;
-}
+} */
+/*
 .dropdown-toggle:hover {
     color:#b9fe01;
     text-decoration: none;
-}
+} */
 
 .dropdown-content a:hover {
     color: black;
@@ -221,8 +222,8 @@ footer a {
 }*/
 
 /* Základní nastavení pro desktop */
-g
- body {
+
+ /*body {
     font-family: Arial, sans-serif;
     background-color: #f0f9f0;
     margin: 0;
@@ -271,14 +272,26 @@ header ul li {
     header ul li {
         font-size: 17px; 
     }
-}
-
+} */
 
 img {
+    margin: 10px;
+}
+
+.img-right {
     float: right;
     width: 400px;
     margin-top: 20px;
     margin-right: 85px;
+    margin-left: 20px;
+}
+
+.img-left {
+    float: left;
+    width: 400px;
+    margin-top: 20px;
+    margin-left: 85px;
+    margin-right: 20px;
 }
 
 .zarazka {
@@ -290,11 +303,11 @@ img {
     align-items: center;
 }
 
-.text{
+article {
     flex: 1;
     align-items: left;
-    margin-right: 100px;
-    margin-left: 50px;
+    margin-right: 80px;
+    margin-left: 40px;
 }
 
 
@@ -304,10 +317,10 @@ h2 {
     display: inline; 
 }
 
-ul li a.active {
+/* ul li a.active {
     color: #b9fe01;
     font-weight: bold;
-}
+} */
 
 /*.nav-item {
     font-family: inherit;
@@ -339,11 +352,11 @@ ul li a.active {
     transition: color 0.3s;
 }
 
-/* Zvýraznění odkazu při najetí myší */
+/* 
 .nav-item:hover {
     color: #b9fe01;
     text-decoration: underline;
-}
+} */
 
 /* Styl pro "Úvod", který není odkaz */
 .nav-text {
@@ -433,11 +446,18 @@ ul li a.active {
     background-color: #2980b9;
 } */
 
-.buttons {
+.button {
     display: flex;  /* Uspořádání vedle sebe */
     gap: 10px; /* Mezera mezi tlačítky */
     justify-content: center; /* Zarovnání na střed */
+    font-size: 16px;
+    word-wrap: break-word; /* Rozdělení dlouhých slov */
+    white-space: nowrap; /* Umožní, že text bude na jednom řádku */
+    overflow: hidden; /* Skryje přetékající text */
+    text-overflow: ellipsis; /* Přidá "..." pro text, který nepůjde zobrazit */
+      
 }
+
 
 .main-button {
     background-color: #3498db;
@@ -515,3 +535,15 @@ ul li a.active {
 .faq.active .answer {
     display: block;
 }
+
+.home-icon img {
+    width: 25px;
+    height: auto;
+    margin-left: 10px;
+}
+
+.home-icon {
+    display: inline-block;
+    text-decoration: none;
+}
+
