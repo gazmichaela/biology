@@ -59,3 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.addEventListener("mouseleave", hideSubmenu);
     submenu.addEventListener("mouseleave", hideSubmenu);
 });
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".faq").forEach(faq => {
+        faq.addEventListener("click", () => {
+            faq.classList.toggle("active");
+        });
+    });
+});
+

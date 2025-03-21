@@ -361,14 +361,15 @@ ul li a.active {
 
 
 
-
+/* tlačítka */
 .install-button {
     display: flex;
     border-radius: 8px;
     overflow: hidden;
+    margin-left: 45px;
 } 
 
-.maon-button, .dropdown-toggle {
+.main-button, .dropdown-toggle {
     background-color: #4a90e2;
     color: white;
     font-size: 18px;
@@ -387,6 +388,7 @@ ul li a.active {
     display: flex;
     border-radius: 8px;
     overflow: hidden;
+
 }
 
 .main-button, .dropdown-button {
@@ -398,10 +400,10 @@ ul li a.active {
     cursor: pointer;
 }
 
-.main-button {
+ .main-button {
     flex: 1;
     font-weight: bold;
-}
+} 
 
 .dropdown-button {
     width: 50px;
@@ -413,7 +415,121 @@ ul li a.active {
     background-color: #3a78c2;
 }
 
-.main-button:hover {
+/* .main-button:hover {
     background-color: #3a78c2;
+} */
+
+/* .buttons {
+    display: flex;
+    gap: 10px;
+    
 }
 
+ .main-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+} */
+
+
+.maine-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 0px;
+    font-weight: bold;
+}
+
+/*.main-button:hover {
+    background-color: #2980b9;
+} */
+
+.buttons {
+    display: flex;  /* Uspořádání vedle sebe */
+    gap: 10px; /* Mezera mezi tlačítky */
+    justify-content: center; /* Zarovnání na střed */
+}
+
+.main-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 180px; /* Pevná šířka tlačítka */
+    height: 60px; /* Pevná výška tlačítka */
+    text-align: center;
+    white-space: nowrap; /* Zabrání zalomení textu */
+
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center; 
+    gap: 10px; }
+
+
+.button {
+    background-color: #4a90e2; 
+    color: white;
+    font-size: 18px; 
+    border: none;
+    padding: 12px 20px; 
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    width: 200px; 
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+.button:hover {
+    background-color: #3a78c2;
+} 
+
+
+
+
+
+.main-button:hover {
+    background-color: #2980b9;
+}
+
+
+
+.faq {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.question {
+    font-weight: bold;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.answer {
+    display: none;
+    padding: 10px;
+    border-left: 3px solid #888;
+    margin-left: 10px;
+}
+
+.faq.active .answer {
+    display: block;
+}
