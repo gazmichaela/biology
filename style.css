@@ -298,8 +298,7 @@ img {
 }
 
 
-
-.highlighted-text {
+h2 {
     background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
     padding: 2px 5px; 
     display: inline; 
@@ -359,4 +358,62 @@ ul li a.active {
     text-decoration: none !important;
 }
 
+
+
+
+
+.install-button {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+} 
+
+.maon-button, .dropdown-toggle {
+    background-color: #4a90e2;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    margin-left: 1px;
+} 
+
+.main-button {
+    flex: 1;
+    font-weight: bold;
+}
+
+.install-button {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.main-button, .dropdown-button {
+    background-color: #4a90e2;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.main-button {
+    flex: 1;
+    font-weight: bold;
+}
+
+.dropdown-button {
+    width: 50px;
+    text-align: center;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-button:hover {
+    background-color: #3a78c2;
+}
+
+.main-button:hover {
+    background-color: #3a78c2;
+}
 
