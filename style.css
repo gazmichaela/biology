@@ -221,7 +221,7 @@ footer a {
 }*/
 
 /* Základní nastavení pro desktop */
-/*
+g
  body {
     font-family: Arial, sans-serif;
     background-color: #f0f9f0;
@@ -272,7 +272,7 @@ header ul li {
         font-size: 17px; 
     }
 }
-*/
+
 
 img {
     float: right;
@@ -415,25 +415,7 @@ ul li a.active {
     background-color: #3a78c2;
 }
 
-/* .main-button:hover {
-    background-color: #3a78c2;
-} */
 
-/* .buttons {
-    display: flex;
-    gap: 10px;
-    
-}
-
- .main-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-} */
 
 
 .maine-button {
