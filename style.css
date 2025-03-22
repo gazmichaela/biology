@@ -185,6 +185,11 @@ display: block;
     display: block; 
 }
 /* text */
+
+article section li {
+    font-size: 1.3em;
+}
+
 p {
     margin-left: 20px;
     font-size: 1.3em;
@@ -473,8 +478,13 @@ h4 {
 .button-container {
     display: flex;
     justify-content: center; 
-    gap: 10px; }
-
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    width: 200px; 
+    width: auto; 
+    transition: background-color 0.3s ease-in-out;
+}
 
 .button {
     background-color: #4a90e2; 
