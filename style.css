@@ -7,7 +7,7 @@ body {
     background-color: #f0f9f0;
     min-width: 1000px;
     margin: 0;
-    color: #333;
+    color: #023f1e;
 }
 
 
@@ -42,18 +42,12 @@ header ul {
 header ul li {
     display: inline;
     margin: 0 15px;
-    color: black;
+    color: #023f1e;
     text-decoration: none;
     font-size: 18px;
     text-align: center;
     position: relative;
     
-}
-
-header a {
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
 }
 
 .logo {
@@ -105,16 +99,13 @@ section {
     transition: background-color 0.3s ease; 
 }
 
-.dropdown-toggle:hover {
-    background-color: #3a78c2;  /* Tmavší modrá, když na něj najedete */
-}
-
-
-.dropdown-content a, .sub-dropdown-content a {
+.dropdown-content a,
+.sub-dropdown-content a {
     display: block;
     padding: 10px;
-    color: black;
+    color: #023f1e;
     text-decoration: none;
+    font-weight: bold;
 }
 
 
@@ -133,7 +124,7 @@ section {
 } */
 
 .dropdown-content a:hover {
-    color: black;
+    color: #023f1e;
     text-decoration: none;
 }
 
@@ -155,7 +146,7 @@ section {
     position: relative;
 }
 
-.sub-dropdown-content{
+.sub-dropdown-content {
     display: none;
     position: absolute;
     left: 100%;
@@ -199,6 +190,22 @@ article section li {
     font-size: 1.3em;
 }
 
+article section button {
+    background: #2980b9;
+    border-radius: 20px;
+    padding: 12px 20px;
+    height: auto;
+    margin-left: 30px;
+}
+article section button a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.4em;
+    text-align: center;
+    justify-content: center;
+}
+
 /* footer */
 footer {
     box-sizing: border-box;
@@ -218,6 +225,9 @@ footer a {
     color: inherit;
 }
 
+footer p {
+    text-align: center;
+}
 
 img {
     margin: 10px;
@@ -254,7 +264,7 @@ article {
     margin-left: 40px;
 }
 
-p {
+article section p {
     margin-left: 20px;
     font-size: 1.3em;
     margin-top: 10px;
@@ -299,10 +309,11 @@ article section h5 {
 } */
 
 /* Vzhled pro všechny prvky navigace */
-.nav-item, .nav-text {
+.nav-item, 
+.nav-text {
     font-size: 18px;
     font-weight: bold;
-    color: #333;  /* Barva textu */
+    color: #023f1e; /*barva textu */
     padding: 5px 10px;
     display: inline-block;
 }
@@ -335,66 +346,67 @@ article section h5 {
  
 .button-container {
     display: flex;
-    align-items: center;
     gap: 0px;
+    align-items: stretch;
+    
 }
 
-.main-button, .dropdown-toggle, .maine-button {
-    font-size: 16px;
+
+/*   Formátování tlačítek       */
+.main-button,
+.maine-button,
+.dropdown-toggle {
+    background-color: #f0f9f0;
+    color: #025227;
     font-weight: bold;
-    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
     transition: background 0.3s ease;
-
+    align-items: center; 
+    justify-content: center;
 }
 
 .main-button {
-    background-color: #3498db;
     padding: 12px 20px;
-    border-radius: 8px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+    height: 19px;
     margin-left: 15px;
 }
 
 .maine-button {
-    background-color: #3498db;
     padding: 12px 20px;
-    border-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-top-right-radius: 20px; 
+    border-bottom-right-radius: 20px;
+    height: 19px;
     margin-left: 15px;
 }
 
 .dropdown-toggle {
-    background-color: rgba(52, 152, 219, 0.8);
     padding: 12px 15px;
-    border-radius: 8px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 40px;
+    height: 43px;
     margin-left: 2px;
 }
 
 .arrow {
-    font-size: 16px;
-    color: white;
-}
-.main-button:hover {
-    background-color: #2980b9;
+    font-size: 20px;
+    color: #023f1e;
 }
 
-.maine-button:hover {
-    background-color: #2980b9;
-}
-
+.main-button:hover,
+.maine-button:hover,
 .dropdown-toggle:hover {
-    background-color: rgba(41, 128, 185, 0.9);
+    background-color: #d6e7d6ec;
 }
 
+/*Otázky*/
 .faq {
     margin-bottom: 10px;
     cursor: pointer;
@@ -427,4 +439,25 @@ article section h5 {
 .home-icon {
     display: inline-block;
     text-decoration: none;
+}
+
+/* Styl pro aktivní tlačítko */
+.main-button.active,
+.maine-button.active {
+    background-color: #3a78c2bb;/* Tmavší modrá, když je tlačítko aktivní */
+    color: white;
+}
+
+/* Styl pro aktivní položku v podmenu */
+.dropdown-content a.active {
+    background-color: #3a77c2bb; /* Tmavší modrá pro aktivní podmenu */
+    color: white;
+}
+
+/* Specifické nastavení pro položku Úvod v podmenu */
+.dropdown-content a.centered {
+    display: flex;
+    justify-content: center;  /* Horizontálně na střed */
+    align-items: center;  /* Vertikálně na střed */
+    width: 100%;  /* Nastavíme šířku na 100% pro dosažení efektu */
 }
