@@ -109,7 +109,6 @@ section {
     text-decoration: none;
 }
 
-
 .dropdown-content a:hover {
     background-color: #ddd;
 }
@@ -193,6 +192,10 @@ article section li {
 
 p {
     margin-left: 20px;
+    font-size: 1.3em;
+}
+
+article section li {
     font-size: 1.3em;
 }
 
@@ -375,9 +378,6 @@ h4 {
     text-decoration: none !important;
 }
 
-
-
-
 /* tlačítka */
 .install-button {
     display: flex;
@@ -432,9 +432,6 @@ h4 {
     background-color: #3a78c2;
 }
 
-
-
-
 .maine-button {
     background-color: #3498db;
     color: white;
@@ -459,9 +456,7 @@ h4 {
     white-space: nowrap; /* Umožní, že text bude na jednom řádku */
     overflow: hidden; /* Skryje přetékající text */
     text-overflow: ellipsis; /* Přidá "..." pro text, který nepůjde zobrazit */
-      
 }
-
 
 .main-button {
     background-color: #3498db;
@@ -478,7 +473,6 @@ h4 {
     padding: 10px 20px;
     font-weight: bold;
 }
-
 
 
 .button-container {
@@ -503,7 +497,7 @@ h4 {
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-    width: 200px; 
+    width: auto; 
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -512,15 +506,9 @@ h4 {
     background-color: #3a78c2;
 } 
 
-
-
-
-
 .main-button:hover {
     background-color: #2980b9;
 }
-
-
 
 .faq {
     margin-bottom: 10px;
@@ -555,4 +543,3 @@ h4 {
     display: inline-block;
     text-decoration: none;
 }
-
