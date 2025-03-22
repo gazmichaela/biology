@@ -47,11 +47,13 @@ header ul li {
     font-size: 18px;
     text-align: center;
     position: relative;
+    
 }
 
 header a {
-    color: #333333;
+    color: white;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .logo {
@@ -100,7 +102,13 @@ section {
     font-size: 18px;
     margin-left: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease; 
 }
+
+.dropdown-toggle:hover {
+    background-color: #3a78c2;  /* Tmavší modrá, když na něj najedete */
+}
+
 
 .dropdown-content a, .sub-dropdown-content a {
     display: block;
@@ -191,11 +199,6 @@ article section li {
     font-size: 1.3em;
 }
 
-p {
-    margin-left: 20px;
-    font-size: 1.3em;
-}
-
 /* footer */
 footer {
     box-sizing: border-box;
@@ -215,64 +218,6 @@ footer a {
     color: inherit;
 }
 
-/*footer {
-    background: #414042;
-    padding: 50px 0 0 0;
-    ;
-}*/
-
-/* Základní nastavení pro desktop */
-
- /*body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f9f0;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-}
-
-header ul li {
-    display: inline-block;
-    margin: 0 15px;
-    color: black;
-    text-decoration: none;
-    font-size: 18px;
-    text-align: center;
-}
-
-@media (max-width: 768px) {
-    header ul {
-        flex-direction: column; 
-    }
-
-    header ul li {
-        margin: 10px 0; 
-        font-size: 16px; 
-    }
-
-    .logo {
-        width: 100px;
-        height: auto;
-        margin: 10px 0;
-        align-items: left;
-    }
-}
-
-@media (max-width: 1024px) {
-    header ul li {
-        font-size: 17px; 
-    }
-} */
 
 img {
     margin: 10px;
@@ -280,14 +225,14 @@ img {
 
 .img-right {
     float: right;
-    width: 400px;
+    width: 30rem;
     margin-top: 20px;
-    margin-left: auto;
+    margin-left: 20px;
 }
 
 .img-left {
     float: left;
-    width: 400px;
+    width: 30rem;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
@@ -309,16 +254,28 @@ article {
     margin-left: 40px;
 }
 
-
-h2 {
-    background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
-    padding: 2px 5px; 
-    display: inline;
-    font-size: 1.8em;
+p {
+    margin-left: 20px;
+    font-size: 1.3em;
+    margin-top: 10px;
 }
 
-h4 {
+article section h2 {
+    background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
+    padding: 2px 5px;
+    font-size: 1.8em;
+    margin-top: 100px; /* Mezera mezi nadpisem a header */
+    display: inline-block; /* Zajistí podtržení pouze pod textem */
+}
+
+article section h4 {
     margin-top: 50px;
+}
+
+article section h5 {
+    font-size: 1.3em;
+    font-weight: normal;
+    margin-bottom: 10px;
 }
 
 /* ul li a.active {
@@ -375,152 +332,68 @@ h4 {
     text-decoration: none !important;
 }
 
-
-
-
-/* tlačítka */
-.install-button {
+ 
+.button-container {
     display: flex;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-left: 45px;
-} 
+    align-items: center;
+    gap: 0px;
+}
 
-.main-button, .dropdown-toggle {
-    background-color: #4a90e2;
+.main-button, .dropdown-toggle, .maine-button {
+    font-size: 16px;
+    font-weight: bold;
     color: white;
-    font-size: 18px;
     border: none;
-    padding: 12px 20px;
     cursor: pointer;
-    margin-left: 1px;
-} 
+    transition: background 0.3s ease;
+
+}
 
 .main-button {
-    flex: 1;
-    font-weight: bold;
-}
-
-.install-button {
-    display: flex;
-    border-radius: 8px;
-    overflow: hidden;
-
-}
-
-.main-button, .dropdown-button {
-    background-color: #4a90e2;
-    color: white;
-    font-size: 18px;
-    border: none;
+    background-color: #3498db;
     padding: 12px 20px;
-    cursor: pointer;
+    border-radius: 8px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-left: 15px;
 }
-
- .main-button {
-    flex: 1;
-    font-weight: bold;
-} 
-
-.dropdown-button {
-    width: 50px;
-    text-align: center;
-    border-left: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.dropdown-button:hover {
-    background-color: #3a78c2;
-}
-
-
-
 
 .maine-button {
     background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 0px;
-    font-weight: bold;
-}
-
-/*.main-button:hover {
-    background-color: #2980b9;
-} */
-
-.button {
-    display: flex;  /* Uspořádání vedle sebe */
-    gap: 10px; /* Mezera mezi tlačítky */
-    justify-content: center; /* Zarovnání na střed */
-    font-size: 16px;
-    word-wrap: break-word; /* Rozdělení dlouhých slov */
-    white-space: nowrap; /* Umožní, že text bude na jednom řádku */
-    overflow: hidden; /* Skryje přetékající text */
-    text-overflow: ellipsis; /* Přidá "..." pro text, který nepůjde zobrazit */
-      
-}
-
-
-.main-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    width: auto; /* Pevná šířka tlačítka */
-    height: 60px; /* Pevná výška tlačítka */
-    text-align: center;
-    white-space: nowrap; /* Zabrání zalomení textu */
-
-    padding: 10px 20px;
-    font-weight: bold;
-}
-
-
-
-.button-container {
-    display: flex;
-    justify-content: center; 
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    width: 200px; 
-    width: auto; 
-    transition: background-color 0.3s ease-in-out;
-}
-
-.button {
-    background-color: #4a90e2; 
-    color: white;
-    font-size: 18px; 
-    border: none;
-    padding: 12px 20px; 
-    cursor: pointer;
+    padding: 12px 20px;
     border-radius: 8px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    width: 200px; 
-    transition: background-color 0.3s ease-in-out;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-left: 15px;
 }
 
+.dropdown-toggle {
+    background-color: rgba(52, 152, 219, 0.8);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+}
 
-.button:hover {
-    background-color: #3a78c2;
-} 
-
-
-
-
-
+.arrow {
+    font-size: 16px;
+    color: white;
+}
 .main-button:hover {
     background-color: #2980b9;
 }
 
+.maine-button:hover {
+    background-color: #2980b9;
+}
 
+.dropdown-toggle:hover {
+    background-color: rgba(41, 128, 185, 0.9);
+}
 
 .faq {
     margin-bottom: 10px;
@@ -555,4 +428,3 @@ h4 {
     display: inline-block;
     text-decoration: none;
 }
-

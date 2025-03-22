@@ -11,6 +11,9 @@
 
 <body>
     <header>
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <img src="obrazky/logo_purk.png" alt="logo školy" class="logo"/>
+        </a>
         <h1>Systémová biologie</h1>
         <p>Studium komplexních biologických systémů a jejich interakcí</p>
         <ul>
@@ -34,8 +37,11 @@
                  <a href="aplication_in_live.html">Využití v praxi</a>
                 </div>
             </li>
-            <div class="button-container">
-                <a href="life.html" class="button">Základy živých soustav</a>
+                <div class="install-button">
+                <a href="life.html" class="maine-button">Základy živých soustav</a>
+                <button class="dropdown-toggle">&#9662;</button>
+                </div>
+                <div class="button-container">
                 <a href="cell.html" class="button">Buňka</a>
                 <a href="human.html" class="button">Člověk</a>
                 <a href="question.html" class="button">Otázky</a>
@@ -46,25 +52,135 @@
         <script src="script.js"></script>
     </header>
 
-    <p>něco</p>
-<ul>
-    <li>1. Definice </li>
-    <li>2. Klíčové vlastnosti </li>
-    <li>3. Typologie </li>
-    <p>otevřené</p>
-    <p>uzavřené</p>
-    <li>4. Struktura</li>
-    <li>5. Dynamika a rovnováha</li>
-    <li>6. Zpětná vazba</li>
-    <li>7. Kybernetika a systémy řízení</li>
-    <li>8. Aplikace teorie</li>
-</ul>
+    <article>
+        <section>
+            <img src="obrazky/8.png" class="img-right">
+            <h2>Úvod do teorie systémů</h2>
+            <p>Teorie systémů je interdisciplinární věda, která analyzuje vzorce a interakce mezi složkami složitých celků a 
+                vztahy mezi nimi. Cílem teorie systémů je zkoumat, jakým způsobem jsou jednotlivé části (tzv. elementy) 
+                propojeny do celku (systému), jak spolu navzájem interagují a jakým způsobem tento celek komunikuje s 
+                okolím. Teorie systémů nachází uplatnění napříč různými oblastmi, včetně biologie, inženýrství, ekologie, 
+                ekonomie, sociálních věd a kybernetiky. Klíčovým přínosem teorie systémů je její schopnost identifikovat 
+                obecné principy, které jsou univerzální pro širokou škálu systémů, což umožňuje lepší pochopení a modelování 
+                jejich chování.</p>
+            <ol>
+                <h4><li>Definice systému</li></h4>
+                    <p>Systém je obecně definován jako soubor vzájemně provázaných elementů, které tvoří celek a interagují za 
+                        účelem dosažení určitého cíle nebo funkce. Elementy systému mohou mít různé povahy – mohou jimi být 
+                        fyzické objekty, informace, procesy, lidé nebo subjekty. Každý systém vykazuje vlastnosti emergentní (tzv. 
+                        emergenci), což znamená, že celek vykazuje chování, které není jednoduše odvoditelné z chování jeho 
+                        jednotlivých částí. Například organismus jako celek má vlastnosti (např. vědomí), které nelze vysvětlit pouze 
+                        chováním jednotlivých buněk.V každodenním životě se systémy objevují téměř ve všech oblastech: biologické 
+                        systémy zahrnují např. buňky, orgány a ekosystémy, zatímco technické systémy zahrnují mechanické systémy, 
+                        počítačové sítě či energetické distribuční soustavy.</p>
+                </li>
+    
+                <h4><li>Klíčové vlastnosti systému</li></h4>
+                    <p>Každý systém je definován několika základními atributy:.</p>
+                    <ul>
+                        <li><strong>Elementy (prvky systému):</strong> Jednotlivé komponenty, které společně tvoří systém. Mohou to být fyzické 
+                            objekty (např. orgány v těle) nebo nehmotné entity, jako jsou informace či vztahy. Elementy vykazují 
+                            specifické chování a vlastnosti, které přispívají k chování systému jako celku.</li>
+                        <li><strong>Interakce a relace:</strong> Systém se chová jako celek díky vzájemným interakcím mezi jeho elementy. Tyto 
+                            interakce mohou být přímé (např. mechanické spojení mezi součástkami stroje) nebo nepřímé (např. 
+                            přenos informace mezi nervovými buňkami v mozku). Zásadní roli zde hrají feedback mechanismy
+                            (zpětná vazba), které umožňují systému reagovat na změny v okolí či uvnitř samotného systému</li>
+                        <li><strong>Hranice systému</strong> Každý systém má své hranice, které určují, co je součástí systému a co patří do jeho 
+                            okolí. Hranice mohou být fyzické (např. plášť motoru) nebo abstraktní (např. organizační hranice 
+                            firmy)</li>
+                        <li><strong>Prostředí (okolí systému)</strong> Systémy existují v kontextu svého prostředí, se kterým mohou (ale nemusí) 
+                            interagovat. Prostředí je soubor elementů, které nejsou součástí systému, ale mohou jej ovlivňovat.</li>
+                    </ul>
+    
+                <h4><li>Typologie systémů: Otevřené vs. uzavřené systémy</li></h4>
+                    <img src="obrazky/7.png" class="img-right">
+                    <p>Jedním ze základních kritérií pro klasifikaci systémů je jejich schopnost interakce s okolím. Rozlišujeme proto 
+                        systémy na:</p>
+                    <ul>
+                        <li><strong>Otevřené systémy:</strong> Otevřený systém si vyměňuje energii, materiál či informace s okolním prostředím. 
+                            Tato výměna probíhá prostřednictvím tzv. vstupů a výstupů. Vstupy mohou zahrnovat energii, 
+                            suroviny, informace nebo jiné zdroje, zatímco výstupy představují produkty nebo odpady systému. 
+                            Příkladem otevřeného systému je lidský organismus, který přijímá potravu (vstup) a vylučuje odpadní 
+                            látky (výstup).</li>
+                        <li><strong>Uzavřené systémy:</strong> Na rozdíl od otevřených systémů se uzavřené systémy neúčastní interakce s 
+                            okolním prostředím, nebo tuto interakci minimalizují. V praxi jsou skutečně uzavřené systémy velmi 
+                            vzácné, jelikož většina systémů nějakým způsobem komunikuje s okolím. V laboratorních podmínkách 
+                            se však může uzavřený systém použít pro studium specifických procesů bez vlivu externích faktorů.</li>
+                    </ul>
+    
+                <h4><li>Struktura systému: Hierarchické uspořádání</li></h4>
+                    <p>Systémy často vykazují hierarchickou strukturu, což znamená, že systémy mohou být složeny z menších 
+                        subsystémů, které jsou samy o sobě systémy. Například v biologickém systému organismus obsahuje orgány, 
+                        které jsou samy systémy složené z buněk, a ty zase obsahují organely. Tato vnořená struktura umožňuje 
+                        popisovat složité systémy na různých úrovních podrobnosti. V hierarchických systémech je důležitým 
+                        konceptem dekompozice – možnost rozložit složitý systém na menší části, které lze analyzovat samostatně. 
+                        Tento přístup se využívá v mnoha oblastech, od návrhu technických systémů až po studium ekosystémů.</p>
+    
+                <h4><li>Dynamika systému a rovnováha</li></h4>
+                    <p>Jedním z nejdůležitějších aspektů systémů je jejich dynamické chování. Dynamika systému odkazuje na 
+                        způsob, jakým systém reaguje na změny ve svém prostředí nebo uvnitř sebe samého. Některé systémy vykazují 
+                        lineární chování, kdy je odpověď systému přímo úměrná velikosti podnětu, zatímco jiné systémy vykazují 
+                        nelineární chování, kdy malé změny v jednom prvku mohou mít dramatické dopady na celý systém.</p>
+                    <p>Klíčovou vlastností dynamiky systémů je stabilita a rovnováha. Systém je stabilní, pokud je schopen se vrátit 
+                        do svého původního stavu po narušení. Rovnováha může být statická (systém zůstává v neměnném stavu) nebo 
+                        dynamická (systém se neustále mění, ale zachovává určitý vzorec chování). Například ekologické systémy často 
+                        vykazují dynamickou rovnováhu, kde populace různých druhů kolísají, ale celková stabilita ekosystému zůstává 
+                        zachována</p>
+    
+                <h4><li>Zpětná vazba v systému</li></h4>
+                    <p>Klíčovým mechanismem pro udržení rovnováhy a stabilizaci systému je zpětná vazba. Zpětná vazba může být:</p>
+                    <ul>
+                        <li><strong>Pozitivní zpětná vazba:</strong> Posiluje změny v systému a vede k růstu nebo akceleraci určitého procesu. 
+                            Například růst populace bez přítomnosti predátorů vede ke zvýšení porodnosti, což zvyšuje počet 
+                            obyvatel.</li>
+                        <li><strong>Negativní zpětná vazba:</strong> Naopak snižuje vliv změn a stabilizuje systém. Například termostat reguluje 
+                            teplotu místnosti tím, že zapne topení, když teplota klesne, a vypne jej, když teplota dosáhne 
+                            požadované úrovně.</li>
+                    </ul>
+    
+                <h4><li>Kybernetika a systémy řízení</li></h4>
+                    <p>Systémy, které jsou schopny automaticky regulovat své chování na základě zpětné vazby, spadají do oblasti 
+                        kybernetiky. Kybernetika je disciplína, která studuje procesy řízení a komunikace v systémech, a to jak v 
+                        technických, tak v biologických a sociálních systémech. Základním principem kybernetických systémů je 
+                        schopnost zpracovávat informace a používat je k dosažení cílů systému prostřednictvím autonomní regulace..</p>
+    
+                <h4><li>Aplikace teorie systémů</li></h4>
+                    <img src="obrazky/9.png" class="img-right">
+                    <h5>Technické příklady:</h5>
+                        <ul>
+                            <li>Představme si počítačový systém. V počítači existuje hardware (fyzické komponenty jako 
+                                procesor, paměť, pevný disk) a software (programy a operační systém, který hardware ovládá). Tyto části spolu 
+                                musí spolupracovat, aby počítač fungoval. Když selže jedna složka (např. procesor), celý počítač přestane 
+                                fungovat, i když je pevný disk a paměť stále v pořádku. Stejně tak, když v lidském těle selže srdce nebo plíce, 
+                                celý organismus může přestat fungovat</li>
+                            <li>Dopravní systém: Zahrnuje vozidla, silnice, světelné signalizace, řidiče a pravidla silničního provozu. Tento 
+                                systém musí být dobře organizován, aby doprava byla bezpečná a plynulá. Každá složka (např. semafory) má 
+                                svou specifickou roli, ale všechny musí spolupracovat, aby systém jako celek fungoval efektivně.</li>
+                        </ul>
+                    <h5>Příklad z biologie:</h5>
+                        <ul>
+                            <li>Oběhový systém v těle je zodpovědný za transport krve, která nese kyslík a živiny do 
+                                buněk. Krev se pohybuje prostřednictvím srdce, které ji pumpuje do celého těla. Pokud dojde k poruše v 
+                                oběhovém systému (např. ucpání cév), kyslík a živiny se nedostanou do buněk, což může způsobit jejich 
+                                poškození nebo smrt. To je příklad toho, jak důležité jsou interakce mezi jednotlivými částmi systému.</li>
+                        </ul>
+                        <p>Biologické systémy fungují na stejném principu jako technické systémy – také se skládají z menších částí, které 
+                            musí spolupracovat, aby organismus nebo ekosystém fungoval jako celek.</p>
+                    <h5>Lidské tělo jako systém</h5>
+                            <p>Podobně jako v technickém systému má lidské tělo různé subsystémy, které vykonávají specifické funkce. 
+                                Například oběhový systém transportuje kyslík a živiny ke všem buňkám v těle. Trávicí systém zajišťuje přísun 
+                                těchto živin tím, že rozkládá potravu na jednodušší látky, které tělo může využít. Pokud jeden z těchto systémů 
+                                přestane fungovat, může být ohrožen celý organismus.</p>
+            </ol>
+        <div class="zarazka"></div>
+        </section>
+    </article>
 
-
-<footer>
-    <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
-    <p>Vytvořeno pro vzdělávací účely</p>
-</footer>
+    <footer>
+        <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p>Zdroj informací: </p>
+    </footer>
 </body>
 
 </html>
