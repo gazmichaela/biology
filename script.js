@@ -127,3 +127,107 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () { 
+    // Selektory pro druhé podmenu
+    let dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
+    let dropdownContent2 = document.querySelector(".dropdown-second-content");
+
+    let hideTimeout;
+
+    // Otevření druhého podmenu při najetí myší na tlačítko
+    dropdownToggle2.addEventListener("mouseenter", function () {
+        clearTimeout(hideTimeout); // Zrušíme případný timeout pro skrytí
+        dropdownContent2.style.display = "block";  // Zobrazíme podmenu
+        dropdownContent2.style.opacity = "1";      // Uděláme viditelné
+        dropdownContent2.style.visibility = "visible"; // Uděláme viditelné
+    });
+
+    // Udržování podmenu otevřeného při najetí myší na něj
+    dropdownContent2.addEventListener("mouseenter", function () {
+        clearTimeout(hideTimeout); // Zrušíme případný timeout pro skrytí
+    });
+
+    // Skrytí podmenu, pokud myš opustí tlačítko nebo podmenu
+    dropdownToggle2.addEventListener("mouseleave", function () {
+        hideTimeout = setTimeout(function () {
+            dropdownContent2.style.opacity = "0"; // Skrytí podmenu s animací
+            dropdownContent2.style.visibility = "hidden"; // Skrytí podmenu
+            setTimeout(() => {
+                dropdownContent2.style.display = "none"; // Skrytí podmenu
+            }, 300); // Doba pro animaci skrytí
+        }, 500); // Prodleva před skrytím podmenu
+    });
+
+    dropdownContent2.addEventListener("mouseleave", function () {
+        hideTimeout = setTimeout(function () {
+            dropdownContent2.style.opacity = "0"; // Skrytí podmenu s animací
+            dropdownContent2.style.visibility = "hidden"; // Skrytí podmenu
+            setTimeout(() => {
+                dropdownContent2.style.display = "none"; // Skrytí podmenu
+            }, 300); // Doba pro animaci skrytí
+        }, 500); // Prodleva před skrytím podmenu
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.dropdown-second-content').forEach(function(element) {
+        element.style.marginTop = '1px';
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () { 
+    let dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
+    let dropdownContent2 = document.querySelector(".dropdown-second-content");
+
+    // Ověříme, zda prvky existují → pokud ne, ukončíme funkci
+    if (!dropdownToggle2 || !dropdownContent2) return;
+
+    let hideTimeout;
+
+    dropdownToggle2.addEventListener("mouseenter", function () {
+        clearTimeout(hideTimeout); 
+        dropdownContent2.style.display = "block";  
+        dropdownContent2.style.opacity = "1";      
+        dropdownContent2.style.visibility = "visible"; 
+    });
+
+    dropdownContent2.addEventListener("mouseenter", function () {
+        clearTimeout(hideTimeout);
+    });
+
+    dropdownToggle2.addEventListener("mouseleave", function () {
+        hideTimeout = setTimeout(function () {
+            dropdownContent2.style.opacity = "0"; 
+            dropdownContent2.style.visibility = "hidden"; 
+            setTimeout(() => {
+                dropdownContent2.style.display = "none"; 
+            }, 300);
+        }, 500);
+    });
+
+    dropdownContent2.addEventListener("mouseleave", function () {
+        hideTimeout = setTimeout(function () {
+            dropdownContent2.style.opacity = "0"; 
+            dropdownContent2.style.visibility = "hidden"; 
+            setTimeout(() => {
+                dropdownContent2.style.display = "none"; 
+            }, 300);
+        }, 500);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdownContent2 = document.querySelector(".dropdown-second-content");
+
+    // Příklad: nastavení vlastnosti top a left pro posun podmenu
+    dropdownContent2.style.position = "absolute"; // Pokud chceš absolutní pozicování
+    dropdownContent2.style.top = "55px"; // Posun o 100px od vrchu
+    dropdownContent2.style.left = "761px"; // Posun o 50px od levé strany
+});
+
