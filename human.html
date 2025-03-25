@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Systémová Biologie</title>
+    <title>Člověk</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="favicon.png/web_logo_DNA.png">
     
@@ -15,47 +15,39 @@
         </a>
         <h1>Člověk</h1>
         <ul>
-            <a href="index.html" class="home-icon">
-                <img src="obrazky/home1.png" alt="home"/>
-            </a>
+            <a href="index.html" class="home-icon"><img src="obrazky/home1.png" alt="home" class="button-container"></a>  
+            <!-- Základy systémového myšlení -->
             <li class="dropdown">
-            </div>
-            <div class="button-container">
-            </button><a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
-            <button class="dropdown-toggle"><span class="arrow">&#9662;</button></span>
-        </div>
-        <div class="dropdown-content">
-                <div class="sub-dropdown">
-                    <a href="tools.html" class="centered">Úvod</a>
-                <span class="sub-dropdown-toggle">&#9656;</span>
-                <div class="sub-dropdown-content">
-                  <a href="system_approach.html">Systémový přístup</a>
-                  <a href="system_thinking.html">Systémové myšlení</a>
-                  
+                <div class="button-container">
+                    <a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
+                </div>
+                <div class="dropdown-content">  
+                    <div class="sub-dropdown">
+                        <a href="tools.html" class="centered">Úvod</a>
+                    <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system_approach.html">Systémový přístup</a>
+                            <a href="system_thinking.html">Systémové myšlení</a>
+                        </div>
                     </div>
+                    <a href="teorie.html">Teorie systémů</a>
                 </div>
-            
-            
-                <a href="teorie.html">Teorie systémů</a>
-            </div>
-            
-        </li>
-        </div>
-    <div class="dropdown-second">
-        <div class="button-container-second"> 
-                <a href="life.html" class="main-button">Základy živých soustav</a>
-                <button class="dropdown-toggle-second">
-                    <span class="arrow" id="arrow">&#9662;</span>
-                </button>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
                 </div>
-                <div class="popup" id="popup">
-                    <a href="properties_live.html" >Vlastnosti živých soustav</a>
-                <a href="origin_of_life.html">Vznik života</a>
+                <div class="dropdown-content-second">
+                    <a href="properties_live.html">Vlastnosti živých soustav</a>
+                    <a href="origin_of_life.html">Vznik života</a>
                 </div>
-                </div>
-    </div>
-        
-            
+            </li>
+              
+            <!-- Buňka, Člověk, Otázky -->
             <div class="button-container">
                 <a href="cell.html" class="maine-button">Buňka</a>
             </div>
@@ -64,9 +56,7 @@
             </div>
             <div class="button-container">
                 <a href="question.html" class="maine-button">Otázky</a>
-            </div>
-        </div>
-        
+            </div>   
         </ul>
         <script src="script.js"></script>
     </header>
@@ -75,15 +65,14 @@
 </li>
     <article>
         <section>
-            <p>Prostor pro text</p>
-            <img src="obrazky/RUDA.png" />
+            <p>Už mě <strong>TO</strong> štvalo</p>
         </section>
     </article>
 
     <footer>
         <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
         <p>Vytvořeno pro vzdělávací účely</p>
-        <p>Zdroj informací:</p>
+        <p><a href="sources.html">Zdroj informací</a></p>
     </footer>
 </body>
 

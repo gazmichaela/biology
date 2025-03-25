@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Historie </title>
+    <title>Vznik života</title>
     <link rel="icon" type="image/png" href="favicon.png/web_logo_DNA.png">
     <link rel="stylesheet" href="style.css">
    
@@ -11,49 +11,41 @@
 <body>
     <header>
         <a href="https://www.purkynka.cz/" target="_blank">
-            <img src="obrazky/logo_purk.png" alt="logo školy" class="logo"/>
+            <img src="obrazky/logo_purk.png" alt="logo školy" class="logo">
             <ul>
-                <a href="index.html" class="home-icon">
-                    <img src="obrazky/home1.png" alt="home"/>
-                </a>  
+                <a href="index.html" class="home-icon"><img src="obrazky/home1.png" alt="home" class="button-container"></a>  
+                <!-- Základy systémového myšlení -->
                 <li class="dropdown">
-                </div>
-                <div class="button-container">
-                </button><a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
-                <button class="dropdown-toggle"><span class="arrow">&#9662;</button></span>
-            </div>
-            <div class="dropdown-content">
-                    <div class="sub-dropdown">
-                        <a href="tools.html" class="centered">Úvod</a>
-                    <span class="sub-dropdown-toggle">&#9656;</span>
-                    <div class="sub-dropdown-content">
-                      <a href="system_approach.html">Systémový přístup</a>
-                      <a href="system_thinking.html">Systémové myšlení</a>
-                      
+                    <div class="button-container">
+                        <a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
+                        <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
+                    </div>
+                    <div class="dropdown-content">  
+                        <div class="sub-dropdown">
+                            <a href="tools.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                            <div class="sub-dropdown-content">
+                                <a href="system_approach.html">Systémový přístup</a>
+                                <a href="system_thinking.html">Systémové myšlení</a>
+                            </div>
                         </div>
+                        <a href="teorie.html">Teorie systémů</a>
                     </div>
-                
-                
-                    <a href="teorie.html">Teorie systémů</a>
-                </div>
-                
-            </li>
-            </div>
-        <div class="dropdown-second">
-            <div class="button-container-second"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second">
-                        <span class="arrow" id="arrow">&#9662;</span>
-                    </button>
+                </li>
+    
+                <!-- Základy živých soustav **SECOND** -->
+                <li class="dropdown">
+                    <div class="button-container"> 
+                        <a href="life.html" class="main-button">Základy živých soustav</a>
+                        <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
                     </div>
-                    <div class="popup" id="popup">
-                        <a href="properties_live.html" >Vlastnosti živých soustav</a>
-                    <a href="origin_of_life.html">Vznik života</a>
+                    <div class="dropdown-content-second">
+                        <a href="properties_live.html">Vlastnosti živých soustav</a>
+                        <a href="origin_of_life.html">Vznik života</a>
                     </div>
-                    </div>
-        </div>
-            
-                
+                </li>
+                  
+                <!-- Buňka, Člověk, Otázky -->
                 <div class="button-container">
                     <a href="cell.html" class="maine-button">Buňka</a>
                 </div>
@@ -62,8 +54,7 @@
                 </div>
                 <div class="button-container">
                     <a href="question.html" class="maine-button">Otázky</a>
-                </div>
-            </div>
+                </div>   
             </ul>
             <script src="script.js"></script>
     </header>
@@ -71,12 +62,15 @@
         <section>
             <img src="obrazky/14.png" class="img-right-top">
             <h2>Teorie o vzniku života na Zemi</h2>
+            <p>Existuje nespočet teoríí o vzniku Života na Zemi. Vznikl život v oceánech, pomocí síly Boží, nebo se sem dostal z vesmíru? Kompletní přehled možných teorií je v přiloženém pdf souboru.</p>
             <br>
-            <button><a href="origin_of_life.pdf">Vznik života</a></button>
+            <button><a href="dokumenty/origin_of_life.pdf" target="_blank">Vznik života (pdf)</a></button>
             <br>
             <h2>Vývoj života na Zemi: Darwinismus</h2>
+            <p>Darwin radikálně změnil naše chápání vzniku života, když představil myšlenku evoluce a společného předka lidí a zvířat. Tato teorie však v době svého představení vyvolala silné
+                kontroverze, neboť šla proti tradičním biblickým představám o stvoření světa. Více o Darwinismu se můžete dozvědět níže v přiloženém pdf souboru:</p>
             <br>
-            <button><a href="darwin.pdf">Vznik života</a></button>
+            <button><a href="dokumenty/darwin.pdf" target="_blank">Vývoj života (pdf)</a></button>
             <br>
             <div class="zarazka"></div>
         </section>
@@ -84,6 +78,7 @@
 <footer>
     <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
     <p>Vytvořeno pro vzdělávací účely</p>
+    <p><a href="sources.html">Zdroj informací</a></p>
 </footer>
 </body>
 </html>

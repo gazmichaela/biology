@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Historie </title>
+    <title>Úvod</title>
     <link rel="icon" type="image/png" href="favicon.png/web_logo_DNA.png">
     <link rel="stylesheet" href="style.css">
    
@@ -14,59 +14,50 @@
             <img src="obrazky/logo_purk.png" alt="logo školy" class="logo"/>
         </a>
         <h1>Úvod</h1>
-            <ul>
-                <a href="index.html" class="home-icon">
-                    <img src="obrazky/home1.png" alt="home"/>
-                </a>  
-                <li class="dropdown">
-                </div>
+        <ul>
+            <a href="index.html" class="home-icon"><img src="obrazky/home1.png" alt="home" class="button-container"></a>  
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
                 <div class="button-container">
-                </button><a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
-                <button class="dropdown-toggle"><span class="arrow">&#9662;</button></span>
-            </div>
-            <div class="dropdown-content">
+                    <a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
+                </div>
+                <div class="dropdown-content">  
                     <div class="sub-dropdown">
                         <a href="tools.html" class="centered">Úvod</a>
                     <span class="sub-dropdown-toggle">&#9656;</span>
-                    <div class="sub-dropdown-content">
-                      <a href="system_approach.html">Systémový přístup</a>
-                      <a href="system_thinking.html">Systémové myšlení</a>
-                      
+                        <div class="sub-dropdown-content">
+                            <a href="system_approach.html">Systémový přístup</a>
+                            <a href="system_thinking.html">Systémové myšlení</a>
                         </div>
                     </div>
-                
-                
                     <a href="teorie.html">Teorie systémů</a>
                 </div>
-                
             </li>
-            </div>
-        <div class="dropdown-second">
-            <div class="button-container-second"> 
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
                     <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second">
-                        <span class="arrow" id="arrow">&#9662;</span>
-                    </button>
-                    </div>
-                    <div class="popup" id="popup">
-                        <a href="properties_live.html" >Vlastnosti živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="properties_live.html">Vlastnosti živých soustav</a>
                     <a href="origin_of_life.html">Vznik života</a>
-                    </div>
-                    </div>
-        </div>
-            
-                
-                <div class="button-container">
-                    <a href="cell.html" class="maine-button">Buňka</a>
                 </div>
-                <div class="button-container">
-                    <a href="human.html" class="maine-button">Člověk</a>
-                </div>
-                <div class="button-container">
-                    <a href="question.html" class="maine-button">Otázky</a>
-                </div>
+            </li>
+              
+            <!-- Buňka, Člověk, Otázky -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buňka</a>
             </div>
-            </ul>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+            <div class="button-container">
+                <a href="question.html" class="maine-button">Otázky</a>
+            </div>   
+        </ul>
             <script src="script.js"></script>
     </header>
     <article>
@@ -76,7 +67,10 @@
                 biologie, genetiky a dalších disciplín umožňuje porozumět vzorcům a vztahům mezi různými biochemickými, genetickými a ekologickými procesy.</p>
             <p>Cílem je analyzovat a modelovat, jak jednotlivé složky živých organizmů vzájemně interagují a ovlivňují se v rámci celého ekosystému. To pomáhá
                 lépe chápat nejen biologické procesy, ale i jejich aplikace v technické praxi, ochraně životního prostředí a zdraví. </p>
-            <img src="obrazky/11.png" class="img-right">
+            <p>Systémová biologie je typická i svými přesahy do jiných disciplín. My, lidé, se insiprujeme přírodou hned v několika ohledech. Jaké to jsou například,
+                se můžete dozvědět v příloze níže.</p>
+            <button><a href="dokumenty/presah.pdf" target="_blank">Přesahy v systémové biologii (pdf)</a></button>
+            <img src="obrazky/11.png" class="img-right"><br>
             <h2>Systémové myšlení</h2>
             <p> Co obnáší systémové myšlení? </p>
             <button><a href="system_thinking.html">Zjistit</a></button>
@@ -90,6 +84,7 @@
     <footer>
         <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
         <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="sources.html">Zdroj informací</a></p>
     </footer>
 </body>
 </html>

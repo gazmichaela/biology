@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", function () { 
     // Selektory pro druhé podmenu
     let dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
-    let dropdownContent2 = document.querySelector(".dropdown-second-content");
+    let dropdownContent2 = document.querySelector(".dropdown-content-second");
 
     let hideTimeout;
 
@@ -174,16 +174,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.dropdown-second-content').forEach(function(element) {
-        element.style.marginTop = '1px';
-    });
-});
-
-
 document.addEventListener("DOMContentLoaded", function () { 
     let dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
-    let dropdownContent2 = document.querySelector(".dropdown-second-content");
+    let dropdownContent2 = document.querySelector(".dropdown-content-second");
 
     // Ověříme, zda prvky existují → pokud ne, ukončíme funkci
     if (!dropdownToggle2 || !dropdownContent2) return;
@@ -219,33 +212,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 dropdownContent2.style.display = "none"; 
             }, 300);
         }, 500);
-    });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const arrow = document.getElementById("arrow");
-    const popup = document.getElementById("popup");
-
-    arrow.addEventListener(function () {
-        const rect = arrow.getBoundingClientRect();
-        const offset = 20; // Odsazení popupu od šipky
-
-        // Získání přesné výšky šipky
-        const arrowHeight = rect.height || arrow.offsetHeight;
-
-        // Umístění popupu pod šipku (přesně 20 px pod ní)
-        popup.style.left = `${rect.left + window.scrollX - 200}px`;
-        popup.style.top = `${rect.bottom + window.scrollY + offset}px`;
-
-        // Zobrazení popupu
-        popup.style.display = "block";
-    });
-
-    // Skrytí popupu při kliknutí mimo něj
-    document.addEventListener("click", function (event) {
-        if (!popup.contains(event.target) && event.target !== arrow) {
-            popup.style.display = "none";
-        }
     });
 });

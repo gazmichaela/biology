@@ -13,13 +13,50 @@
     <h1>Otázky</h1>
     <a href="https://www.purkynka.cz/" target="_blank">
         <img src="obrazky/logo_purk.png" alt="logo školy" class="logo"/>
-    <ul>
-        <a href="index.html" class="home-icon">
-            <img src="obrazky/home1.png" alt="home"/>
+        <ul>
+            <a href="index.html" class="home-icon"><img src="obrazky/home1.png" alt="home" class="button-container"></a>  
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
+                </div>
+                <div class="dropdown-content">  
+                    <div class="sub-dropdown">
+                        <a href="tools.html" class="centered">Úvod</a>
+                    <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system_approach.html">Systémový přístup</a>
+                            <a href="system_thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="teorie.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="properties_live.html">Vlastnosti živých soustav</a>
+                    <a href="origin_of_life.html">Vznik života</a>
+                </div>
+            </li>
+              
+            <!-- Buňka, Člověk, Otázky -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buňka</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
             <div class="button-container">
                 <a href="question.html" class="maine-button">Otázky</a>
-            </div>
-    </ul>
+            </div>   
+        </ul>
     </header>
     <article>
         <section>
@@ -61,7 +98,7 @@
 <footer>
     <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
     <p>Vytvořeno pro vzdělávací účely</p>
-    <p>Zdroj informací: </p>
+    <p><a href="sources.html">Zdroj informací</a></p>
 </footer>
 </body>
 
