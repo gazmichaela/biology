@@ -222,12 +222,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 document.addEventListener("DOMContentLoaded", function () {
-    const dropdownContent2 = document.querySelector(".dropdown-second-content");
+    const arrow = document.getElementById("arrow");
+    const popup = document.getElementById("popup");
 
-    // Příklad: nastavení vlastnosti top a left pro posun podmenu
-    dropdownContent2.style.position = "absolute"; // Pokud chceš absolutní pozicování
-    dropdownContent2.style.top = "55px"; // Posun o 100px od vrchu
-    dropdownContent2.style.left = "761px"; // Posun o 50px od levé strany
+    arrow.addEventListener(function () {
+        const rect = arrow.getBoundingClientRect();
+        const offset = 20; // Odsazení popupu od šipky
+
+        // Získání přesné výšky šipky
+        const arrowHeight = rect.height || arrow.offsetHeight;
+
+        // Umístění popupu pod šipku (přesně 20 px pod ní)
+        popup.style.left = `${rect.left + window.scrollX - 200}px`;
+        popup.style.top = `${rect.bottom + window.scrollY + offset}px`;
+
+        // Zobrazení popupu
+        popup.style.display = "block";
+    });
+
+    // Skrytí popupu při kliknutí mimo něj
+    document.addEventListener("click", function (event) {
+        if (!popup.contains(event.target) && event.target !== arrow) {
+            popup.style.display = "none";
+        }
+    });
 });
-
