@@ -16,7 +16,7 @@ body {
 body > header {
     background-color: #77afe0ee;
     text-align: center;
-    padding: 30px 0;
+    padding: 1px 0;
     color: white;
 }
 
@@ -27,15 +27,16 @@ header p {
 header h1 {
     font-size: 40px;
     margin: 0;
+    margin-top: 23px;
 }
 
 header ul {
     list-style: none;
     padding: 0;
-    margin-top: 30px;
+    margin-top: 1px;
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    padding: 1px 0;
     position: relative;
 }
 
@@ -73,7 +74,30 @@ article section button {
     padding: 12px 20px;
     height: auto;
     margin-left: 30px;
+    display: inline-block;  
+    cursor: pointer; 
+    min-width: 100px;       
+    text-align: center;
+    
+
 }
+
+.button {
+    background: #2980b9;
+    border-radius: 20px;
+    padding: 9px 20px;
+    margin-left: 30px;
+    display: inline-block;  
+    cursor: pointer;        
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    justify-content: center;
+    border: 1px solid black;
+}
+
 article section button a {
     text-decoration: none;
     color: white;
@@ -81,6 +105,11 @@ article section button a {
     font-size: 1.4em;
     text-align: center;
     justify-content: center;
+    display: inline-block;  
+    cursor: pointer; 
+    min-width: 100px;  
+    text-align: center;
+    
 }
 
 article section p {
@@ -332,7 +361,8 @@ footer p {
     padding-right: 10px;
 }
 
-.dropdown-content {
+.dropdown-content,
+.dropdown-content-second {
     visibility: hidden;
     transition: opacity 0.3 ease-in-out, visibility 0.3s;
     position: absolute;
@@ -348,27 +378,15 @@ footer p {
     width: 150px;
     margin-left: 21%;
     margin-top: 3px;
-
+    font-size:medium;
 }
 
+.dropdown-content {
+    margin-left: 21%;
+}
 
 .dropdown-content-second {
-    visibility: hidden;
-    transition: opacity 0.3 ease-in-out, visibility 0.3s;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #f9f9f9;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    display: block;
-    text-align: center; 
-    padding: 5px 0;
-    z-index: 1000;
-    width: 150px;
     margin-left: 16%;
-    margin-top: 3px;
-
 }
 
 .sub-dropdown-content {
@@ -408,7 +426,11 @@ footer p {
     margin-left: 15%;
 }
 
-
+/*@media (max-width: 1200px) {
+    .button-container {
+        flex-direction: ;
+    }
+}*/
 
 
 /*===============================================================*/
