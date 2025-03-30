@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 3. Udržujeme aktivní tlačítka při kliknutí na hlavní tlačítka
     mainButtons.forEach(button => {
         button.addEventListener('click', function () {
-            addActiveClass(button);
+           addActiveClass(button);
         });
     });
 
@@ -112,21 +112,87 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // 5. Udržujeme aktivní tlačítka při načítání stránky, pokud URL odpovídá odkazu
-    mainButtons.forEach(button => {
-        if (window.location.href.includes(button.href)) {
-            button.classList.add('active');
-        }
+    //mainButtons.forEach(button => {
+       // if (window.location.href.includes(button.href)) {
+          //  button.classList.add('active');
+      // }
     });
-    dropdownLinks.forEach(link => {
-        if (window.location.href.includes(link.href)) {
-            link.classList.add('active');
-            const parentButton = link.closest('.dropdown').querySelector('.main-button');
-            if (parentButton) {
-                parentButton.classList.add('active');
-            }
+   // dropdownLinks.forEach(link => {
+       // if (window.location.href.includes(link.href)) {
+          //  link.classList.add('active');
+          //  const parentButton = link.closest('.dropdown').querySelector('.main-button');
+          //  if (parentButton) {
+           //     parentButton.classList.add('active');
+          //  }
+     //   }
+  //  });
+//});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.main-button, .maine-button'); // Všechny tlačítka navigace
+
+    // Funkce pro nastavení aktivního tlačítka
+    function setActiveButton(clickedButton) {
+        buttons.forEach(button => button.classList.remove('active')); // Odstranění active z všech tlačítek
+        clickedButton.classList.add('active'); // Přidání active na kliknuté tlačítko
+    }
+
+    // Přidání event listeneru na všechna tlačítka
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            setActiveButton(button);
+        });
+    });
+
+    // Nastavení aktivního tlačítka podle URL po načtení stránky
+    buttons.forEach(button => {
+        if (window.location.href.includes(button.href)) {
+            setActiveButton(button);
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.main-button, .maine-button'); // Všechny hlavní tlačítka
+    const dropdownLinks = document.querySelectorAll('.dropdown-content a, .dropdown-content-second a'); // Odkazy v podmenu
+
+    // Funkce pro nastavení aktivního tlačítka
+    function setActiveButton(clickedButton) {
+        // Odstranění active z podmenu
+        dropdownLinks.forEach(link => link.classList.remove('active'));
+        
+        // Přidání active pouze na kliknutý odkaz v podmenu
+        if (clickedButton.closest('.dropdown-content') || clickedButton.closest('.dropdown-content-second')) {
+            clickedButton.classList.add('active');
+            
+            // Najdeme hlavní tlačítko a zajistíme, že zůstane bez active třídy
+            const parentButton = clickedButton.closest('.dropdown, .dropdown-content-second').querySelector('.main-button');
+            if (parentButton) {
+                buttons.forEach(button => button.classList.remove('active')); // Odstraníme active z hlavních tlačítek
+            }
+        } else {
+            // Pokud klikneme na hlavní tlačítko, resetujeme podmenu a zvýrazníme jen hlavní tlačítko
+            buttons.forEach(button => button.classList.remove('active'));
+            clickedButton.classList.add('active');
+        }
+    }
+
+    // Přidání event listeneru na všechna tlačítka a odkazy
+    [...buttons, ...dropdownLinks].forEach(element => {
+        element.addEventListener('click', function () {
+            setActiveButton(element);
+        });
+    });
+
+    // Nastavení aktivního tlačítka podle URL po načtení stránky
+    dropdownLinks.forEach(link => {
+        if (window.location.href.includes(link.href)) {
+            link.classList.add('active');
+        }
+    });
+});
+
 
 
 

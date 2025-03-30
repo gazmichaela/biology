@@ -325,8 +325,8 @@ footer p {
 .main-button:hover,
 .maine-button:hover,
 .dropdown-toggle:hover,
-.dropdown-toggle-second:hover {
-    background-color: white;
+.dropdown-toggle-second:hover{
+    background-color: #6197da;
     width: auto;
 }
 
@@ -339,7 +339,7 @@ footer p {
 
 /* Styl pro aktivní položku v podmenu */
 .dropdown-content a.active {
-    background-color: #6197dad5; 
+    background-color: #333;
     color: white;
 }
 
@@ -414,16 +414,40 @@ footer p {
 .dropdown-content a:hover,
 .dropdown-content-second a:hover,
 .sub-dropdown-content a:hover  {
-    background-color: #ddd;
+    background-color: #6197da;
 }
 
 /* Specifické nastavení pro položku Úvod v podmenu */
-.dropdown-content a.centered {
+/*.dropdown-content a.centered {
     display: flex;
     justify-content: center; 
     align-items: center;  
     width: 100%;
     margin-left: 15%;
+}*/
+
+.dropdown-content a.centered {
+    display: flex;
+    justify-content: flex-start; /* Zarovná text doleva, ale posune ho padding */
+    align-items: center;
+    width: 100%;
+    padding: 10px 30px;  /* Zvýšený levý padding pro posun doprava */
+    background-color: transparent;
+    color: #025227;
+    text-decoration: none;
+   
+    
+}
+
+.dropdown-content a.centered {
+    padding-left: 53px; /* Zvětši/zmenši podle potřeby */
+}
+
+/* Úprava při hoveru (při najetí myší) */
+.dropdown-content a.centered:hover {
+    background-color: #d3d3d3;
+    color: #007bff;
+    cursor: pointer;
 }
 
 /*@media (max-width: 1200px) {
