@@ -122,8 +122,16 @@ article section h2 {
     background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
     padding: 2px 5px;
     font-size: 1.8em;
-    margin-top: 100px; /* Mezera mezi nadpisem a header */
+    margin-top: 100px; /* Mezera */
     display: inline-block; /* Zajistí podtržení pouze pod textem */
+}
+
+article section h3 {
+    text-decoration: underline #00c5003d;
+    font-weight: 600;
+    padding: 2px 5px;
+    font-size: 1.6em;
+    margin-top: 60px;
 }
 
 article section h4 {
@@ -134,6 +142,32 @@ article section h5 {
     font-size: 1.3em;
     font-weight: normal;
     margin-bottom: 10px;
+}
+
+/*_______________________________________________________________*/
+/* ==TABULKA== */
+table {
+    width: 70%;
+    max-width: 1800px;
+    border: 1px solid black;
+    border-collapse: collapse; /* Sloučení okrajů buněk */
+    margin: 30px auto 40px 5%;
+}
+
+/* Styl pro buňky tabulky */
+th, td {
+    padding: 4px;  /* Větší vnitřní okraje buněk */
+    text-align: center;
+    border: 1px solid black;
+    font-size: 1.3em;
+}
+
+th {
+    font-weight: bold; /* Tučný text pro záhlaví tabulky */
+}
+
+td:first-child {
+    font-weight: bold; /* Tučný text v první buňce */
 }
 
 /*===============================================================*/
@@ -171,6 +205,12 @@ footer p {
     margin-left: 40px;
 }
 
+.img-right-big {
+    float: right;
+    width: 40%;
+    margin-left: 10px;
+}
+
 .img-right-top {
     margin: 10px;
     float: right;
@@ -191,6 +231,13 @@ footer p {
 .img-bottom {
     margin: 10px;
     width: 50%;
+    margin-top: 10px;
+    margin-left: 5%;
+}
+
+.img-next {
+    margin-top: 10px;
+    width: 44%;
     margin-top: 10px;
     margin-left: 5%;
 }
