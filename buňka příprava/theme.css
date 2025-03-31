@@ -1,0 +1,25 @@
+/* Styl pro tabulku */
+table {
+    width: 70%; /* Šířka tabulky na 70% */
+    border: 1px solid black; /* Černé obtažení tabulky */
+    border-collapse: collapse; /* Sloučení okrajů buněk */
+    margin: 20px auto; /* Vytvoření mezery kolem tabulky a centrování */
+}
+
+/* Styl pro buňky tabulky */
+th, td {
+    padding: 4px;  /* Větší vnitřní okraje buněk */
+    text-align: center; /* Zarovnání textu na střed */
+    border: 1px solid black; /* Černé okraje kolem buněk */
+    font-size: 18px; /* Větší velikost písma */
+}
+
+/* Tučný text v záhlaví */
+th {
+    font-weight: bold; /* Tučný text pro záhlaví tabulky */
+}
+
+/* Tučný text v první buňce každého řádku */
+td:first-child {
+    font-weight: bold; /* Tučný text v první buňce */
+}
