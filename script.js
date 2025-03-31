@@ -280,3 +280,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500);
     });
 });
+
+
+
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Získáme všechny odkazy v menu
+    const menuLinks = document.querySelectorAll('.main-button, .dropdown-content a, .sub-dropdown-content a');
+
+    menuLinks.forEach(link => {
+        // Zkontrolujeme, zda URL odkazu odpovídá aktuální stránce
+        if (link.href === window.location.href) {
+            // Přidáme třídu 'active' k tomu odkazu
+            link.classList.add('active');
+        }
+    });
+});
+
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Získáme odkaz na "Úvod" podle jeho href atributu
+    const introLink = document.querySelector('.dropdown-content a[href="tools.html"]');
+    
+    // Pokud je aktuální stránka "tools.html", přidáme třídu 'active'
+    if (window.location.pathname.includes('tools.html')) {
+        introLink.classList.add('active');
+    }
+});

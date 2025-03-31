@@ -393,12 +393,13 @@ footer p {
     display: none;
     position: absolute;
     left: 100%;
-    top: 0;
+    top: -4px;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    padding: 10px 0;
+    padding: 9px 0;
     min-width: 150px;
+    margin-left: 1%;
 }
 
 /* PRO KONKRÉTNÍ PRVKY */
@@ -495,3 +496,44 @@ footer p {
     top: 95%;
 }
 */
+
+/* Styl pro aktivní tlačítka */
+.active {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Styl pro aktivní položku v podmenu */
+.dropdown-content a.active {
+    background-color: #333;  /* Tmavší pozadí pro aktivní položku */
+    color: white;
+}
+
+/* Při hoveru na aktivní položce */
+.dropdown-content a.active:hover {
+    background-color: #4CAF50;  /* Světlejší nebo jiná barva pro hover na aktivním odkazu */
+    color: white;
+}
+
+/* Hover pro ostatní (neaktivní) odkazy */
+.dropdown-content a:hover {
+    background-color: #6197da;  /* Světlejší barva pro neaktivní odkazy */
+    color: white;
+}
+
+.dropdown-content-second a.active {
+    background-color: #333;  /* Tmavší pozadí pro aktivní položku */
+    color: white;
+}
+
+/* Při hoveru na aktivní položce ve second submenu */
+.dropdown-content-second a.active:hover {
+    background-color: #4CAF50;  /* Světlejší nebo jiná barva pro hover na aktivním odkazu */
+    color: white;
+}
+
+/* Hover pro ostatní (neaktivní) odkazy ve second submenu */
+.dropdown-content-second a:hover {
+    background-color: #6197da;  /* Světlejší barva pro neaktivní odkazy */
+    color: white;
+}
