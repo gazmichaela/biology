@@ -4,6 +4,7 @@ html {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3em;
     background-color: #f0f9f0;
     min-width: 1100px;
     margin: 0;
@@ -64,23 +65,6 @@ article {
     margin-left: 40px;
 }
 
-article section li {
-    font-size: 1.3em;
-}
-
-article section button {
-    background: #2980b9;
-    border-radius: 20px;
-    padding: 12px 20px;
-    height: auto;
-    margin-left: 30px;
-    display: inline-block;  
-    cursor: pointer; 
-    min-width: 100px;       
-    text-align: center;
-    
-
-}
 
 .button {
     background: #2980b9;
@@ -93,12 +77,25 @@ article section button {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    font-size: 1.3em;
+    /* font-size: 1.3em; */
     justify-content: center;
     border: 1px solid black;
 }
 
-article section button a {
+/*Smazat, pokud to opravdu nic nedělá*/
+/* 
+article section button {
+    background: #b92929;
+    border-radius: 20px;
+    padding: 12px 20px;
+    height: auto;
+    margin-left: 30px;
+    display: inline-block;  
+    cursor: pointer; 
+    min-width: 100px;       
+    text-align: center;
+} */
+/* article section button a {
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -109,19 +106,24 @@ article section button a {
     cursor: pointer; 
     min-width: 100px;  
     text-align: center;
-    
+} */
+
+
+article section li {
+    margin-left: 25px;
 }
 
 article section p {
     margin-left: 20px;
-    font-size: 1.3em;
+    /* font-size: 1.3em; */
     margin-top: 10px;
+    line-height: 1.2em;
 }
 
 article section h2 {
     background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
     padding: 2px 5px;
-    font-size: 1.8em;
+    font-size: 1.35em;
     margin-top: 100px; /* Mezera */
     display: inline-block; /* Zajistí podtržení pouze pod textem */
 }
@@ -130,18 +132,18 @@ article section h3 {
     text-decoration: underline #00c5003d;
     font-weight: 600;
     padding: 2px 5px;
-    font-size: 1.6em;
+    font-size: 1.25em;
     margin-top: 60px;
 }
 
 article section h4 {
     margin-top: 50px;
+    font-size: 1em;
 }
 
 article section h5 {
-    font-size: 1.3em;
-    font-weight: normal;
     margin-bottom: 10px;
+    font-size: 1em;
 }
 
 /*_______________________________________________________________*/
@@ -201,6 +203,8 @@ footer p {
     margin: 10px;
     float: right;
     width: 25%;
+    min-width: 320px;
+    max-width: 600px;
     margin-top: 20px;
     margin-left: 40px;
 }
@@ -215,6 +219,8 @@ footer p {
     margin: 10px;
     float: right;
     width: 25%;
+    min-width: 320px;
+    max-width: 600px;
     margin-top: 80px;
     margin-left: 40px;
 }
