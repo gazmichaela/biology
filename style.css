@@ -6,7 +6,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.3em;
     background-color: #f0f9f0;
-    min-width: 1100px;
+    min-width: 1116px;
     margin: 0;
     color: #023f1e;
 }
@@ -166,7 +166,7 @@ th, td {
     padding: 4px;  /* Větší vnitřní okraje buněk */
     text-align: center;
     border: 1px solid black;
-    font-size: 1.3em;
+    font-size: 1em;
 }
 
 th {
@@ -318,8 +318,8 @@ footer p {
 .button-container {
     display: flex;
     align-items: center;
-    margin-right: 2vmax;
-    margin-left: 2vmax;
+    margin-right: 1.5vmax;
+    margin-left: 1.5vmax;
     white-space: nowrap; /* Text se v tlačítkách nebude zalamovat při změnšení okna*/
 }
 
@@ -367,7 +367,6 @@ footer p {
     border-bottom-left-radius: 0px;
     display: inline-flex;
     height: 43px;
-    color: black;
     margin-left: 2px;
 }
 
