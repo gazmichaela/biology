@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        /* Styl pro celý dokument */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        /* Styl pro otázky */
+        .faq-container {
+            margin-bottom: 15px;
+            display: none; /* Skryté, dokud není tlačítko stisknuto */
+        }
+
+        .question {
+            background-color: #f1f1f1;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Styl pro odpovědi */
+        .answer {
+            padding: 10px;
+            background-color: #e9e9e9;
+            border-left: 3px solid #4CAF50;
+            display: none; /* Odpověď je skrytá */
+            font-size: 16px;
+        }
+
+        /* Styl pro otázky, které byly otevřeny */
+        .question.open {
+            background-color: #dcdcdc;
+        }
+
+        /* Tlačítko pro zobrazení všech otázek */
+        #show-questions-btn {
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <title>Otázky a odpovědi</title>
+</head>
+<body>
+    <h2>Otázky k tématu</h2>
+
+    <!-- Tlačítko pro zobrazení/skrytí otázek -->
+    <button id="show-questions-btn">Zobrazit otázky</button>
+
+    <!-- Kontejner pro otázky -->
+    <div id="faq-list">
+        <div class="faq-container">
+            <div class="question">Co je to eukaryotická buňka?</div>
+            <div class="answer">Eukaryotická buňka je typ buňky, která má jádro obklopené membránou. Tento typ buňky je typický pro rostliny, živočichy a houby.</div>
+        </div>
+
+        <div class="faq-container">
+            <div class="question">Jaké jsou hlavní rozdíly mezi eukaryotickou a prokaryotickou buňkou?</div>
+            <div class="answer">Eukaryotické buňky mají jádro, kde je uložena DNA, zatímco prokaryotické buňky nemají jádro a jejich DNA je volně umístěná v cytoplazmě.</div>
+        </div>
+
+        <div class="faq-container">
+            <div class="question">Co je to mitochondrie?</div>
+            <div class="answer">Mitochondrie jsou organely v buňce, které jsou zodpovědné za produkci energie v podobě ATP, které buňka využívá k různým funkcím.</div>
+        </div>
+
+        <div class="faq-container">
+            <div class="question">Co je to ribozom?</div>
+            <div class="answer">Ribozomy jsou malé organely, které se podílejí na syntéze bílkovin v buňkách.</div>
+        </div>
+    </div>
+
+    <script>
+        // Získání tlačítka pro zobrazení/skrytí otázek
+        const showQuestionsBtn = document.getElementById('show-questions-btn');
+        const faqContainers = document.querySelectorAll('.faq-container');
+        
+        // Po kliknutí na tlačítko zobrazíme/skryjeme všechny otázky
+        showQuestionsBtn.addEventListener('click', () => {
+            // Kontrola, zda jsou otázky zobrazeny nebo skryté
+            const isDisplayed = faqContainers[0].style.display === 'block';
+            
+            if (isDisplayed) {
+                // Pokud jsou otázky zobrazeny, skryjeme je
+                faqContainers.forEach(container => {
+                    container.style.display = 'none';
+                    // Skryjeme odpovědi
+                    const answer = container.querySelector('.answer');
+                    answer.style.display = 'none';
+                    const question = container.querySelector('.question');
+                    question.classList.remove('open');
+                });
+                showQuestionsBtn.textContent = 'Zobrazit otázky'; // Změníme text tlačítka
+            } else {
+                // Pokud jsou otázky skryté, zobrazíme je a skryjeme odpovědi
+                faqContainers.forEach(container => {
+                    container.style.display = 'block';
+                    // Skrytí odpovědí
+                    const answer = container.querySelector('.answer');
+                    answer.style.display = 'none'; // Odpovědi budou skryté při opětovném zobrazení otázek
+                    const question = container.querySelector('.question');
+                    question.classList.remove('open'); // Ujistíme se, že otázky nejsou označeny jako otevřené
+                });
+                showQuestionsBtn.textContent = 'Skrýt otázky'; // Změníme text tlačítka
+            }
+        });
+
+        // Funkce pro zobrazení/skrytí odpovědi po kliknutí na otázku
+        const questions = document.querySelectorAll('.question');
+        
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = question.classList.contains('open');
+                
+                // Pokud otázka není otevřená, otevřeme ji
+                if (!isOpen) {
+                    answer.style.display = 'block'; // Zobrazíme odpověď
+                    question.classList.add('open'); // Označíme otázku jako otevřenou
+                } else {
+                    answer.style.display = 'none'; // Skryjeme odpověď
+                    question.classList.remove('open'); // Označíme otázku jako zavřenou
+                }
+            });
+        });
+    </script>
+</body>
+</html>

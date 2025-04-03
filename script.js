@@ -307,3 +307,42 @@ window.addEventListener('DOMContentLoaded', (event) => {
         introLink.classList.add('active');
     }
 });
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleQuestionsBtn = document.getElementById('toggle-questions-btn');
+    const faqContainer = document.getElementById('faq-container');
+
+    if (!toggleQuestionsBtn || !faqContainer) {
+        console.error("Tlačítko nebo kontejner otázek nebyl nalezen!");
+        return;
+    }
+
+    // Přepínání viditelnosti celého kontejneru
+    toggleQuestionsBtn.addEventListener('click', () => {
+        faqContainer.classList.toggle('hidden');
+        
+        if (faqContainer.classList.contains('hidden')) {
+            toggleQuestionsBtn.textContent = 'Zobrazit otázky';
+
+            // ❗ Skrytí všech odpovědí při zavření ❗
+            document.querySelectorAll('.answer').forEach(answer => {
+                answer.style.display = 'none';
+            });
+
+        } else {
+            toggleQuestionsBtn.textContent = 'Skrýt otázky';
+        }
+    });
+
+    // Přidání funkce pro rozkliknutí jednotlivých otázek
+    document.querySelectorAll('.question').forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+});
