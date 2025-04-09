@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Přepínání viditelnosti celého kontejneru
     toggleQuestionsBtn.addEventListener('click', () => {
         faqContainer.classList.toggle('hidden');
-        
+
         if (faqContainer.classList.contains('hidden')) {
             toggleQuestionsBtn.textContent = 'Zobrazit otázky';
 
@@ -333,16 +333,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 answer.style.display = 'none';
             });
 
+            // ❗ Odebrání stmavení všech otázek ❗
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('open');
+            });
+
         } else {
             toggleQuestionsBtn.textContent = 'Skrýt otázky';
         }
     });
 
-    // Přidání funkce pro rozkliknutí jednotlivých otázek
+    // Přidání funkce pro rozkliknutí jednotlivých otázek + stmavení (bez zavírání ostatních)
     document.querySelectorAll('.question').forEach(question => {
         question.addEventListener('click', () => {
             const answer = question.nextElementSibling;
-            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            const isOpen = answer.style.display === 'block';
+
+            if (isOpen) {
+                answer.style.display = 'none';
+                question.classList.remove('open');
+            } else {
+                answer.style.display = 'block';
+                question.classList.add('open');
+            }
         });
     });
 });
