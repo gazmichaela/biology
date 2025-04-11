@@ -491,26 +491,32 @@ footer p {
     padding-right: 10px;
 }
 
-.dropdown-content,
-.dropdown-content-second {
+/* Přidej toto do svého CSS */
+.dropdown-content, .dropdown-content-second {
+    opacity: 0;
     visibility: hidden;
-    /*transition: opacity 0.3 ease-in-out, visibility 0.3s;*/
-    transition: opacity 0.21s ease-in-out, visibility 0.4s;
+    transition: opacity 0.3s ease-in-out, visibility 0s 0.3s; /* Důležité: zpoždění visibility */
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    display: block;
+    display: block; /* Zde použij block místo none */
     text-align: center; 
     padding: 5px 0;
     z-index: 1000;
     width: 150px;
     margin-left: 21%;
     margin-top: 3px;
-    font-size:medium;
-    
+    font-size: medium;
+}
+
+.dropdown-content.show, .dropdown-content-second.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0s; /* Bez zpoždění pro visibility */
 }
 
 .dropdown-content {
@@ -670,7 +676,7 @@ footer p {
     color: white;
 }
 
-@media (max-width: 1200px) {
+/*@media (max-width: 1200px) {
     body {
         font-size: 1.2em;
         min-width: 100%;
@@ -882,4 +888,6 @@ footer p {
     .dropdown-toggle-second {
         width: 100%;
     }
-}
+}*/
+
+
