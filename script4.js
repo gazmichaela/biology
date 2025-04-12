@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let animationTimeoutFirst;
         
         // Předpřiprava stylu pro plynulou animaci
-        dropdownContent.style.transition = "opacity 0.2s ease-in-out, visibility 0.2s ease-in-out";
+        dropdownContent.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
         dropdownContent.style.opacity = "0";
         dropdownContent.style.visibility = "hidden";
         dropdownContent.style.display = "none";
@@ -20,13 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
             clearTimeout(hideTimeoutFirst);
             clearTimeout(animationTimeoutFirst);
             
-            // Okamžitě zobrazíme menu (bez zpoždění)
+            // Nejprve zobrazíme element (ale ještě je neviditelný)
             dropdownContent.style.display = "block";
-            // Použijeme requestAnimationFrame pro plynulejší animaci
-            requestAnimationFrame(() => {
+            
+            // Malé zpoždění před animací pro lepší plynulost
+            setTimeout(() => {
                 dropdownContent.style.opacity = "1";
                 dropdownContent.style.visibility = "visible";
-            });
+            }, 10);
         });
         
         // Udržování podmenu otevřeného při najetí na samotné podmenu
@@ -44,25 +45,29 @@ document.addEventListener("DOMContentLoaded", function() {
         // Skrytí podmenu při opuštění kurzoru tlačítka
         dropdownToggle.addEventListener("mouseleave", function() {
             hideTimeoutFirst = setTimeout(function() {
+                // Nejprve spustíme animaci průhlednosti
                 dropdownContent.style.opacity = "0";
                 dropdownContent.style.visibility = "hidden";
                 
+                // Po dokončení animace skryjeme prvek úplně
                 animationTimeoutFirst = setTimeout(() => {
                     dropdownContent.style.display = "none";
-                }, 200); // Zkráceno na 200ms pro rychlejší skrytí
-            }, 300); // Zkráceno na 300ms pro rychlejší reakci
+                }, 300);
+            }, 200);
         });
         
         // Skrytí podmenu při opuštění kurzoru podmenu
         dropdownContent.addEventListener("mouseleave", function() {
             hideTimeoutFirst = setTimeout(function() {
+                // Nejprve spustíme animaci průhlednosti
                 dropdownContent.style.opacity = "0";
                 dropdownContent.style.visibility = "hidden";
                 
+                // Po dokončení animace skryjeme prvek úplně
                 animationTimeoutFirst = setTimeout(() => {
                     dropdownContent.style.display = "none";
-                }, 200); // Zkráceno na 200ms pro rychlejší skrytí
-            }, 300); // Zkráceno na 300ms pro rychlejší reakci
+                }, 300);
+            }, 200);
         });
     }
     
@@ -76,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let animationTimeoutSecond;
         
         // Předpřiprava stylu pro plynulou animaci
-        dropdownContent2.style.transition = "opacity 0.2s ease-in-out, visibility 0.2s ease-in-out";
+        dropdownContent2.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
         dropdownContent2.style.opacity = "0";
         dropdownContent2.style.visibility = "hidden";
         dropdownContent2.style.display = "none";
@@ -87,13 +92,14 @@ document.addEventListener("DOMContentLoaded", function() {
             clearTimeout(hideTimeoutSecond);
             clearTimeout(animationTimeoutSecond);
             
-            // Okamžitě zobrazíme menu (bez zpoždění)
+            // Nejprve zobrazíme element (ale ještě je neviditelný)
             dropdownContent2.style.display = "block";
-            // Použijeme requestAnimationFrame pro plynulejší animaci
-            requestAnimationFrame(() => {
+            
+            // Malé zpoždění před animací pro lepší plynulost
+            setTimeout(() => {
                 dropdownContent2.style.opacity = "1";
                 dropdownContent2.style.visibility = "visible";
-            });
+            }, 10);
         });
         
         // Udržování druhého podmenu otevřeného při najetí na samotné podmenu
@@ -111,25 +117,29 @@ document.addEventListener("DOMContentLoaded", function() {
         // Skrytí druhého podmenu při opuštění kurzoru tlačítka
         dropdownToggle2.addEventListener("mouseleave", function() {
             hideTimeoutSecond = setTimeout(function() {
+                // Nejprve spustíme animaci průhlednosti
                 dropdownContent2.style.opacity = "0";
                 dropdownContent2.style.visibility = "hidden";
                 
+                // Po dokončení animace skryjeme prvek úplně
                 animationTimeoutSecond = setTimeout(() => {
                     dropdownContent2.style.display = "none";
-                }, 200); // Zkráceno na 200ms pro rychlejší skrytí
-            }, 300); // Zkráceno na 300ms pro rychlejší reakci
+                }, 300);
+            }, 200);
         });
         
         // Skrytí druhého podmenu při opuštění kurzoru podmenu
         dropdownContent2.addEventListener("mouseleave", function() {
             hideTimeoutSecond = setTimeout(function() {
+                // Nejprve spustíme animaci průhlednosti
                 dropdownContent2.style.opacity = "0";
                 dropdownContent2.style.visibility = "hidden";
                 
+                // Po dokončení animace skryjeme prvek úplně
                 animationTimeoutSecond = setTimeout(() => {
                     dropdownContent2.style.display = "none";
-                }, 200); // Zkráceno na 200ms pro rychlejší skrytí
-            }, 300); // Zkráceno na 300ms pro rychlejší reakci
+                }, 300);
+            }, 200);
         });
     }
     
@@ -142,29 +152,30 @@ document.addEventListener("DOMContentLoaded", function() {
         let hideTimeoutSub;
         let animationTimeoutSub;
         
-        // Předpřiprava stylu pro plynulou animaci - přesně stejnou jako u hlavních menu
-        subDropdownContent.style.transition = "opacity 0.2s ease-in-out, visibility 0.2s ease-in-out";
+        // Předpřiprava stylu pro plynulou animaci - identická jako u hlavního dropdown
+        subDropdownContent.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
         subDropdownContent.style.opacity = "0";
         subDropdownContent.style.visibility = "hidden";
         subDropdownContent.style.display = "none";
         
-        // Zobrazení podmenu při najetí kurzoru na tlačítko
-        subDropdownToggle.addEventListener("mouseenter", function() {
+        // Zobrazení sub-dropdown při najetí kurzoru na tlačítko
+        subDropdownToggle.addEventListener("mouseenter", function(e) {
             // Zrušíme všechny předchozí timeouty
             clearTimeout(hideTimeoutSub);
             clearTimeout(animationTimeoutSub);
             
-            // Okamžitě zobrazíme menu (bez zpoždění)
+            // Nejprve zobrazíme element (ale ještě je neviditelný)
             subDropdownContent.style.display = "block";
-            // Použijeme requestAnimationFrame pro plynulejší animaci
-            requestAnimationFrame(() => {
+            
+            // Malé zpoždění před animací pro lepší plynulost
+            setTimeout(() => {
                 subDropdownContent.style.opacity = "1";
                 subDropdownContent.style.visibility = "visible";
-            });
+            }, 10);
         });
         
-        // Udržování podmenu otevřeného při najetí na samotné podmenu
-        subDropdownContent.addEventListener("mouseenter", function() {
+        // Udržování sub-dropdown otevřeného při najetí na samotné podmenu
+        subDropdownContent.addEventListener("mouseenter", function(e) {
             // Zrušíme všechny předchozí timeouty
             clearTimeout(hideTimeoutSub);
             clearTimeout(animationTimeoutSub);
@@ -175,28 +186,32 @@ document.addEventListener("DOMContentLoaded", function() {
             subDropdownContent.style.visibility = "visible";
         });
         
-        // Skrytí podmenu při opuštění kurzoru tlačítka
-        subDropdownToggle.addEventListener("mouseleave", function() {
+        // Skrytí sub-dropdown při opuštění kurzoru tlačítka
+        subDropdownToggle.addEventListener("mouseleave", function(e) {
             hideTimeoutSub = setTimeout(function() {
+                // Nejprve spustíme animaci průhlednosti
                 subDropdownContent.style.opacity = "0";
                 subDropdownContent.style.visibility = "hidden";
                 
+                // Po dokončení animace skryjeme prvek úplně
                 animationTimeoutSub = setTimeout(() => {
                     subDropdownContent.style.display = "none";
-                }, 200); // Zkráceno na 200ms pro rychlejší skrytí
-            }, 300); // Zkráceno na 300ms pro rychlejší reakci
+                }, 300);
+            }, 200);
         });
         
-        // Skrytí podmenu při opuštění kurzoru podmenu
-        subDropdownContent.addEventListener("mouseleave", function() {
+        // Skrytí sub-dropdown při opuštění kurzoru podmenu
+        subDropdownContent.addEventListener("mouseleave", function(e) {
             hideTimeoutSub = setTimeout(function() {
+                // Nejprve spustíme animaci průhlednosti
                 subDropdownContent.style.opacity = "0";
                 subDropdownContent.style.visibility = "hidden";
                 
+                // Po dokončení animace skryjeme prvek úplně
                 animationTimeoutSub = setTimeout(() => {
                     subDropdownContent.style.display = "none";
-                }, 200); // Zkráceno na 200ms pro rychlejší skrytí
-            }, 300); // Zkráceno na 300ms pro rychlejší reakci
+                }, 300);
+            }, 200);
         });
     }
     
@@ -292,7 +307,6 @@ document.addEventListener("DOMContentLoaded", function() {
     menuLinks.forEach(link => {
         if (link.href === window.location.href) {
             link.classList.add('active');
-            
             // ZMĚNA: Nebudeme zvýrazňovat nadřazené tlačítko, pokud jsme na stránce z podmenu
         }
     });
@@ -301,7 +315,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const introLink = document.querySelector('.dropdown-content a[href="tools.html"]');
     if (introLink && window.location.pathname.includes('tools.html')) {
         introLink.classList.add('active');
-        
         // ZMĚNA: Odstraněna aktivace nadřazeného tlačítka
     }
 });
