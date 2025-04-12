@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const mainButtons = document.querySelectorAll('.main-button, .maine-button');
     const dropdownLinks = document.querySelectorAll('.dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a');
     
-    // Nastavení aktivního tlačítka
+    // Nastavení aktivního tlačítka při kliknutí
     function setActiveButton(clickedButton) {
         // Odstranění active z podmenu
         dropdownLinks.forEach(link => link.classList.remove('active'));
@@ -236,7 +236,9 @@ document.addEventListener("DOMContentLoaded", function() {
             // Najdeme hlavní tlačítko a zajistíme správné zvýraznění
             mainButtons.forEach(button => button.classList.remove('active'));
             
-            // Pokud je odkaz v dropdown menu, zvýrazníme odpovídající hlavní tlačítko
+            // ZMĚNA: Nebudeme zvýrazňovat nadřazené tlačítko při kliknutí na položku podmenu
+            // Původní kód byl:
+            /*
             if (clickedButton.closest('.dropdown') || clickedButton.closest('.sub-dropdown')) {
                 const parentContainer = clickedButton.closest('.dropdown') || clickedButton.closest('.sub-dropdown');
                 const parentButton = parentContainer.querySelector('.main-button, .dropdown-toggle, .sub-dropdown-toggle');
@@ -244,6 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     parentButton.classList.add('active');
                 }
             }
+            */
         } else {
             // Pokud klikneme na hlavní tlačítko, resetujeme podmenu a zvýrazníme jen hlavní tlačítko
             mainButtons.forEach(button => button.classList.remove('active'));
@@ -264,7 +267,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (link.href === window.location.href) {
             link.classList.add('active');
             
-            // Pokud je odkaz v dropdown, aktivujeme i nadřazené tlačítko
+            // ZMĚNA: Nebudeme zvýrazňovat nadřazené tlačítko, pokud jsme na stránce z podmenu
+            // Původní kód byl:
+            /*
             if (link.closest('.dropdown') || link.closest('.sub-dropdown')) {
                 const parentContainer = link.closest('.dropdown') || link.closest('.sub-dropdown');
                 const parentButton = parentContainer.querySelector('.main-button, .dropdown-toggle, .sub-dropdown-toggle');
@@ -272,6 +277,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     parentButton.classList.add('active');
                 }
             }
+            */
         }
     });
     
@@ -280,12 +286,15 @@ document.addEventListener("DOMContentLoaded", function() {
     if (introLink && window.location.pathname.includes('tools.html')) {
         introLink.classList.add('active');
         
-        // Aktivujeme i nadřazené tlačítko
+        // ZMĚNA: Odstraněna aktivace nadřazeného tlačítka
+        // Původní kód byl:
+        /*
         if (introLink.closest('.dropdown')) {
             const parentButton = introLink.closest('.dropdown').querySelector('.dropdown-toggle');
             if (parentButton) {
                 parentButton.classList.add('active');
             }
         }
+        */
     }
 });
