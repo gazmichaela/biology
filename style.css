@@ -86,33 +86,6 @@ article {
     border: 1px solid black;
 }
 
-/*Smazat, pokud to opravdu nic nedělá*/
-/* 
-article section button {
-    background: #b92929;
-    border-radius: 20px;
-    padding: 12px 20px;
-    height: auto;
-    margin-left: 30px;
-    display: inline-block;  
-    cursor: pointer; 
-    min-width: 100px;       
-    text-align: center;
-} */
-/* article section button a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    font-size: 1.4em;
-    text-align: center;
-    justify-content: center;
-    display: inline-block;  
-    cursor: pointer; 
-    min-width: 100px;  
-    text-align: center;
-} */
-
-
 article section li {
     margin-left: 25px;
 }
@@ -298,7 +271,6 @@ footer p {
 /*_______________________________________________________________*/
 /* ==OTÁZKY== */
 /* Skrytý kontejner otázek (na začátku) */
-/* Skrytý kontejner otázek (na začátku) */
 .hidden {
     display: none;
 }
@@ -423,18 +395,13 @@ footer p {
     margin-left: 2px;
 }
 
-
-
 .sub-dropdown-toggle {
     margin-left: 5px;
     font-size: 16px;
     cursor: pointer;
     color: #025227;
     position: relative;
-    
 }
-
-
 
 .sub-dropdown-toggle::before {
     content: '';
@@ -446,10 +413,7 @@ footer p {
     z-index: 1;
     border-top-right-radius: 6px; 
     border-bottom-right-radius: 6px; 
-
 }
-
-
 
 .main-button:hover,
 .maine-button:hover,
@@ -510,27 +474,26 @@ footer p {
 }
 
 /* Přidej toto do svého CSS */
-.dropdown-content, .dropdown-content-second {
+.dropdown-content,
+.dropdown-content-second {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0s 0.3s; /* Důležité: zpoždění visibility */
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     display: block; /* Zde použij block místo none */
     text-align: center; 
-    padding: 5px 0;
+    padding: 5px;
     z-index: 1000;
     width: 150px;
-    margin-left: 21%;
     margin-top: 3px;
     font-size: medium;
 }
 
-.dropdown-content.show, .dropdown-content-second.show {
+.dropdown-content.show,
+.dropdown-content-second.show {
     display: block;
     opacity: 1;
     visibility: visible;
@@ -538,11 +501,11 @@ footer p {
 }
 
 .dropdown-content {
-    margin-left: 21%;
+    left: 49%;
 }
 
 .dropdown-content-second {
-    margin-left: 16%;
+    left: 41%;
 }
 
 .sub-dropdown-content {
@@ -552,7 +515,7 @@ footer p {
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    padding: 9px 0;
+    padding: 5px;
     min-width: 150px;
     margin-left: 1%;
     opacity: 0;                   /* Začíná jako průhledné */
