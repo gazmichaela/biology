@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let hideTimeoutFirst;
         let animationTimeoutFirst;
         let inactivityTimeoutFirst; // Timeout pro neaktivitu
-        const inactivityDelay = 1000; // Změněno z 20000 na 5000 (5 sekund neaktivity)
+        const inactivityDelay = 2000; // Změněno z 20000 na 5000 (5 sekund neaktivity)
         let isClickOpened = false; // Flag pro zjištění, zda bylo menu otevřeno kliknutím
         
         // Předpřiprava stylu pro plynulou animaci
@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let hideTimeoutSecond;
         let animationTimeoutSecond;
         let inactivityTimeoutSecond;
-        const inactivityDelay = 1000; // Změněno z 20000 na 5000 (5 sekund neaktivity)
+        const inactivityDelay = 2000; // Změněno z 20000 na 5000 (5 sekund neaktivity)
         let isClickOpened2 = false;
         
         // Předpřiprava stylu pro plynulou animaci
@@ -530,7 +530,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let hideTimeoutSub;
         let animationTimeoutSub;
         let inactivityTimeoutSub;
-        const inactivityDelay = 1000; // Změněno z 20000 na 5000 (5 sekund neaktivity)
+        const inactivityDelay = 2000; // Změněno z 20000 na 5000 (5 sekund neaktivity)
         let isClickOpenedSub = false;
         
         // Předpřiprava stylu pro plynulou animaci - identická jako u hlavního dropdown

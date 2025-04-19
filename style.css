@@ -843,8 +843,7 @@ footer p {
 }
 
 /* Přidej toto do svého CSS */
-.dropdown-content,
-.dropdown-content-second {
+
 .dropdown-content,
 .dropdown-content-second {
     opacity: 0;
@@ -864,8 +863,7 @@ footer p {
     font-size: medium;
 }
 
-.dropdown-content.show,
-.dropdown-content-second.show {
+
 .dropdown-content.show,
 .dropdown-content-second.show {
     display: block;
