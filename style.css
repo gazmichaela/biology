@@ -475,8 +475,8 @@ th, td {
     font-size: 1em;
 }
 
-th {
-    font-weight: bold; /* Tučný text pro záhlaví tabulky */
+th:first-child {
+    font-weight: normal;
 }
 
 td:first-child {
@@ -830,7 +830,7 @@ footer p {
     /*transition: color 0.3s ease;*/
   }
   
-  .dropdown-toggle-second:hover .arrow {
+.dropdown-toggle-second:hover .arrow {
     color: white;
   }
 
@@ -841,8 +841,6 @@ footer p {
     position: relative;
     padding-right: 10px;
 }
-
-/* Přidej toto do svého CSS */
 
 .dropdown-content,
 .dropdown-content-second {
