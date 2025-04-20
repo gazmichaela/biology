@@ -834,6 +834,16 @@ footer p {
     color: white;
   }
 
+  .dropdown-content,
+.dropdown-content-second {
+  display: none;
+}
+
+.dropdown-content.show-on-load,
+.dropdown-content-second.show-on-load {
+  display: block;
+}
+
 .sub-dropdown {
     display: flex;
     align-items: center;
