@@ -906,6 +906,9 @@ if (subDropdownToggle && subDropdownContent) {
         clearTimeout(hideTimeoutSub);
         clearTimeout(animationTimeoutSub);
         
+        // Resetujeme příznak zavírání
+        isClosingInProgressSub = false;
+        
         // Nejprve zobrazíme element (ale ještě je neviditelný)
         subDropdownContent.style.display = "block";
         
@@ -949,13 +952,15 @@ if (subDropdownToggle && subDropdownContent) {
     // Funkce pro skrytí menu - koordinovaná s hlavním menu
     function hideMenuSub() {
         // Kontrola, zda je myš stále nad menu - pokud ano, nezavírat
-        if (isMouseOverMenu && !isClosingInProgressSub) return;
+        if (isMouseOverMenu) return;
+        
+        // Nastavíme příznak, že probíhá zavírání
+        isClosingInProgressSub = true;
         
         // Používáme hlavní funkci pro zavření, která zavře obě menu současně
         const dropdownContent = document.querySelector(".dropdown-content");
         if (dropdownContent && dropdownContent.style.opacity === "1") {
             // Pokud je viditelné hlavní menu, použijeme jeho funkci pro zavření
-            isClosingInProgressSub = true;
             
             // Je důležité, aby zavření probíhalo přes hlavní menu
             const dropdownToggle = document.querySelector(".dropdown-toggle");
@@ -973,13 +978,19 @@ if (subDropdownToggle && subDropdownContent) {
                 subDropdownContent.style.visibility = "hidden";
                 
                 animationTimeoutSub = setTimeout(() => {
-                    subDropdownContent.style.display = "none";
-                    deadZoneElementSub.style.display = "none";
-                    isClickOpenedSub = false;
-                    localStorage.removeItem('isSubMenuOpen');
-                    
-                    if (window.setSubmenuActive) {
-                        window.setSubmenuActive(false);
+                    // Zkontrolujeme, zda mezitím uživatel nenavedl myš zpět
+                    if (!isMouseOverMenu) {
+                        subDropdownContent.style.display = "none";
+                        deadZoneElementSub.style.display = "none";
+                        isClickOpenedSub = false;
+                        localStorage.removeItem('isSubMenuOpen');
+                        
+                        if (window.setSubmenuActive) {
+                            window.setSubmenuActive(false);
+                        }
+                    } else {
+                        // Uživatel navedl myš zpět během animace - zobrazíme menu zpět
+                        showMenuSub();
                     }
                     
                     isClosingInProgressSub = false;
@@ -991,13 +1002,19 @@ if (subDropdownToggle && subDropdownContent) {
             subDropdownContent.style.visibility = "hidden";
             
             animationTimeoutSub = setTimeout(() => {
-                subDropdownContent.style.display = "none";
-                deadZoneElementSub.style.display = "none";
-                isClickOpenedSub = false;
-                localStorage.removeItem('isSubMenuOpen');
-                
-                if (window.setSubmenuActive) {
-                    window.setSubmenuActive(false);
+                // Zkontrolujeme, zda mezitím uživatel nenavedl myš zpět
+                if (!isMouseOverMenu) {
+                    subDropdownContent.style.display = "none";
+                    deadZoneElementSub.style.display = "none";
+                    isClickOpenedSub = false;
+                    localStorage.removeItem('isSubMenuOpen');
+                    
+                    if (window.setSubmenuActive) {
+                        window.setSubmenuActive(false);
+                    }
+                } else {
+                    // Uživatel navedl myš zpět během animace - zobrazíme menu zpět
+                    showMenuSub();
                 }
                 
                 isClosingInProgressSub = false;
@@ -1007,11 +1024,32 @@ if (subDropdownToggle && subDropdownContent) {
     
     // Zpracování žádosti o společné zavření z hlavního menu
     window.closeSubMenuWithParent = function() {
-        isMouseOverMenu = false;
+        // Pouze nastavíme příznaky - zavření submenu bude řízeno stejnými pravidly
+        // jako u běžného submenu, tedy včetně přerušení mizení při najetí myší
         isClickOpenedSub = false;
         
-        // Neděláme nic, protože animace je řízena z hlavního menu
-        // Je ale důležité resetovat příznaky
+        // Zavíráme s animací
+        subDropdownContent.style.opacity = "0";
+        subDropdownContent.style.visibility = "hidden";
+        isClosingInProgressSub = true;
+        
+        animationTimeoutSub = setTimeout(() => {
+            // Tady kontrolujeme, zda uživatel mezitím nenavedl myš na menu
+            if (!isMouseOverMenu) {
+                subDropdownContent.style.display = "none";
+                deadZoneElementSub.style.display = "none";
+                localStorage.removeItem('isSubMenuOpen');
+                
+                if (window.setSubmenuActive) {
+                    window.setSubmenuActive(false);
+                }
+            } else {
+                // Uživatel navedl myš zpět na menu během zavírání - znovu zobrazíme
+                showMenuSub();
+            }
+            
+            isClosingInProgressSub = false;
+        }, 300);
     };
     
     // Monitorování hlavního menu pro koordinaci chování
@@ -1019,7 +1057,9 @@ if (subDropdownToggle && subDropdownContent) {
     if (mainDropdownToggle) {
         mainDropdownToggle.addEventListener("mouseenter", function() {
             // Při najetí na hlavní menu vždy zavřeme submenu
-            forceCloseSubMenu();
+            if (!isMouseOverMenu) {  // Přidáno - nezavírat pokud je myš nad submenu
+                forceCloseSubMenu();
+            }
         });
     }
     
@@ -1038,7 +1078,12 @@ if (subDropdownToggle && subDropdownContent) {
     // Zobrazení sub-menu při najetí kurzoru na tlačítko
     subDropdownToggle.addEventListener("mouseenter", function() {
         isMouseOverMenu = true;
-        if (!isClickOpenedSub && !isClosingInProgressSub) {
+        
+        // Důležitá změna: Kontrolujeme, zda probíhá zavírání
+        if (isClosingInProgressSub) {
+            // Pokud probíhá animace zavírání, přerušíme ji a znovu zobrazíme menu
+            showMenuSub();
+        } else if (!isClickOpenedSub) {
             showMenuSub();
         }
     });
@@ -1052,8 +1097,6 @@ if (subDropdownToggle && subDropdownContent) {
     subDropdownToggle.addEventListener("click", function(e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        if (isClosingInProgressSub) return; // Nereagovať počas zatváraní
         
         if (subDropdownContent.style.opacity === "1" && isClickOpenedSub) {
             // Pokud je menu již otevřené kliknutím, zavřeme ho
@@ -1071,7 +1114,13 @@ if (subDropdownToggle && subDropdownContent) {
     // Udržování sub-menu otevřeného při najetí na samotné menu
     subDropdownContent.addEventListener("mouseenter", function() {
         isMouseOverMenu = true;
-        // DŮLEŽITÁ ZMĚNA: Informujeme hlavní menu o aktivaci submenu
+        
+        // DŮLEŽITÁ ZMĚNA: Pokud probíhá animace zavírání, zrušíme ji a znovu zobrazíme menu
+        if (isClosingInProgressSub) {
+            showMenuSub();
+        }
+        
+        // Informujeme hlavní menu o aktivaci submenu
         if (window.setSubmenuActive) {
             window.setSubmenuActive(true);
         }
@@ -1093,6 +1142,11 @@ if (subDropdownToggle && subDropdownContent) {
     deadZoneElementSub.addEventListener("mouseenter", function() {
         isMouseOverMenu = true;
         clearTimeout(hideTimeoutSub);
+        
+        // Pokud probíhá animace zavírání, zrušíme ji a obnovíme menu
+        if (isClosingInProgressSub) {
+            showMenuSub();
+        }
     });
     
     deadZoneElementSub.addEventListener("mouseleave", function() {
