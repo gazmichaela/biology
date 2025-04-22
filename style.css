@@ -1080,7 +1080,7 @@ footer p {
 .button-container a.active:hover {
     background-color: #4CAF50;  /* Světlejší nebo jiná barva pro hover na aktivním odkazu */
     color: white;
-        transition: background-color 0.1s ease;
+    transition: background-color 0.1s ease;
 }
 
 /* Hover pro ostatní (neaktivní) odkazy */

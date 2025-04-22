@@ -458,7 +458,7 @@ if (dropdownToggle && dropdownContent) {
                 if (!isClickOpened) { // Dvojitá kontrola před skrytím
                     hideMenu();
                 }
-            }, 200);
+            }, 250);
         }
     });
     
@@ -485,7 +485,7 @@ if (dropdownToggle && dropdownContent) {
                 if (!isClickOpened) { // Dvojitá kontrola před skrytím
                     hideMenu();
                 }
-            }, 200);
+            }, 400);
         }
     });
     
@@ -512,7 +512,7 @@ if (dropdownToggle && dropdownContent) {
                 if (!isClickOpened) { // Dvojitá kontrola před skrytím
                     hideMenu();
                 }
-            }, 200);
+            }, 300);
         }
     });
     
@@ -816,7 +816,7 @@ if (dropdownToggle2 && dropdownContent2) {
             
             hideTimeoutSecond = setTimeout(function() {
                 hideMenu2();
-            }, 200);
+            }, 250);
         }
     });
     
@@ -833,7 +833,7 @@ if (dropdownToggle2 && dropdownContent2) {
             
             hideTimeoutSecond = setTimeout(function() {
                 hideMenu2();
-            }, 200);
+            }, 400);
         }
     });
     
@@ -850,7 +850,7 @@ if (dropdownToggle2 && dropdownContent2) {
             
             hideTimeoutSecond = setTimeout(function() {
                 hideMenu2();
-            }, 200);
+            }, 300);
         }
     });
     
