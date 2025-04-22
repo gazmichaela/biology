@@ -564,7 +564,7 @@ footer p {
 /*===============================================================*/
 /*          OSTATNÍ TŘÍDY          */
 
-.logo {
+/*.logo {
     width: 200px;
     height: auto;
     position: absolute;
@@ -572,6 +572,37 @@ footer p {
     top: 0;
     z-index: 1000;
     margin: 10px 0px 0px 20px;
+}*/
+
+.logo {
+    width: 175px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    margin: 10px 0px 0px 20px;
+    margin-top: 21px;
+}
+
+.logo a {
+    display: inline-block;
+    width: 70%; /* Zmenšíme aktivní zónu na 70% šířky loga */
+    height: 70%; /* Zmenšíme aktivní zónu na 70% výšky loga */
+    position: relative;
+    left: 15%; /* Vycentrujeme zmenšenou aktivní zónu */
+    top: 15%; /* Vycentrujeme zmenšenou aktivní zónu */
+}
+
+.logo img {
+    width: 100%; /* Obrázek zabírá celou šířku rodičovského kontejneru */
+    height: auto;
+    display: block;
+    position: absolute;
+    left: -15%; /* Posuneme obrázek zpět na původní pozici */
+    top: -15%; /* Posuneme obrázek zpět na původní pozici */
+    width: 143%; /* Kompenzujeme zmenšení (100/70*100) */
+    height: auto;
 }
 
 /*.home-icon {
@@ -601,7 +632,7 @@ footer p {
 
 
 
-.home-icon img {
+/*.home-icon img {
     width: 25px;
     height: auto;
     margin-left: 10px;
@@ -611,6 +642,21 @@ footer p {
 .home-icon {
     display: inline-block;
     text-decoration: none;
+}*/
+
+.home-icon {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    pointer-events: none; /* Vypne interakci s celým kontejnerem */
+}
+
+.home-icon img {
+    width: 25px;
+    height: auto;
+    margin-left: 10px;
+    margin-top: 8px;
+    pointer-events: auto; /* Zapne interakci pouze pro obrázek */
 }
 
 
