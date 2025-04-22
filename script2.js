@@ -649,7 +649,7 @@ if (dropdownToggle2 && dropdownContent2) {
             dropdownContent2.style.visibility = "visible";
             // Nastavíme pozici mrtvé zóny
             positionDeadZone2();
-        }, 10);
+        }, 0);
         
         // Pokud je menu otevřeno kliknutím, nastavíme timeout pro zavření po neaktivitě
         if (isClickOpened2) {

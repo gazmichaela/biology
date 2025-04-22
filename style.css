@@ -835,7 +835,7 @@ footer p {
 .maine-button:hover,
 .dropdown-toggle:hover,
 .dropdown-toggle-second:hover {
-    background-color: #72affa;  /* Světlejší barva pro neaktivní odkazy */
+    background-color: #4CAF50;  /* Světlejší barva pro neaktivní odkazy */
     color: white;
     width: auto;
 }
@@ -846,12 +846,6 @@ footer p {
     background-color: #1c77e8;
     color: white;
 
-}
-
-/* Styl pro aktivní položku v podmenu */
-.dropdown-content a.active {
-    background-color: #b1e0b1;
-    color: white;
 }
 
 /*_______________________________________________________________*/
@@ -882,7 +876,7 @@ footer p {
     color: white;
   }
 
-  .dropdown-content,
+.dropdown-content,
 .dropdown-content-second {
   display: none;
 }
@@ -974,9 +968,11 @@ footer p {
 }
 
 .dropdown-content a:hover,
+.dropdown-content a.centered:hover,
 .dropdown-content-second a:hover,
 .sub-dropdown-content a:hover  {
-    background-color: #6197da;
+    background-color: #4CAF50;
+    color: white;
 }
 
 /* Specifické nastavení pro položku Úvod v podmenu */
@@ -997,8 +993,6 @@ footer p {
     background-color: transparent;
     color: #025227;
     text-decoration: none;
-   
-    
 }
 
 .dropdown-content a.centered {
@@ -1007,7 +1001,7 @@ footer p {
 
 /* Úprava při hoveru (při najetí myší) */
 .dropdown-content a.centered:hover {
-    background-color: #72affa;  /* Světlejší barva pro neaktivní odkazy */
+ /* Světlejší barva pro neaktivní odkazy */
     color: white;
     cursor: pointer;
 }
@@ -1060,10 +1054,10 @@ footer p {
 */
 
 /* Styl pro aktivní tlačítka */
-.active {
+/* .active {
     background-color: #b1e0b1;
     color: #025227;
-}
+} */
 
 /* Styl pro aktivní položku v podmenu */
 .dropdown-content a.active {
@@ -1071,22 +1065,14 @@ footer p {
     color: white;
 }
 
-/* Při hoveru na aktivní položce */
-.dropdown-content a.active:hover {
-    background-color: #4CAF50;  /* Světlejší nebo jiná barva pro hover na aktivním odkazu */
-    color: white;
-}
 
+
+.dropdown-content a.active:hover,
+.dropdown-content-second a.active:hover,
 .button-container a.active:hover {
-    background-color: #4CAF50;  /* Světlejší nebo jiná barva pro hover na aktivním odkazu */
+    background-color: #4CAF50;
     color: white;
-    transition: background-color 0.1s ease;
-}
-
-/* Hover pro ostatní (neaktivní) odkazy */
-.dropdown-content a:hover {
-    background-color: #72affa;  /* Světlejší barva pro neaktivní odkazy */
-    color: white;
+    transition: background-color 0.2s ease;
 }
 
 .dropdown-content-second a.active {
@@ -1094,17 +1080,7 @@ footer p {
     color: white;
 }
 
-/* Při hoveru na aktivní položce ve second submenu */
-.dropdown-content-second a.active:hover {
-    background-color: #4CAF50;  /* Světlejší nebo jiná barva pro hover na aktivním odkazu */
-    color: white;
-}
 
-/* Hover pro ostatní (neaktivní) odkazy ve second submenu */
-.dropdown-content-second a:hover {
-    background-color: #72affa;  /* Světlejší barva pro neaktivní odkazy */
-    color: white;
-}
 
 /*@media (max-width: 1200px) {
     body {
