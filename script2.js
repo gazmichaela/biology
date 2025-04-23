@@ -1446,7 +1446,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 // Toggle current dropdown
-                dropdownContent.classList.toggle('show');
+                if (dropdownContent) {
+                    dropdownContent.classList.toggle('show');
+                } else {
+                    console.log('Element dropdownContent nebyl nalezen');
+                }
             });
         });
         
@@ -1465,7 +1469,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 // Toggle current dropdown
-                dropdownContent.classList.toggle('show');
+                if (dropdownContent) {
+                    dropdownContent.classList.toggle('show');
+                } else {
+                    console.log('Element dropdownContent nebyl nalezen');
+                }
             });
         });
         
