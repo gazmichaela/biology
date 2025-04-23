@@ -44,7 +44,6 @@ header ul {
     justify-content: center;
     padding: 1px 0;
     position: relative;
-    
 }
 
 /* Sticky header styles */
@@ -376,7 +375,6 @@ header ul li {
     font-size: 18px;
     text-align: center;
     position: relative;
-    
 }
 
 section {
@@ -391,9 +389,8 @@ article {
     margin-left: 40px;
 }
 
-
 .button {
-    background: #2980b9;
+    background: #1c77e8;
     border-radius: 20px;
     padding: 9px 20px;
     margin-left: 30px;
@@ -403,18 +400,15 @@ article {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    /* font-size: 1.3em; */
     justify-content: center;
-   border: 1px solid black;
-   outline: 0px solid transparent; /* Příprava pro hover efekt */
+    border: 1px solid black;
+    outline: 0px solid transparent; /* Příprava pro hover efekt */
     box-sizing: border-box;
     position: relative;
 }
 
 .button:hover {
-   /* border-width: 2.3px; */
-   /*border-color: black;*/
-   outline: 1.5px solid black; /* Přidá druhé ohraničení při najetí myší */
+    outline: 1.5px solid black; /* Přidá druhé ohraničení při najetí myší */
     outline-offset: 0px;
     z-index: 1;
     transform: scale(1.01);
@@ -426,7 +420,6 @@ article section li {
 
 article section p {
     margin-left: 20px;
-    /* font-size: 1.3em; */
     margin-top: 10px;
     line-height: 1.2em;
 }
@@ -581,8 +574,7 @@ footer p {
     left: 0;
     top: 0;
     z-index: 1000;
-    margin: 10px 0px 0px 20px;
-    margin-top: 21px;
+    margin: 21px 0px 0px 20px;
 }
 
 .logo a {
@@ -629,9 +621,6 @@ footer p {
     transition: all 0.3s ease;
 }*/
 
-
-
-
 /*.home-icon img {
     width: 25px;
     height: auto;
@@ -639,9 +628,6 @@ footer p {
     margin-top: 8px;
 }
 
-.home-icon {
-    display: inline-block;
-    text-decoration: none;
 }*/
 
 .home-icon {
@@ -669,9 +655,8 @@ footer p {
 }*/
 
 .home-icon:hover img {
-    filter: brightness(0) saturate(100%) invert(53%) sepia(90%) saturate(1352%) hue-rotate(160deg) brightness(96%) contrast(101%);
+    filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%);
 }
-
 
 .container {
     display: flex;
@@ -690,7 +675,7 @@ footer p {
 }
 
 /* Styl pro otázky */
-.faq-item {
+.faq-it em {
     margin-bottom: 10px;
 }
 
@@ -722,8 +707,9 @@ footer p {
 #toggle-questions-btn {
     padding: 10px 15px;
     font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
-    background-color: #2980b9;
+    background-color: #309ce5;
     color: white;
     border: 1px solid black;
     border-radius: 5px;
@@ -835,7 +821,7 @@ footer p {
 .maine-button:hover,
 .dropdown-toggle:hover,
 .dropdown-toggle-second:hover {
-    background-color: #4CAF50;  /* Světlejší barva pro neaktivní odkazy */
+    background-color: #309ce5;
     color: white;
     width: auto;
 }
@@ -845,7 +831,6 @@ footer p {
 .maine-button.active {
     background-color: #1c77e8;
     color: white;
-
 }
 
 /*_______________________________________________________________*/
@@ -861,20 +846,20 @@ footer p {
 .dropdown-toggle .arrow {
     color: #025227;
    /* transition: color 0.3s ease;*/
-  }
+}
   
   .dropdown-toggle:hover .arrow {
     color: white; /* nebo jakákoliv barva, co chceš */
-  }
+}
 
 .dropdown-toggle-second .arrow {
     color: #025227;
     /*transition: color 0.3s ease;*/
-  }
+}
   
 .dropdown-toggle-second:hover .arrow {
     color: white;
-  }
+}
 
 .dropdown-content,
 .dropdown-content-second {
@@ -906,13 +891,11 @@ footer p {
     display: block; /* Zde použij block místo none */
     text-align: center; 
     padding: 5px;
-    padding: 5px;
     z-index: 1000;
     width: 150px;
     margin-top: 3px;
     font-size: medium;
 }
-
 
 .dropdown-content.show,
 .dropdown-content-second.show {
@@ -925,13 +908,11 @@ footer p {
 .dropdown-content {
     left: 50%;
     transform: translateX(-3%);
-
 }
 
 .dropdown-content-second {
     left: 50%;
     transform: translateX(-20%);
-
 }
 
 .sub-dropdown-content {
@@ -941,7 +922,6 @@ footer p {
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    padding: 5px;
     padding: 5px;
     min-width: 150px;
     margin-left: 4.5%;
@@ -971,7 +951,7 @@ footer p {
 .dropdown-content a.centered:hover,
 .dropdown-content-second a:hover,
 .sub-dropdown-content a:hover  {
-    background-color: #4CAF50;
+    background-color: #309ce5;
     color: white;
 }
 
@@ -1053,6 +1033,9 @@ footer p {
 }
 */
 
+
+
+
 /* Styl pro aktivní tlačítka */
 /* .active {
     background-color: #b1e0b1;
@@ -1065,12 +1048,10 @@ footer p {
     color: white;
 }
 
-
-
 .dropdown-content a.active:hover,
 .dropdown-content-second a.active:hover,
 .button-container a.active:hover {
-    background-color: #4CAF50;
+    background-color: #388E3C;
     color: white;
     transition: background-color 0.2s ease;
 }
