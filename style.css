@@ -47,10 +47,10 @@ header ul {
 }
 
 /* Sticky header styles */
-.sticky-header {
+/*.sticky-header {
     position: fixed;
     top: 0;
-    /*left: 0;*/
+
     width: 100%;
     background-color: #77afe0;
     z-index: 1000;
@@ -58,10 +58,9 @@ header ul {
     transform: translateY(-100%);
     transition: transform 0.3s ease;
     padding: 22px 0;
-    /* Důležité - resetuje všechny potenciální posuny */
-   /* overflow: visible;*/
+
     box-sizing: border-box;
-}
+}*/
 
 
 .sticky-header .dropdown-content.show,

@@ -876,11 +876,16 @@ if (subDropdownToggle && subDropdownContent) {
     let isClickOpenedSub = false;
     let isMouseOverMenu = false; // Proměnná pro sledování, jestli je myš nad menu
     
-    // Předpřiprava stylu pro plynulou animaci
-    subDropdownContent.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
-    subDropdownContent.style.opacity = "0";
-    subDropdownContent.style.visibility = "hidden";
-    subDropdownContent.style.display = "none";
+    // KOMPLETNÍ PŘEPRACOVÁNÍ ANIMACE:
+    // 1. Nejdřív aplikujeme CSS přímo do elementu pro zajištění konzistence
+    const originalDisplay = window.getComputedStyle(subDropdownContent).display;
+    // Nastavíme transition na všechny vlastnosti pro zajištění plynulosti
+    subDropdownContent.style.cssText = `
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+    `;
     
     // Vytvoříme element pro mrtvou zónu mezi tlačítkem a menu
     const deadZoneElementSub = document.createElement("div");
@@ -897,7 +902,7 @@ if (subDropdownToggle && subDropdownContent) {
     
     // Funkce pro nastavení pozice a rozměrů mrtvé zóny
     function positionDeadZoneSub() {
-        if (subDropdownContent.style.display === "block") {
+        if (subDropdownContent.style.display !== "none") {
             const toggleRect = subDropdownToggle.getBoundingClientRect();
             const contentRect = subDropdownContent.getBoundingClientRect();
             
@@ -926,7 +931,7 @@ if (subDropdownToggle && subDropdownContent) {
         }
     }
     
-    // Funkce pro zobrazení menu
+    // ZCELA PŘEPRACOVANÁ FUNKCE PRO ZOBRAZENÍ
     function showMenuSub() {
         // Zrušíme všechny předchozí timeouty
         clearTimeout(hideTimeoutSub);
@@ -935,18 +940,21 @@ if (subDropdownToggle && subDropdownContent) {
         // Resetujeme příznak zavírání
         isClosingInProgressSub = false;
         
-        // Nejprve zobrazíme element (ale ještě je neviditelný)
-        subDropdownContent.style.display = "block";
+        // DŮLEŽITÉ: Sekvence zobrazení
+        // 1. Nejprve nastavíme display na block, ale stále s opacity 0
+        subDropdownContent.style.display = originalDisplay || "block";
         
-        // Malé zpoždění před animací pro lepší plynulost
+        // 2. Krátké zpoždění pro aplikaci display
         setTimeout(() => {
+            // 3. Následně spustíme animaci nastavením opacity
             subDropdownContent.style.opacity = "1";
             subDropdownContent.style.visibility = "visible";
-            // Nastavíme pozici mrtvé zóny
+            
+            // 4. Nastavíme pozici mrtvé zóny
             positionDeadZoneSub();
         }, 10);
         
-        // DŮLEŽITÁ ZMĚNA: Informujeme hlavní menu o aktivaci submenu
+        // Informujeme hlavní menu o aktivaci submenu
         if (window.setSubmenuActive) {
             window.setSubmenuActive(true);
         }
@@ -957,23 +965,42 @@ if (subDropdownToggle && subDropdownContent) {
         }
     }
     
-    // Funkce pro plynulé zavření submenu
+    // ZCELA PŘEPRACOVANÁ FUNKCE PRO PLYNULÉ ZAVŘENÍ 
     function smoothCloseSubMenu(skipDelay = false) {
-        // Pokud je menu již zavřené nebo se zavírá, neděláme nic
-        if (subDropdownContent.style.opacity === "0") return;
+        // Pokud je menu již zavřené, neděláme nic
+        if (subDropdownContent.style.display === "none") return;
+        
+        // Zrušíme případné předchozí timeouty pro zavírání
+        clearTimeout(hideTimeoutSub);
+        clearTimeout(animationTimeoutSub);
         
         // Nastavíme příznak, že probíhá zavírání
         isClosingInProgressSub = true;
         
-        // Změníme styl pro spuštění animace
-        subDropdownContent.style.opacity = "0";
-        subDropdownContent.style.visibility = "hidden";
+        // KRITICKÉ: Explicitně zajistíme, že menu je viditelné během animace
+        // Tím se zajistí, že bude vidět animace opacity
+        if (subDropdownContent.style.display === "none") {
+            subDropdownContent.style.display = originalDisplay || "block";
+            // Dáme prohlížeči čas aplikovat display
+            requestAnimationFrame(() => {
+                // Pak teprve spustíme animaci opacity
+                subDropdownContent.style.opacity = "0";
+                subDropdownContent.style.visibility = "hidden";
+            });
+        } else {
+            // Menu je již zobrazené, spustíme animaci opacity
+            subDropdownContent.style.opacity = "0";
+            subDropdownContent.style.visibility = "hidden";
+        }
         
-        // Počkáme na dokončení animace a potom skryjeme menu
-        const delay = skipDelay ? 10 : 300; // Při skipDelay použijeme jen krátké zpoždění
+        // Zásadní krok: Počkáme na dokončení animace
+        const animationDuration = 400; // Musí odpovídat transition time v CSS
+        const delay = skipDelay ? Math.floor(animationDuration / 2) : animationDuration + 50; // Přidáme malou rezervu
+        
         animationTimeoutSub = setTimeout(() => {
             // Zkontrolujeme, zda mezitím uživatel nenavedl myš zpět na menu
             if (!isMouseOverMenu) {
+                // Dokončíme skrytí až po dokončení animace fade-out
                 subDropdownContent.style.display = "none";
                 deadZoneElementSub.style.display = "none";
                 
@@ -996,46 +1023,18 @@ if (subDropdownToggle && subDropdownContent) {
         }, delay);
     }
     
-    // Funkce pro skrytí menu - koordinovaná s hlavním menu
+    // Funkce pro skrytí menu - koordinovaná s hlavním menu - vždy používá plynulé zavření
     function hideMenuSub() {
         // Kontrola, zda je myš stále nad menu - pokud ano, nezavírat
         if (isMouseOverMenu) return;
         
-        // Nastavíme příznak, že probíhá zavírání
-        isClosingInProgressSub = true;
-        
-        // Používáme hlavní funkci pro zavření, která zavře obě menu současně
-        const dropdownContent = document.querySelector(".dropdown-content");
-        if (dropdownContent && dropdownContent.style.opacity === "1") {
-            // Pokud je viditelné hlavní menu, použijeme jeho funkci pro zavření
-            
-            // Je důležité, aby zavření probíhalo přes hlavní menu
-            const dropdownToggle = document.querySelector(".dropdown-toggle");
-            if (dropdownToggle) {
-                // Simulujeme kliknutí na hlavní menu pro zavření
-                const clickEvent = new MouseEvent('click', {
-                    bubbles: true,
-                    cancelable: true,
-                    view: window
-                });
-                dropdownToggle.dispatchEvent(clickEvent);
-            } else {
-                // Záložní metoda pro zavření - použijeme plynulé zavření
-                smoothCloseSubMenu();
-            }
-        } else {
-            // Pokud hlavní menu není viditelné, zavřeme jen submenu
-            smoothCloseSubMenu();
-        }
+        smoothCloseSubMenu();
     }
     
     // Zpracování žádosti o společné zavření z hlavního menu
     window.closeSubMenuWithParent = function() {
-        // Pouze nastavíme příznaky - zavření submenu bude řízeno stejnými pravidly
-        // jako u běžného submenu, tedy včetně přerušení mizení při najetí myší
+        // Pouze nastavíme příznaky a zavřeme s plynulou animací
         isClickOpenedSub = false;
-        
-        // Zavíráme s animací
         smoothCloseSubMenu();
     };
     
@@ -1102,23 +1101,61 @@ if (subDropdownToggle && subDropdownContent) {
         isMouseOverMenu = false;
     });
     
-    // Přidáme event listener pro kliknutí na tlačítko
+    // Přidáme event listener pro kliknutí na tlačítko - OPTIMALIZOVÁNO PRO SPOLEHLIVOST
     subDropdownToggle.addEventListener("click", function(e) {
+        // Vždy zastavíme výchozí chování a propagaci
         e.preventDefault();
         e.stopPropagation();
         
-        if (subDropdownContent.style.opacity === "1" && isClickOpenedSub) {
+        // Zrušíme všechny běžící timeouty pro zamezení konfliktů
+        clearTimeout(hideTimeoutSub);
+        clearTimeout(animationTimeoutSub);
+        
+        // Aktualizujeme stav menu podle aktuálního viditelného stavu
+        const isCurrentlyVisible = subDropdownContent.style.opacity === "1";
+        
+        if (isCurrentlyVisible && isClickOpenedSub) {
             // Pokud je menu již otevřené kliknutím, zavřeme ho
             isMouseOverMenu = false;
-            hideMenuSub();
             isClickOpenedSub = false;
+            localStorage.removeItem('isSubMenuOpen');
+            smoothCloseSubMenu(true); // Používáme true pro rychlejší reakci
         } else {
-            // Zobrazíme toto sub-menu
+            // Vždy zajistíme, že menu bude otevřené po kliknutí
             isClickOpenedSub = true;
             isMouseOverMenu = true;
+            isClosingInProgressSub = false; // Zrušíme případné probíhající zavírání
+            
+            // Explicitně nastavíme stav jako otevřený
+            localStorage.setItem('isSubMenuOpen', 'true');
+            
+            // Aktivně zobrazíme menu
             showMenuSub();
         }
+        
+        // Explicitně zaznamenáme, že došlo ke kliknutí na toggle
+        console.log("Toggle clicked, menu is now: " + (!isCurrentlyVisible || !isClickOpenedSub ? "open" : "closed"));
     });
+    
+    // Přidáme speciální třídu pro šipku v dropdown menu, pokud existuje
+    const arrowElement = subDropdownToggle.querySelector(".arrow, .dropdown-arrow, .caret, .arrow-icon, i.fa-chevron-down");
+    if (arrowElement) {
+        // Zajistíme, že kliknutí na šipku bude spolehlivě fungovat
+        arrowElement.addEventListener("click", function(e) {
+            e.preventDefault(); 
+            e.stopPropagation(); // Zastavíme propagaci, aby nedošlo k dvojímu zpracování
+            
+            // Simulujeme kliknutí přímo na toggle element pro jednotné chování
+            const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            
+            // Zašleme událost kliknutí přímo na toggle element
+            subDropdownToggle.dispatchEvent(clickEvent);
+        });
+    }
     
     // Udržování sub-menu otevřeného při najetí na samotné menu
     subDropdownContent.addEventListener("mouseenter", function() {
@@ -1142,7 +1179,7 @@ if (subDropdownToggle && subDropdownContent) {
         // Pokud menu není otevřeno kliknutím, zavřeme ho
         if (!isClickOpenedSub) {
             hideTimeoutSub = setTimeout(() => {
-                hideMenuSub();
+                smoothCloseSubMenu();
             }, 300);
         }
     });
@@ -1164,21 +1201,25 @@ if (subDropdownToggle && subDropdownContent) {
         // Pokud menu není otevřeno kliknutím, zavřeme ho
         if (!isClickOpenedSub) {
             hideTimeoutSub = setTimeout(() => {
-                hideMenuSub();
+                smoothCloseSubMenu();
             }, 100);
         }
     });
     
-    // Zavření menu při kliknutí kamkoliv mimo menu
+    // Zavření menu při kliknutí kamkoliv mimo menu - VYLEPŠENO
     document.addEventListener("click", function(e) {
-        // Kontrola, zda kliknutí není na menu nebo toggle tlačítko
-        if (!subDropdownContent.contains(e.target) && e.target !== subDropdownToggle) {
+        // Důkladná kontrola, že kliknutí není na menu nebo toggle tlačítko nebo jejich potomky
+        if (!subDropdownContent.contains(e.target) && 
+            !subDropdownToggle.contains(e.target) &&
+            !deadZoneElementSub.contains(e.target)) {
+            
             isMouseOverMenu = false;
             
-            // Pouze pokud bylo otevřeno kliknutím
+            // Zavřeme menu, pokud bylo otevřeno kliknutím
             if (isClickOpenedSub) {
-                hideMenuSub();
                 isClickOpenedSub = false;
+                localStorage.removeItem('isSubMenuOpen');
+                smoothCloseSubMenu();
             }
         }
     });
@@ -1190,6 +1231,19 @@ if (subDropdownToggle && subDropdownContent) {
     if (localStorage.getItem('isSubMenuOpen') === 'true') {
         isClickOpenedSub = true;
         showMenuSub();
+    }
+    
+    // Přidáme speciální indikátor pro rozlišení kliknutí vs hover
+    subDropdownToggle.classList.add("has-click-listener");
+    
+    // Přidáme třídu pro animaci
+    subDropdownContent.classList.add("fade-dropdown");
+    
+    // Zkontrolujeme zda menu má nastavenou transition v CSS - pokud ne, přidáme inline
+    const computedStyle = window.getComputedStyle(subDropdownContent);
+    if (!computedStyle.transition || computedStyle.transition === "all 0s ease 0s") {
+        // Přidáme tranzici přímo do elementu pro zajištění animace
+        subDropdownContent.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
     }
 }
     // Zbytek kódu zůstává beze změny
@@ -1322,216 +1376,4 @@ if (subDropdownToggle && subDropdownContent) {
 //window.addEventListener('resize', function() {
  //   navHeight = header.offsetHeight;
 //});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Create a clone of the header for the sticky version
-    const originalHeader = document.querySelector('body > header');
-    const stickyHeader = originalHeader.cloneNode(true);
-    stickyHeader.classList.add('sticky-header');
-    
-    // Insert the sticky header right after the body opening tag
-    document.body.insertBefore(stickyHeader, document.body.firstChild);
-    
-    // Získáme vertikální pozici menu v původním headeru
-    const menuElement = originalHeader.querySelector('nav') || originalHeader.querySelector('.menu') || originalHeader;
-    const menuPosition = menuElement.getBoundingClientRect().top + window.pageYOffset;
-    
-    // Initialize dropdown functionality for both headers
-    initializeDropdowns(originalHeader);
-    initializeDropdowns(stickyHeader);
-    
-    let lastScrollTop = 0;
-    const scrollThreshold = 100; // How far user needs to scroll before header behavior kicks in
-    
-    // CSS pro plynulé vyjetí z vrchu a okamžité zmizení
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .sticky-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        transform: translateY(-100%);
-        transition: transform 0.3s ease-out;
-        visibility: hidden;
-      }
-      
-      .sticky-header.visible {
-        transform: translateY(0);
-        visibility: visible;
-        transition: transform 0.3s ease-out;
-      }
-      
-      .sticky-header.hiding {
-        transform: translateY(-100%);
-        visibility: visible;
-        transition: transform 0.3s ease-out;
-      }
-      
-      .sticky-header.instant-hide {
-        transform: translateY(-100%);
-        transition: none;
-        visibility: hidden;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    // NOVÉ: Kontrola při načtení stránky, jestli jsme uprostřed
-    function checkInitialPosition() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Pokud jsme níže na stránce při načtení (pod původním menu)
-        if (scrollTop > menuPosition && scrollTop > scrollThreshold) {
-            stickyHeader.classList.add('visible');
-        }
-    }
-    
-    // Spustíme kontrolu pozice po malé prodlevě, aby se stránka správně načetla
-    setTimeout(checkInitialPosition, 100);
-    
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Determine scroll direction
-        if (scrollTop > lastScrollTop) {
-            // Scrolling DOWN - PLYNULÉ ZAJETÍ NAHORU
-            if (stickyHeader.classList.contains('visible')) {
-                stickyHeader.classList.remove('visible');
-                stickyHeader.classList.add('hiding');
-            }
-        } else {
-            // Scrolling UP
-            
-            // Jsme v oblasti menu nebo výš?
-            if (scrollTop <= menuPosition) {
-                // Když jsme na úrovni menu nebo výš, sticky header OKAMŽITĚ zmizí
-                stickyHeader.classList.add('instant-hide');
-                stickyHeader.classList.remove('visible');
-                stickyHeader.classList.remove('hiding');
-                
-                // Odstraníme třídu pro okamžité zmizení po malé prodlevě
-                // (aby nepřekážela při následném zobrazení s animací)
-                setTimeout(() => {
-                    stickyHeader.classList.remove('instant-hide');
-                }, 50);
-            } else if (scrollTop > scrollThreshold) {
-                // Jsme pod menu, sticky header by měl plynule vyjet z vrchu
-                stickyHeader.classList.remove('instant-hide');
-                stickyHeader.classList.remove('hiding');
-                stickyHeader.classList.add('visible');
-            } else {
-                stickyHeader.classList.remove('visible');
-            }
-        }
-        
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-    });
-    
-    // Function to initialize dropdown functionality
-    function initializeDropdowns(headerElement) {
-        // Handle main dropdowns
-        const dropdownToggles = headerElement.querySelectorAll('.dropdown-toggle');
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                const dropdownContent = this.nextElementSibling;
-                
-                // Close all other dropdowns first
-                headerElement.querySelectorAll('.dropdown-content.show, .dropdown-content-second.show').forEach(dropdown => {
-                    if (dropdown !== dropdownContent) {
-                        dropdown.classList.remove('show');
-                    }
-                });
-                
-                // Toggle current dropdown
-                if (dropdownContent) {
-                    dropdownContent.classList.toggle('show');
-                } else {
-                    console.log('Element dropdownContent nebyl nalezen');
-                }
-            });
-        });
-        
-        // Handle second-level dropdowns
-        const secondDropdownToggles = headerElement.querySelectorAll('.dropdown-toggle-second');
-        secondDropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                const dropdownContent = this.nextElementSibling;
-                
-                // Close all other dropdowns first
-                headerElement.querySelectorAll('.dropdown-content.show, .dropdown-content-second.show').forEach(dropdown => {
-                    if (dropdown !== dropdownContent) {
-                        dropdown.classList.remove('show');
-                    }
-                });
-                
-                // Toggle current dropdown
-                if (dropdownContent) {
-                    dropdownContent.classList.toggle('show');
-                } else {
-                    console.log('Element dropdownContent nebyl nalezen');
-                }
-            });
-        });
-        
-        // Handle sub-dropdowns
-        const subDropdowns = headerElement.querySelectorAll('.sub-dropdown-toggle');
-        subDropdowns.forEach(toggle => {
-            toggle.addEventListener('mouseenter', function() {
-                const subDropdownContent = this.nextElementSibling;
-                if (subDropdownContent) {
-                    subDropdownContent.classList.add('show');
-                }
-            });
-            
-            const subDropdownContainer = toggle.closest('.sub-dropdown');
-            if (subDropdownContainer) {
-                subDropdownContainer.addEventListener('mouseleave', function() {
-                    const subDropdownContent = this.querySelector('.sub-dropdown-content');
-                    if (subDropdownContent) {
-                        subDropdownContent.classList.remove('show');
-                    }
-                });
-            }
-        });
-        
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                headerElement.querySelectorAll('.dropdown-content.show, .dropdown-content-second.show').forEach(dropdown => {
-                    dropdown.classList.remove('show');
-                });
-            }
-        });
-    }
-});
-
-// Funkce pro synchronizaci horizontálního scrollu sticky headeru
-function syncStickyHeaderScroll() {
-    const stickyHeader = document.querySelector('.sticky-header');
-    if (stickyHeader && (stickyHeader.classList.contains('visible') || stickyHeader.classList.contains('hiding'))) {
-        // Získá horizontální pozici scrollu stránky
-        const pageScrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        
-        // Nastaví horizontální scroll uvnitř sticky headeru podle scrollu stránky
-        stickyHeader.scrollLeft = pageScrollLeft;
-    }
-}
-
-// Přidá event listener pro scroll události
-window.addEventListener('scroll', syncStickyHeaderScroll);
-
-// Inicializuje při načtení stránky
-document.addEventListener('DOMContentLoaded', syncStickyHeaderScroll);
-
-// Přidá event listener pro resize události
-window.addEventListener('resize', syncStickyHeaderScroll);
-
-
-
-
-
 
