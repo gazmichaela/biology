@@ -694,7 +694,7 @@ function ensureImagesLoaded() {
     });
 }
     }
-// ----- DROPDOWN MENU FUNCTIONALITY (DRUHÉ MENU) -----
+// ----- SECOND DROPDOWN MENU FUNCTIONALITY -----
 const dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
 const dropdownContent2 = document.querySelector(".dropdown-content-second");
 
@@ -702,12 +702,11 @@ const dropdownContent2 = document.querySelector(".dropdown-content-second");
 if (dropdownToggle2 && dropdownContent2) {
     let hideTimeoutSecond;
     let animationTimeoutSecond;
-    let inactivityTimeoutSecond; // Timeout pro neaktivitu
-    let repositionTimeoutSecond; // Timeout pro přepočet pozice
+    let inactivityTimeoutSecond;
+    let repositionTimeoutSecond; // NOVÉ: Timeout pro přepočet pozice
     const inactivityDelay = 2000; // 2 sekundy neaktivity
-    let isClickOpened2 = false; // Flag pro zjištění, zda bylo menu otevřeno kliknutím
-    let isSubmenuActive2 = false; // Flag pro zjištění, zda je aktivní submenu
-    let isClosingInProgress2 = false; // Příznak pro koordinaci animace zavření
+    let isClickOpened2 = false;
+    let isClosingInProgress2 = false; // NOVÉ: Příznak pro koordinaci animace zavření
     
     // Předpřiprava stylu pro plynulou animaci
     dropdownContent2.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
@@ -725,7 +724,7 @@ if (dropdownToggle2 && dropdownContent2) {
     deadZoneElement2.style.display = "none";
     deadZoneElement2.style.zIndex = "999"; // Vysoký z-index
     
-    // Funkce pro nastavení pozice a rozměrů mrtvé zóny s vyšší spolehlivostí
+    // NOVÉ: Funkce pro nastavení pozice a rozměrů mrtvé zóny s vyšší spolehlivostí
     function positionDeadZone2() {
         if (dropdownContent2.style.display === "block") {
             // Použijeme requestAnimationFrame pro lepší optimalizaci
@@ -744,7 +743,7 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     }
     
-    // Funkce pro kontinuální přepočítání pozice
+    // NOVÉ: Funkce pro kontinuální přepočítání pozice
     function startPositionMonitoring2() {
         clearTimeout(repositionTimeoutSecond);
         
@@ -759,36 +758,6 @@ if (dropdownToggle2 && dropdownContent2) {
         }, 200); // Každých 200ms kontroluj a přepočítej pozici
     }
     
-    // Funkce pro zobrazení menu - UPRAVENO PRO SPOLEHLIVOST
-    function showMenu2() {
-        // Zrušíme všechny předchozí timeouty
-        clearTimeout(hideTimeoutSecond);
-        clearTimeout(animationTimeoutSecond);
-        clearTimeout(inactivityTimeoutSecond);
-        
-        // Reset stavu zavírání
-        isClosingInProgress2 = false;
-        
-        // Nejprve zobrazíme element (bez čekání)
-        dropdownContent2.style.display = "block";
-        
-        // Použijeme requestAnimationFrame místo setTimeout pro plynulejší animaci
-        requestAnimationFrame(() => {
-            dropdownContent2.style.opacity = "1";
-            dropdownContent2.style.visibility = "visible";
-            
-            // Spustíme kontinuální monitorování pozice
-            startPositionMonitoring2();
-        });
-        
-        // Pokud je menu otevřeno kliknutím, nastavíme timeout pro zavření po neaktivitě
-        if (isClickOpened2) {
-            startInactivityTimer2();
-            // Uložení stavu do localStorage
-            localStorage.setItem('isSecondMenuOpen', 'true');
-        }
-    }
-    
     // Funkce pro spuštění časovače nečinnosti
     function startInactivityTimer2() {
         clearTimeout(inactivityTimeoutSecond);
@@ -797,38 +766,7 @@ if (dropdownToggle2 && dropdownContent2) {
             const menuRect = dropdownContent2.getBoundingClientRect();
             const toggleRect = dropdownToggle2.getBoundingClientRect();
             
-            // Kontrola submenu a jeho prvků
-            const subDropdownContent2 = document.querySelector(".sub-dropdown-content-second");
-            const subDropdownToggle2 = document.querySelector(".sub-dropdown-toggle-second");
-            const deadZoneElementSub2 = document.querySelector(".sub-dropdown-dead-zone-second");
-            
-            let isMouseOverSubElements2 = false;
-            
-            if (subDropdownContent2 && subDropdownContent2.style.display === "block") {
-                const subMenuRect = subDropdownContent2.getBoundingClientRect();
-                if (mouseX >= subMenuRect.left && mouseX <= subMenuRect.right && 
-                    mouseY >= subMenuRect.top && mouseY <= subMenuRect.bottom) {
-                    isMouseOverSubElements2 = true;
-                }
-            }
-            
-            if (subDropdownToggle2) {
-                const subToggleRect = subDropdownToggle2.getBoundingClientRect();
-                if (mouseX >= subToggleRect.left && mouseX <= subToggleRect.right && 
-                    mouseY >= subToggleRect.top && mouseY <= subToggleRect.bottom) {
-                    isMouseOverSubElements2 = true;
-                }
-            }
-            
-            if (deadZoneElementSub2 && deadZoneElementSub2.style.display === "block") {
-                const subDeadRect = deadZoneElementSub2.getBoundingClientRect();
-                if (mouseX >= subDeadRect.left && mouseX <= subDeadRect.right && 
-                    mouseY >= subDeadRect.top && mouseY <= subDeadRect.bottom) {
-                    isMouseOverSubElements2 = true;
-                }
-            }
-            
-            // Kontrola hlavních prvků
+            // Kontrola, zda kurzor není nad menu nebo nad tlačítkem
             const isMouseOverMenu = 
                 mouseX >= menuRect.left && 
                 mouseX <= menuRect.right && 
@@ -849,7 +787,7 @@ if (dropdownToggle2 && dropdownContent2) {
                 mouseY <= deadZoneElement2.getBoundingClientRect().bottom;
             
             // Zavřít menu pouze pokud kurzor není nad žádným z menu prvků
-            if (!isMouseOverMenu && !isMouseOverToggle && !isMouseOverDeadZone && !isMouseOverSubElements2) {
+            if (!isMouseOverMenu && !isMouseOverToggle && !isMouseOverDeadZone) {
                 hideMenu2();
                 isClickOpened2 = false;
             } else {
@@ -859,13 +797,43 @@ if (dropdownToggle2 && dropdownContent2) {
         }, inactivityDelay);
     }
     
+    // Funkce pro zobrazení menu - UPRAVENO PRO SPOLEHLIVOST
+    function showMenu2() {
+        // Zrušíme všechny předchozí timeouty
+        clearTimeout(hideTimeoutSecond);
+        clearTimeout(animationTimeoutSecond);
+        clearTimeout(inactivityTimeoutSecond);
+        
+        // Reset stavu zavírání
+        isClosingInProgress2 = false;
+        
+        // Nejprve zobrazíme element (bez čekání)
+        dropdownContent2.style.display = "block";
+        
+        // Použijeme requestAnimationFrame místo setTimeout pro plynulejší animaci
+        requestAnimationFrame(() => {
+            dropdownContent2.style.opacity = "1";
+            dropdownContent2.style.visibility = "visible";
+            
+            // NOVÉ: Spustíme kontinuální monitorování pozice
+            startPositionMonitoring2();
+        });
+        
+        // Pokud je menu otevřeno kliknutím, nastavíme timeout pro zavření po neaktivitě
+        if (isClickOpened2) {
+            startInactivityTimer2();
+            // Uložení stavu do localStorage
+            localStorage.setItem('isSecondMenuOpen', 'true');
+        }
+    }
+    
     // Funkce pro skrytí menu - UPRAVENO PRO SPOLEHLIVOST
     function hideMenu2() {
         // Zrušíme všechny předchozí timeouty
         clearTimeout(hideTimeoutSecond);
         clearTimeout(animationTimeoutSecond);
         clearTimeout(inactivityTimeoutSecond);
-        clearTimeout(repositionTimeoutSecond); // Zrušit monitorování pozice
+        clearTimeout(repositionTimeoutSecond); // NOVÉ: Zrušit monitorování pozice
         
         // Nastavíme příznak, že probíhá zavírání
         isClosingInProgress2 = true;
@@ -874,34 +842,14 @@ if (dropdownToggle2 && dropdownContent2) {
         dropdownContent2.style.opacity = "0";
         dropdownContent2.style.visibility = "hidden";
         
-        // Také musíme vyvolat zavření submenu
-        if (typeof window.closeSubMenuWithParent2 === 'function') {
-            window.closeSubMenuWithParent2();
-        }
-        
         // Po dokončení animace skryjeme prvky úplně
         animationTimeoutSecond = setTimeout(() => {
             dropdownContent2.style.display = "none";
             deadZoneElement2.style.display = "none";
             
-            // Také skryjeme submenu po dokončení animace
-            const subDropdownContent2 = document.querySelector(".sub-dropdown-content-second");
-            if (subDropdownContent2) {
-                subDropdownContent2.style.opacity = "0";
-                subDropdownContent2.style.visibility = "hidden";
-                subDropdownContent2.style.display = "none";
-                
-                const deadZoneElementSub2 = document.querySelector(".sub-dropdown-dead-zone-second");
-                if (deadZoneElementSub2) {
-                    deadZoneElementSub2.style.display = "none";
-                }
-            }
-            
             isClickOpened2 = false;
-            isSubmenuActive2 = false; // Resetujeme stav submenu
             // Odstranění stavu z localStorage
             localStorage.removeItem('isSecondMenuOpen');
-            localStorage.removeItem('isSubMenuOpen2');
             localStorage.removeItem('isMouseOverSecondToggle');
             isClosingInProgress2 = false;
         }, 300);
@@ -909,13 +857,6 @@ if (dropdownToggle2 && dropdownContent2) {
         // Zrušíme časovač nečinnosti
         clearTimeout(inactivityTimeoutSecond);
     }
-    
-    // Globální funkce pro zavření všech menu kromě specifikovaného
-    window.closeAllMenusExcept = function(exceptMenuId) {
-        if (exceptMenuId !== 'second-menu') {
-            hideMenu2();
-        }
-    };
     
     // Exportujeme funkci pro zavření druhého menu z jiných menu
     window.closeSecondMenu = function() {
@@ -925,10 +866,34 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     };
     
+    // NOVÉ: Lépe zpracovat událost zobrazení menu po najetí kurzoru
+    dropdownToggle2.addEventListener("mouseenter", function() {
+        // Zavření prvního menu pokud je otevřené
+        if (window.closeFirstMenu) {
+            window.closeFirstMenu();
+        }
+        
+        // Odstraněno podmínkové ověření pro isClosingInProgress2, aby se menu vždy zobrazilo
+        if (!isClickOpened2) {
+            // NOVÉ: Použijeme requestAnimationFrame pro spolehlivější zobrazení
+            requestAnimationFrame(() => {
+                showMenu2();
+            });
+        }
+        
+        // NOVÉ: Uložíme informaci o tom, že kurzor je nad tlačítkem
+        localStorage.setItem('isMouseOverSecondToggle', 'true');
+    });
+    
+    // NOVÉ: Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
+    dropdownToggle2.addEventListener("mouseleave", function() {
+        localStorage.removeItem('isMouseOverSecondToggle');
+    });
+    
     // Přidáme event listener pro kliknutí na tlačítko - UPRAVENO PRO SPOLEHLIVOST
     dropdownToggle2.addEventListener("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault(); // Zabrání výchozí akci odkazu, pokud je tlačítko <a>
+        e.stopPropagation(); // Zabrání šíření události ke globálnímu document click handleru
         
         // Zrušíme všechny aktivní timeouty, které by mohly interferovat
         clearTimeout(hideTimeoutSecond);
@@ -951,24 +916,6 @@ if (dropdownToggle2 && dropdownContent2) {
             // Jinak ho otevřeme a nastavíme flag
             isClickOpened2 = true;
             
-            // PŘIDÁNO: Vždy skrýt submenu při kliknutí na hlavní tlačítko
-            const subDropdownContent2 = document.querySelector(".sub-dropdown-content-second");
-            if (subDropdownContent2 && subDropdownContent2.style.opacity === "1") {
-                subDropdownContent2.style.opacity = "0";
-                subDropdownContent2.style.visibility = "hidden";
-                
-                setTimeout(() => {
-                    subDropdownContent2.style.display = "none";
-                    
-                    const deadZoneElementSub2 = document.querySelector(".sub-dropdown-dead-zone-second");
-                    if (deadZoneElementSub2) {
-                        deadZoneElementSub2.style.display = "none";
-                    }
-                    
-                    localStorage.removeItem('isSubMenuOpen2');
-                }, 300);
-            }
-            
             // Vynucené okamžité zobrazení menu
             dropdownContent2.style.display = "block";
             
@@ -977,7 +924,7 @@ if (dropdownToggle2 && dropdownContent2) {
                 dropdownContent2.style.opacity = "1";
                 dropdownContent2.style.visibility = "visible";
                 
-                // Spustíme kontinuální monitorování pozice
+                // NOVÉ: Spustíme kontinuální monitorování pozice
                 startPositionMonitoring2();
                 
                 // Uložení stavu do localStorage
@@ -989,71 +936,7 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     });
     
-    // Přidám event listener pro mouseenter na dropdown tlačítko
-    dropdownToggle2.addEventListener("mouseenter", function() {
-        // Zavření prvního menu pokud je otevřené
-        if (window.closeFirstMenu) {
-            window.closeFirstMenu();
-        }
-        
-        // Odstraněno podmínkové ověření pro isClosingInProgress, aby se menu vždy zobrazilo
-        if (!isClickOpened2) {
-            // Použijeme requestAnimationFrame pro spolehlivější zobrazení
-            requestAnimationFrame(() => {
-                showMenu2();
-            });
-        }
-        
-        // NOVÉ: Uložíme informaci o tom, že kurzor je nad tlačítkem
-        localStorage.setItem('isMouseOverSecondToggle', 'true');
-        
-        // PŘIDÁNO: Pokud existuje otevřené submenu, je potřeba ho skrýt
-        const subDropdownContent2 = document.querySelector(".sub-dropdown-content-second");
-        if (subDropdownContent2 && subDropdownContent2.style.opacity === "1") {
-            subDropdownContent2.style.opacity = "0";
-            subDropdownContent2.style.visibility = "hidden";
-            
-            setTimeout(() => {
-                subDropdownContent2.style.display = "none";
-                
-                const deadZoneElementSub2 = document.querySelector(".sub-dropdown-dead-zone-second");
-                if (deadZoneElementSub2) {
-                    deadZoneElementSub2.style.display = "none";
-                }
-                
-                localStorage.removeItem('isSubMenuOpen2');
-            }, 300);
-        }
-    });
-    
-    // NOVÉ: Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
-    dropdownToggle2.addEventListener("mouseleave", function(e) {
-        localStorage.removeItem('isMouseOverSecondToggle');
-        
-        if (isClickOpened2) return; // Pokud je otevřeno kliknutím, neskrývat
-        
-        // Zkontrolujeme, kam kurzor směřuje
-        const toElement = e.relatedTarget;
-        
-        // Pokud kurzor nejde do mrtvé zóny nebo do podmenu, zahájíme skrývání
-        if (toElement !== deadZoneElement2 && !deadZoneElement2.contains(toElement) && 
-            toElement !== dropdownContent2 && !dropdownContent2.contains(toElement)) {
-            
-            hideTimeoutSecond = setTimeout(function() {
-                if (!isClickOpened2) { // Dvojitá kontrola před skrytím
-                    hideMenu2();
-                }
-            }, 250);
-        }
-    });
-    
-    // Export funkce pro submenu
-    window.closeSubMenuWithParent2 = function() {
-        // Tato funkce je volána z hideMenu
-        isSubmenuActive2 = false;
-    };
-    
-    // Udržování podmenu otevřeného při najetí na samotné podmenu
+    // Udržování druhého podmenu otevřeného při najetí na samotné podmenu
     dropdownContent2.addEventListener("mouseenter", function() {
         if (!isClickOpened2) {
             // Zrušíme všechny předchozí timeouty
@@ -1068,7 +951,7 @@ if (dropdownToggle2 && dropdownContent2) {
                 dropdownContent2.style.opacity = "1";
                 dropdownContent2.style.visibility = "visible";
                 
-                // Spustíme kontinuální monitorování pozice
+                // NOVÉ: Spustíme kontinuální monitorování pozice
                 startPositionMonitoring2();
             });
         } else if (isClickOpened2) {
@@ -1124,7 +1007,6 @@ if (dropdownToggle2 && dropdownContent2) {
             localStorage.removeItem('isFirstMenuOpen');
             localStorage.removeItem('isSecondMenuOpen');
             localStorage.removeItem('isSubMenuOpen');
-            localStorage.removeItem('isSubMenuOpen2');
             localStorage.removeItem('isMouseOverFirstToggle');
             localStorage.removeItem('isMouseOverSecondToggle');
         });
@@ -1151,24 +1033,35 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     });
     
-    // Skrytí podmenu při opuštění kurzoru podmenu - pouze pokud není otevřeno kliknutím
+    // Skrytí druhého podmenu při opuštění kurzoru tlačítka - pouze pokud není otevřeno kliknutím
+    dropdownToggle2.addEventListener("mouseleave", function(e) {
+        if (isClickOpened2) return; // Pokud je otevřeno kliknutím, neskrývat
+        
+        // Zkontrolujeme, kam kurzor směřuje
+        const toElement = e.relatedTarget;
+        
+        // Pokud kurzor nejde do mrtvé zóny nebo do podmenu, zahájíme skrývání
+        if (toElement !== deadZoneElement2 && !deadZoneElement2.contains(toElement) && 
+            toElement !== dropdownContent2 && !dropdownContent2.contains(toElement)) {
+            
+            hideTimeoutSecond = setTimeout(function() {
+                if (!isClickOpened2) { // Dvojitá kontrola před skrytím
+                    hideMenu2();
+                }
+            }, 250);
+        }
+    });
+    
+    // Skrytí druhého podmenu při opuštění kurzoru podmenu - pouze pokud není otevřeno kliknutím
     dropdownContent2.addEventListener("mouseleave", function(e) {
         if (isClickOpened2) return; // Pokud je otevřeno kliknutím, neskrývat
         
         // Zkontrolujeme, kam kurzor směřuje
         const toElement = e.relatedTarget;
         
-        // Zkontrolujme také prvky podmenu
-        const subToggle2 = document.querySelector(".sub-dropdown-toggle-second");
-        const subContent2 = document.querySelector(".sub-dropdown-content-second");
-        const subDeadZone2 = document.querySelector(".sub-dropdown-dead-zone-second");
-        
-        // Pokud kurzor nejde do subMenu, mrtvé zóny nebo do tlačítka, zahájíme skrývání
-        if ((toElement !== deadZoneElement2 && !deadZoneElement2.contains(toElement)) && 
-            (toElement !== dropdownToggle2 && !dropdownToggle2.contains(toElement)) &&
-            (toElement !== subToggle2 && (subToggle2 && !subToggle2.contains(toElement))) &&
-            (toElement !== subContent2 && (subContent2 && !subContent2.contains(toElement))) &&
-            (toElement !== subDeadZone2 && (subDeadZone2 && !subDeadZone2.contains(toElement)))) {
+        // Pokud kurzor nejde do mrtvé zóny nebo do tlačítka, zahájíme skrývání
+        if (toElement !== deadZoneElement2 && !deadZoneElement2.contains(toElement) && 
+            toElement !== dropdownToggle2 && !dropdownToggle2.contains(toElement)) {
             
             hideTimeoutSecond = setTimeout(function() {
                 if (!isClickOpened2) { // Dvojitá kontrola před skrytím
@@ -1185,17 +1078,9 @@ if (dropdownToggle2 && dropdownContent2) {
         // Zkontrolujeme, kam kurzor směřuje
         const toElement = e.relatedTarget;
         
-        // Zkontrolujme také prvky podmenu
-        const subToggle2 = document.querySelector(".sub-dropdown-toggle-second");
-        const subContent2 = document.querySelector(".sub-dropdown-content-second");
-        const subDeadZone2 = document.querySelector(".sub-dropdown-dead-zone-second");
-        
-        // Pokud kurzor nejde do menu, tlačítka nebo prvků podmenu, zahájíme skrývání
-        if ((toElement !== dropdownToggle2 && !dropdownToggle2.contains(toElement)) && 
-            (toElement !== dropdownContent2 && !dropdownContent2.contains(toElement)) &&
-            (toElement !== subToggle2 && (subToggle2 && !subToggle2.contains(toElement))) &&
-            (toElement !== subContent2 && (subContent2 && !subContent2.contains(toElement))) &&
-            (toElement !== subDeadZone2 && (subDeadZone2 && !subDeadZone2.contains(toElement)))) {
+        // Pokud kurzor nejde do menu nebo tlačítka, zahájíme skrývání
+        if (toElement !== dropdownToggle2 && !dropdownToggle2.contains(toElement) && 
+            toElement !== dropdownContent2 && !dropdownContent2.contains(toElement)) {
             
             hideTimeoutSecond = setTimeout(function() {
                 if (!isClickOpened2) { // Dvojitá kontrola před skrytím
@@ -1207,32 +1092,14 @@ if (dropdownToggle2 && dropdownContent2) {
     
     // Zavření menu kliknutím kamkoliv mimo menu a tlačítko
     document.addEventListener("click", function(event) {
-        // Kontrola prvků podmenu
-        const subToggle2 = document.querySelector(".sub-dropdown-toggle-second");
-        const subContent2 = document.querySelector(".sub-dropdown-content-second");
-        const subDeadZone2 = document.querySelector(".sub-dropdown-dead-zone-second");
-        
         if (!dropdownToggle2.contains(event.target) && 
             !dropdownContent2.contains(event.target) &&
-            event.target !== deadZoneElement2 &&
-            (!subToggle2 || !subToggle2.contains(event.target)) &&
-            (!subContent2 || !subContent2.contains(event.target)) &&
-            (!subDeadZone2 || !subDeadZone2.contains(event.target))) {
+            event.target !== deadZoneElement2) {
             
             hideMenu2();
             isClickOpened2 = false;
         }
     });
-    
-    // Export funkce pro submenu, která bude nastavovat stav submenu
-    window.setSubmenuActive2 = function(active) {
-        isSubmenuActive2 = active;
-        if (active && isClickOpened2) {
-            // Pokud je submenu aktivní a hlavní menu otevřeno kliknutím, 
-            // resetujeme časovač nečinnosti
-            startInactivityTimer2();
-        }
-    };
     
     // NOVÉ: Funkce pro kontrolu pozice myši při načtení stránky s ohledem na obrázky
     function handlePageLoad2() {
@@ -1265,6 +1132,9 @@ if (dropdownToggle2 && dropdownContent2) {
         });
     }
     
+    // NOVÉ: Využití existující funkce ensureImagesLoaded z prvního menu
+    // Funkce by měla být definována v globálním kontextu
+    
     // Spustíme kontrolu při načtení stránky
     handlePageLoad2();
 }
@@ -1272,20 +1142,18 @@ if (dropdownToggle2 && dropdownContent2) {
 // Zajištění sledování pozice myši pro oba dropdowny
 // Tyto funkce by měly být definovány v globálním kontextu
 // a sdíleny mezi oběma menu
-if (typeof mouseX === 'undefined' && typeof mouseY === 'undefined') {
-    let mouseX = 0;
-    let mouseY = 0;
+let mouseX = 0;
+let mouseY = 0;
 
-    // Sledování pozice myši
-    document.addEventListener('mousemove', function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Uložíme pozici do localStorage pro obnovení po refreshi
-        localStorage.setItem('mouseX', mouseX);
-        localStorage.setItem('mouseY', mouseY);
-    });
-}
+// Sledování pozice myši
+document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Uložíme pozici do localStorage pro obnovení po refreshi
+    localStorage.setItem('mouseX', mouseX);
+    localStorage.setItem('mouseY', mouseY);
+});
 
 // NOVÉ: Funkce pro zajištění, že obrázky budou načteny nebo alespoň započato jejich načítání
 // Tato funkce by měla být umístěna v globálním kontextu, aby byla dostupná pro obě menu
