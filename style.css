@@ -1,9 +1,75 @@
+/* ===== 1. Variabilní fonty ===== */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
+  font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/Inter-Italic-VariableFont_opsz-wght.woff2') format('woff2');
+  font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ===== 2. Statické fallback řezy ===== */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
+  font-weight: 400; /* Váha pro "normal" */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/static/Inter_18pt-Bold.woff2') format('woff2');
+  font-weight: 700; /* Váha pro "bold" */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/static/Inter_18pt-Italic.woff2') format('woff2');
+  font-weight: 400; /* Váha pro "normal" */
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/static/Inter_18pt-BoldItalic.woff2') format('woff2');
+  font-weight: 700; /* Váha pro "bold" */
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/static/Inter_18pt-SemiBold.woff2') format('woff2');
+  font-weight: 600; /* Váha pro "semi-bold" (600) */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter/static/Inter_18pt-ExtraBold.woff2') format('woff2');
+  font-weight: 800; /* Váha pro "extra-bold" (800) */
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
     background: #3f7093;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', 'Arial', sans-serif;
     font-size: 1.3em;
     background-color: #f0f9f0;
     min-width: 1116px;
@@ -490,8 +556,6 @@ footer {
     clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%);
 }
 
-
-
 footer a {
     text-decoration: underline;
     color: inherit;
@@ -574,8 +638,18 @@ footer p {
     top: 0;
     z-index: 1000;
     margin: 21px 0px 0px 33px;
+    opacity: 0;               /* Na začátku je obrázek neviditelný */
+    animation: showImage 1s ease 4s forwards; /* Animace trvá 1s, začne po 4 sekundách */
 }
-
+ 
+@keyframes showImage {
+    0% {
+      opacity: 0;  /* Začátek animace (neviditelný) */
+    }
+    100% {
+      opacity: 1;  /* Konec animace (viditelný) */
+    }
+}
 
 /* Prioritní načítání menu */
 header {
@@ -598,7 +672,9 @@ body {
 }
 
 /* Optimalizace pro obrazky v menu */
-header img, .logo, .home-icon {
+header img,
+.logo,
+.home-icon {
     content-visibility: auto; /* Moderní optimalizace pro rychlé vykreslení */
 }
 
@@ -746,7 +822,7 @@ header img, .logo, .home-icon {
 }
 
 .question.open {
-    background-color: #dcdcdc;
+    background-color: #ff0000;
     transition: background-color 0.3s ease;
 }
 
@@ -755,8 +831,9 @@ header img, .logo, .home-icon {
     display: block;
 }*/
 
+
 /*_______________________________________________________________*/
-/* ==TLAČÍTKA, ŠIPKY== */
+/* ==NAVIGACE== */
 
 .button-container {
     display: flex;
@@ -771,9 +848,11 @@ header img, .logo, .home-icon {
     color: #025227;
 }
 
-/*.arrow:hover {
-    color: white;
-}*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+}
 
 .main-button,
 .maine-button,
@@ -787,11 +866,10 @@ header img, .logo, .home-icon {
     font-size: 16px;
     border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     align-items: center; 
     justify-content: center;
     padding: 12px 20px;
-   /* transition: background-color 0.1s ease;*/
 }
 
 .main-button {
@@ -808,9 +886,8 @@ header img, .logo, .home-icon {
 
 .dropdown-toggle,
 .dropdown-toggle-second {
-    width: 100%; 
-    max-width: 40px; 
-    text-align: center;
+    width: 100%;
+    max-width: 40px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     display: inline-flex;
@@ -829,14 +906,12 @@ header img, .logo, .home-icon {
 .sub-dropdown-toggle::before {
     content: '';
     position: absolute;
-    top: -10px; /* Rozšíření aktivní oblasti nahoru o 10px */
-    right: -16px;  /* Zúžení aktivní oblasti zprava o 5px */
-    bottom: -9.5px; /* Rozšíření aktivní oblasti dolů o 10px */
-    left: -4.8px;   /* Zúžení aktivní oblasti zleva o 5px */
+    top: -14px; /* Rozšíření aktivní oblasti nahoru */
+    right: -16px;  /* Zúžení aktivní oblasti zprava */
+    bottom: -9.5px; /* Rozšíření aktivní oblasti dolů */
+    left: -4.8px;   /* Zúžení aktivní oblasti zleva */
     z-index: 1;
-    border-top-right-radius: 3px; 
-   /* border-bottom-right-radius: 6px; */
-   /* background-color: #023f1e;*/
+    border-top-right-radius: 5px; 
 }
 
 .main-button:hover,
@@ -848,44 +923,14 @@ header img, .logo, .home-icon {
     width: auto;
 }
 
-/* Styl pro aktivní tlačítko */
-.main-button.active,
-.maine-button.active {
-    background-color: #1c77e8;
-    color: white;
-}
-
-/*_______________________________________________________________*/
-/* ==VYSKAKOVACÍ OKNA== */
-
-/* OBECNÉ */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    margin: 0;
-}
-
-.dropdown-toggle .arrow {
-    color: #025227;
-   /* transition: color 0.3s ease;*/
-}
-  
-  .dropdown-toggle:hover .arrow {
-    color: white; /* nebo jakákoliv barva, co chceš */
-}
-
+.dropdown-toggle .arrow,
 .dropdown-toggle-second .arrow {
     color: #025227;
-    /*transition: color 0.3s ease;*/
 }
   
+.dropdown-toggle:hover .arrow,
 .dropdown-toggle-second:hover .arrow {
     color: white;
-}
-
-.dropdown-content,
-.dropdown-content-second {
-  display: none;
 }
 
 .dropdown-content.show-on-load,
@@ -907,7 +952,7 @@ header img, .logo, .home-icon {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0s 0.3s; /* Důležité: zpoždění visibility */
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #f0f9f0;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     display: block; /* Zde použij block místo none */
@@ -928,20 +973,20 @@ header img, .logo, .home-icon {
 }
 
 .dropdown-content {
-    left: 50%;
-    transform: translateX(-3%);
+    left: 50%; /* V polovině tlačítka*/
+    transform: translateX(-3%); /* Úprava umístění */
 }
 
 .dropdown-content-second {
-    left: 50%;
-    transform: translateX(-20%);
+    left: 50%; /* V polovině tlačítka*/
+    transform: translateX(-20%); /* Úprava umístění */
 }
 
 .sub-dropdown-content {
     position: absolute;
     left: 100%;
     top: 1px;
-    background-color: #f9f9f9;
+    background-color: #f0f9f0;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     padding: 5px;
@@ -977,37 +1022,35 @@ header img, .logo, .home-icon {
     color: white;
 }
 
-/* Specifické nastavení pro položku Úvod v podmenu */
-/*.dropdown-content a.centered {
-    display: flex;
-    justify-content: center; 
-    align-items: center;  
-    width: 100%;
-    margin-left: 15%;
-}*/
-
+/* Položka úvod */
 .dropdown-content a.centered {
     display: flex;
     justify-content: flex-start; /* Zarovná text doleva, ale posune ho padding */
     align-items: center;
     width: 100%;
-    padding: 10px 30px;  /* Zvýšený levý padding pro posun doprava */
-    background-color: transparent;
     color: #025227;
     text-decoration: none;
+    padding-left: 53px;
 }
 
-.dropdown-content a.centered {
-    padding-left: 53px; /* Zvětši/zmenši podle potřeby */
-}
-
-/* Úprava při hoveru (při najetí myší) */
 .dropdown-content a.centered:hover {
- /* Světlejší barva pro neaktivní odkazy */
-    color: white;
     cursor: pointer;
 }
 
+/* ==AKTIVNÍ POLOŽKY== */
+.main-button.active,
+.maine-button.active,
+.dropdown-content a.active,
+.dropdown-content-second a.active {
+    background-color: #1c77e8;
+    color: white;
+}
+
+.button-container a.active:hover,
+.dropdown-content a.active:hover,
+.dropdown-content-second a.active:hover {
+    background-color: #388E3C;
+}
 
 /*@media (max-width: 1200px) {
     .button-container {
@@ -1063,25 +1106,6 @@ header img, .logo, .home-icon {
     background-color: #b1e0b1;
     color: #025227;
 } */
-
-/* Styl pro aktivní položku v podmenu */
-.dropdown-content a.active {
-    background-color: #1c77e8;
-    color: white;
-}
-
-.dropdown-content a.active:hover,
-.dropdown-content-second a.active:hover,
-.button-container a.active:hover {
-    background-color: #388E3C;
-    color: white;
-    transition: background-color 0.2s ease;
-}
-
-.dropdown-content-second a.active {
-    background-color: #1c77e8;
-    color: white;
-}
 
 
 
