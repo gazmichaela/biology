@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Okamžitě zkontrolujeme, zda jsou dropdown prvky k dispozici
         checkForDropdownElements();
         
-        // Důležité: okamžitě obnovíme stav myši nad prvky
+        // NOVÉ: Okamžitě obnovíme stav myši nad prvky
         // Toto provádět ihned, nečekat na obrázky
         let fastRefreshTimer = setTimeout(function() {
             if (!menuStateRestored) {
@@ -539,7 +539,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
         
-        // Zlepšený kód pro agresivnější obnovu stavu menu při refreshi
+        // NOVÉ: Zlepšený kód pro agresivnější obnovu stavu menu při refreshi
         function setupAggressiveRefreshHandling() {
             // Kontrolujeme, zda jde o refresh stránky
             const isRefresh = localStorage.getItem('isRefreshing') === 'true';
@@ -711,6 +711,10 @@ if (dropdownToggle && dropdownContent) {
     const inactivityDelay = 2000; // 2 sekundy neaktivity
     let isClickOpened = false; // Flag pro zjištění, zda bylo menu otevřeno kliknutím
     let isSubmenuActive = false; // Flag pro zjištění, zda je aktivní submenu
+    
+    // Globální proměnné pro pozici myši - inicializujeme je zde
+    let mouseX = parseInt(localStorage.getItem('mouseX')) || 0;
+    let mouseY = parseInt(localStorage.getItem('mouseY')) || 0;
     
     // Předpřiprava stylu pro plynulou animaci
     dropdownContent.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
@@ -1239,90 +1243,96 @@ if (dropdownToggle && dropdownContent) {
         }
     };
 
-    // Funkce pro kontrolu pozice myši při načtení stránky s ohledem na obrázky
-    function handlePageLoad() {
-        // Počkáme, až budou obrázky načteny, než začneme s inicializací menu
-        ensureImagesLoaded().then(() => {
-            // Načtení uložené pozice myši
-            const savedMouseX = parseInt(localStorage.getItem('mouseX')) || 0;
-            const savedMouseY = parseInt(localStorage.getItem('mouseY')) || 0;
+    // NOVÉ: Příznak pro stav načítání DOM
+    let domContentLoaded = false;
+    let pageLoaded = false;
+    
+    // NOVÉ: Příznak pro sledování, zda máme zobrazit menu po načtení
+    let shouldShowMenuAfterLoad = false;
+    
+    // NOVÉ: Optimalizovaná funkce pro kontrolu pozice myši
+    function checkMousePosition() {
+        // Kontrola uložené pozice z localStorage
+        const savedMouseX = parseInt(localStorage.getItem('mouseX')) || 0;
+        const savedMouseY = parseInt(localStorage.getItem('mouseY')) || 0;
+        
+        // Nastavení globálních proměnných
+        mouseX = savedMouseX;
+        mouseY = savedMouseY;
+        
+        // Získáme aktuální pozice elementů
+        const toggleRect = dropdownToggle.getBoundingClientRect();
+        
+        // Zjistíme, zda je myš nad toggle tlačítkem
+        const isOverToggle = 
+            mouseX >= toggleRect.left && 
+            mouseX <= toggleRect.right && 
+            mouseY >= toggleRect.top && 
+            mouseY <= toggleRect.bottom;
             
-            // Nastavení globálních proměnných pro pozici myši
-            mouseX = savedMouseX;
-            mouseY = savedMouseY;
-            
-            // Zjistíme, zda byl kurzor nad dropdown tlačítkem před refreshem
-            if (localStorage.getItem('isMouseOverFirstToggle') === 'true') {
-                // Automaticky zobrazíme menu při hoveru
+        // Zjistíme, zda byl kurzor nad dropdown tlačítkem před refreshem
+        const wasOverToggle = localStorage.getItem('isMouseOverFirstToggle') === 'true';
+        
+        // Rozhodneme, zda máme zobrazit menu
+        if (isOverToggle || wasOverToggle) {
+            shouldShowMenuAfterLoad = true;
+            if (domContentLoaded) {
                 showMenu();
             }
-            
-            // Kontrola otevřeného menu z localStorage (pro kliknuté menu)
-            if (localStorage.getItem('isFirstMenuOpen') === 'true') {
-                isClickOpened = true;
+        }
+        
+        // Kontrola otevřeného menu z localStorage (pro kliknuté menu)
+        if (localStorage.getItem('isFirstMenuOpen') === 'true') {
+            isClickOpened = true;
+            if (domContentLoaded) {
                 showMenu();
+            } else {
+                shouldShowMenuAfterLoad = true;
             }
-            
-            // Přepočítáme pozici mrtvé zóny po načtení obrázků
-            if (dropdownContent.style.display === "block") {
-                startPositionMonitoring();
-            }
-        });
+        }
     }
     
-    // Funkce pro zajištění, že obrázky budou načteny nebo alespoň započato jejich načítání
-    function ensureImagesLoaded() {
-        return new Promise((resolve) => {
-            // Zjistíme všechny obrázky na stránce
-            const images = document.querySelectorAll('img');
+    // NOVÉ: Událost pro DOMContentLoaded - nejrychlejší způsob zjištění, že DOM je připraven
+    document.addEventListener('DOMContentLoaded', function() {
+        domContentLoaded = true;
+        
+        // Zkontrolujeme pozici myši ihned po načtení DOM
+        checkMousePosition();
+        
+        // Pokud by mělo být menu zobrazeno, zobrazíme ho ihned
+        if (shouldShowMenuAfterLoad) {
+            showMenu();
+        }
+    });
+    
+    // NOVÉ: Událost pro load - záložní mechanismus, pokud by DOMContentLoaded nebylo zavoláno
+    window.addEventListener('load', function() {
+        pageLoaded = true;
+        
+        // Přepočítáme pozici mrtvé zóny po načtení všeho obsahu
+        if (dropdownContent.style.display === "block") {
+            startPositionMonitoring();
+        }
+        
+        // Pokud by z nějakého důvodu DOMContentLoaded nebylo zavoláno, spustíme kontrolu zde
+        if (!domContentLoaded) {
+            domContentLoaded = true;
+            checkMousePosition();
             
-            // Pokud nejsou žádné obrázky, okamžitě vrátíme true
-            if (images.length === 0) {
-                resolve(true);
-                return;
+            if (shouldShowMenuAfterLoad) {
+                showMenu();
             }
-            
-            // Počítadlo načtených obrázků
-            let loadedImages = 0;
-            
-            // Funkce, která se zavolá po načtení obrázku
-            function imageLoaded() {
-                loadedImages++;
-                
-                // Pokud jsou všechny obrázky načteny nebo čas vypršel, vrátíme true
-                if (loadedImages === images.length) {
-                    resolve(true);
-                }
-            }
-            
-            // Maximální doba čekání před pokračováním (3 sekundy)
-            const maxWaitTime = 3000;
-            
-            // Po vypršení času pokračujeme bez ohledu na stav obrázků
-            setTimeout(() => {
-                resolve(true);
-            }, maxWaitTime);
-            
-            // Pro každý obrázek přidáme posluchače událostí
-            images.forEach(img => {
-                // Pokud je již obrázek načten (z cache), přímo zvýšíme počítadlo
-                if (img.complete) {
-                    imageLoaded();
-                } else {
-                    // Jinak přidáme posluchače události pro načtení
-                    img.addEventListener('load', imageLoaded);
-                    // Také musíme zachytit chyby načítání
-                    img.addEventListener('error', imageLoaded);
-                }
-            });
-        });
-    }
-
-    // Spustíme kontrolu při načtení stránky
-    handlePageLoad();
+        }
+    });
+    
+    // NOVÉ: Spustíme základní kontrolu ihned a nečekáme na DOMContentLoaded
+    // Toto zajistí, že menu může být zobrazeno co nejdříve po načtení stránky
+    setTimeout(function() {
+        if (!domContentLoaded) {
+            checkMousePosition();
+        }
+    }, 0);
 }
-
-
 
 // Sledování pozice myši
 document.addEventListener('mousemove', function(e) {
@@ -1332,8 +1342,7 @@ document.addEventListener('mousemove', function(e) {
     // Uložíme pozici do localStorage pro obnovení po refreshi
     localStorage.setItem('mouseX', mouseX);
     localStorage.setItem('mouseY', mouseY);
-});
-    
+});    
 // ----- SECOND DROPDOWN MENU FUNCTIONALITY -----
 const dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
 const dropdownContent2 = document.querySelector(".dropdown-content-second");
@@ -1343,10 +1352,10 @@ if (dropdownToggle2 && dropdownContent2) {
     let hideTimeoutSecond;
     let animationTimeoutSecond;
     let inactivityTimeoutSecond;
-    let repositionTimeoutSecond; // NOVÉ: Timeout pro přepočet pozice
+    let repositionTimeoutSecond; // Timeout pro přepočet pozice
     const inactivityDelay = 2000; // 2 sekundy neaktivity
     let isClickOpened2 = false;
-    let isClosingInProgress2 = false; // NOVÉ: Příznak pro koordinaci animace zavření
+    let isClosingInProgress2 = false; // Příznak pro koordinaci animace zavření
     
     // Předpřiprava stylu pro plynulou animaci
     dropdownContent2.style.transition = "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
@@ -1364,7 +1373,14 @@ if (dropdownToggle2 && dropdownContent2) {
     deadZoneElement2.style.display = "none";
     deadZoneElement2.style.zIndex = "999"; // Vysoký z-index
     
-    // NOVÉ: Funkce pro nastavení pozice a rozměrů mrtvé zóny s vyšší spolehlivostí
+    // NOVÉ: Příznak pro stav načítání DOM
+    let domContentLoaded2 = false;
+    let pageLoaded2 = false;
+    
+    // NOVÉ: Příznak pro sledování, zda máme zobrazit menu po načtení
+    let shouldShowMenuAfterLoad2 = false;
+    
+    // Funkce pro nastavení pozice a rozměrů mrtvé zóny s vyšší spolehlivostí
     function positionDeadZone2() {
         if (dropdownContent2.style.display === "block") {
             // Použijeme requestAnimationFrame pro lepší optimalizaci
@@ -1383,7 +1399,7 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     }
     
-    // NOVÉ: Funkce pro kontinuální přepočítání pozice
+    // Funkce pro kontinuální přepočítání pozice
     function startPositionMonitoring2() {
         clearTimeout(repositionTimeoutSecond);
         
@@ -1506,6 +1522,89 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     };
     
+    // NOVÉ: Optimalizovaná funkce pro kontrolu pozice myši
+    function checkMousePosition2() {
+        // Kontrola uložené pozice z localStorage
+        const savedMouseX = parseInt(localStorage.getItem('mouseX')) || 0;
+        const savedMouseY = parseInt(localStorage.getItem('mouseY')) || 0;
+        
+        // Nastavení globálních proměnných
+        mouseX = savedMouseX;
+        mouseY = savedMouseY;
+        
+        // Získáme aktuální pozice elementů
+        const toggleRect = dropdownToggle2.getBoundingClientRect();
+        
+        // Zjistíme, zda je myš nad toggle tlačítkem
+        const isOverToggle = 
+            mouseX >= toggleRect.left && 
+            mouseX <= toggleRect.right && 
+            mouseY >= toggleRect.top && 
+            mouseY <= toggleRect.bottom;
+            
+        // Zjistíme, zda byl kurzor nad dropdown tlačítkem před refreshem
+        const wasOverToggle = localStorage.getItem('isMouseOverSecondToggle') === 'true';
+        
+        // Rozhodneme, zda máme zobrazit menu
+        if (isOverToggle || wasOverToggle) {
+            shouldShowMenuAfterLoad2 = true;
+            if (domContentLoaded2) {
+                showMenu2();
+            }
+        }
+        
+        // Kontrola otevřeného menu z localStorage (pro kliknuté menu)
+        if (localStorage.getItem('isSecondMenuOpen') === 'true') {
+            isClickOpened2 = true;
+            if (domContentLoaded2) {
+                showMenu2();
+            } else {
+                shouldShowMenuAfterLoad2 = true;
+            }
+        }
+    }
+    
+    // NOVÉ: Událost pro DOMContentLoaded - nejrychlejší způsob zjištění, že DOM je připraven
+    document.addEventListener('DOMContentLoaded', function() {
+        domContentLoaded2 = true;
+        
+        // Zkontrolujeme pozici myši ihned po načtení DOM
+        checkMousePosition2();
+        
+        // Pokud by mělo být menu zobrazeno, zobrazíme ho ihned
+        if (shouldShowMenuAfterLoad2) {
+            showMenu2();
+        }
+    });
+    
+    // NOVÉ: Událost pro load - záložní mechanismus, pokud by DOMContentLoaded nebylo zavoláno
+    window.addEventListener('load', function() {
+        pageLoaded2 = true;
+        
+        // Přepočítáme pozici mrtvé zóny po načtení všeho obsahu
+        if (dropdownContent2.style.display === "block") {
+            startPositionMonitoring2();
+        }
+        
+        // Pokud by z nějakého důvodu DOMContentLoaded nebylo zavoláno, spustíme kontrolu zde
+        if (!domContentLoaded2) {
+            domContentLoaded2 = true;
+            checkMousePosition2();
+            
+            if (shouldShowMenuAfterLoad2) {
+                showMenu2();
+            }
+        }
+    });
+    
+    // NOVÉ: Spustíme základní kontrolu ihned a nečekáme na DOMContentLoaded
+    // Toto zajistí, že menu může být zobrazeno co nejdříve po načtení stránky
+    setTimeout(function() {
+        if (!domContentLoaded2) {
+            checkMousePosition2();
+        }
+    }, 0);
+    
     // NOVÉ: Lépe zpracovat událost zobrazení menu po najetí kurzoru
     dropdownToggle2.addEventListener("mouseenter", function() {
         // Zavření prvního menu pokud je otevřené
@@ -1526,8 +1625,24 @@ if (dropdownToggle2 && dropdownContent2) {
     });
     
     // NOVÉ: Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
-    dropdownToggle2.addEventListener("mouseleave", function() {
+    dropdownToggle2.addEventListener("mouseleave", function(e) {
         localStorage.removeItem('isMouseOverSecondToggle');
+        
+        if (isClickOpened2) return; // Pokud je otevřeno kliknutím, neskrývat
+        
+        // Zkontrolujeme, kam kurzor směřuje
+        const toElement = e.relatedTarget;
+        
+        // Pokud kurzor nejde do mrtvé zóny nebo do podmenu, zahájíme skrývání
+        if (toElement !== deadZoneElement2 && !deadZoneElement2.contains(toElement) && 
+            toElement !== dropdownContent2 && !dropdownContent2.contains(toElement)) {
+            
+            hideTimeoutSecond = setTimeout(function() {
+                if (!isClickOpened2) { // Dvojitá kontrola před skrytím
+                    hideMenu2();
+                }
+            }, 250);
+        }
     });
     
     // Přidáme event listener pro kliknutí na tlačítko - UPRAVENO PRO SPOLEHLIVOST
@@ -1673,25 +1788,6 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     });
     
-    // Skrytí druhého podmenu při opuštění kurzoru tlačítka - pouze pokud není otevřeno kliknutím
-    dropdownToggle2.addEventListener("mouseleave", function(e) {
-        if (isClickOpened2) return; // Pokud je otevřeno kliknutím, neskrývat
-        
-        // Zkontrolujeme, kam kurzor směřuje
-        const toElement = e.relatedTarget;
-        
-        // Pokud kurzor nejde do mrtvé zóny nebo do podmenu, zahájíme skrývání
-        if (toElement !== deadZoneElement2 && !deadZoneElement2.contains(toElement) && 
-            toElement !== dropdownContent2 && !dropdownContent2.contains(toElement)) {
-            
-            hideTimeoutSecond = setTimeout(function() {
-                if (!isClickOpened2) { // Dvojitá kontrola před skrytím
-                    hideMenu2();
-                }
-            }, 250);
-        }
-    });
-    
     // Skrytí druhého podmenu při opuštění kurzoru podmenu - pouze pokud není otevřeno kliknutím
     dropdownContent2.addEventListener("mouseleave", function(e) {
         if (isClickOpened2) return; // Pokud je otevřeno kliknutím, neskrývat
@@ -1740,43 +1836,6 @@ if (dropdownToggle2 && dropdownContent2) {
             isClickOpened2 = false;
         }
     });
-    
-    // NOVÉ: Funkce pro kontrolu pozice myši při načtení stránky s ohledem na obrázky
-    function handlePageLoad2() {
-        // Počkáme, až budou obrázky načteny, než začneme s inicializací menu
-        ensureImagesLoaded().then(() => {
-            // Načtení uložené pozice myši
-            const savedMouseX = parseInt(localStorage.getItem('mouseX')) || 0;
-            const savedMouseY = parseInt(localStorage.getItem('mouseY')) || 0;
-            
-            // Nastavení globálních proměnných pro pozici myši
-            mouseX = savedMouseX;
-            mouseY = savedMouseY;
-            
-            // Zjistíme, zda byl kurzor nad dropdown tlačítkem před refreshem
-            if (localStorage.getItem('isMouseOverSecondToggle') === 'true') {
-                // Automaticky zobrazíme menu při hoveru
-                showMenu2();
-            }
-            
-            // Kontrola otevřeného menu z localStorage (pro kliknuté menu)
-            if (localStorage.getItem('isSecondMenuOpen') === 'true') {
-                isClickOpened2 = true;
-                showMenu2();
-            }
-            
-            // NOVÉ: Přepočítáme pozici mrtvé zóny po načtení obrázků
-            if (dropdownContent2.style.display === "block") {
-                startPositionMonitoring2();
-            }
-        });
-    }
-    
-    // NOVÉ: Využití existující funkce ensureImagesLoaded z prvního menu
-    // Funkce by měla být definována v globálním kontextu
-    
-    // Spustíme kontrolu při načtení stránky
-    handlePageLoad2();
 }
 
 // Zajištění sledování pozice myši pro oba dropdowny
@@ -1794,55 +1853,6 @@ document.addEventListener('mousemove', function(e) {
     localStorage.setItem('mouseX', mouseX);
     localStorage.setItem('mouseY', mouseY);
 });
-
-// NOVÉ: Funkce pro zajištění, že obrázky budou načteny nebo alespoň započato jejich načítání
-// Tato funkce by měla být umístěna v globálním kontextu, aby byla dostupná pro obě menu
-function ensureImagesLoaded() {
-    return new Promise((resolve) => {
-        // Zjistíme všechny obrázky na stránce
-        const images = document.querySelectorAll('img');
-        
-        // Pokud nejsou žádné obrázky, okamžitě vrátíme true
-        if (images.length === 0) {
-            resolve(true);
-            return;
-        }
-        
-        // Počítadlo načtených obrázků
-        let loadedImages = 0;
-        
-        // Funkce, která se zavolá po načtení obrázku
-        function imageLoaded() {
-            loadedImages++;
-            
-            // Pokud jsou všechny obrázky načteny nebo čas vypršel, vrátíme true
-            if (loadedImages === images.length) {
-                resolve(true);
-            }
-        }
-        
-        // Maximální doba čekání před pokračováním (3 sekundy)
-        const maxWaitTime = 3000;
-        
-        // Po vypršení času pokračujeme bez ohledu na stav obrázků
-        setTimeout(() => {
-            resolve(true);
-        }, maxWaitTime);
-        
-        // Pro každý obrázek přidáme posluchače událostí
-        images.forEach(img => {
-            // Pokud je již obrázek načten (z cache), přímo zvýšíme počítadlo
-            if (img.complete) {
-                imageLoaded();
-            } else {
-                // Jinak přidáme posluchače události pro načtení
-                img.addEventListener('load', imageLoaded);
-                // Také musíme zachytit chyby načítání
-                img.addEventListener('error', imageLoaded);
-            }
-        });
-    });
-}
 // ----- SUB-DROPDOWN MENU FUNCTIONALITY -----
 const subDropdownToggle = document.querySelector(".sub-dropdown-toggle");
 const subDropdownContent = document.querySelector(".sub-dropdown-content");
