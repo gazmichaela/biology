@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="style.css">
     <script src="script2.js" defer></script>
     <link rel="preload" href="style.css" as="style">
+    <link rel="preload" as="image" href="obrazky/logo_purk.png">
+    <link rel="preload" as="image" href="obrazky/home.png">
+
+
     <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
 </head>
 
 <body>
+
     <header>
 
         <a href="https://www.purkynka.cz/" target="_blank">
@@ -72,7 +77,7 @@
         <section>
             <h2>Nebuněčné organismy – viry</h2>
             <div class="zarazka"></div>
-            <img src="obrazky/viry.png" class="img-right-big">
+            <img data-scr="obrazky/viry.png" src="obrazky/viry.png" class="img-right-big">
             <p>Jednotlivá částice viru schopná infikovat buňku se nazývá <strong><dfn>virion</dfn></strong>. Viriony jsou tělíska různého tvaru. Každý je složen
                 z nukleové kyseliny a bílkovinného obalu – <strong><dfn>kapsidy</dfn></strong>. Složitější obalené viry mají i další obaly, tvořené bílkovinami a
                 fosfolipidy. Komplex nukleové kyseliny a kapsidy se nazývá <strong><dfn>nukleokapsid</dfn></strong>.</p>
@@ -89,7 +94,7 @@
             
             <h2>Buněčné organismy</h2>
             <h3>Buněčná teorie a role buněk i virů v živých organismech</h3>
-            <img src="obrazky/schema_cell.png" class="img-right-big">
+            <img daty-src="obrazky/schema_cell.png" src="obrazky/schema_cell.png" class="img-right-big">
            <!--<ul>
                 <li>buňka je základní stavební a funkční jednotkou živého organismu</li>
                 <li>všechny organismy jsou jí tvořeny nebo v ní žijí – máme jednobuněčné, mnohobuněčné organismy, také viry,
@@ -128,7 +133,7 @@
                     <li>Vyslovil pouze základy buněčné teorie.</li>
                     <li>Domníval se, že buňky mohou vznikat <em>de novo</em> = sami od sebe (dnes víme, není úplně pravda)</li>
                 </ul>
-                <img src="obrazky/type_cell.png" class="img-right">
+                <img data-src="obrazky/type_cell.png" src="obrazky/type_cell.png"  class="img-right">
                 <br>
                 <strong><li>1838-39 – Matthias Schleiden a Theodor Schwann</li></strong>
                 <ul>
@@ -277,17 +282,17 @@
             <div class="zarazka"></div>
             <h2>Rostlinná buňka</h2>
             <br>
-            <img src="obrazky/plant_cell.png" class="img-next">
-            <img src="obrazky/herb_cell.png" class="img-next">
+            <img data-src="obrazky/plant_cell.png" src="obrazky/plant_cell.png" class="img-next">
+            <img src="obrazky/herb_cell.png" loading="lazy" class="img-next">
             <div class="zarazka"></div>
             <h2>Živočišná buňka</h2>
             <br>
-            <img src="obrazky/animal_cell.png" class="img-next">
-            <img src="obrazky/a_cell.png" class="img-next">
+            <img data-src="obrazky/animal_cell.png" src="obrazky/animal_cell.png" class="img-next">
+            <img data-src="obrazky/a_cell.png" src="obrazky/a_cell.png" class="img-next">
             <div class="zarazka"></div>
             <h2>Buňka hub</h2>
             <br>
-            <img src="obrazky/mushroom_cell.png" class="img-bottom">
+            <img data-src="obrazky/mushroom_cell.png" src="obrazky/mushroom_cell.png"  class="img-bottom">
             <div class="zarazka"></div>
             <h2>Doporučujeme se podívat na:</h2>
             <br>
@@ -329,6 +334,12 @@
         <p>Vytvořeno pro vzdělávací účely</p>
         <p><a href="sources.html">Zdroj informací</a></p>
     </footer>
+ 
+        <!-- Obsah stránky... -->
+        
+       
+
+</body>
 </body>
 
 </html>

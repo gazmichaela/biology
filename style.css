@@ -576,6 +576,33 @@ footer p {
     margin: 21px 0px 0px 33px;
 }
 
+
+/* Prioritní načítání menu */
+header {
+    will-change: transform; /* Optimalizace vykreslování */
+}
+body {
+    will-change: transform; /* Optimalizace vykreslování */
+}
+
+.button-container {
+    will-change: transform; /* Optimalizace vykreslování */
+}
+
+/* Pro zrychlení zobrazování dropdown menu */
+.dropdown-content, 
+.dropdown-content-second, 
+.sub-dropdown-content {
+    transform: translateZ(0); /* Hardware akcelerace */
+    backface-visibility: hidden; /* Optimalizace vykreslování */
+}
+
+/* Optimalizace pro obrazky v menu */
+header img, .logo, .home-icon {
+    content-visibility: auto; /* Moderní optimalizace pro rychlé vykreslení */
+}
+
+
 .logo a {
     display: inline-block;
     width: 70%; /* Zmenšíme aktivní zónu na 70% šířky loga */
