@@ -605,23 +605,25 @@ header img, .logo, .home-icon {
 
 .logo a {
     display: inline-block;
-    width: 70%; /* Zmenšíme aktivní zónu na 70% šířky loga */
-    height: 70%; /* Zmenšíme aktivní zónu na 70% výšky loga */
+    width: 70%; 
+    height: 70%; 
     position: relative;
-    left: 15%; /* Vycentrujeme zmenšenou aktivní zónu */
-    top: 15%; /* Vycentrujeme zmenšenou aktivní zónu */
+    left: 15%; 
+    top: 15%; 
 }
 
+
 .logo img {
-    width: 100%; /* Obrázek zabírá celou šířku rodičovského kontejneru */
+    width: 100%; 
     height: auto;
     display: block;
     position: absolute;
-    left: -15%; /* Posuneme obrázek zpět na původní pozici */
-    top: -15%; /* Posuneme obrázek zpět na původní pozici */
-    width: 143%; /* Kompenzujeme zmenšení (100/70*100) */
+    left: -15%; 
+    top: -15%; 
+    width: 143%;
     height: auto;
 }
+
 
 /*.home-icon {
     display: inline-block;
