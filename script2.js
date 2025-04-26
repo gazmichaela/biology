@@ -2364,4 +2364,3 @@ if (subDropdownToggle && subDropdownContent) {
 //window.addEventListener('resize', function() {
  //   navHeight = header.offsetHeight;
 //});
-
