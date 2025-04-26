@@ -504,13 +504,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }, { passive: true });
         
-        // Event listener pro opuštění stránky - NE při navigaci
-        window.addEventListener('unload', function(e) {
-            // Při zavření stránky zachováme stav myši, ale zrušíme otevřená menu kliknutím
-            localStorage.setItem('isFirstMenuOpen', 'false');
-            localStorage.setItem('isSecondMenuOpen', 'false');
-            localStorage.setItem('isSubMenuOpen', 'false');
-        });
+        
         
         // Event listener pro obnovení stránky (F5, Ctrl+R)
         // Detekce obnovení stránky je těžká, ale můžeme využít beforeunload event 
