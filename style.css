@@ -129,14 +129,14 @@ header ul {
 }*/
 
 
-.sticky-header .dropdown-content.show,
+/*.sticky-header .dropdown-content.show,
 .sticky-header .dropdown-content-second.show,
 .sticky-header .sub-dropdown-content.show {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    z-index: 9999 !important; /* Extremely high z-index */
+    z-index: 9999 !important;
 }
 
 .sticky-header .dropdown-content,
@@ -170,12 +170,12 @@ header ul {
 }
 
 /* Make sure button container doesn't interfere */
-.sticky-header .button-container {
+/*.sticky-header .button-container {
     position: relative !important;
     z-index: 9000 !important;
-}
+}*/
 /* Kompletně skryjeme nepotřebné prvky v sticky headeru */
-.sticky-header h1,
+/*.sticky-header h1,
 .sticky-header > p,
 .sticky-header > br,
 .sticky-header div:not(.dropdown):not(.button-container) {
@@ -184,10 +184,10 @@ header ul {
     padding: 0 !important;
     height: 0 !important;
     visibility: hidden !important;
-}
+}*/
 
 /* Resetujeme pozicování navigace */
-.sticky-header ul {
+/*.sticky-header ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -195,27 +195,27 @@ header ul {
     justify-content: center;
     align-items: center;
     width: 100%; /* Zajistí, že menu zabírá celou šířku */
-    position: static; /* Resetuje případné relativní pozicování */
+   /* position: static; 
     min-width: max-content;
-}
+}*/
 
 /* Základní zarovnání položek menu */
-.sticky-header ul li {
+/*.sticky-header ul li {
     display: flex;
     align-items: center;
-}
+}*/
 
 /* Nastavení ikony domečku přesně podle požadavku */
-.sticky-header .home-icon {
+/*.sticky-header .home-icon {
     display: inline-block;
-}
+}*/
 
-.sticky-header .home-icon img {
+/*.sticky-header .home-icon img {
     width: 25px;
     height: auto;
     margin-left: 10px;
     margin-top: -2px;
-}
+}*/
 
 /*.sticky-header .dropdown-content,
 .sticky-header .dropdown-content-second,
@@ -228,12 +228,12 @@ header ul {
 }*/
 
 /* Skrytí nepotřebných prvků */
-.sticky-header .logo,
+/*.sticky-header .logo,
 .sticky-header h1,
 .sticky-header > p,
 .sticky-header > br {
     display: none;
-}
+}*/
 
 
 
@@ -639,7 +639,7 @@ footer p {
     z-index: 1000;
     margin: 21px 0px 0px 33px;
     opacity: 0;               /* Na začátku je obrázek neviditelný */
-    animation: showImage 1s ease 4s forwards; /* Animace trvá 1s, začne po 4 sekundách */
+    animation: showImage 1s ease 0.5s forwards; /* Animace trvá 1s, začne po 4 sekundách */
 }
  
 @keyframes showImage {
@@ -652,31 +652,31 @@ footer p {
 }
 
 /* Prioritní načítání menu */
-header {
-    will-change: transform; /* Optimalizace vykreslování */
-}
-body {
-    will-change: transform; /* Optimalizace vykreslování */
-}
+/*header {
+    will-change: transform; 
+}*/
+/*body {
+    will-change: transform; 
+}*/
 
-.button-container {
-    will-change: transform; /* Optimalizace vykreslování */
-}
+/*.button-container {
+    will-change: transform; 
+}*/
 
 /* Pro zrychlení zobrazování dropdown menu */
-.dropdown-content, 
+/*.dropdown-content, 
 .dropdown-content-second, 
 .sub-dropdown-content {
-    transform: translateZ(0); /* Hardware akcelerace */
-    backface-visibility: hidden; /* Optimalizace vykreslování */
-}
+    transform: translateZ(0); 
+    backface-visibility: hidden; 
+}*/
 
 /* Optimalizace pro obrazky v menu */
-header img,
+/*header img,
 .logo,
 .home-icon {
-    content-visibility: auto; /* Moderní optimalizace pro rychlé vykreslení */
-}
+    content-visibility: auto; 
+}*/
 
 
 .logo a {
@@ -822,7 +822,7 @@ header img,
 }
 
 .question.open {
-    background-color: #ff0000;
+    background-color: #dcdcdc;
     transition: background-color 0.3s ease;
 }
 
@@ -913,6 +913,7 @@ header img,
     z-index: 1;
     border-top-right-radius: 5px; 
 }
+
 
 .main-button:hover,
 .maine-button:hover,
