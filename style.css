@@ -147,28 +147,6 @@ header ul {
     display: none;
 }
 
-/* Specific positioning for main dropdowns */
-.sticky-header .dropdown-content {
-    top: 45px !important; /* Fixed distance from top */
-    left: 0 !important;
-}
-
-.sticky-header .dropdown-content-second {
-    top: 45px !important; /* Fixed distance from top */
-    left: 0 !important;
-}
-
-/* Specific positioning for sub-dropdowns */
-.sticky-header .sub-dropdown-content {
-    top: 0 !important;
-    left: 100% !important;
-}
-
-/* Make sure dropdown parent is positioned correctly */
-.sticky-header .dropdown {
-    position: relative !important;
-}
-
 /* Make sure button container doesn't interfere */
 /*.sticky-header .button-container {
     position: relative !important;
@@ -870,6 +848,7 @@ footer p {
     align-items: center; 
     justify-content: center;
     padding: 12px 20px;
+
 }
 
 .main-button {
@@ -884,6 +863,7 @@ footer p {
     height: 19px;
 }
 
+
 .dropdown-toggle,
 .dropdown-toggle-second {
     width: 100%;
@@ -893,6 +873,7 @@ footer p {
     display: inline-flex;
     height: 43px;
     margin-left: 2px;
+    shape-outside: border-box;
 }
 
 .sub-dropdown-toggle {
@@ -913,6 +894,9 @@ footer p {
     z-index: 1;
     border-top-right-radius: 5px; 
 }
+
+
+
 
 
 .main-button:hover,
