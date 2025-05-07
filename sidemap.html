@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Zdroje</title>
+    <title>Mapa stránek</title>
     <link rel="stylesheet" href="style.css">
     <script src="script2.js" defer></script>
     <link rel="preload" href="script2.js" as="script">
@@ -14,12 +14,10 @@
     <header>
         <a href="https://www.purkynka.cz/" target="_blank"><img src="obrazky/logo_purk.png" alt="logo školy" class="logo"/></a>
         <br>
-        <h1>Zdroje</h1>
+        <h1>Mapa stránek</h1>
         <br>
         <ul>
-            <span title="Vrátit se na hlavní stránku">
-                <a href="index.html" class="home-icon"><img src="obrazky/home.png" alt="Domů" class="button-container"></a>  
-            </span>
+            <a href="index.html" class="home-icon"><img src="obrazky/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku"></a>  
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
@@ -64,35 +62,40 @@
     </header>
     
     <article>
-        <section>
-            <h2>Použité zdroje</h2>
+        <section class="sidemap">
+            <h2>Mapa webu</h2>
             <ul>
-                <li>NG, Jane (2025).<em> Co je systémové myšlení? | Snadný průvodce odemknutím nových perspektiv v roce
-                    2025.</em> Online. AhaSlides. Aktualizováno 3.1.2025. Dostupné z: <a href="https://ahaslides.com/cs/blog/what-is-systems-thinking/">https://ahaslides.com/cs/blog/what-is-systems-thinking/</a>. [citováno 2025-03-31].</li>
-            </ul>
-            <h2>Doporučená literatura</h2>
-            <ul>
-                <li>PRUKNER, Vítězslav; NOVÁK, Jaromír.<em> Základy magamentu</em>. Online. Univerzita Palackého v Olomouci. ISBN 978-80-244-4182-5.
-                    Dostupné z: <a href="https://publi.cz/books/189/01.html">https://publi.cz/books/189/01.html</a>. [citováno 2025-03-31].</li>
-                <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/bunecna-biologie">https://eluc.ikap.cz/lekce/bunecna-biologie</a>. [citováno 2025-03-31].</li>
-                <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii">https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii</a>. [citováno 2025-03-31].</li>
-                <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/biologie-cloveka">https://eluc.ikap.cz/lekce/biologie-cloveka</a>. [citováno 2025-03-31].</li>
-            </ul>
-            <h2>Použité obrázky</h2>
-            <ul>
-                <li><a href="https://www.purkynka.cz/wp-content/uploads/2022/04/Purkynka-HOR_barva.png">https://www.purkynka.cz/wp-content/uploads/2022/04/Purkynka-HOR_barva.png</a></li>
-                <li><a href="https://deepai.org/machine-learning-model/text2img">https://deepai.org/machine-learning-model/text2img</a></li>
-                <li><a href="https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/100/images/image-5ebae8a8d6026.png">https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/100/images/image-5ebae8a8d6026.png</a></a></li>
-                <li><a href="https://cdn.pixabay.com/photo/2016/08/24/17/31/skeletons-1617539_1280.jpg">https://cdn.pixabay.com/photo/2016/08/24/17/31/skeletons-1617539_1280.jpg</a></li>
+                <li><a href="index.html">Hlavní stránka</li></a>
+                <li><a href="basic_of_system.html">Základy systémového myšlení, systém</a>
+                    <ul>
+                        <li><a href="tools.html">Úvod do systémové biologie</a>
+                            <ul>
+                                <li><a href="system_approach.html">Systémový přístup</li></a> 
+                                <li><a href="system_thinking.html"> Systémové myšlení</li></a>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="teorie.html">Teorie systémů</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>Základy živých soustav
+                    <ul>
+                        <li><a href="properties_live.html">Vlastnosti živých soustav</a></li>
+                        <li><a href="origin_of_life.html">Vznik života</a></li>
+                    </ul>
+                </li>
+                <li><a href="cell.html">Buněčné a nebuněčné organismy</a></li>
+                <li><a href="human.html">Člověk</a></li>
             </ul>
         <div class="zarazka"></div>
         </section>
     </article>
 
     <footer>
-        <p>&copy;2025 Michaela Gažová a Daniel Friedl</p>
+        <p>&copy;2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
         <p>Vytvořeno pro vzdělávací účely</p>
-        <p><a href="sources.html">Zdroj informací</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
     </footer>
 </body>
 

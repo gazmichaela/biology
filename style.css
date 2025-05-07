@@ -273,9 +273,10 @@ footer p {
     background-color: rgba(0, 0, 0, 0.9);
     align-items: center;
     justify-content: center;
-    }
+}
+
     /* Kontejner pro obrázek - pomůže s centrováním a posunem */
-    .image-container {
+.image-container {
     position: relative;
     width: 90%;
     height: 90%;
@@ -283,29 +284,32 @@ footer p {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    }
+}
+
     /* Obrázek v modalním okně */
-    .modal-content {
+.modal-content {
     display: block;
     max-width: 100%;
     max-height: 100%;
     cursor: zoom-in; /* Kurzor lupa pro zvětšení */
     transition: transform 0.3s ease;
     object-fit: contain;
-    }
+}
+
     /* Styl pro zvětšený obrázek */
-    .modal-content.zoomed {
+.modal-content.zoomed {
     cursor: grab; /* Ruka (grab) pro indikaci posouvání */
     max-width: none;
     max-height: none;
     transform: scale(2);
-    }
+}
     /* Styl pro aktivní posouvání */
     .modal-content.zoomed.grabbing {
     cursor: grabbing;
     }
+
     /* Tlačítko pro zavření modálního okna */
-    .close {
+.close {
     position: absolute;
     top: 15px;
     right: 35px;
@@ -315,25 +319,26 @@ footer p {
     transition: 0.3s;
     cursor: pointer;
     z-index: 1001;
-    }
-    .close,
-    .close {
+}
+
+.close {
     color: #bbb;
     text-decoration: none;
-    
-    }
+}
 
-    .close:hover {
+.close:hover {
         color: #858484; /* Tmavší barva při najetí myší */
-    }
-    /* Třída pro obrázky, které lze zvětšit */
-    .zoomable {
+}
+
+/* Třída pro obrázky, které lze zvětšit */
+.zoomable {
     cursor: pointer;
     transition: transform 0.2s;
-    }
-    .zoomable {
+}
+
+.zoomable {
     transform: scale(1.05);
-    }
+}
 
 /*===============================================================*/
 /*          OBRÁZKY .img          */
@@ -407,6 +412,10 @@ footer p {
 
 /*===============================================================*/
 /*          OSTATNÍ TŘÍDY          */
+
+.sidemap a {
+    color: inherit;
+}
 
 .logo {
     width: 175px;
