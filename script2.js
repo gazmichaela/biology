@@ -2341,8 +2341,6 @@ if (subDropdownToggle && subDropdownContent) {
 
 
 //---------STICKY HEADER FUNCTIONALITY-------------//
-// Enhanced Sticky Header with Mouse Movement Tracking and localStorage States
-
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Add CSS styles for sticky header
     insertStickyHeaderStyles();
@@ -3524,52 +3522,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // DOKONČENÍ: Funkce pro inicializaci domečku v sticky headeru
-  function initializeHomeIcon(stickyHeader) {
+   // UPRAVENO: Funkce pro inicializaci domečku s přesnou aktivní zónou pouze pro obrázek
+function initializeHomeIcon(stickyHeader) {
     // Najít všechny prvky s třídou home-icon ve sticky headeru
     const homeIcons = stickyHeader.querySelectorAll('.home-icon');
-    
+  
     homeIcons.forEach(homeIcon => {
-      // Pokud ikona nemá atribut href, přidáme ho
-      if (!homeIcon.hasAttribute('href')) {
-        homeIcon.setAttribute('href', '/');  // Nastavte správnou cestu k domovské stránce
-      }
-      
-      // Zajistíme, že element funguje jako odkaz
-      homeIcon.style.cursor = 'pointer';
-      homeIcon.style.pointerEvents = 'auto'; // Výslovně povolíme interakci
-      
-      // Najít obrázek uvnitř home-icon, pokud existuje
+      // Najít obrázek uvnitř home-icon
       const img = homeIcon.querySelector('img');
-      if (img) {
-        img.style.pointerEvents = 'auto'; // Povolíme interakci i pro samotný obrázek
-      }
-      
-      // Přidání event listeneru pro kliknutí
-      homeIcon.addEventListener('click', function(e) {
-        e.preventDefault(); // Zastavíme výchozí chování
-        e.stopPropagation(); // Zabráníme bubblování události
-        
-        // Přesměrování na domovskou stránku
-        window.location.href = homeIcon.getAttribute('href') || '/';
+      if (!img) return;
+  
+      // Získat adresu pro odkaz
+      const href = homeIcon.getAttribute('href') || '/';
+  
+      // Vytvoříme nový kontejner, který bude mít pointer-events: none
+      const container = document.createElement('span');
+      container.classList.add('home-icon-container');
+      container.style.display = 'inline-block';
+      container.style.position = 'relative';
+      container.style.pointerEvents = 'none'; // Vypne všechny interakce na kontejneru
+  
+      // Vytvoříme nový img element s vlastními clickable vlastnostmi
+      const newImg = document.createElement('img');
+      newImg.src = img.src;
+      newImg.alt = img.alt || 'Home';
+      newImg.style.width = '25px';
+      newImg.style.height = 'auto';
+      newImg.style.marginLeft = '10px';
+      newImg.style.marginTop = '9.3px';
+      newImg.style.pointerEvents = 'auto'; // Zapne interakci pouze pro obrázek
+      newImg.style.cursor = 'pointer';
+  
+      // Přidáme event listener přímo na obrázek
+      newImg.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.href = href;
       });
-      
-      // Přidání vizuálního efektu při najetí myší
-      homeIcon.addEventListener('mouseenter', function() {
-        if (img) {
-          img.style.filter = 'brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%)';
-        }
-        homeIcon.style.opacity = '0.9'; // Mírné zesvětlení
+  
+      // Efekt při najetí myší
+      newImg.addEventListener('mouseenter', function() {
+        newImg.style.filter = 'brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%)';
       });
-      
-      homeIcon.addEventListener('mouseleave', function() {
-        if (img) {
-          img.style.filter = ''; // Resetujeme filter při odjetí myši
-        }
-        homeIcon.style.opacity = '1'; // Obnovíme normální opacity
+  
+      newImg.addEventListener('mouseleave', function() {
+        newImg.style.filter = '';
       });
-      
-      console.log('Home icon initialized with click functionality');
+  
+      // Přidáme obrázek do kontejneru
+      container.appendChild(newImg);
+  
+      // Nahradíme původní element novým kontejnerem
+      homeIcon.parentNode.replaceChild(container, homeIcon);
+  
+      console.log('Home icon rebuilt with precise click area limited to the image only');
     });
   }
 //----- ZOOM FUNCTIONALITY -----//
