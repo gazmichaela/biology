@@ -191,7 +191,7 @@ article section li li li {
 
 article section p {
     margin-left: 1.2em;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.75em;
 }
 
 article section h2 {
@@ -411,7 +411,7 @@ footer p {
 .img-bottom {
     margin: 10px;
     /* margin: 1%; */
-    width: 50%;
+    width: 40%;
     margin-left: 5%;
 }
 
