@@ -1,7 +1,7 @@
 /* ===== 1. Variabilní fonty ===== */
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
+  src: url('../fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
   font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
   font-style: normal;
   font-display: swap;
@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/Inter-Italic-VariableFont_opsz-wght.woff2') format('woff2');
+  src: url('../fonts/Inter/Inter-Italic-VariableFont_opsz-wght.woff2') format('woff2');
   font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
   font-style: italic;
   font-display: swap;
@@ -18,7 +18,7 @@
 /* ===== 2. Statické fallback řezy ===== */
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
+  src: url('../fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
   font-weight: 400; /* Váha pro "normal" */
   font-style: normal;
   font-display: swap;
@@ -26,7 +26,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/static/Inter_18pt-Bold.woff2') format('woff2');
+  src: url('../fonts/Inter/static/Inter_18pt-Bold.woff2') format('woff2');
   font-weight: 700; /* Váha pro "bold" */
   font-style: normal;
   font-display: swap;
@@ -34,7 +34,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/static/Inter_18pt-Italic.woff2') format('woff2');
+  src: url('../fonts/Inter/static/Inter_18pt-Italic.woff2') format('woff2');
   font-weight: 400; /* Váha pro "normal" */
   font-style: italic;
   font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/static/Inter_18pt-BoldItalic.woff2') format('woff2');
+  src: url('../fonts/Inter/static/Inter_18pt-BoldItalic.woff2') format('woff2');
   font-weight: 700; /* Váha pro "bold" */
   font-style: italic;
   font-display: swap;
@@ -50,7 +50,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/static/Inter_18pt-SemiBold.woff2') format('woff2');
+  src: url('../fonts/Inter/static/Inter_18pt-SemiBold.woff2') format('woff2');
   font-weight: 600; /* Váha pro "semi-bold" (600) */
   font-style: normal;
   font-display: swap;
@@ -58,7 +58,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('fonts/Inter/static/Inter_18pt-ExtraBold.woff2') format('woff2');
+  src: url('../fonts/Inter/static/Inter_18pt-ExtraBold.woff2') format('woff2');
   font-weight: 800; /* Váha pro "extra-bold" (800) */
   font-style: normal;
   font-display: swap;
@@ -145,17 +145,18 @@ section {
     text-align: justify; 
 }
 
-.button {
-    background: #1c77e8;
+.button,
+.button-light {
     border-radius: 20px;
     padding: 9px 20px;
     margin-left: 30px;
+    margin-top: 20px;
     display: inline-block;  
     cursor: pointer;        
     text-align: center;
     text-decoration: none;
     color: white;
-    font-weight: bold;
+    font-weight: 700;
     justify-content: center;
     border: 1px solid black;
     outline: 0px solid transparent; /* Příprava pro hover efekt */
@@ -163,10 +164,20 @@ section {
     position: relative;
 }
 
-.button:hover {
+.button {
+    background: #1c77e8;
+}
+
+.button-light {
+    background-color: #309ce5;
+}
+
+.button:hover,
+.button-light:hover {
     outline: 1.5px solid black; /* Přidá druhé ohraničení při najetí myší */
     outline-offset: 0px;
     z-index: 1;
+    font-weight: 800;
 }
 
 article section li {
@@ -495,6 +506,29 @@ footer p {
 
 .zarazka {
     clear: both;
+}
+
+.video-wrapper {
+    max-width: 1600px;
+    width: 75%;
+    /* margin: 0 auto; */  /* Lze přidat pro centrování, jinak zarovnání vlevo */
+}
+
+.responsive-video {
+    position: relative;
+    padding-bottom: 56.25%; /* Poměr stran 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.responsive-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 /*_______________________________________________________________*/

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> Systémové myšlení</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script2.js" defer></script>
-    <link rel="preload" href="script2.js" as="script">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script2.js" defer></script>
+    <link rel="preload" href="js/script2.js" as="script">
     <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
 </head>
 
@@ -31,19 +31,19 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
                     <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
                 </div>
                 <div class="dropdown-content">  
                     <div class="sub-dropdown">
-                        <a href="tools.html" class="centered">Úvod</a>
+                        <a href="system-introduction.html" class="centered">Úvod</a>
                         <span class="sub-dropdown-toggle">&#9656;</span>
                         <div class="sub-dropdown-content">
-                            <a href="system_approach.html">Systémový přístup</a>
-                            <a href="system_thinking.html">Systémové myšlení</a>
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
                         </div>
                     </div>
-                    <a href="teorie.html">Teorie systémů</a>
+                    <a href="system-theory.html">Teorie systémů</a>
                 </div>
             </li>
 
@@ -54,8 +54,8 @@
                     <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
                 </div>
                 <div class="dropdown-content-second">
-                    <a href="properties_live.html">Vlastnosti živých soustav</a>
-                    <a href="origin_of_life.html">Vznik života</a>
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
                 </div>
             </li>
               
@@ -122,36 +122,43 @@
             <div class="zarazka"></div>
             <h2>Otestujte své znalosti:</h2><br>
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
-            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn">Zobrazit otázky</button>
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"  title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
   
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question">Proč je důležité brát v úvahu celé propojení systémů, místo soustředění se pouze na jednotlivé komponenty?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč je důležité brát v úvahu celé propojení systémů, místo soustředění se pouze na jednotlivé komponenty?</div>
                         <div class="answer">Zaměření se pouze na komponenty je jako snažit se pochopit auto zkoumáním samotného motoru, aniž bychom braliv úvahu převodovku, kola, řízení nebo palivový systém.
                         <br> Systémové myšlení je nezbytně nutné použít pro pochopení toho, jak auto funguje.</div>
                 </div>
   
                 <div class="faq-item">
-                    <div class="question">Co by se stalo, kdybychom zapomněli na propojení mezi částmi systému při řešení velkých problémů, jako je například zdraví populace?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co by se stalo, kdybychom zapomněli na propojení mezi částmi systému při řešení velkých problémů, jako je například zdraví populace?</div>
                         <div class="answer">Ignorování propojení při řešení zdraví populace by vedlo k drahým, neefektivním a nespravedlivým řešením, která by léčila jen příznaky
                         a často by vytvářela nové problémy.</div>
                 </div>
   
                 <div class="faq-item">
-                    <div class="question">Jaké výhody přináší systémové myšlení ve zdravotnictví?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaké výhody přináší systémové myšlení ve zdravotnictví?</div>
                         <div class="answer">Systémové myšlení ve zdravotnictví zlepšuje péči a efektivitu tím, že se zaměřuje na vzájemné propojení všech jeho částí – například
                         zásadního propojení mezi fyzickými a psychickým stavem pacienta – a řeší kořenové příčiny pro dosažení úspěšného celkového zotavení.</div>
                 </div>
   
                 <div class="faq-item">
-                    <div class="question">Kde všude lze využít systémové myšlení?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Kde všude lze využít systémové myšlení?</div>
                         <div class="answer">Systémové myšlení nachází uplatnění v mnoha oblastech, jako například v <strong>medicíně</strong> (personalizovaná léčba, pochopení komplexních onemocnení),
                         <strong>biotechnologiích</strong> (metabolické inženýrství, syntetická biologie), <strong>ekologii</strong> (modelování ekosystémů), <strong>zemědělství</strong> (optimalizace výnosů), <strong>farmakologii</strong> (vývoj léčiv),
                         <strong>informatice</strong> (bioinformatika, umělá inteligence) či <strong>ekonomii</strong> (modelování komplexních trhů).</div>
                 </div>
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
+            <br>
+            <h2>Doporučená literatura</h2>
+            <ul>
+                <li>NG, Jane (2025).<em> Co je systémové myšlení? | Snadný průvodce odemknutím nových perspektiv v roce
+                    2025.</em> Online. AhaSlides. Aktualizováno 3.1.2025. Dostupné z: <a href="https://ahaslides.com/cs/blog/what-is-systems-thinking/" target="_blank">https://ahaslides.com/cs/blog/what-is-systems-thinking/</a>. [citováno 2025-05-09].</li>
+            </ul>
+            <div class="zarazka"></div>
         </section>
     </article>
 

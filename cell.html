@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Buněčné a nebuněčné organismy</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script2.js" defer></script>
-    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script2.js" defer></script>
+    <link rel="preload" href="css/style.css" as="style">
     <link rel="preload" href="obrazky/logo_purk.png" as="image" fetchpriority="high">
     <link rel="preload" href="obrazky/home.png" as="image">
     <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png"> 
@@ -33,19 +33,19 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="basic_of_system.html" class="main-button">Základy systémového myšlení</a>
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
                     <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
                 </div>
                 <div class="dropdown-content">  
                     <div class="sub-dropdown">
-                        <a href="tools.html" class="centered">Úvod</a>
+                        <a href="system-introduction.html" class="centered">Úvod</a>
                         <span class="sub-dropdown-toggle">&#9656;</span>
                         <div class="sub-dropdown-content">
-                            <a href="system_approach.html">Systémový přístup</a>
-                            <a href="system_thinking.html">Systémové myšlení</a>
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
                         </div>
                     </div>
-                    <a href="teorie.html">Teorie systémů</a>
+                    <a href="system-theory.html">Teorie systémů</a>
                 </div>
             </li>
 
@@ -56,8 +56,8 @@
                     <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
                 </div>
                 <div class="dropdown-content-second">
-                    <a href="properties_live.html">Vlastnosti živých soustav</a>
-                    <a href="origin_of_life.html">Vznik života</a>
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
                 </div>
             </li>
               
@@ -78,22 +78,29 @@
             <h2>Nebuněčné organismy – viry</h2>
             <div class="zarazka"></div>
             <picture>
-                <source srcset="images/webp/viry-bezpozadi.webp" type="image/webp" data-scr="images/webp/viry-bezpozadi.webp">
-                <img src="images/png/viry-bezpozadi.png" data-scr="images/png/viry-bezpozadi.png" loading="lazy" class="img-right-middle zoomable">
-            </picture>              
-            <p>Jednotlivá částice viru schopná infikovat buňku se nazývá <strong><dfn>virion</dfn></strong>. Viriony jsou tělíska různého tvaru. Každý je složen
-                z nukleové kyseliny a bílkovinného obalu – <strong><dfn>kapsidy</dfn></strong>. Složitější obalené viry mají i další obaly, tvořené bílkovinami a
-                fosfolipidy. Komplex nukleové kyseliny a kapsidy se nazývá <strong><dfn>nukleokapsid</dfn></strong>.</p>
-
-            <p><strong>Nukleová kyselina<dfn></dfn></strong> nese genetickou informaci viru. Je tvořena obvykle jednou molekulou nukleové kyseliny
-                <strong>(DNA nebo RNA)</strong>. Některé viry mají genom tvořený více molekulami nukleové kyseliny, např. virus chřipky má 8
-                segmentů RNA.</p>
-            <p><strong>Kapsida</strong> chrání nukleovou kyselinu a zprostředkuje vazbu na hostitelskou buňku. Struktura je často geometricky
-                pravidelná. Kapsida je složena z bílkovinných podjednotek <dfn>kapsomer</dfn>.</p>
-            <p>Virové bílkoviny jsou vždy specifické a mají schopnost aktivovat imunitní systém hostitele, aby začal tvořit protilátky.</p>
-            <p>Tvar virionu může být kulovitý, tyčinkovitý nebo vláknitý, mohou z nich vyčnívat hroty nebo výběžky. Bakteriofág (virus
-                bakterií) má komplexní – složenou strukturu virionu, virus tabákové mozaiky je neobalený virus, retrovirus je obalený
-                virus.</p>
+                <source srcset="images/webp/virus-stavba.webp" type="image/webp" data-scr="images/webp/virus-stavba.webp">
+                <img src="images/png/virus-stavba.png" data-scr="images/png/virus-stavba.png" loading="lazy" class="img-right-middle zoomable">
+            </picture>
+            <p>Viry jsou považovány za <strong>nebuněčné organismy</strong>, protože neobsahují buněčnou strukturu a nedokážou samostatně vykonávat životní funkce.
+            <p>Virové částice obsahují jednu nebo několik molekul jediného typu nukleové kyseliny – buď RNA nebo DNA. Podle toho rozlišujeme RNA viry a DNA viry.</p>
+            <p>Viry se nemnoží dělením, ale replikací, tzn. syntézou svých složek. Při syntéze jsou viry závislé na hostitelské buňce, kdy k pomnožení využívají jejích
+                enzymatických struktur. Jsou schopny přenést svou nukleovou kyselinu z jedné hostitelské buňky do druhé tak, že:</p>
+            <ol style="list-style: lower-roman;">
+                <li>buď překryjí hostitelskou genetickou informaci svou genetickou informací,</li>
+                <li>nebo svou genetickou informaci začlení do genomu hostitele.</li>
+            </ol>
+            <p>Viry se vyznačují se parazitickým způsobem „života“ uvnitř hostitelských buněk: rozmnožovat se mohou pouze v živých buňkách. Viry způsobují
+                různá onemocnění u lidí, zvířat a rostlin.</p>
+            <h3>Stavba viru</h3>
+            <p>Virová částice schopná napadnout buňku se nazývá <dfn><strong>virion</strong></dfn>. Viriony mají různý tvar – mohou být kulaté, tyčinkovité nebo
+                vláknité, některé mají na svém povrchu i výčnělky.</p>
+            <p>Každý virion je tvořen <strong>genetickým materiálem</strong> (RNA nebo DNA) a <strong>bílkovinným obalem</strong>, který tento materiál chrání
+                a pomáhá viru navázat se na buňku. U složitějších virů se může vyskytovat ještě <strong>další vnější obal</strong>, tvořený bílkovinami a tuky.</p>
+            <p>Bílkoviny na povrchu viru jsou pro každý virus typické. Kromě toho, že pomáhají viru vstoupit do buňky, mohou také <strong>spustit obrannou
+                reakci</strong> organismu – tělo proti nim začne vytvářet protilátky.</p>
+            <p>Některé viry mají svůj genetický materiál rozdělený do více částí – například virus chřipky má 8 oddělených úseků RNA.</p>
+            <p>Zajímavé je i to, že některé viry mají složitou stavbu – například viry, které napadají bakterie (<dfn><strong>tzv. bakteriofágy</strong></dfn>),
+                mají velmi složitý tvar.</p>
             
             <h2>Buněčné organismy</h2>
             <h3>Buněčná teorie a role buněk i virů v živých organismech</h3>
@@ -104,10 +111,6 @@
                 rozlišujeme dva hlavní typy – <strong>jednobuněčné organismy</strong>, jejichž celé tělo tvoří jediná samostatná buňka
                 schopná vykonávat všechny nezbytné životní funkce, a <strong>mnohobuněčné organismy</strong>, které se skládají z velkého
                 množství buněk, jež spolu vzájemně spolupracují, specializují se na různé úkoly a společně tvoří složitě organizovaný celek.</p>
-            <p>Kromě těchto buněčných forem života existují i viry, které jsou považovány za 
-                <strong>nebuněčné organismy</strong>, protože neobsahují buněčnou strukturu a nedokážou samostatně vykonávat životní funkce.
-                Tyto viry však dokážou <strong>přežívat a rozmnožovat se uvnitř živých buněk</strong>, kde využívají buněčné prostředí a jeho 
-                biologické mechanismy ke svému množení a šíření.</p>
             <p>Přestože se organismy mohou výrazně lišit svou podobou i složitostí, všechny jejich buňky mají velmi podobné 
                 chemické složení, protože obsahují stejné základní stavební látky, jako jsou bílkoviny, lipidy, sacharidy a nukleové kyseliny.</p>
             <p>V buňkách probíhají obdobné chemické reakce, které umožňují uvolňování a přeměnu energie, tvorbu nových látek 
@@ -124,7 +127,7 @@
                 <strong><li>1837 – J.E. Purkyně</li></strong>
                 <ul>
                     <li>Vyslovil pouze základy buněčné teorie.</li>
-                    <li>Domníval se, že buňky mohou vznikat <em>de novo</em> = sami od sebe (dnes víme, není úplně pravda)</li>
+                    <li>Domníval se, že buňky mohou vznikat <em>de novo</em> = sami od sebe (dnes víme, že není úplně pravda)</li>
                 </ul>
                 <picture>
                     <source srcset="images/webp/bunka-popis.webp" type="image/webp" data-src="images/webp/bunka-popis.webp">
@@ -134,7 +137,7 @@
                 <strong><li>1838-39 – Matthias Schleiden a Theodor Schwann</li></strong>
                 <ul>
                     <li>Schleiden – botanik – zformuloval část teorie týkající se rostlinných buněk.</li>
-                    <li>Schwann – zoolog – doplnil buněčnou teorii o živočišné buňky</li>
+                    <li>Schwann – zoolog – doplnil buněčnou teorii o živočišné buňky.</li>
                     <li><strong>Dohromady vytvořili buněčnou teorii.</strong></li>
                 </ul>
                 <br>
@@ -309,38 +312,54 @@
             <!-- Video -->
             <h2>Doporučujeme se podívat na:</h2>
             <br>
-            <iframe width="960" height="600" src="https://www.youtube.com/embed/URUJD5NEXC8" title="Video u buněčných strukturách" frameborder="0" allow="accelerometer; autoplay;
-            clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="video-wrapper">
+                <div class="responsive-video">
+                    <iframe src="https://www.youtube.com/embed/URUJD5NEXC8"
+                            title="Video u buněčných strukturách"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
             <br>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <h2>Jak dobře rozumíte tomuto tématu?</h2><br>
-            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn">Zobrazit otázky</button>
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question">Jaký je princip fungování buňky, na jakém systému?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký je princip fungování buňky, na jakém systému?</div>
                         <div class="answer">Buňka je samostatně řídící jednotka závislá na prostředí.</div>
                     </div>
 
                 <div class="faq-item">
-                    <div class="question">Je jednodušší rostlinná, nebo živočišná buňka? A proč?</div>
-                        <div class="answer">Rostlinná, neboť má omezenou komunikace s vnějším prostředím.</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Je jednodušší rostlinná, nebo živočišná buňka? A proč?</div>
+                        <div class="answer">Rostlinná, neboť má omezenou komunikaci s vnějším prostředím.</div>
                     </div>
 
                 <div class="faq-item">
-                    <div class="question">Jaký by byl důsledek, kdyby virus napadl lidskou buňku, ale buňky by se nedokázaly bránit?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký by byl důsledek, kdyby virus napadl lidskou buňku, ale buňky by se nedokázaly bránit?</div>
                         <div class="answer">Virus by poškodil buňky, oslabil imunitní systém a vedl by k celkovému selhání organismu. </div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question">Můžeme považovat viry za živé, i když nemají buňku?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Můžeme považovat viry za živé, i když nemají buňku?</div>
                     <div class="answer">Viry jsou na pomezí živého a neživého – postrádají metabolismus a samostatnou reprodukci, ale uvnitř hostitelské buňky vykazují známky života. 
-                    <br>Na tuto otázku tedy neexistuje jednoznačná odpoveď na to, zda jsou živé, nebo neživé.</div>
+                    <br>Na tuto otázku tedy neexistuje jednoznačná odpoveď – zda jsou živé, nebo neživé.</div>
                 </div>
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
+            <br>
+            <h2>Doporučená literatura</h2>
+            <ul>
+                <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/bunecna-biologie" target="_blank">https://eluc.ikap.cz/lekce/bunecna-biologie</a>. [citováno 2025-05-09].</li>
+                <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii" target="_blank">https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii</a>. [citováno 2025-05-09].</li>
+            </ul>
+            <p>Na této stránce byl použit text z <a href="https://www.nzip.cz/rejstrikovy-pojem/984" target="_blank">https://www.nzip.cz/rejstrikovy-pojem/984</a>.</p>
             <div class="zarazka"></div>
         </section>
     </article>
