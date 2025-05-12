@@ -438,6 +438,11 @@ footer p {
     color: inherit;
 }
 
+.no-a-style {
+    color: inherit;
+    text-decoration: none;
+}
+
 .logo {
     width: 175px;
     height: auto;
@@ -887,3 +892,6 @@ footer p {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+

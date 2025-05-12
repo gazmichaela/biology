@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Rozšiřující info</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    /* Info button styles */
+    .info-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      background-color: #333;
+      color: white;
+      border-radius: 12px;
+      width: 24px;
+      height: 24px;
+      font-size: 13px;
+      font-weight: bold;
+      justify-content: center;
+      transition: width 0.3s ease;
+      overflow: hidden;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    
+    .info-box .icon-circle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      transition: color 0.3s ease;
+    }
+    
+    .info-box::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 16px;
+      height: 16px;
+      background-color: transparent;
+      border: 1px solid white;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* Styly pro hover i aktivní stav */
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+      width: 170px;
+    }
+    
+    .info-box:hover:not(.force-close)::before,
+    .info-box.active::before {
+      background-color: white;
+    }
+    
+    .info-box:hover:not(.force-close) .icon-circle,
+    .info-box.active .icon-circle {
+      color: #333;
+    }
+    
+    .info-box span {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      margin-left: 10px;
+      position: absolute;
+      left: 24px;
+    }
+    
+    .info-box:hover:not(.force-close) span,
+    .info-box.active span {
+      opacity: 1;
+    }
+    
+    /* Force close třída má přednost před hover */
+    .info-box.force-close {
+      width: 24px;
+    }    /* Info button styles */
+    .info-box {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      background-color: #333;
+      color: white;
+      border-radius: 12px;
+      width: 24px;
+      height: 24px;
+      font-size: 13px;
+      font-weight: bold;
+      justify-content: center;
+      transition: width 0.3s ease;
+      overflow: hidden;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    
+    .info-box .icon-circle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      transition: color 0.3s ease;
+    }
+    
+    .info-box::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 16px;
+      height: 16px;
+      background-color: transparent;
+      border: 1px solid white;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* Styly pro hover i aktivní stav */
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+      width: 170px;
+    }
+    
+    .info-box:hover:not(.force-close)::before,
+    .info-box.active::before {
+      background-color: white;
+    }
+    
+    .info-box:hover:not(.force-close) .icon-circle,
+    .info-box.active .icon-circle {
+      color: #333;
+    }
+    
+    .info-box span {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      margin-left: 10px;
+      position: absolute;
+      left: 24px;
+    }
+    
+    .info-box:hover:not(.force-close) span,
+    .info-box.active span {
+      opacity: 1;
+    }
+    
+    /* Force close třída má přednost před hover */
+    .info-box.force-close {
+      width: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="info-box">
+    <div class="icon-circle">i</div>
+    <span>Informace o obrázku</span>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const infoBox = document.querySelector('.info-box');
+      
+      infoBox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Kontrola, zda bylo kliknuto v oblasti ikony "i"
+        const rect = this.getBoundingClientRect();
+        const centerX = rect.left + 12; // Střed tlačítka X
+        const centerY = rect.top + 12;  // Střed tlačítka Y
+        const clickX = e.clientX;
+        const clickY = e.clientY;
+        
+        // Výpočet vzdálenosti od středu kruhu
+        const distance = Math.sqrt(
+          Math.pow(clickX - centerX, 2) + 
+          Math.pow(clickY - centerY, 2)
+        );
+        
+        // Pokud je vzdálenost menší než poloměr kruhu (10px)
+        if (distance <= 10) {
+          // Pokud je již aktivní, tak ho zavřeme
+          if (this.classList.contains('active')) {
+            this.classList.remove('active');
+            // Přidáme force-close třídu, aby se ignoroval hover
+            this.classList.add('force-close');
+            
+            // Detekce opuštění prvku myší
+            const handleMouseLeave = () => {
+              infoBox.classList.remove('force-close');
+              infoBox.removeEventListener('mouseleave', handleMouseLeave);
+            };
+            
+            // Přidáme event listener na opuštění prvku myší
+            infoBox.addEventListener('mouseleave', handleMouseLeave);
+          } else {
+            // Jinak ho otevřeme
+            this.classList.add('active');
+            this.classList.remove('force-close');
+          }
+        } else {
+          // Pokud se kliklo na jinou část tlačítka než ikonku
+          this.classList.toggle('active');
+          this.classList.remove('force-close');
+        }
+        
+        // Zabránit přepínání při pouhém najetí myši
+        e.preventDefault();
+      });
+      
+      // Při kliknutí kamkoliv jinam na stránku se tlačítko zavře
+      document.addEventListener('click', function(e) {
+        if (!infoBox.contains(e.target)) {
+          infoBox.classList.remove('active');
+          // Pokud se zavírá z důvodu kliknutí jinam, také použijeme force-close
+          if (infoBox.matches(':hover')) {
+            infoBox.classList.add('force-close');
+            
+            // Detekce opuštění prvku myší
+            const handleMouseLeave = () => {
+              infoBox.classList.remove('force-close');
+              infoBox.removeEventListener('mouseleave', handleMouseLeave);
+            };
+            
+            // Přidáme event listener na opuštění prvku myší
+            infoBox.addEventListener('mouseleave', handleMouseLeave);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
