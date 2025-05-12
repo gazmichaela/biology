@@ -288,7 +288,175 @@ footer p {
     text-align: center;
 }
 
+/*===============================================================*/
+/*          OBRÁZKY .img          */
 
+.img-right {
+    margin: 10px;
+    /* margin: 1%; */
+    float: right;
+    width: 25%;
+    min-width: 320px;
+    max-width: 600px;
+    /* margin-top: 1.5%; */
+    margin-top: 20px;
+    margin-left: 40px;
+    /* margin-left: 3%; */
+}
+
+.img-right-big {
+    float: right;
+    width: 40%;
+    margin: 10px;
+    margin-left: 20px;
+    /* margin-left: 1.5%; */
+}
+
+.img-right-middle {
+    float: right;
+    width: 30%;
+    /* margin: 10px; */
+    margin: 1%;
+    margin-left: 2%;
+}
+
+.img-right-top {
+    margin: 10px;
+    /* margin: 1%; */
+    float: right;
+    width: 25%;
+    min-width: 320px;
+    max-width: 600px;
+    margin-top: 80px;
+    /* margin-top: 4%; */
+    margin-left: 40px;
+    /* margin-left: 3%; */
+}
+
+.img-left {
+    margin: 10px;
+    float: left;
+    width: 30%;
+    margin-left: 5%;
+    margin-right: 20px;
+    /* margin-right: 1.5%; */
+}
+
+.img-bottom {
+    margin: 10px;
+    /* margin: 1%; */
+    width: 40%;
+    margin-left: 5%;
+}
+
+.img-next {
+    width: 45%;
+    margin-left: 2%;
+}
+
+
+/* ==PRO ZOBRAZENÍ ZROJE V OBRÁZKU */
+/* Styl pro obalový kontejner obrázku */
+.img-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.img-wrapper img {
+    display: block;
+    width: 100%;
+}
+
+/* Styly pro zdroj v obrázku */
+.info-box {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    border-radius: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+    font-weight: bold;
+    justify-content: center;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    cursor: pointer;
+    white-space: nowrap;
+    left: 10px; /* Umístění v obrázku */
+    bottom: 10px; /* Umístění v obrázku */
+}
+    
+.info-box .icon-circle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+    
+.info-box::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+    
+/* Styly pro hover i aktivní stav */
+.info-box:hover:not(.force-close),
+.info-box.active {
+    width: 300px;
+}
+    
+.info-box:hover:not(.force-close)::before,
+.info-box.active::before {
+    background-color: white;
+}
+    
+.info-box:hover:not(.force-close) .icon-circle,
+.info-box.active .icon-circle {
+    color: #333;
+}
+    
+.info-box span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-left: 10px;
+    position: absolute;
+    left: 24px;
+}
+    
+.info-box:hover:not(.force-close) span,
+.info-box.active span {
+    opacity: 1;
+}
+    
+/* Force close třída má přednost před hover */
+.info-box.force-close {
+      width: 24px;
+}
+
+/* Odkazy */
+.img-wrapper .info-box a {
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-decoration: underline;
+}
+
+/* ==ZVĚTŠOVÁNÍ OBRÁZKŮ== */
 /* Modal pro zvětšený obrázek */
 .modal {
     display: none;
@@ -363,72 +531,6 @@ footer p {
 
 .zoomable {
     transform: scale(1.05);
-}
-
-/*===============================================================*/
-/*          OBRÁZKY .img          */
-
-.img-right {
-    margin: 10px;
-    /* margin: 1%; */
-    float: right;
-    width: 25%;
-    min-width: 320px;
-    max-width: 600px;
-    /* margin-top: 1.5%; */
-    margin-top: 20px;
-    margin-left: 40px;
-    /* margin-left: 3%; */
-}
-
-.img-right-big {
-    float: right;
-    width: 40%;
-    margin: 10px;
-    margin-left: 20px;
-    /* margin-left: 1.5%; */
-}
-
-.img-right-middle {
-    float: right;
-    width: 30%;
-    /* margin: 10px; */
-    margin: 1%;
-    margin-left: 2%;
-}
-
-.img-right-top {
-    margin: 10px;
-    /* margin: 1%; */
-    float: right;
-    width: 25%;
-    min-width: 320px;
-    max-width: 600px;
-    margin-top: 80px;
-    /* margin-top: 4%; */
-    margin-left: 40px;
-    /* margin-left: 3%; */
-}
-
-.img-left {
-    margin: 10px;
-    float: left;
-    width: 30%;
-    margin-left: 5%;
-    margin-right: 20px;
-    /* margin-right: 1.5%; */
-}
-
-.img-bottom {
-    margin: 10px;
-    /* margin: 1%; */
-    width: 40%;
-    margin-left: 5%;
-}
-
-.img-next {
-    width: 45%;
-    margin-left: 2%;
 }
 
 /*===============================================================*/
