@@ -4240,9 +4240,23 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Získáme reference na elementy
     const showPdfBtn = document.getElementById('showPdfBtn');
+    
+    // Pokud element showPdfBtn neexistuje na aktuální stránce, ukončíme inicializaci PDF prohlížeče
+    // ale už nezobrazujeme chybovou hlášku, protože to je očekávaný stav na stránkách bez PDF
+    if (!showPdfBtn) {
+        return; // Ukončíme inicializaci, pokud tlačítko neexistuje
+    }
+    
+    // Pokračujeme pouze pokud existuje tlačítko pro zobrazení PDF
     const pdfOverlay = document.getElementById('pdfOverlay');
     const pdfCloseBtn = document.getElementById('pdfCloseBtn');
     const pdfFrame = document.getElementById('pdfFrame');
+    
+    // Kontrola existence potřebných elementů
+    if (!pdfOverlay || !pdfCloseBtn || !pdfFrame) {
+        console.error('Některé z potřebných elementů pro PDF prohlížeč nebyly nalezeny');
+        return;
+    }
     
     // Funkce pro otevření PDF
     function openPdfViewer() {

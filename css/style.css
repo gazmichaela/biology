@@ -1,3 +1,10 @@
+/* 
+Toto je výchozí CSS soubor se základními a neroztříděnými styly do různých souborů.
+Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé, aby bylo třeba rozdělit na vlasstní CSS.
+Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
+Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css
+*/
+
 /* ===== 1. Variabilní fonty ===== */
 @font-face {
   font-family: 'Inter';
@@ -82,8 +89,10 @@ noscript {
     font-weight: 900;
 }
 
-/*===============================================================*/
-/*          HEADER          */
+/* JavaScript helper class */
+.content-padding {
+    padding-top: 100px; /* Adjust based on your header height */
+}
 
 body > header {
     background-color: #77afe0ee;
@@ -122,15 +131,6 @@ header ul li {
     position: relative;
 }
 
-
-/* JavaScript helper class */
-.content-padding {
-    padding-top: 100px; /* Adjust based on your header height */
-}
-
-/*===============================================================*/
-/*          ARTICLE          */
-
 article {
     flex: 1;
     margin-right: 60px;
@@ -143,41 +143,6 @@ section {
     padding: 20px 0px 50px 0px;
     clear: both;
     text-align: justify; 
-}
-
-.button,
-.button-light {
-    border-radius: 20px;
-    padding: 9px 20px;
-    margin-left: 30px;
-    margin-top: 20px;
-    display: inline-block;  
-    cursor: pointer;        
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    font-weight: 700;
-    justify-content: center;
-    border: 1px solid black;
-    outline: 0px solid transparent; /* Příprava pro hover efekt */
-    box-sizing: border-box;
-    position: relative;
-}
-
-.button {
-    background: #1c77e8;
-}
-
-.button-light {
-    background-color: #309ce5;
-}
-
-.button:hover,
-.button-light:hover {
-    outline: 1.5px solid black; /* Přidá druhé ohraničení při najetí myší */
-    outline-offset: 0px;
-    z-index: 1;
-    font-weight: 800;
 }
 
 article section li {
@@ -238,34 +203,40 @@ article section small {
     margin-top: 1%;
 }
 
-/*_______________________________________________________________*/
-/* ==TABULKA== */
-table {
-    width: 70%;
-    max-width: 1800px;
-    border: 1px solid black;
-    border-collapse: collapse; /* Sloučení okrajů buněk */
-    margin: 30px auto 40px 5%;
-}
-
-/* Styl pro buňky tabulky */
-th, td {
-    padding: 4px;  /* Větší vnitřní okraje buněk */
+article section .button,
+article section .button-light {
+    border-radius: 20px;
+    padding: 9px 20px;
+    margin-left: 30px;
+    margin-top: 20px;
+    display: inline-block;  
+    cursor: pointer;        
     text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    justify-content: center;
     border: 1px solid black;
-    font-size: 1em;
+    outline: 0px solid transparent; /* Příprava pro hover efekt */
+    box-sizing: border-box;
+    position: relative;
 }
 
-th:first-child {
-    font-weight: normal;
+article section .button {
+    background: #1c77e8;
 }
 
-td:first-child {
-    font-weight: bold; /* Tučný text v první buňce */
+article section .button-light {
+    background-color: #309ce5;
 }
 
-/*===============================================================*/
-/*          FOOTER          */
+article section .button:hover,
+article section .button-light:hover {
+    outline: 1.5px solid black; /* Přidá druhé ohraničení při najetí myší */
+    outline-offset: 0px;
+    z-index: 1;
+    font-weight: 800;
+}
 
 footer {
     box-sizing: border-box;
@@ -288,1146 +259,6 @@ footer p {
     text-align: center;
 }
 
-/*===============================================================*/
-/*          OBRÁZKY .img          */
-
-.img-right {
-    margin: 10px;
-    /* margin: 1%; */
-    float: right;
-    width: 25%;
-    min-width: 320px;
-    max-width: 600px;
-    /* margin-top: 1.5%; */
-    margin-top: 20px;
-    margin-left: 40px;
-    /* margin-left: 3%; */
-}
-
-.img-right-big {
-    float: right;
-    width: 40%;
-    margin: 10px;
-    margin-left: 20px;
-    /* margin-left: 1.5%; */
-}
-
-.img-right-middle {
-    float: right;
-    width: 30%;
-    /* margin: 10px; */
-    margin: 1%;
-    margin-left: 2%;
-}
-
-.img-right-top {
-    margin: 10px;
-    /* margin: 1%; */
-    float: right;
-    width: 25%;
-    min-width: 320px;
-    max-width: 600px;
-    margin-top: 80px;
-    /* margin-top: 4%; */
-    margin-left: 40px;
-    /* margin-left: 3%; */
-}
-
-.img-left {
-    margin: 10px;
-    float: left;
-    width: 30%;
-    margin-left: 5%;
-    margin-right: 20px;
-    /* margin-right: 1.5%; */
-}
-
-.img-bottom {
-    margin: 10px;
-    /* margin: 1%; */
-    width: 40%;
-    margin-left: 5%;
-}
-
-.img-next {
-    width: 45%;
-    margin-left: 2%;
-}
-
-
-/* ==PRO ZOBRAZENÍ ZROJE V OBRÁZKU */
-/* Styl pro obalový kontejner obrázku */
-.img-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.img-wrapper img {
-    display: block;
-    width: 100%;
-}
-
-/* Styly pro zdroj v obrázku */
-.info-box {/*ovlivňuje šedé kolečko*/
-    position: absolute;/* Absolutní pozicování – umožňuje přesné umístění uvnitř rodiče */
-    display: inline-flex;/* Flexbox pro zarovnání obsahu – na řádku */
-    align-items: center;/* Vertikální zarovnání obsahu na střed */
-    background-color: #333;/* Tmavé pozadí */
-    color: white;/* Bílý text */
-    border-radius: 12px;/* Zaoblené rohy */
-    width: 24px;/* Výchozí šířka – jen pro ikonu-šedé kolečko */
-    height: 24px; /* Výška boxu */
-    font-size: 13px; /* Velikost písma */
-    font-weight: bold;/* Tučné písmo */
-    justify-content: center;/* Horizontální zarovnání na střed */
-    transition: width 0.3s ease; /* Animace při změně šířky */
-    overflow: hidden;/* Skrytí přečnívajícího obsahu */
-    cursor: pointer;/* Kurzor ruky při najetí */
-    white-space: nowrap;/* Zabránění zalomení textu */
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box .icon-circle { /*ovlivňuje "i" */
-    position: absolute;/* Absolutní pozicování uvnitř info-boxu písmena "i"*/
-    left: 0.5px;/* Mírné posunutí doprava */
-    top: 0;/* Umístění k hornímu okraji */
-    width: 24px;/* Stejná šířka jako info-box */
-    height: 24px; /* Stejná výška jako info-box */
-    display: flex;/* Flexbox – usnadňuje zarovnání obsahu */
-    align-items: center; /* Vertikální zarovnání */
-    justify-content: center;/* Horizontální zarovnání */
-    z-index: 1;/* Vrstva nad ostatními prvky */
-    transition: color 0.3s ease; /* Hladká změna barvy */
-}
-    
-.info-box::before { /*ovlivňuje bílé kolečko*/
-    content: ""; /* Pseudo-prvek – vytváří dekorativní prvek */
-    position: absolute;/* Pozicování uvnitř info-boxu */
-    left: 3px;/*pounutí do leva*/
-    top: 3px;/*posunutí nahoru*/
-    width: 16px;/*šířka bílého kolečka*/
-    height: 16px;/*výška bílého kolečka*/
-    background-color: transparent;/* Výchozí průhledné pozadí */
-    border: 1px solid white; /* Bílý rámeček */
-    border-radius: 50%;/* Kulatý tvar */
-    transition: background-color 0.3s ease;/* Hladká změna pozadí */
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box:hover:not(.force-close),
-.info-box.active {
-    width: 300px;/* Při najetí nebo aktivaci se box rozšíří */ /*délka*/
-}
-    
-.info-box:hover:not(.force-close)::before,
-.info-box.active::before {
-    background-color: white; /* Vyplnění kruhu na hover/aktivní stav */
-}
-    
-.info-box:hover:not(.force-close) .icon-circle,
-.info-box.active .icon-circle {
-    color: #333; /* Změna barvy ikony při aktivaci/hoveru */
-}
-    
-.info-box span {
-    opacity: 0; /* Neviditelné ve výchozím stavu */
-    transition: opacity 0.3s ease;/* Hladké zobrazení textu */
-    margin-left: 10px; /* Odsazení od ikony */
-    position: absolute; /* Pozicování textu vedle ikony */
-    left: 24px;/* Zarovnání textu hned vedle ikony */
-}
-    
-.info-box:hover:not(.force-close) span,
-.info-box.active span {
-    opacity: 1;/* Zobrazení textu při aktivaci/hoveru */
-}
-    
-/* Force close třída má přednost před hover */
-.info-box.force-close {
-      width: 24px;/* Zajišťuje, že box zůstane malý i při hoveru */
-}
-
-/* Odkazy */
-.img-wrapper .info-box a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--SHORT--*/
-.info-box-short {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-short .icon-circle-short {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-short::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-short:hover:not(.force-close),
-.info-box-short.active {
-    width: 135px;
-}
-    
-.info-box-short:hover:not(.force-close)::before,
-.info-box-short.active::before {
-    background-color: white;
-}
-    
-.info-box-short:hover:not(.force-close) .icon-circle-short,
-.info-box-short.active .icon-circle-short{
-    color: #333;
-}
-    
-.info-box-short span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
-}
-    
-.info-box-short:hover:not(.force-close) span,
-.info-box-short.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-short.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-short a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--MEDIUM--*/
-.info-box-medium {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 2%; /* Procentuální pozice místo pixelů */
-    bottom: 5%; /* Procentuální pozice místo pixelů */
-    z-index: 10;
-    transform: none; /* Reset jakýchkoliv transformací */
-}
-    
-.info-box-medium .icon-circle-medium {
-    position: absolute;
-    left: 0.4px;
-    top: 1%;
-    transform: translate(-1%, -0.4px); /* Přesné centrování */
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-medium::before {
-    content: "";
-    position: absolute;
-    left: 3.8px;
-    top: 3.8px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-medium:hover:not(.force-close),
-.info-box-medium.active {
-    width: 210px;
-}
-    
-.info-box-medium:hover:not(.force-close)::before,
-.info-box-medium.active::before {
-    background-color: white;
-}
-    
-.info-box-medium:hover:not(.force-close) .icon-circle-medium,
-.info-box-medium.active .icon-circle-medium{
-    color: #333;
-}
-    
-.info-box-medium span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
-}
-    
-.info-box-medium:hover:not(.force-close) span,
-.info-box-medium.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-medium.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-medium a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--MEDIUM SECOND--*/
-.info-box-medium-second {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-medium-second .icon-circle-medium-second {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-medium-second::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3.5px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-medium-second:hover:not(.force-close),
-.info-box-medium-second.active {
-    width: 247px;
-}
-    
-.info-box-medium-second:hover:not(.force-close)::before,
-.info-box-medium-second.active::before {
-    background-color: white;
-}
-    
-.info-box-medium-second:hover:not(.force-close) .icon-circle-medium-second,
-.info-box-medium-second.active .icon-circle-medium-second{
-    color: #333;
-}
-    
-.info-box-medium-second span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-    
-.info-box-medium-second:hover:not(.force-close) span,
-.info-box-medium-second.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-medium-second.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-medium-second a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-
-/*--LEFT--*/
-.info-box-left {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-left .icon-circle-left {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-left::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-left:hover:not(.force-close),
-.info-box-left.active {
-    width: 300px;
-}
-    
-.info-box-left:hover:not(.force-close)::before,
-.info-box-left.active::before {
-    background-color: white;
-}
-    
-.info-box-left:hover:not(.force-close) .icon-circle-left,
-.info-box-left.active .icon-circle-left{
-    color: #333;
-}
-    
-.info-box-left span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 18px;
-}
-    
-.info-box-left:hover:not(.force-close) span,
-.info-box-left.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-left.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-left a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--LONG-LEFT--*/
-.info-box-long-left {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-long-left .icon-circle-long-left {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-long-left::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-long-left:hover:not(.force-close),
-.info-box-long-left.active {
-    width: 270px;
-}
-    
-.info-box-long-left:hover:not(.force-close)::before,
-.info-box-long-left.active::before {
-    background-color: white;
-}
-    
-.info-box-long-left:hover:not(.force-close) .icon-circle-long-left,
-.info-box-long-left.active .icon-circle-long-left{
-    color: #333;
-}
-    
-.info-box-long-left span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 18px;
-}
-    
-.info-box-long-left:hover:not(.force-close) span,
-.info-box-long-left.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-long-left.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-long-left a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--MEDIUM-THIRD--*/
-.info-box-medium-third {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-medium-third .icon-circle-medium-third {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-medium-third::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-medium-third:hover:not(.force-close),
-.info-box-medium-third.active {
-    width: 270px;
-}
-    
-.info-box-medium-third:hover:not(.force-close)::before,
-.info-box-medium-third.active::before {
-    background-color: white;
-}
-    
-.info-box-medium-third:hover:not(.force-close) .icon-circle-medium-third,
-.info-box-medium-third.active .icon-circle-medium-third{
-    color: #333;
-}
-    
-.info-box-medium-third span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
-}
-    
-.info-box-medium-third:hover:not(.force-close) span,
-.info-box-medium-third.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-medium-third.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-medium-third a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--SHORT-THIRD--*/
-.info-box-short-third {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-short-third .icon-circle-short-third{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-short-third::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-short-third:hover:not(.force-close),
-.info-box-short-third.active {
-    width: 138px;
-}
-    
-.info-box-short-third:hover:not(.force-close)::before,
-.info-box-short-third.active::before {
-    background-color: white;
-}
-    
-.info-box-short-third:hover:not(.force-close) .icon-circle-short-third,
-.info-box-short-third.active .icon-circle-short-third{
-    color: #333;
-}
-    
-.info-box-short-third span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-    
-.info-box-short-third:hover:not(.force-close) span,
-.info-box-short-third.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-short-third.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-short-third a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--SHORT-THIRD--*/
-.info-box-short-fourth {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-short-fourth .icon-circle-short-fourth{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-short-fourth::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-short-fourth:hover:not(.force-close),
-.info-box-short-fourth.active {
-    width: 144px;
-}
-    
-.info-box-short-fourth:hover:not(.force-close)::before,
-.info-box-short-fourth.active::before {
-    background-color: white;
-}
-    
-.info-box-short-fourth:hover:not(.force-close) .icon-circle-short-fourth,
-.info-box-short-fourth.active .icon-circle-short-fourth{
-    color: #333;
-}
-    
-.info-box-short-fourth span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-    
-.info-box-short-fourth:hover:not(.force-close) span,
-.info-box-short-fourth.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-short-fourth.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-short-fourth a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-/*--LONG--*/
-.info-box-long {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-long .icon-circle-long {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-long::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-long:hover:not(.force-close),
-.info-box-long.active {
-    width: 311px;
-}
-    
-.info-box-long:hover:not(.force-close)::before,
-.info-box-long.active::before {
-    background-color: white;
-}
-    
-.info-box-long:hover:not(.force-close) .icon-circle-long,
-.info-box-long.active .icon-circle-long{
-    color: #333;
-}
-    
-.info-box-long span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-    
-.info-box-long:hover:not(.force-close) span,
-.info-box-long.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-long.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-long a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-
-/*--SHORT-SECOND--*/
-.info-box-short-second {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 10px; /* Umístění v obrázku */
-    bottom: 10px; /* Umístění v obrázku */
-}
-    
-.info-box-short-second .icon-circle-short-second {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: color 0.3s ease;
-}
-    
-.info-box-short-second::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 3px;
-    width: 16px;
-    height: 16px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-    
-/* Styly pro hover i aktivní stav */
-.info-box-short-second:hover:not(.force-close),
-.info-box-short-second.active {
-    width: 125px;
-}
-    
-.info-box-short-second:hover:not(.force-close)::before,
-.info-box-short-second.active::before {
-    background-color: white;
-}
-    
-.info-box-short-second:hover:not(.force-close) .icon-circle-short-second,
-.info-box-short-second.active .icon-circle-short-second{
-    color: #333;
-}
-    
-.info-box-short-second span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
-}
-    
-.info-box-short-second:hover:not(.force-close) span,
-.info-box-short-second.active span {
-    opacity: 1;
-}
-    
-/* Force close třída má přednost před hover */
-.info-box-short-second.force-close {
-      width: 24px;
-}
-
-/* Odkazy */
-.img-wrapper .info-box-short-second a {
-    color: inherit;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
-}
-/* ==ZVĚTŠOVÁNÍ OBRÁZKŮ== */
-/* Modal pro zvětšený obrázek */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.9);
-    align-items: center;
-    justify-content: center;
-}
-
-    /* Kontejner pro obrázek - pomůže s centrováním a posunem */
-.image-container {
-    position: relative;
-    width: 90%;
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-    /* Obrázek v modalním okně */
-.modal-content {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    cursor: zoom-in; /* Kurzor lupa pro zvětšení */
-    transition: transform 0.3s ease;
-    object-fit: contain;
-}
-
-    /* Styl pro zvětšený obrázek */
-.modal-content.zoomed {
-    cursor: grab; /* Ruka (grab) pro indikaci posouvání */
-    max-width: none;
-    max-height: none;
-    transform: scale(2);
-}
-    /* Styl pro aktivní posouvání */
-.modal-content.zoomed.grabbing {
-    cursor: grabbing;
-    }
-
-    /* Tlačítko pro zavření modálního okna */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 1001;
-    color: #bbb;
-    text-decoration: none;
-}
-
-.close:hover {
-        color: #858484; /* Tmavší barva při najetí myší */
-}
-
-/* Třída pro obrázky, které lze zvětšit */
-.zoomable {
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.zoomable {
-    transform: scale(1.05);
-}
-
-/*===============================================================*/
-/*          OSTATNÍ TŘÍDY          */
-
 .sidemap a {
     color: inherit;
 }
@@ -1448,7 +279,6 @@ footer p {
     opacity: 0;               /* Na začátku je obrázek neviditelný */
     animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
 }
- 
 @keyframes showImage {
     0% {
       opacity: 0;  /* Začátek animace (neviditelný) */
@@ -1467,7 +297,6 @@ footer p {
     top: 15%; 
 }
 
-
 .logo img {
     width: 100%; 
     height: auto;
@@ -1479,25 +308,6 @@ footer p {
     height: auto;
 }
 
-.home-icon {
-    display: inline-block;
-    position: relative;
-    text-decoration: none;
-    pointer-events: none; /* Vypne interakci s celým kontejnerem */
-}
-
-.home-icon img {
-    width: 25px;
-    height: auto;
-    margin-left: 10px;
-    margin-top: 8px;
-    pointer-events: auto; /* Zapne interakci pouze pro obrázek */
-}
-
-.home-icon:hover img {
-    filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%); /*Odpovídá přibližně barvě #309ce5 */
-}
-
 .container {
     display: flex;
     align-items: center;
@@ -1507,341 +317,8 @@ footer p {
     clear: both;
 }
 
-.video-wrapper {
-    max-width: 1600px;
-    width: 75%;
-    /* margin: 0 auto; */  /* Lze přidat pro centrování, jinak zarovnání vlevo */
-}
-
-.responsive-video {
-    position: relative;
-    padding-bottom: 56.25%; /* Poměr stran 16:9 */
-    height: 0;
-    overflow: hidden;
-    background: #000;
-}
-
-.responsive-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/*_______________________________________________________________*/
-/* ==OTÁZKY== */
-
-.hidden {
-    display: none; /* Skrytý kontejner otázek (na začátku) */
-}
-
-.question {
-    background-color: #f1f1f1;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-.answer {
-    padding: 10px;
-    background-color: #e9e9e9;
-    border-left: 3px solid #4CAF50;
-    display: none; /* Odpověď je skrytá */
-    font-size: 17px;
-}
-
-/* Tlačítko pro zobrazení všech otázek */
-#toggle-questions-btn {
-    padding: 10px 15px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #309ce5;
-    color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    margin-top: 30px;
-}
-
-.question:focus {
-    outline: none; /* Zabrání modrému rámečku kolem otázek */
-}
-
-.question.open {
-    background-color: #dcdcdc;
-    transition: background-color 0.3s ease;
-}
-
-
-/*_______________________________________________________________*/
-/* ==NAVIGACE== */
-
-.button-container {
-    display: flex;
-    align-items: center;
-    margin-right: 1.5vmax;
-    margin-left: 1.5vmax;
-    white-space: nowrap; /* Text se v tlačítkách nebude zalamovat při změnšení okna*/
-}
-
-.arrow {
-    font-size: 18px;
-    color: #025227;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-    margin: 0;
-}
-
-.main-button,
-.maine-button,
-.dropdown-toggle,
-.dropdown-toggle-second {
-    background-color: #f0f9f0;
-    color: #025227;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    align-items: center; 
-    justify-content: center;
-    padding: 12px 20px;
-}
-
-.main-button {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    height: 19px;
-}
-
-.maine-button {
-    border-top-right-radius: 20px; 
-    border-bottom-right-radius: 20px;
-    height: 19px;
-}
-
-
-.dropdown-toggle,
-.dropdown-toggle-second {
-    width: 100%;
-    max-width: 40px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    display: inline-flex;
-    height: 43px;
-    margin-left: 2px;
-    shape-outside: border-box;
-}
-
-.sub-dropdown-toggle {
-    margin-left: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    color: #025227;
-    position: relative;
-}
-
-.sub-dropdown-toggle::before {
-    content: '';
-    position: absolute;
-    top: -14px; /* Rozšíření aktivní oblasti nahoru */
-    right: -16px;  /* Zúžení aktivní oblasti zprava */
-    bottom: -9.5px; /* Rozšíření aktivní oblasti dolů */
-    left: -4.8px;   /* Zúžení aktivní oblasti zleva */
-    z-index: 1;
-    border-top-right-radius: 5px; 
-}
-
-
-.main-button:hover,
-.maine-button:hover,
-.dropdown-toggle:hover,
-.dropdown-toggle-second:hover {
-    background-color: #309ce5;
-    color: white;
-    width: auto;
-}
-
-.dropdown-toggle .arrow,
-.dropdown-toggle-second .arrow {
-    color: #025227;
-}
-  
-.dropdown-toggle:hover .arrow,
-.dropdown-toggle-second:hover .arrow {
-    color: white;
-}
-
-.dropdown-content.show-on-load,
-.dropdown-content-second.show-on-load {
-  display: block;
-}
-
-.sub-dropdown {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    padding-right: 10px;
-}
-
-.dropdown-content,
-.dropdown-content-second {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0s 0.3s; /* Důležité: zpoždění visibility */
-    position: absolute;
-    background-color: #f0f9f0;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    display: block; /* Zde použít block místo none */
-    text-align: center; 
-    padding: 5px;
-    z-index: 1000;
-    width: 150px;
-    margin-top: 3px;
-    font-size: medium;
-}
-
-.dropdown-content.show,
-.dropdown-content-second.show {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease-in-out, visibility 0s; /* Bez zpoždění pro visibility */
-}
-
-.dropdown-content {
-    left: 50%; /* V polovině tlačítka*/
-    transform: translateX(-3%); /* Úprava umístění */
-}
-
-.dropdown-content-second {
-    left: 50%; /* V polovině tlačítka*/
-    transform: translateX(-20%); /* Úprava umístění */
-}
-
-.sub-dropdown-content {
-    position: absolute;
-    left: 100%;
-    top: 1px;
-    background-color: #f0f9f0;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 5px;
-    min-width: 150px;
-    margin-left: 4.5%;
-    opacity: 0; /* Začíná jako průhledné */
-    visibility: hidden; /* Skryté */
-    transition: opacity 0.3s ease, visibility 0s 0.3s; /* Plynulý přechod pro opacity, a zpožděný přechod pro visibility */
-    z-index: 1000;
-}
-
-.sub-dropdown-content.show {
-    opacity: 1; /* Stane se plně viditelným */
-    visibility: visible; /* Stane se interaktivním */
-    transition: opacity 0.3s ease, visibility 0s 0s; /* Bez zpoždění pro visibility při zobrazení */
-}
-
-/* PRO KONKRÉTNÍ PRVKY */
-.dropdown-content a,
-.dropdown-content-second a {
-    padding: 10px;
-    color: #025227;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
-}
-
-.dropdown-content a:hover,
-.dropdown-content a.centered:hover,
-.dropdown-content-second a:hover,
-.sub-dropdown-content a:hover  {
-    background-color: #309ce5;
-    color: white;
-}
-
-/* Položka úvod */
-.dropdown-content a.centered {
-    display: flex;
-    justify-content: flex-start; /* Zarovná text doleva, ale posune ho padding */
-    align-items: center;
-    width: 100%;
-    color: #025227;
-    text-decoration: none;
-    padding-left: 53px;
-}
-
-.dropdown-content a.centered:hover {
-    cursor: pointer;
-}
-
-/* ==AKTIVNÍ POLOŽKY== */
-.main-button.active,
-.maine-button.active,
-.dropdown-content a.active,
-.dropdown-content-second a.active {
-    background-color: #1c77e8;
-    color: white;
-}
-
-.button-container a.active:hover,
-.dropdown-content a.active:hover,
-.dropdown-content-second a.active:hover {
-    background-color: #388E3C;
-}
-
-
-/*===============================================================*/
-/*          PŘI PROBLÉMECH ODKOMENTOVAT          */
-
-
-/* Prioritní načítání menu */
-/*header {
-    will-change: transform; 
-}*/
-/*body {
-    will-change: transform; 
-}*/
-
-/*.button-container {
-    will-change: transform; 
-}*/
-
-
-/* Pro zrychlení zobrazování dropdown menu */
-/*.dropdown-content, 
-.dropdown-content-second, 
-.sub-dropdown-content {
-    transform: translateZ(0); 
-    backface-visibility: hidden; 
-}*/
-
-
-/* Optimalizace pro obrazky v menu */
-/*header img,
-.logo,
-.home-icon {
-    content-visibility: auto; 
-}*/
-
-
-
-
-
-/*cookies*/
-/* Varianta 2: Styl pro malé vyskakovací okno */
+/* COOKIES */
+/* Styl pro malé vyskakovací okno */
 .cookies-mini-notice {
     position: fixed;
     bottom: 15px;
@@ -1868,18 +345,18 @@ footer p {
 }
 
 .cookies-mini-notice button {
-    background: #f5f5f5;
+    background-color: #f5f5f5;
     border: 1px solid #ddd;
     padding: 4px 10px;
     border-radius: 3px;
     font-size: 11px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background-color 0.2s;
     margin-right: 5px;
 }
 
 .cookies-mini-notice button:hover {
-    background: #e8e8e8;
+    background-color: #e8e8e8;
 }
 
 @keyframes fadeIn {
@@ -1887,70 +364,73 @@ footer p {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* VIDEO */
+.video-wrapper {
+    max-width: 1600px;
+    width: 75%;
+    /* margin: 0 auto; */  /* Lze přidat pro centrování, jinak zarovnání vlevo */
+}
+
+.responsive-video {
+    position: relative;
+    padding-bottom: 56.25%; /* Poměr stran 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.responsive-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* TABULKA */
+table {
+    width: 70%;
+    max-width: 1800px;
+    border: 1px solid black;
+    border-collapse: collapse; /* Sloučení okrajů buněk */
+    margin: 30px auto 40px 5%;
+}
+
+/* Styl pro buňky tabulky */
+th, td {
+    padding: 4px;  /* Větší vnitřní okraje buněk */
+    text-align: center;
+    border: 1px solid black;
+    font-size: 1em;
+}
+
+th:first-child {
+    font-weight: normal;
+}
+
+td:first-child {
+    font-weight: bold; /* Tučný text v první buňce */
+}
 
 
+/* PŘI PROBLÉMECH ODKOMENTOVAT */
 
+/* Prioritní načítání menu */
+/*header {
+    will-change: transform; 
+}*/
+/*body {
+    will-change: transform; 
+}*/
 
-        
-        /* Styly pro překryvnou vrstvu */
-        .pdf-overlay {
-            display: none; /* Výchozí stav - skryto */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-        }
-        
-        /* Kontejner pro PDF viewer */
-        .pdf-viewer-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-        
-        /* Iframe pro zobrazení PDF */
-        .pdf-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        /* Tlačítko pro zavření */
-        .pdf-close-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background-color: white;
-            border-radius: 50%;
-            font-size: 20px;
-            line-height: 30px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 10000;
-        }
+/*.button-container {
+    will-change: transform; 
+}*/
 
-          /* Info zpráva o klávese Escape */
-        .escape-info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 14px;
-            z-index: 1010;
-        }
+/* Optimalizace pro obrazky v menu */
+/*header img,
+.logo,
+{
+    content-visibility: auto; 
+}*/
