@@ -106,7 +106,8 @@
     left: 10px; /* Umístění v obrázku */
     bottom: 10px; /* Umístění v obrázku */
 }
-    
+
+/* Ovlivňuje "i" */
 .info-box .icon-circle,
 .info-box-short .icon-circle-short,
 .info-box-medium .icon-circle-medium,
@@ -117,7 +118,7 @@
 .info-box-short-third .icon-circle-short-third,
 .info-box-short-fourth .icon-circle-short-fourth,
 .info-box-long .icon-circle-long,
-.info-box-short-second .icon-circle-short-second { /*ovlivňuje "i" */
+.info-box-short-second .icon-circle-short-second {
     position: absolute;/* Absolutní pozicování uvnitř info-boxu písmena "i"*/
     left: 0;/* Mírné posunutí doprava */
     top: 0;/* Umístění k hornímu okraji */
@@ -129,7 +130,8 @@
     z-index: 1;/* Vrstva nad ostatními prvky */
     transition: color 0.3s ease; /* Hladká změna barvy */
 }
-    
+
+/* Ovlivňuje bílé kolečko */
 .info-box::before,
 .info-box-short::before,
 .info-box-medium::before,
@@ -140,7 +142,7 @@
 .info-box-short-third::before,
 .info-box-short-fourth::before,
 .info-box-long::before,
-.info-box-short-second::before { /*ovlivňuje bílé kolečko*/
+.info-box-short-second::before {
     content: ""; /* Pseudo-prvek – vytváří dekorativní prvek */
     position: absolute;/* Pozicování uvnitř info-boxu */
     /* Určení pozice bílého kolečka */
@@ -160,7 +162,7 @@
 /* Styly pro hover i aktivní stav */
 .info-box:hover:not(.force-close),
 .info-box.active {
-    width: 300px;/* Při najetí nebo aktivaci se box rozšíří */ /*délka*/
+    width: 300px;/* délka, na kterou se box rozšíří*/
 }
     
 .info-box:hover:not(.force-close)::before,
@@ -454,81 +456,3 @@
     left: 21px;
 }
 
-
-
-/* ==ZVĚTŠOVÁNÍ OBRÁZKŮ== */
-/* Modal pro zvětšený obrázek */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.9);
-    align-items: center;
-    justify-content: center;
-}
-
-    /* Kontejner pro obrázek - pomůže s centrováním a posunem */
-.image-container {
-    position: relative;
-    width: 90%;
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-    /* Obrázek v modalním okně */
-.modal-content {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    cursor: zoom-in; /* Kurzor lupa pro zvětšení */
-    transition: transform 0.3s ease;
-    object-fit: contain;
-}
-
-    /* Styl pro zvětšený obrázek */
-.modal-content.zoomed {
-    cursor: grab; /* Ruka (grab) pro indikaci posouvání */
-    max-width: none;
-    max-height: none;
-    transform: scale(2);
-}
-    /* Styl pro aktivní posouvání */
-.modal-content.zoomed.grabbing {
-    cursor: grabbing;
-    }
-
-    /* Tlačítko pro zavření modálního okna */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 1001;
-    color: #bbb;
-    text-decoration: none;
-}
-
-.close:hover {
-        color: #858484; /* Tmavší barva při najetí myší */
-}
-
-/* Třída pro obrázky, které lze zvětšit */
-.zoomable {
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.zoomable {
-    transform: scale(1.05);
-}

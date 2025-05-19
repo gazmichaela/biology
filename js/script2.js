@@ -3578,46 +3578,130 @@ function initializeHomeIcon(stickyHeader) {
       console.log('Home icon rebuilt with precise click area limited to the image only');
     });
   }
-//----- ZOOM FUNCTIONALITY -----//
+
+//------ZOOM FUNKCIONALITY-------//
+// Vylepšené zvětšování obrázků s opravou pro konzistentní zoom na všech zařízeních
 document.addEventListener('DOMContentLoaded', function() {
-    // Vytvořit modal element
+    // Vytvoření modálního okna
     var modal = document.createElement('div');
     modal.className = 'modal';
     modal.style.display = 'none';
+    modal.style.position = 'fixed';
+    modal.style.zIndex = '1000';
+    modal.style.left = '0';
+    modal.style.top = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.overflow = 'hidden';
+    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
     
     // Kontejner pro obrázek
     var imageContainer = document.createElement('div');
     imageContainer.className = 'image-container';
+    imageContainer.style.position = 'relative';
+    imageContainer.style.width = '90%';
+    imageContainer.style.height = '90%';
+    imageContainer.style.display = 'flex';
+    imageContainer.style.alignItems = 'center';
+    imageContainer.style.justifyContent = 'center';
+    imageContainer.style.overflow = 'hidden';
     
     var modalImg = document.createElement('img');
     modalImg.className = 'modal-content';
+    // Nastavení stylu dle CSS
+    modalImg.style.display = 'block';
+    modalImg.style.maxWidth = '100%';
+    modalImg.style.maxHeight = '100%';
+    modalImg.style.cursor = 'zoom-in';
+    modalImg.style.transition = 'transform 0.3s ease';
+    modalImg.style.objectFit = 'contain';
+    // Prevence modrého označení při kliknutí
+    modalImg.style.outline = 'none';
+    modalImg.style.webkitTapHighlightColor = 'transparent';
+    modalImg.setAttribute('draggable', 'false');
+    modalImg.style.userSelect = 'none';
+    modalImg.style.webkitUserSelect = 'none';
+    modalImg.style.msUserSelect = 'none';
+    modalImg.style.mozUserSelect = 'none';
+    modalImg.tabIndex = -1;
     
+    // Vytvoříme malý kontejner pro tlačítko close
+    var closeBtnContainer = document.createElement('div');
+    closeBtnContainer.style.position = 'absolute';
+    closeBtnContainer.style.top = '15px';
+    closeBtnContainer.style.right = '15px';
+    closeBtnContainer.style.width = '27px'; // Původní velikost kontejneru zachována
+    closeBtnContainer.style.height = '28px'; // Původní velikost kontejneru zachována
+    closeBtnContainer.style.overflow = 'hidden';
+    closeBtnContainer.style.zIndex = '1001';
+    closeBtnContainer.style.display = 'flex';
+    closeBtnContainer.style.alignItems = 'center';
+    closeBtnContainer.style.justifyContent = 'center';
+    
+    // Samotné tlačítko - pouze zvětšený font
     var closeBtn = document.createElement('span');
     closeBtn.className = 'close';
     closeBtn.innerHTML = '&times;';
+    closeBtn.style.fontSize = '45px'; // Zvětšeno z 30px na 36px
+    closeBtn.style.fontWeight = 'bold';
+    closeBtn.style.color = '#bbb';
+    closeBtn.style.textDecoration = 'none';
+    closeBtn.style.margin = '0';
+    closeBtn.style.padding = '0';
+    closeBtn.style.width = '20px';  // Původní velikost zachována
+    closeBtn.style.height = '20px'; // Původní velikost zachována
+    closeBtn.style.display = 'flex';
+    closeBtn.style.alignItems = 'center';
+    closeBtn.style.justifyContent = 'center';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.lineHeight = '0.5'; // Nižší line-height pro lepší centrování
+    // Další přizpůsobení pro prevenci nechtěných kliknutí
+    closeBtn.style.outline = 'none';
+    closeBtn.style.webkitTapHighlightColor = 'transparent';
+    closeBtn.style.userSelect = 'none';
+    closeBtn.style.webkitUserSelect = 'none';
+    closeBtn.style.msUserSelect = 'none';
+    closeBtn.style.mozUserSelect = 'none';
+    closeBtn.tabIndex = -1;
     
     // Sestavení DOM struktury
     imageContainer.appendChild(modalImg);
-    modal.appendChild(closeBtn);
+    closeBtnContainer.appendChild(closeBtn);
+    modal.appendChild(closeBtnContainer);
     modal.appendChild(imageContainer);
     document.body.appendChild(modal);
     
-    // Proměnné pro posouvání obrázku
+    // Proměnné pro ovládání obrázku
     var isDragging = false;
     var wasDragging = false;
     var startX, startY, translateX = 0, translateY = 0;
-    var initialTranslateX = 0, initialTranslateY = 0; // Počáteční pozice pro tažení
-    var isZoomed = false;
+    var initialTranslateX = 0, initialTranslateY = 0;
+    var isZoomed = false; // Flag pro sledování stavu zvětšení
     var currentScale = 1;
-    var minScale = 1;
-    var maxScale = 3;
-    var mouseIsOverImage = false; // Sledování, zda je myš nad obrázkem
+    var zoomFactor = 2.5; // ZMĚNA: Pevný faktor zvětšení pro všechny obrázky
+    var imgNaturalWidth = 0; // Pro uchování původní šířky obrázku
+    var imgNaturalHeight = 0; // Pro uchování původní výšky obrázku
+    var clickPoint = { x: 0, y: 0 }; // Pro zapamatování bodu kliknutí
     
-    // Přidat event listener pouze na obrázky s třídou 'zoomable'
+    // Přidání event listenerů na obrázky s třídou 'zoomable'
     var images = document.querySelectorAll('img.zoomable');
     images.forEach(function(img) {
         img.addEventListener('click', function() {
             openModal(this.src);
+        });
+        
+        // Přidáme efekt zvětšení při najetí myší podle CSS
+        img.style.cursor = 'pointer';
+        img.style.transition = 'transform 0.2s';
+        
+        img.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        
+        img.addEventListener('mouseleave', function() {
+            this.style.transform = '';
         });
     });
     
@@ -3625,182 +3709,232 @@ document.addEventListener('DOMContentLoaded', function() {
     function openModal(imgSrc) {
         modal.style.display = 'flex';
         modalImg.src = imgSrc;
-        isZoomed = false;
-        currentScale = 1;
-        modalImg.classList.remove('zoomed');
-        resetImagePosition();
+        
+        // Resetování hodnot při otevření
+        resetZoom();
+        
+        // Počkat na načtení obrázku a poté zjistit jeho rozměry
+        modalImg.onload = function() {
+            // Zjištění přesné velikosti obrázku
+            imgNaturalWidth = this.naturalWidth;
+            imgNaturalHeight = this.naturalHeight;
+            
+            // ZMĚNA: Nastavení specifického zvětšení pro konkrétní obrázky
+            if (imgNaturalWidth === 5780 && imgNaturalHeight === 3987) {
+                // Myšlenková mapa - změněné zvětšení z 4.0 na 1.0
+                zoomFactor = 1.0;
+                console.log("Myšlenková mapa: nastaven zoom factor", zoomFactor);
+            } else if (imgNaturalWidth === 505 && imgNaturalHeight === 448) {
+                // Virus - menší zvětšení
+                zoomFactor = 2.0;
+                console.log("Virus: nastaven zoom factor", zoomFactor);
+            } else if (imgNaturalWidth === 679 && imgNaturalHeight === 416) {
+                // Buňka-popis - standardní zvětšení
+                zoomFactor = 2.0;
+                console.log("Buňka-popis: nastaven zoom factor", zoomFactor);
+            } else if (imgNaturalWidth === 1076 && imgNaturalHeight === 1064) {
+                // Buňka hub - standardní zvětšení
+                zoomFactor = 2.0;
+                console.log("Buňka hub: nastaven zoom factor", zoomFactor);
+            } else {
+                // Pro všechny ostatní obrázky nastavíme zvětšení podle velikosti
+                if (imgNaturalWidth > 3000) {
+                    // Velmi velké obrázky
+                    zoomFactor = 4.0;
+                } else if (imgNaturalWidth > 1500) {
+                    // Velké obrázky
+                    zoomFactor = 3.0;
+                } else if (imgNaturalWidth > 800) {
+                    // Střední obrázky
+                    zoomFactor = 2.5;
+                } else if (imgNaturalWidth > 400) {
+                    // Menší obrázky
+                    zoomFactor = 2.0;
+                } else {
+                    // Velmi malé obrázky
+                    zoomFactor = 1.8;
+                }
+                console.log("Standardní obrázek: nastaven zoom factor", zoomFactor);
+            }
+            
+            // Zajištění, že modalImg je správně inicializován
+            resetZoom();
+        };
         
         // Zabránit scrollování stránky v pozadí
         document.body.style.overflow = 'hidden';
     }
     
+    // Resetování funkce pro zoom
+    function resetZoom() {
+        isZoomed = false;
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        
+        modalImg.style.cursor = 'zoom-in';
+        modalImg.style.maxWidth = '100%';
+        modalImg.style.maxHeight = '100%';
+        
+        // Důležité: Nastavení transformOrigin na střed 
+        // a reset transformace na výchozí hodnoty
+        modalImg.style.transformOrigin = 'center';
+        modalImg.style.transform = 'translate(0px, 0px) scale(1)';
+        
+        console.log("Reset zoom: isZoomed =", isZoomed);
+    }
+
+    // FUNKCE PRO JEDNOTNÉ PŘIBLÍŽENÍ S PEVNÝM FAKTOREM
+    function zoomAtClickPoint(e) {
+        // Získání aktuálních rozměrů a pozice obrázku před zvětšením
+        const rect = modalImg.getBoundingClientRect();
+        
+        // Uložení kliknutého bodu
+        clickPoint.x = e.clientX;
+        clickPoint.y = e.clientY;
+        
+        // Výpočet relativní pozice kliknutí v obrázku (od 0 do 1)
+        const relX = (clickPoint.x - rect.left) / rect.width;
+        const relY = (clickPoint.y - rect.top) / rect.height;
+        
+        console.log("Kliknutí v bodě:", clickPoint.x, clickPoint.y);
+        console.log("Relativní pozice v obrázku:", relX.toFixed(4), relY.toFixed(4));
+        
+        // Vypnutí maximálních rozměrů pro přesné výpočty
+        modalImg.style.maxWidth = 'none';
+        modalImg.style.maxHeight = 'none';
+        
+        // Nastavíme transformOrigin přesně na bod kliknutí
+        modalImg.style.transformOrigin = `${relX * 100}% ${relY * 100}%`;
+        
+        // Aplikujeme scale transformaci s pevným zoomFactorem
+        modalImg.style.transform = `scale(${currentScale})`;
+        
+        // Po krátkém zpoždění vypočteme a aplikujeme posunutí, které zajistí
+        // že bod kliknutí zůstane přímo pod kurzorem
+        setTimeout(function() {
+            const newRect = modalImg.getBoundingClientRect();
+            
+            // Výpočet, jak daleko se bod posunul od původní pozice
+            // Toto je klíčové pro správné umístění po zvětšení
+            const newPointX = newRect.left + relX * newRect.width;
+            const newPointY = newRect.top + relY * newRect.height;
+            
+            // Výpočet posunu, který je třeba aplikovat
+            translateX = clickPoint.x - newPointX;
+            translateY = clickPoint.y - newPointY;
+            
+            // Aplikace posunu pro přesné umístění bodu pod kurzorem
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            
+            // Kontrolní výpisy pro ověření konzistence
+            console.log("Aplikován posun pro přesné umístění:", translateX.toFixed(2), translateY.toFixed(2));
+            console.log("Konečná šířka obrázku po zvětšení:", newRect.width * currentScale, "px");
+        }, 10);
+    }
+    
     // Kliknutí na obrázek pro přepínání zvětšení
     modalImg.addEventListener('click', function(e) {
-        setTimeout(function() {
-            if (!isDragging && !wasDragging) {
-                toggleZoom(e);
+        if (!isDragging && !wasDragging) {
+            if (!isZoomed) {
+                // Zvětšení obrázku
+                isZoomed = true;
+                currentScale = zoomFactor; // Použijeme pevně nastavený faktor zvětšení
+                modalImg.style.cursor = 'grab';
+                
+                // Použijeme jednotnou funkci pro všechny typy obrázků
+                zoomAtClickPoint(e);
+                
+                console.log("Zvětšeno: isZoomed =", isZoomed, ", scale =", currentScale);
+            } else {
+                // Zmenšení obrázku
+                resetZoom();
             }
-        }, 10);
+        }
+        e.preventDefault();
         e.stopPropagation();
     });
     
-    // Funkce pro přepínání zvětšení
-    function toggleZoom(e) {
-        if (!isZoomed) {
-            zoomIn(e);
-        } else {
-            zoomOut();
-        }
-    }
-    
-    // Funkce pro zvětšení s určením středu zvětšení
-    function zoomIn(e) {
-        isZoomed = true;
-        currentScale = 2; // Nastavení na fixní hodnotu zvětšení
-        modalImg.classList.add('zoomed');
-        
-        // Zvětšení na pozici kurzoru
-        if (e) {
-            var rect = modalImg.getBoundingClientRect();
-            var mouseX = e.clientX - rect.left;
-            var mouseY = e.clientY - rect.top;
-            var centerX = rect.width / 2;
-            var centerY = rect.height / 2;
-            translateX = (centerX - mouseX) * 2;
-            translateY = (centerY - mouseY) * 2;
-            
-            // Omezení posunu na hranice obrázku
-            constrainTranslation();
-        }
-        updateImagePosition();
-    }
-    
-    // Funkce pro zmenšení
-    function zoomOut() {
-        isZoomed = false;
-        currentScale = 1;
-        modalImg.classList.remove('zoomed');
-        resetImagePosition();
-    }
-    
-    // Funkce pro resetování pozice obrázku
-    function resetImagePosition() {
-        translateX = 0;
-        translateY = 0;
-        updateImagePosition();
-    }
-    
-    // Funkce pro aktualizaci pozice obrázku
-    function updateImagePosition() {
-        modalImg.style.transform = `scale(${currentScale}) translate(${translateX/currentScale}px, ${translateY/currentScale}px)`;
-    }
-    
-    // Omezení posunu na hranice obrázku
-    function constrainTranslation() {
-        // Získat velikost obrázku a kontejneru
-        var imgRect = modalImg.getBoundingClientRect();
-        var containerRect = imageContainer.getBoundingClientRect();
-        
-        // Vypočítat maximální posun, který je možný v každém směru
-        var maxTranslateX = (imgRect.width * (currentScale - 1)) / 2;
-        var maxTranslateY = (imgRect.height * (currentScale - 1)) / 2;
-        
-        // Omezit posun na hranice obrázku
-        translateX = Math.min(Math.max(translateX, -maxTranslateX), maxTranslateX);
-        translateY = Math.min(Math.max(translateY, -maxTranslateY), maxTranslateY);
-    }
-    
-    // Sledování myši nad obrázkem
-    modalImg.addEventListener('mouseenter', function() {
-        mouseIsOverImage = true;
-    });
-    
-    modalImg.addEventListener('mouseleave', function() {
-        mouseIsOverImage = false;
-    });
-    
-    // Začátek tažení (drag) obrázku
+    // Začátek tažení obrázku
     modalImg.addEventListener('mousedown', function(e) {
         if (isZoomed) {
             isDragging = true;
             wasDragging = false;
             startX = e.clientX;
             startY = e.clientY;
-            initialTranslateX = translateX; // Uložit počáteční pozici
+            initialTranslateX = translateX;
             initialTranslateY = translateY;
-            modalImg.classList.add('grabbing');
+            modalImg.style.cursor = 'grabbing';
             e.preventDefault();
         }
     });
     
-    // Posouvání obrázku při tažení - plynulejší varianta optimalizovaná i pro touchpad
+    // Posouvání obrázku při tažení
     document.addEventListener('mousemove', function(e) {
         if (isDragging && isZoomed) {
             var moveX = e.clientX - startX;
             var moveY = e.clientY - startY;
             
-            // Pokud došlo k významnému posunu, označíme, že bylo taženo
-            if (Math.abs(moveX) > 5 || Math.abs(moveY) > 5) {
+            if (Math.abs(moveX) > 3 || Math.abs(moveY) > 3) {
                 wasDragging = true;
             }
             
-            // Výpočet nové pozice na základě počáteční pozice a celkového posunu
-            var sensitivityFactor = 1.5; // Zvýšení citlivosti pro touchpad
-            translateX = initialTranslateX + (moveX * sensitivityFactor);
-            translateY = initialTranslateY + (moveY * sensitivityFactor);
+            // Aktualizace posunu
+            translateX = initialTranslateX + moveX;
+            translateY = initialTranslateY + moveY;
             
-            // Omezení posunu na hranice obrázku
-            constrainTranslation();
-            
-            updateImagePosition();
+            // Aplikace transformace - zachování pořadí translate, scale
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
             e.preventDefault();
         }
     });
     
     // Ukončení tažení
-    document.addEventListener('mouseup', function(e) {
+    document.addEventListener('mouseup', function() {
         if (isDragging) {
             isDragging = false;
-            modalImg.classList.remove('grabbing');
+            if (isZoomed) {
+                modalImg.style.cursor = 'grab';
+            }
+            
+            // Resetování wasDragging po krátké prodlevě
+            setTimeout(function() {
+                wasDragging = false;
+            }, 100);
         }
     });
     
-    // Odchod kurzoru z okna - také ukončí tažení, ale nezavře modal
+    // Odchod kurzoru z okna
     document.addEventListener('mouseleave', function() {
         if (isDragging) {
             isDragging = false;
-            modalImg.classList.remove('grabbing');
+            if (isZoomed) {
+                modalImg.style.cursor = 'grab';
+            }
         }
     });
     
-    // Podpora pro kolečko myši pouze pro zoom, bez posunu
+    // Podpora pro kolečko myši pro zoom
     modalImg.addEventListener('wheel', function(e) {
-        e.preventDefault(); // Zabraňujeme defaultnímu scrollování stránky
+        e.preventDefault();
         
-        // Zjistíme směr scrollu (nahoru = přiblížení, dolů = oddálení)
-        if (e.deltaY < 0) {
+        if (e.deltaY < 0 && !isZoomed) {
             // Scroll nahoru - přiblížit
-            if (!isZoomed) {
-                zoomIn(e);
-            }
-        } else {
+            // Simulujeme kliknutí pro konzistentní chování
+            var clickEvent = new MouseEvent('click', {
+                clientX: e.clientX,
+                clientY: e.clientY
+            });
+            modalImg.dispatchEvent(clickEvent);
+        } else if (e.deltaY > 0 && isZoomed) {
             // Scroll dolů - oddálit
-            if (isZoomed) {
-                zoomOut();
-            }
+            resetZoom();
         }
     }, { passive: false });
     
-    // Podpora pro dotyková zařízení - pinch to zoom
-    var lastTouchDistance = 0;
-    var initialScale = 1;
-    
+    // Dotyková podpora
     modalImg.addEventListener('touchstart', function(e) {
-        if (e.touches.length === 2) {
-            lastTouchDistance = getTouchDistance(e.touches);
-            initialScale = currentScale;
-            e.preventDefault();
-        } else if (isZoomed) {
+        if (isZoomed && e.touches.length === 1) {
             isDragging = true;
             wasDragging = false;
             startX = e.touches[0].clientX;
@@ -3812,26 +3946,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: false });
     
     modalImg.addEventListener('touchmove', function(e) {
-        if (e.touches.length === 2) {
-            // Pinch to zoom
-            var currentDistance = getTouchDistance(e.touches);
-            var scale = initialScale * (currentDistance / lastTouchDistance);
-            currentScale = Math.max(minScale, Math.min(maxScale, scale));
-            
-            if (currentScale > 1) {
-                isZoomed = true;
-                modalImg.classList.add('zoomed');
-            } else {
-                isZoomed = false;
-                modalImg.classList.remove('zoomed');
-                resetImagePosition();
-            }
-            
-            constrainTranslation();
-            updateImagePosition();
-            e.preventDefault();
-        } else if (isDragging && isZoomed) {
-            // Drag na dotykových zařízeních
+        if (isDragging && isZoomed) {
             var moveX = e.touches[0].clientX - startX;
             var moveY = e.touches[0].clientY - startY;
             
@@ -3839,16 +3954,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 wasDragging = true;
             }
             
+            // Aktualizace posunu
             translateX = initialTranslateX + moveX;
             translateY = initialTranslateY + moveY;
             
-            constrainTranslation();
-            updateImagePosition();
+            // Aplikace transformace
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
             e.preventDefault();
         }
     }, { passive: false });
     
-    modalImg.addEventListener('touchend', function(e) {
+    modalImg.addEventListener('touchend', function() {
         isDragging = false;
         
         setTimeout(function() {
@@ -3856,43 +3972,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     });
     
-    function getTouchDistance(touches) {
-        var dx = touches[0].clientX - touches[1].clientX;
-        var dy = touches[0].clientY - touches[1].clientY;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-    
-    // Zavřít modal při kliknutí na křížek
-    closeBtn.addEventListener('click', function(e) {
-        closeModal();
-        e.stopPropagation();
+    // Styl křížku
+    closeBtn.addEventListener('mouseenter', function() {
+        this.style.color = '#fff'; // Bílá barva při najetí myší
     });
     
-    // Zavřít modal při kliknutí na jakoukoliv oblast modalu
+    closeBtn.addEventListener('mouseleave', function() {
+        this.style.color = '#bbb'; // Původní barva
+    });
+    
+    // Zavřít modal při kliknutí na křížek
+    closeBtnContainer.addEventListener('click', function(e) {
+        closeModal();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+    
+    // Zavřít modal při kliknutí na pozadí
     modal.addEventListener('click', function(e) {
-        // Zavřeme modal pouze pokud nebylo předtím taženo
-        if (!wasDragging) {
-            // Zkontrolujme, že kliknutí není přímo na obrázek
-            if (e.target !== modalImg) {
-                closeModal();
-            }
+        if (!wasDragging && e.target !== modalImg) {
+            closeModal();
         }
-        // Reset příznaku tažení po krátké prodlevě
-        setTimeout(function() {
-            wasDragging = false;
-        }, 10);
     });
     
     // Funkce pro zavření modalu
     function closeModal() {
         modal.style.display = 'none';
-        isZoomed = false;
-        currentScale = 1;
-        modalImg.classList.remove('zoomed');
-        modalImg.classList.remove('grabbing');
-        resetImagePosition();
-        wasDragging = false; // Reset příznaku tažení
-        
+        resetZoom();
         // Obnovení scrollování stránky
         document.body.style.overflow = '';
     }
@@ -3904,8 +4010,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-
 //---------COOKIES FUNCIONALITY--------------//
 // JavaScript pro fungování oznámení o cookies
 

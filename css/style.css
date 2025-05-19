@@ -1,6 +1,6 @@
 /* 
-Toto je výchozí CSS soubor se základními a neroztříděnými styly do různých souborů.
-Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé, aby bylo třeba rozdělit na vlasstní CSS.
+Toto je výchozí CSS soubor se základními styly a styly neroztříděnými do vlastních souborů.
+Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé.
 Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
 Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css
 */
