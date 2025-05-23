@@ -2871,6 +2871,9 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Přidání event listeneru pro kliknutí
       homeIcon.addEventListener('click', function(e) {
+        // NOVÉ: Před navigací vyčistíme dropdown stavy
+        clearAllDropdownStates();
+        
         // Přesměrování na domovskou stránku
         window.location.href = homeIcon.getAttribute('href') || '/';
       });
@@ -2972,6 +2975,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   
+  // NOVÉ: Funkce pro vyčištění všech uložených stavů dropdownů
+  function clearAllDropdownStates() {
+    try {
+      localStorage.removeItem('stickyDropdownStates');
+      if (window.stickyDropdownStates) {
+        window.stickyDropdownStates = {};
+      }
+      console.log('All dropdown states cleared');
+    } catch (e) {
+      console.error('Error clearing dropdown states:', e);
+    }
+  }
+  
   // Initialize dropdowns specifically for the sticky header
   function initializeStickyDropdowns() {
     const stickyHeader = document.querySelector('.sticky-header');
@@ -2988,15 +3004,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Save dropdown states
     window.stickyDropdownStates = window.stickyDropdownStates || {};
     
-    // Restore dropdown states from localStorage if available
+    // UPRAVENO: Při načtení stránky nejdříve zkontrolujeme, jestli je referrer jiný než současná stránka
+    // Pokud ano, vyčistíme stavy (znamená to navigaci z jiné stránky)
     try {
-      const savedStates = localStorage.getItem('stickyDropdownStates');
-      if (savedStates) {
-        window.stickyDropdownStates = JSON.parse(savedStates);
-        console.log('Restored dropdown states from localStorage:', window.stickyDropdownStates);
+      const currentUrl = window.location.href;
+      const referrerUrl = document.referrer;
+      
+      // Pokud je referrer z jiné stránky nebo je prázdný, vyčistíme stavy
+      if (!referrerUrl || new URL(referrerUrl).pathname !== new URL(currentUrl).pathname) {
+        console.log('Navigation detected from different page, clearing dropdown states');
+        clearAllDropdownStates();
+      } else {
+        // Jen pokud jsme na stejné stránce, obnovíme stavy
+        const savedStates = localStorage.getItem('stickyDropdownStates');
+        if (savedStates) {
+          window.stickyDropdownStates = JSON.parse(savedStates);
+          console.log('Restored dropdown states from localStorage:', window.stickyDropdownStates);
+        }
       }
     } catch (e) {
-      console.error('Error restoring dropdown states:', e);
+      console.error('Error handling dropdown states:', e);
+      clearAllDropdownStates();
     }
     
     // Apply strict pointer-event rules to all button containers
@@ -3058,7 +3086,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let hoverIntentTimeout;
       let intentDelay = 200; // ms to wait before opening on hover for more intentional interaction
       
-      // Check saved state
+      // Check saved state - POUZE pokud jsme nepřišli z jiné stránky
       if (window.stickyDropdownStates[dropdownId] === true) {
         // If saved as open, open immediately
         setTimeout(() => {
@@ -3141,213 +3169,239 @@ document.addEventListener('DOMContentLoaded', function() {
         content.style.opacity = '0';
         content.style.display = 'block';
         
-        // Force browser to calculate layout with display: block before applying transitions
-        void content.offsetWidth;
-        
-        // Position dead zone PŘED zobrazením obsahu
-        positionDeadZone();
-        deadZone.style.display = 'block';
-        
-        // Apply ARIA attributes
-        toggle.setAttribute('aria-expanded', 'true');
-        
-        // Use requestAnimationFrame for smoother animation
+        // Force browser to calculate// Force browser to calculate positioning
         requestAnimationFrame(() => {
-          // Add show class to start transition
+          // Show dropdown with animation
           content.classList.add('show');
           content.style.opacity = '1';
           content.style.visibility = 'visible';
+          
           isOpen = true;
           
-          // Save state to localStorage if this wasn't from a saved state restore
+          // Position dead zone for better hover behavior
+          positionDeadZone();
+          deadZone.style.display = 'block';
+          
+          // Save state unless this is from saved state restore
           if (!fromSavedState) {
             window.stickyDropdownStates[dropdownId] = true;
             saveDropdownStates();
           }
           
-          console.log(`Sticky dropdown ${index} opened`, { content: content.className });
+          console.log(`Dropdown ${dropdownId} opened`);
         });
       }
       
       // Hide dropdown
-      function hideDropdown(immediate = false) {
+      function hideDropdown() {
+        clearTimeout(hideTimeout);
+        clearTimeout(hoverIntentTimeout);
+        
         if (!isOpen) return;
         
-        // Check if any submenu is active
-        if (window.isSubmenuActive && !immediate) {
-          console.log("Not closing dropdown because submenu is active");
+        // Check if submenu is active before hiding
+        if (window.isSubmenuActive) {
+          console.log('Submenu is active, delaying dropdown hide');
+          hideTimeout = setTimeout(hideDropdown, 100);
           return;
         }
         
-        // Use timeout for smoother UX, unless immediate is requested
-        const delay = immediate ? 0 : 200;
+        content.classList.remove('show');
+        content.style.opacity = '0';
+        content.style.visibility = 'hidden';
         
-        hideTimeout = setTimeout(() => {
-          // Start hiding animation
-          content.style.opacity = '0';
-          content.style.visibility = 'hidden';
-          content.classList.remove('show');
-          
-          // Hide dead zone immediately
-          deadZone.style.display = 'none';
-          
-          // Update ARIA
-          toggle.setAttribute('aria-expanded', 'false');
-          
-          // Wait for transition to complete before setting display: none
-          setTimeout(() => {
-            if (!content.classList.contains('show')) {
-              content.style.display = 'none';
-              isOpen = false;
-              
-              // Save closed state
-              window.stickyDropdownStates[dropdownId] = false;
-              saveDropdownStates();
-              
-              console.log(`Sticky dropdown ${index} closed`);
-            }
-          }, 300); // Match transition duration
-        }, delay);
+        setTimeout(() => {
+          content.style.display = 'none';
+        }, 300);
+        
+        deadZone.style.display = 'none';
+        isOpen = false;
+        
+        // Save state
+        window.stickyDropdownStates[dropdownId] = false;
+        saveDropdownStates();
+        
+        console.log(`Dropdown ${dropdownId} closed`);
       }
       
-      // Save dropdown states to localStorage
-      function saveDropdownStates() {
-        try {
-          localStorage.setItem('stickyDropdownStates', JSON.stringify(window.stickyDropdownStates));
-        } catch (e) {
-          console.error('Error saving dropdown states:', e);
+      // Enhanced hover intent detection
+      function handleHoverIntent(show = true) {
+        clearTimeout(hoverIntentTimeout);
+        
+        if (show) {
+          // Check mouse speed - if moving too fast, add delay
+          const currentSpeed = MouseTracker.getCurrentSpeed();
+          const speedThreshold = 300; // pixels per second
+          
+          const delay = currentSpeed > speedThreshold ? intentDelay + 100 : intentDelay;
+          
+          hoverIntentTimeout = setTimeout(() => {
+            // Double-check mouse is still over trigger area
+            const toggleRect = toggle.getBoundingClientRect();
+            const isStillHovering = document.elementFromPoint(
+              toggleRect.left + toggleRect.width / 2,
+              toggleRect.top + toggleRect.height / 2
+            ) === toggle || toggle.contains(document.elementFromPoint(
+              toggleRect.left + toggleRect.width / 2,
+              toggleRect.top + toggleRect.height / 2
+            ));
+            
+            if (isStillHovering) {
+              showDropdown();
+            }
+          }, delay);
+        } else {
+          // Hiding also has a delay to prevent accidental closes
+          hoverIntentTimeout = setTimeout(() => {
+            hideDropdown();
+          }, 150);
         }
       }
       
-      // Toggle dropdown on click
+      // Event listeners for toggle button
+      toggle.addEventListener('mouseenter', () => {
+        console.log(`Mouse entered toggle ${dropdownId}`);
+        handleHoverIntent(true);
+      });
+      
+      toggle.addEventListener('mouseleave', () => {
+        console.log(`Mouse left toggle ${dropdownId}`);
+        if (!isOpen) return;
+        
+        // Check if mouse is moving toward the dropdown content
+        if (MouseTracker.isMovingToward(content)) {
+          console.log('Mouse moving toward dropdown content, delaying hide');
+          return;
+        }
+        
+        setTimeout(() => {
+          const contentRect = content.getBoundingClientRect();
+          const deadZoneRect = deadZone.getBoundingClientRect();
+          
+          // Check if mouse is over content or dead zone
+          const isOverContent = content.matches(':hover');
+          const isOverDeadZone = deadZone.matches(':hover');
+          
+          if (!isOverContent && !isOverDeadZone) {
+            handleHoverIntent(false);
+          }
+        }, 50);
+      });
+      
+      // Click handler for toggle (alternative activation)
       toggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         
-        if (!isOpen) {
-          showDropdown();
+        console.log(`Toggle ${dropdownId} clicked`);
+        
+        if (isOpen) {
+          hideDropdown();
         } else {
-          hideDropdown(true); // true = immediate
+          showDropdown();
         }
       });
       
-      // Handle main button click if it exists
+      // Event listeners for dropdown content
+      content.addEventListener('mouseenter', () => {
+        console.log(`Mouse entered content ${dropdownId}`);
+        clearTimeout(hideTimeout);
+        clearTimeout(hoverIntentTimeout);
+      });
+      
+      content.addEventListener('mouseleave', () => {
+        console.log(`Mouse left content ${dropdownId}`);
+        handleHoverIntent(false);
+      });
+      
+      // Event listeners for dead zone
+      deadZone.addEventListener('mouseenter', () => {
+        console.log(`Mouse entered dead zone ${dropdownId}`);
+        clearTimeout(hideTimeout);
+        clearTimeout(hoverIntentTimeout);
+      });
+      
+      deadZone.addEventListener('mouseleave', () => {
+        console.log(`Mouse left dead zone ${dropdownId}`);
+        handleHoverIntent(false);
+      });
+      
+      // Main button click handler (if exists)
       if (mainButton) {
         mainButton.addEventListener('click', (e) => {
-          // If it's a real link, let it navigate
-          if (mainButton.tagName === 'A' && mainButton.getAttribute('href') && mainButton.getAttribute('href') !== '#') {
-            return;
-          }
-          
           e.preventDefault();
           e.stopPropagation();
           
-          // Toggle dropdown
-          if (!isOpen) {
-            showDropdown();
-          } else {
-            hideDropdown(true);
+          console.log(`Main button clicked for dropdown ${dropdownId}`);
+          
+          // Navigate to main button link if it has href
+          const href = mainButton.getAttribute('href');
+          if (href && href !== '#') {
+            // Clear dropdown states before navigation
+            clearAllDropdownStates();
+            window.location.href = href;
           }
         });
       }
       
-      // More intelligent hover behavior using MouseTracker
-      toggle.addEventListener('mouseenter', (e) => {
-        clearTimeout(hideTimeout);
-        
-        // If mouse is moving toward the toggle quickly, open immediately
-        const mouseSpeed = MouseTracker.getCurrentSpeed();
-        const isMovingToward = MouseTracker.isMovingToward(toggle);
-        
-        if (mouseSpeed > 500 && isMovingToward) {
-          // Fast movement toward toggle - open immediately
-          showDropdown();
-          console.log('Fast movement toward toggle detected, opening immediately');
-        } else {
-          // Normal hover intent delay
-          hoverIntentTimeout = setTimeout(() => {
-            showDropdown();
-          }, intentDelay);
-        }
-      });
-      
-      // Handle hover leaving
-      toggle.addEventListener('mouseleave', () => {
-        clearTimeout(hoverIntentTimeout);
-        
-        // Don't hide if mouse is in content or dead zone
-        if (!isMouseInContent && !isMouseInDeadZone) {
-          hideDropdown();
-        }
-      });
-      
-      // Track mouse in content area
-      let isMouseInContent = false;
-      content.addEventListener('mouseenter', () => {
-        clearTimeout(hideTimeout);
-        isMouseInContent = true;
-      });
-      
-      content.addEventListener('mouseleave', () => {
-        isMouseInContent = false;
-        hideDropdown();
-      });
-      
-      // Track mouse in dead zone
-      let isMouseInDeadZone = false;
-      deadZone.addEventListener('mouseenter', () => {
-        clearTimeout(hideTimeout);
-        isMouseInDeadZone = true;
-      });
-      
-      deadZone.addEventListener('mouseleave', () => {
-        isMouseInDeadZone = false;
-        hideDropdown();
-      });
-      
-      // Close dropdown on document click
-      document.addEventListener('click', (e) => {
-        // Only close if the click is outside the dropdown and its content
-        if (isOpen && !dropdown.contains(e.target) && !deadZone.contains(e.target)) {
-          hideDropdown(true); // true = immediate
-        }
-      });
-      
       // Initialize sub-dropdowns within this dropdown
-      initializeSubDropdowns(content);
-      
-      console.log(`Dropdown ${index} fully initialized`);
+      initializeSubDropdowns(content, dropdownId);
     });
     
-    // Document-level event to close all dropdowns on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeAllStickyDropdowns();
+    // Handle clicks outside dropdowns to close them
+    document.addEventListener('click', (e) => {
+      const isInsideStickyHeader = e.target.closest('.sticky-header');
+      const isInsideDropdown = e.target.closest('.dropdown-content, .dropdown-content-second, .sub-dropdown-content');
+      
+      if (!isInsideStickyHeader && !isInsideDropdown) {
+        // Close all open dropdowns
+        stickyHeader.querySelectorAll('.dropdown-content.show, .dropdown-content-second.show').forEach(content => {
+          const dropdown = content.closest('.dropdown');
+          const dropdownId = dropdown?.getAttribute('data-dropdown-id');
+          
+          content.classList.remove('show');
+          content.style.opacity = '0';
+          content.style.visibility = 'hidden';
+          
+          setTimeout(() => {
+            content.style.display = 'none';
+          }, 300);
+          
+          if (dropdownId) {
+            window.stickyDropdownStates[dropdownId] = false;
+            saveDropdownStates();
+          }
+        });
+        
+        // Hide all dead zones
+        document.querySelectorAll('.sticky-header-dead-zone').forEach(zone => {
+          zone.style.display = 'none';
+        });
       }
     });
+    
+    console.log('Sticky header dropdowns initialized successfully');
   }
   
-  // Initialize all sub-dropdowns within a dropdown content
-  function initializeSubDropdowns(parentContent) {
-    const subToggles = parentContent.querySelectorAll('.sub-dropdown-toggle');
+  // Initialize sub-dropdowns (for nested menus)
+  function initializeSubDropdowns(parentContent, parentDropdownId) {
+    const subDropdownToggles = parentContent.querySelectorAll('.sub-dropdown-toggle');
     
-    console.log(`Found ${subToggles.length} sub-dropdown toggles`);
+    console.log(`Found ${subDropdownToggles.length} sub-dropdown toggles in ${parentDropdownId}`);
     
-    subToggles.forEach((subToggle, subIndex) => {
-      // Find associated content
+    subDropdownToggles.forEach((subToggle, subIndex) => {
       const subContent = subToggle.nextElementSibling;
       if (!subContent || !subContent.classList.contains('sub-dropdown-content')) {
-        console.warn(`Sub-toggle ${subIndex} has no valid content`);
+        console.warn(`Sub-toggle ${subIndex} has no associated sub-dropdown content`);
         return;
       }
       
-      console.log(`Initializing sub-dropdown ${subIndex}:`, {
-        toggle: subToggle.className,
-        content: subContent.className
-      });
+      const subDropdownId = `${parentDropdownId}-sub-${subIndex}`;
+      let subHideTimeout;
+      let isSubOpen = false;
       
-      // Create dead zone for smoother hover
-      const subDeadZoneId = `sub-dropdown-dead-zone-${subIndex}`;
+      // Create sub-dropdown dead zone
+      const subDeadZoneId = `sub-dropdown-dead-zone-${parentDropdownId}-${subIndex}`;
       let subDeadZone = document.getElementById(subDeadZoneId);
       
       if (!subDeadZone) {
@@ -3358,231 +3412,163 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(subDeadZone);
       }
       
-      // State tracking
-      let isSubOpen = false;
-      let subHideTimeout;
-      
-      // Position the sub-dropdown dead zone
       function positionSubDeadZone() {
         const toggleRect = subToggle.getBoundingClientRect();
         const contentRect = subContent.getBoundingClientRect();
         
-        // Calculate position - bridge between toggle and content
+        const padding = 5;
+        
         subDeadZone.style.left = (toggleRect.right + window.scrollX) + 'px';
         subDeadZone.style.top = (toggleRect.top + window.scrollY) + 'px';
-        subDeadZone.style.width = (contentRect.left - toggleRect.right) + 'px';
-        subDeadZone.style.height = toggleRect.height + 'px';
-        
-        console.log('Sub dead zone positioned');
+        subDeadZone.style.width = Math.max(5, contentRect.left - toggleRect.right) + 'px';
+        subDeadZone.style.height = Math.max(toggleRect.height, contentRect.height) + 'px';
+        subDeadZone.style.zIndex = '999';
       }
       
-      // Show sub-dropdown
       function showSubDropdown() {
         clearTimeout(subHideTimeout);
         
-        // Make sure content is visible first for proper positioning
+        // Inform parent that submenu is active
+        window.setSubmenuActive(true);
+        
         subContent.style.opacity = '0';
         subContent.style.display = 'block';
         
-        // Notify parent dropdown that submenu is active
-        window.setSubmenuActive(true);
-        
-        // Force browser to calculate layout
-        void subContent.offsetWidth;
-        
-        // Position dead zone
-        positionSubDeadZone();
-        subDeadZone.style.display = 'block';
-        
-        // Apply ARIA
-        subToggle.setAttribute('aria-expanded', 'true');
-        
-        // Use requestAnimationFrame for smoother animation
         requestAnimationFrame(() => {
           subContent.classList.add('show');
           subContent.style.opacity = '1';
           subContent.style.visibility = 'visible';
+          
           isSubOpen = true;
+          
+          positionSubDeadZone();
+          subDeadZone.style.display = 'block';
+          
+          console.log(`Sub-dropdown ${subDropdownId} opened`);
         });
       }
       
-      // Hide sub-dropdown
       function hideSubDropdown() {
         clearTimeout(subHideTimeout);
         
-        subHideTimeout = setTimeout(() => {
-          // Start hiding animation
-          subContent.style.opacity = '0';
-          subContent.style.visibility = 'hidden';
-          subContent.classList.remove('show');
-          
-          // Hide dead zone
-          subDeadZone.style.display = 'none';
-          
-          // Update ARIA
-          subToggle.setAttribute('aria-expanded', 'false');
-          
-          // Notify parent dropdown that submenu is no longer active
-          window.setSubmenuActive(false);
-          
-          // Wait for transition to complete
-          setTimeout(() => {
-            if (!subContent.classList.contains('show')) {
-              subContent.style.display = 'none';
-              isSubOpen = false;
-            }
-          }, 300);
-        }, 200);
+        if (!isSubOpen) return;
+        
+        subContent.classList.remove('show');
+        subContent.style.opacity = '0';
+        subContent.style.visibility = 'hidden';
+        
+        setTimeout(() => {
+          subContent.style.display = 'none';
+        }, 300);
+        
+        subDeadZone.style.display = 'none';
+        isSubOpen = false;
+        
+        // Inform parent that submenu is no longer active
+        window.setSubmenuActive(false);
+        
+        console.log(`Sub-dropdown ${subDropdownId} closed`);
       }
       
-      // Track mouse in sub-toggle
+      // Event listeners for sub-dropdown
       subToggle.addEventListener('mouseenter', () => {
-        clearTimeout(subHideTimeout);
+        console.log(`Mouse entered sub-toggle ${subDropdownId}`);
         showSubDropdown();
       });
       
       subToggle.addEventListener('mouseleave', () => {
-        // Don't hide if mouse is in content or dead zone
-        if (!isMouseInSubContent && !isMouseInSubDeadZone) {
-          hideSubDropdown();
-        }
+        console.log(`Mouse left sub-toggle ${subDropdownId}`);
+        subHideTimeout = setTimeout(() => {
+          const isOverContent = subContent.matches(':hover');
+          const isOverDeadZone = subDeadZone.matches(':hover');
+          
+          if (!isOverContent && !isOverDeadZone) {
+            hideSubDropdown();
+          }
+        }, 150);
       });
       
-      // Track mouse in sub-content
-      let isMouseInSubContent = false;
       subContent.addEventListener('mouseenter', () => {
+        console.log(`Mouse entered sub-content ${subDropdownId}`);
         clearTimeout(subHideTimeout);
-        isMouseInSubContent = true;
       });
       
       subContent.addEventListener('mouseleave', () => {
-        isMouseInSubContent = false;
-        hideSubDropdown();
+        console.log(`Mouse left sub-content ${subDropdownId}`);
+        subHideTimeout = setTimeout(hideSubDropdown, 150);
       });
       
-      // Track mouse in sub-dead zone
-      let isMouseInSubDeadZone = false;
       subDeadZone.addEventListener('mouseenter', () => {
         clearTimeout(subHideTimeout);
-        isMouseInSubDeadZone = true;
       });
       
       subDeadZone.addEventListener('mouseleave', () => {
-        isMouseInSubDeadZone = false;
-        hideSubDropdown();
+        subHideTimeout = setTimeout(hideSubDropdown, 150);
+      });
+      
+      // Click handler for sub-dropdown links
+      const subLinks = subContent.querySelectorAll('a');
+      subLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          // Clear all dropdown states before navigation
+          clearAllDropdownStates();
+        });
       });
     });
   }
   
-  // Helper function to close all dropdowns
-  function closeAllStickyDropdowns() {
-    const stickyHeader = document.querySelector('.sticky-header');
-    
-    if (stickyHeader) {
-      const dropdownContents = stickyHeader.querySelectorAll('.dropdown-content.show, .dropdown-content-second.show');
-      
-      dropdownContents.forEach(content => {
-        // Apply hide animation
-        content.style.opacity = '0';
-        content.style.visibility = 'hidden';
-        content.classList.remove('show');
-        
-        // Wait for animation to complete
-        setTimeout(() => {
-          content.style.display = 'none';
-        }, 300);
-        
-        // Update ARIA
-        const parentDropdown = content.closest('.dropdown');
-        if (parentDropdown) {
-          const toggle = parentDropdown.querySelector('.dropdown-toggle, .dropdown-toggle-second');
-          if (toggle) {
-            toggle.setAttribute('aria-expanded', 'false');
-          }
-          
-          // Update saved state
-          const dropdownId = parentDropdown.getAttribute('data-dropdown-id');
-          if (dropdownId) {
-            window.stickyDropdownStates[dropdownId] = false;
-            
-            // Save to localStorage
-            try {
-              localStorage.setItem('stickyDropdownStates', JSON.stringify(window.stickyDropdownStates));
-            } catch (e) {
-              console.error('Error saving dropdown states:', e);
-            }
-          }
-        }
-      });
-      
-      // Hide all dead zones
-      document.querySelectorAll('.sticky-header-dead-zone, .sub-dropdown-dead-zone').forEach(zone => {
-        zone.style.display = 'none';
-      });
+  // Save dropdown states to localStorage
+  function saveDropdownStates() {
+    try {
+      localStorage.setItem('stickyDropdownStates', JSON.stringify(window.stickyDropdownStates));
+      console.log('Dropdown states saved:', window.stickyDropdownStates);
+    } catch (e) {
+      console.error('Error saving dropdown states:', e);
     }
   }
   
-   // UPRAVENO: Funkce pro inicializaci domečku s přesnou aktivní zónou pouze pro obrázek
-function initializeHomeIcon(stickyHeader) {
-    // Najít všechny prvky s třídou home-icon ve sticky headeru
-    const homeIcons = stickyHeader.querySelectorAll('.home-icon');
+  // Handle page visibility changes (when user switches tabs)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // Page is hidden - save current states
+      saveDropdownStates();
+    } else {
+      // Page is visible again - could restore states if needed
+      console.log('Page visible again');
+    }
+  });
   
-    homeIcons.forEach(homeIcon => {
-      // Najít obrázek uvnitř home-icon
-      const img = homeIcon.querySelector('img');
-      if (!img) return;
+  // Handle page unload
+  window.addEventListener('beforeunload', () => {
+    // Save states before leaving
+    saveDropdownStates();
+  });
   
-      // Získat adresu pro odkaz
-      const href = homeIcon.getAttribute('href') || '/';
-  
-      // Vytvoříme nový kontejner, který bude mít pointer-events: none
-      const container = document.createElement('span');
-      container.classList.add('home-icon-container');
-      container.style.display = 'inline-block';
-      container.style.position = 'relative';
-      container.style.pointerEvents = 'none'; // Vypne všechny interakce na kontejneru
-  
-      // Vytvoříme nový img element s vlastními clickable vlastnostmi
-      const newImg = document.createElement('img');
-      newImg.src = img.src;
-      newImg.alt = img.alt || 'Home';
-      newImg.style.width = '25px';
-      newImg.style.height = 'auto';
-      newImg.style.marginLeft = '10px';
-      newImg.style.marginTop = '9.3px';
-      newImg.style.pointerEvents = 'auto'; // Zapne interakci pouze pro obrázek
-      newImg.style.cursor = 'pointer';
-  
-      // Přidáme event listener přímo na obrázek
-      newImg.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        window.location.href = href;
-      });
-  
-      // Efekt při najetí myší
-      newImg.addEventListener('mouseenter', function() {
-        newImg.style.filter = 'brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%)';
-      });
-  
-      newImg.addEventListener('mouseleave', function() {
-        newImg.style.filter = '';
-      });
-  
-      // Přidáme obrázek do kontejneru
-      container.appendChild(newImg);
-  
-      // Nahradíme původní element novým kontejnerem
-      homeIcon.parentNode.replaceChild(container, homeIcon);
-  
-      console.log('Home icon rebuilt with precise click area limited to the image only');
+  // Cleanup function (for development/debugging)
+  window.cleanupStickyHeader = function() {
+    // Remove sticky header
+    const stickyHeader = document.querySelector('.sticky-header');
+    if (stickyHeader) {
+      stickyHeader.remove();
+    }
+    
+    // Remove dead zones
+    document.querySelectorAll('.sticky-header-dead-zone, .sub-dropdown-dead-zone').forEach(zone => {
+      zone.remove();
     });
-  }
+    
+    // Clear saved states
+    clearAllDropdownStates();
+    
+    // Remove event listeners (they'll be removed with elements)
+    console.log('Sticky header cleaned up');
+  };
+  
+  console.log('Sticky header script loaded successfully');
 
-//------ZOOM FUNKCIONALITY-------//
-// Vylepšené zvětšování obrázků s opravou pro konzistentní zoom na všech zařízeních
+//--------IMAGES FUNCTIONALITY----------//
 document.addEventListener('DOMContentLoaded', function() {
-    // Vytvoření modálního okna
+    // Vytvoření modálního okna a všech jeho komponent
     var modal = document.createElement('div');
     modal.className = 'modal';
     modal.style.display = 'none';
@@ -3597,27 +3583,57 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.style.alignItems = 'center';
     modal.style.justifyContent = 'center';
     
+    // Hlavní kontejner pro obrázek a zdroje
+    var mainContainer = document.createElement('div');
+    mainContainer.className = 'main-container';
+    mainContainer.style.position = 'relative';
+    mainContainer.style.width = '90%';
+    mainContainer.style.height = '90%';
+    mainContainer.style.display = 'flex';
+    mainContainer.style.flexDirection = 'row'; // Horizontální uspořádání
+    mainContainer.style.alignItems = 'center';
+    mainContainer.style.justifyContent = 'center';
+    
     // Kontejner pro obrázek
     var imageContainer = document.createElement('div');
     imageContainer.className = 'image-container';
     imageContainer.style.position = 'relative';
-    imageContainer.style.width = '90%';
-    imageContainer.style.height = '90%';
+    imageContainer.style.width = '100%';
+    imageContainer.style.height = '100%';
     imageContainer.style.display = 'flex';
     imageContainer.style.alignItems = 'center';
     imageContainer.style.justifyContent = 'center';
     imageContainer.style.overflow = 'hidden';
     
+    // Kontejner pro zdroje
+// Upravená část kódu pro zobrazení zdrojů na pravé straně modálu
+// Nahraďte původní definici sourceContainer touto verzí:
+
+// Kontejner pro zdroje - umístěný na pravé straně
+var sourceContainer = document.createElement('div');
+sourceContainer.className = 'source-container';
+sourceContainer.style.position = 'absolute';
+sourceContainer.style.top = '90%'; // Vertikální centrování
+sourceContainer.style.transform = 'translateY(-90%)'; // Vycentrování podle výšky
+sourceContainer.style.right = '20px'; // Odsazení zprava
+sourceContainer.style.backgroundColor = 'transparent'; // Bez pozadí
+sourceContainer.style.color = '#fff';
+sourceContainer.style.padding = '10px';
+sourceContainer.style.width = '150px'; // Pevná šířka prostoru pro zdroje
+sourceContainer.style.fontSize = '14px';
+sourceContainer.style.zIndex = '9999';
+sourceContainer.style.transition = 'opacity 0.1s ease';
+sourceContainer.style.opacity = '1';
+sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
+    
     var modalImg = document.createElement('img');
     modalImg.className = 'modal-content';
-    // Nastavení stylu dle CSS
     modalImg.style.display = 'block';
     modalImg.style.maxWidth = '100%';
     modalImg.style.maxHeight = '100%';
     modalImg.style.cursor = 'zoom-in';
-    modalImg.style.transition = 'transform 0.3s ease';
+    modalImg.style.transition = 'transform 0.4s ease, border-radius 0.4s ease'; // Přidána animace pro border-radius
     modalImg.style.objectFit = 'contain';
-    // Prevence modrého označení při kliknutí
     modalImg.style.outline = 'none';
     modalImg.style.webkitTapHighlightColor = 'transparent';
     modalImg.setAttribute('draggable', 'false');
@@ -3627,37 +3643,36 @@ document.addEventListener('DOMContentLoaded', function() {
     modalImg.style.mozUserSelect = 'none';
     modalImg.tabIndex = -1;
     
-    // Vytvoříme malý kontejner pro tlačítko close
+    
+    // Kontejner pro tlačítko zavření
     var closeBtnContainer = document.createElement('div');
     closeBtnContainer.style.position = 'absolute';
     closeBtnContainer.style.top = '15px';
     closeBtnContainer.style.right = '15px';
-    closeBtnContainer.style.width = '27px'; // Původní velikost kontejneru zachována
-    closeBtnContainer.style.height = '28px'; // Původní velikost kontejneru zachována
+    closeBtnContainer.style.width = '30px';
+    closeBtnContainer.style.height = '30px';
     closeBtnContainer.style.overflow = 'hidden';
     closeBtnContainer.style.zIndex = '1001';
     closeBtnContainer.style.display = 'flex';
     closeBtnContainer.style.alignItems = 'center';
     closeBtnContainer.style.justifyContent = 'center';
     
-    // Samotné tlačítko - pouze zvětšený font
     var closeBtn = document.createElement('span');
     closeBtn.className = 'close';
     closeBtn.innerHTML = '&times;';
-    closeBtn.style.fontSize = '45px'; // Zvětšeno z 30px na 36px
+    closeBtn.style.fontSize = '45px';
     closeBtn.style.fontWeight = 'bold';
     closeBtn.style.color = '#bbb';
     closeBtn.style.textDecoration = 'none';
     closeBtn.style.margin = '0';
     closeBtn.style.padding = '0';
-    closeBtn.style.width = '20px';  // Původní velikost zachována
-    closeBtn.style.height = '20px'; // Původní velikost zachována
+    closeBtn.style.width = '40px';
+    closeBtn.style.height = '40px';
     closeBtn.style.display = 'flex';
     closeBtn.style.alignItems = 'center';
     closeBtn.style.justifyContent = 'center';
     closeBtn.style.cursor = 'pointer';
-    closeBtn.style.lineHeight = '0.5'; // Nižší line-height pro lepší centrování
-    // Další přizpůsobení pro prevenci nechtěných kliknutí
+    closeBtn.style.lineHeight = '0.5';
     closeBtn.style.outline = 'none';
     closeBtn.style.webkitTapHighlightColor = 'transparent';
     closeBtn.style.userSelect = 'none';
@@ -3668,47 +3683,67 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Sestavení DOM struktury
     imageContainer.appendChild(modalImg);
+    mainContainer.appendChild(imageContainer);
+    mainContainer.appendChild(sourceContainer);
     closeBtnContainer.appendChild(closeBtn);
     modal.appendChild(closeBtnContainer);
-    modal.appendChild(imageContainer);
+    modal.appendChild(mainContainer);
     document.body.appendChild(modal);
     
-    // Proměnné pro ovládání obrázku
+    // Proměnné pro ovládání obrázku - VYLEPŠENÉ
     var isDragging = false;
     var wasDragging = false;
-    var startX, startY, translateX = 0, translateY = 0;
+    var startX, startY;
+    var lastX, lastY; // Pro plynulejší sledování pohybu
+    var translateX = 0, translateY = 0;
     var initialTranslateX = 0, initialTranslateY = 0;
-    var isZoomed = false; // Flag pro sledování stavu zvětšení
+    var isZoomed = false;
     var currentScale = 1;
-    var zoomFactor = 2.5; // ZMĚNA: Pevný faktor zvětšení pro všechny obrázky
-    var imgNaturalWidth = 0; // Pro uchování původní šířky obrázku
-    var imgNaturalHeight = 0; // Pro uchování původní výšky obrázku
-    var clickPoint = { x: 0, y: 0 }; // Pro zapamatování bodu kliknutí
+    var zoomFactor = 2.5;
+    var imgNaturalWidth = 0;
+    var imgNaturalHeight = 0;
+    
+    
+    // Detekce mobilního zařízení
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    console.log("Je mobilní zařízení:", isMobile);
     
     // Přidání event listenerů na obrázky s třídou 'zoomable'
     var images = document.querySelectorAll('img.zoomable');
     images.forEach(function(img) {
         img.addEventListener('click', function() {
-            openModal(this.src);
+            openModal(this.src, this.getAttribute('data-source') || '');
         });
         
-        // Přidáme efekt zvětšení při najetí myší podle CSS
+        // Nastavíme pouze cursor: pointer bez efektu zvětšení
         img.style.cursor = 'pointer';
-        img.style.transition = 'transform 0.2s';
         
-        img.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05)';
-        });
+        // Pro mobilní zařízení - reagujeme na dotyk bez zvětšení
+        img.addEventListener('touchstart', function(event) {
+            // Zabráníme výchozímu chování
+            event.preventDefault();
+        }, { passive: false });
         
-        img.addEventListener('mouseleave', function() {
-            this.style.transform = '';
+        img.addEventListener('touchend', function() {
+            openModal(this.src, this.getAttribute('data-source') || '');
         });
     });
     
+    // Funkce pro skrytí/zobrazení zdrojů
+    function toggleSourceVisibility(visible) {
+        sourceContainer.style.opacity = visible ? '1' : '0';
+    }
+    
     // Funkce pro otevření modálního okna
-    function openModal(imgSrc) {
+    function openModal(imgSrc, sourceText) {
         modal.style.display = 'flex';
         modalImg.src = imgSrc;
+        
+        // Nastavení textu se zdrojem
+        sourceContainer.innerHTML = sourceText || '';
+        
+        // Zobrazení/skrytí kontejneru se zdrojem podle toho, zda máme text
+        sourceContainer.style.display = sourceText ? 'block' : 'none';
         
         // Resetování hodnot při otevření
         resetZoom();
@@ -3719,39 +3754,36 @@ document.addEventListener('DOMContentLoaded', function() {
             imgNaturalWidth = this.naturalWidth;
             imgNaturalHeight = this.naturalHeight;
             
-            // ZMĚNA: Nastavení specifického zvětšení pro konkrétní obrázky
+            // Nastavení specifického zvětšení pro konkrétní obrázky
             if (imgNaturalWidth === 5780 && imgNaturalHeight === 3987) {
-                // Myšlenková mapa - změněné zvětšení z 4.0 na 1.0
-                zoomFactor = 1.0;
+                zoomFactor = 0.5;
                 console.log("Myšlenková mapa: nastaven zoom factor", zoomFactor);
+           } else if (imgNaturalWidth === 2200 && imgNaturalHeight === 1772) {
+                zoomFactor = 0.7;
+                console.log("Ž: nastaven zoom factor", zoomFactor);
+            } else if (imgNaturalWidth === 2052 && imgNaturalHeight === 1508) {
+                zoomFactor = 0.8;
+                console.log("R: nastaven zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 505 && imgNaturalHeight === 448) {
-                // Virus - menší zvětšení
                 zoomFactor = 2.0;
                 console.log("Virus: nastaven zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 679 && imgNaturalHeight === 416) {
-                // Buňka-popis - standardní zvětšení
                 zoomFactor = 2.0;
                 console.log("Buňka-popis: nastaven zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 1076 && imgNaturalHeight === 1064) {
-                // Buňka hub - standardní zvětšení
-                zoomFactor = 2.0;
+                zoomFactor = 0.8;
                 console.log("Buňka hub: nastaven zoom factor", zoomFactor);
             } else {
                 // Pro všechny ostatní obrázky nastavíme zvětšení podle velikosti
                 if (imgNaturalWidth > 3000) {
-                    // Velmi velké obrázky
-                    zoomFactor = 4.0;
+                    zoomFactor = 0.6;
                 } else if (imgNaturalWidth > 1500) {
-                    // Velké obrázky
                     zoomFactor = 3.0;
                 } else if (imgNaturalWidth > 800) {
-                    // Střední obrázky
                     zoomFactor = 2.5;
                 } else if (imgNaturalWidth > 400) {
-                    // Menší obrázky
                     zoomFactor = 2.0;
                 } else {
-                    // Velmi malé obrázky
                     zoomFactor = 1.8;
                 }
                 console.log("Standardní obrázek: nastaven zoom factor", zoomFactor);
@@ -3765,6 +3797,51 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'hidden';
     }
     
+    // Vytvoření tlačítka pro zoom pro mobilní zařízení
+    if (isMobile) {
+        var zoomButton = document.createElement('div');
+        zoomButton.className = 'zoom-button';
+        zoomButton.style.position = 'absolute';
+        zoomButton.style.bottom = '20px';
+        zoomButton.style.right = '20px';
+        zoomButton.style.width = '50px';
+        zoomButton.style.height = '50px';
+        zoomButton.style.borderRadius = '50%';
+        zoomButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        zoomButton.style.display = 'flex';
+        zoomButton.style.alignItems = 'center';
+        zoomButton.style.justifyContent = 'center';
+        zoomButton.style.zIndex = '1001';
+        zoomButton.style.cursor = 'pointer';
+        
+        var zoomIcon = document.createElement('div');
+        zoomIcon.style.color = '#fff';
+        zoomIcon.style.fontSize = '24px';
+        zoomIcon.style.fontWeight = 'bold';
+        zoomIcon.innerHTML = '+';
+        
+        zoomButton.appendChild(zoomIcon);
+        modal.appendChild(zoomButton);
+        
+        // Event listener pro tlačítko zoom na dotyk
+        zoomButton.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            handleZoomToggle(window.innerWidth / 2, window.innerHeight / 2);
+            zoomIcon.innerHTML = isZoomed ? '-' : '+';
+        }, { passive: false });
+        
+        // Event listener pro tlačítko zoom na klik
+        zoomButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            handleZoomToggle(window.innerWidth / 2, window.innerHeight / 2);
+            zoomIcon.innerHTML = isZoomed ? '-' : '+';
+        });
+    }
+    
     // Resetování funkce pro zoom
     function resetZoom() {
         isZoomed = false;
@@ -3772,80 +3849,258 @@ document.addEventListener('DOMContentLoaded', function() {
         translateX = 0;
         translateY = 0;
         
-        modalImg.style.cursor = 'zoom-in';
+        modalImg.style.cursor = isMobile ? 'default' : 'zoom-in';
         modalImg.style.maxWidth = '100%';
         modalImg.style.maxHeight = '100%';
+        modalImg.style.borderRadius = '0'; // Reset zaoblení při zmenšení
         
-        // Důležité: Nastavení transformOrigin na střed 
-        // a reset transformace na výchozí hodnoty
+        // Důležité: Nastavení transformOrigin na střed a reset transformace
         modalImg.style.transformOrigin = 'center';
         modalImg.style.transform = 'translate(0px, 0px) scale(1)';
+        
+        // Zobrazíme zdroje při resetování zoomu
+        toggleSourceVisibility(true);
         
         console.log("Reset zoom: isZoomed =", isZoomed);
     }
 
-    // FUNKCE PRO JEDNOTNÉ PŘIBLÍŽENÍ S PEVNÝM FAKTOREM
-    function zoomAtClickPoint(e) {
-        // Získání aktuálních rozměrů a pozice obrázku před zvětšením
+    // VYLEPŠENÁ funkce pro zvětšení v místě kliknutí/dotyku
+    function zoomAtPoint(pointX, pointY) {
+        // Zaznamenáme přesnou pozici kliknutí v kontextu okna
+        console.log("Kliknutí na souřadnice:", { pointX, pointY });
+        
+        // Získáme aktuální rozměry a pozici obrázku
         const rect = modalImg.getBoundingClientRect();
+        console.log("Původní rozměry obrázku:", { 
+            width: rect.width, 
+            height: rect.height,
+            left: rect.left,
+            top: rect.top
+        });
         
-        // Uložení kliknutého bodu
-        clickPoint.x = e.clientX;
-        clickPoint.y = e.clientY;
+        // Zjistíme rozměry obrázku pro identifikaci
+        const imgWidth = modalImg.naturalWidth;
+        const imgHeight = modalImg.naturalHeight;
         
-        // Výpočet relativní pozice kliknutí v obrázku (od 0 do 1)
-        const relX = (clickPoint.x - rect.left) / rect.width;
-        const relY = (clickPoint.y - rect.top) / rect.height;
+        // Vypočítáme relativní pozici kliknutí v rámci obrázku
+        const relX = (pointX - rect.left) / rect.width;
+        const relY = (pointY - rect.top) / rect.height;    
+        console.log("Relativní pozice kliknutí v obrázku:", { relX, relY });
         
-        console.log("Kliknutí v bodě:", clickPoint.x, clickPoint.y);
-        console.log("Relativní pozice v obrázku:", relX.toFixed(4), relY.toFixed(4));
+        // Určíme střed obrazovky pro centrování
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        console.log("Střed obrazovky:", { centerX, centerY });
+
+        // Použijeme zoomFactor z nastavení
+        currentScale = zoomFactor;
+
+        // Definice korekčních faktorů podle typu obrázku
+        let korekceFaktorX = 1.0;
+        let korekceFaktorY = 1.0;
+        let fixniKorekceX = 0;
+        let fixniKorekceY = 0;
         
-        // Vypnutí maximálních rozměrů pro přesné výpočty
+        // Nastavení korekčních faktorů podle typu obrázku
+        if (imgWidth === 5780 && imgHeight === 3987) {
+            // Myšlenková mapa
+            korekceFaktorX = 0.49;
+            korekceFaktorY = 0.49;
+        } else if (imgWidth === 2200 && imgHeight === 1772) {
+            // Ž
+            korekceFaktorX = 0.65;
+            korekceFaktorY = 0.65;
+        } else if (imgWidth === 2052 && imgHeight === 1508) {
+            // R
+            korekceFaktorX = 0.75; 
+            korekceFaktorY = 0.75;
+        } else if (imgWidth === 505 && imgHeight === 448) {
+            // Virus
+            korekceFaktorX = 2.0;
+            korekceFaktorY = 2.0;
+        } else if (imgWidth === 679 && imgHeight === 416) {
+            // Buňka-popis
+            korekceFaktorX = 2.0;
+            korekceFaktorY = 2.0;
+        } else if (imgWidth === 1076 && imgHeight === 1064) {
+            // Buňka hub
+            korekceFaktorX = 0.7;
+            korekceFaktorY = 0.7;
+        } else {
+            // Výchozí hodnoty pro ostatní obrázky
+            korekceFaktorX = 0.58;
+            korekceFaktorY = 0.58;
+        }
+        
+        console.log("Použité korekční faktory:", {
+            korekceFaktorX, 
+            korekceFaktorY,
+            fixniKorekceX,
+            fixniKorekceY,
+            scale: currentScale
+        });
+        
+        // Vypnutí omezení velikosti před transformací
         modalImg.style.maxWidth = 'none';
         modalImg.style.maxHeight = 'none';
         
-        // Nastavíme transformOrigin přesně na bod kliknutí
-        modalImg.style.transformOrigin = `${relX * 100}% ${relY * 100}%`;
+        // Nastavení zaoblených rohů při zvětšení
+        modalImg.style.borderRadius = '50px'; // Přidání zaoblení při zvětšení
         
-        // Aplikujeme scale transformaci s pevným zoomFactorem
-        modalImg.style.transform = `scale(${currentScale})`;
+        // Skryjeme zdroje při zoomu
+        toggleSourceVisibility(false);
         
-        // Po krátkém zpoždění vypočteme a aplikujeme posunutí, které zajistí
-        // že bod kliknutí zůstane přímo pod kurzorem
-        setTimeout(function() {
-            const newRect = modalImg.getBoundingClientRect();
+        // Použijeme promisy pro správné načasování operací
+        return new Promise(resolve => {
+            // Čekáme na první snímek po resetu transformací
+            requestAnimationFrame(() => {
+                // Získáme rozměry obrázku po resetu
+                const resetRect = modalImg.getBoundingClientRect();
+                
+                // Nejprve provedeme samotné zvětšení bez posunu
+                modalImg.style.transform = `scale(${currentScale})`;
+                
+                // Čekáme na aplikaci změny měřítka
+                requestAnimationFrame(() => {
+                    // Získáme nové rozměry po změně měřítka
+                    const scaledRect = modalImg.getBoundingClientRect();
+                    
+                    // Vypočítáme aktuální pozici kliknutého bodu po zvětšení
+                    const scaledPointX = scaledRect.left + (relX * scaledRect.width);
+                    const scaledPointY = scaledRect.top + (relY * scaledRect.height);
+                    
+                    // Vypočítáme základní posun
+                    let baseTranslateX = centerX - scaledPointX;
+                    let baseTranslateY = centerY - scaledPointY;
+                    
+                    // Aplikujeme korekční faktory - VYLEPŠENO pro stabilnější chování
+                    translateX = (baseTranslateX * korekceFaktorX) + fixniKorekceX;
+                    translateY = (baseTranslateY * korekceFaktorY) + fixniKorekceY;
+                    
+                    console.log("Vypočtené posuny:", {
+                        baseTranslateX,
+                        baseTranslateY,
+                        translationWithCorrections: {
+                            translateX,
+                            translateY
+                        }
+                    });
+                    
+                    // Uložíme výchozí pozice pro drag
+                    initialTranslateX = translateX;
+                    initialTranslateY = translateY;
+                    
+                    // Aplikujeme transformaci s korekcemi
+                    const finalTransform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+                    modalImg.style.transform = finalTransform;
+                    
+                    // Provedeme ještě jednu kontrolu po aplikaci transformace
+                    requestAnimationFrame(() => {
+                        // Získáme konečné rozměry obrázku
+                        const finalRect = modalImg.getBoundingClientRect();
+                        
+                        // Vypočítáme finální pozici kliknutého bodu
+                        const finalPointX = finalRect.left + (relX * finalRect.width);
+                        const finalPointY = finalRect.top + (relY * finalRect.height);
+                        
+                        // Zobrazíme výsledek
+                        console.log("Finální pozice bodu:", {
+                            finalPointX,
+                            finalPointY,
+                            centerX,
+                            centerY,
+                            odchylkaX: centerX - finalPointX,
+                            odchylkaY: centerY - finalPointY
+                        });
+                        
+                        resolve();
+                    });
+                });
+            });
+        });
+    }
+
+    // Funkce pro přesné centrování objektu uprostřed obrazovky
+    function centerElementExactly(element) {
+        if (!element) return;
+        
+        // Resetujeme existující transformace
+        element.style.transform = 'none';
+        
+        // Počkáme na vykreslení
+        requestAnimationFrame(() => {
+            // Získáme rozměry elementu a obrazovky
+            const rect = element.getBoundingClientRect();
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
             
-            // Výpočet, jak daleko se bod posunul od původní pozice
-            // Toto je klíčové pro správné umístění po zvětšení
-            const newPointX = newRect.left + relX * newRect.width;
-            const newPointY = newRect.top + relY * newRect.height;
+            // Vypočítáme přesný střed obrazovky
+            const centerX = windowWidth / 2;
+            const centerY = windowHeight / 2;
             
-            // Výpočet posunu, který je třeba aplikovat
-            translateX = clickPoint.x - newPointX;
-            translateY = clickPoint.y - newPointY;
+            // Vypočítáme střed elementu
+            const elementCenterX = rect.left + (rect.width / 2);
+            const elementCenterY = rect.top + (rect.height / 2);
             
-            // Aplikace posunu pro přesné umístění bodu pod kurzorem
-            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            // Vypočítáme posun potřebný pro centrování
+            const translateX = centerX - elementCenterX;
+            const translateY = centerY - elementCenterY;
             
-            // Kontrolní výpisy pro ověření konzistence
-            console.log("Aplikován posun pro přesné umístění:", translateX.toFixed(2), translateY.toFixed(2));
-            console.log("Konečná šířka obrázku po zvětšení:", newRect.width * currentScale, "px");
-        }, 10);
+            // Aplikujeme transformaci
+            element.style.transform = `translate(${translateX}px, ${translateY}px)`;
+            
+            console.log("Element centrován:", {
+                translateX,
+                translateY,
+                windowCenter: { x: centerX, y: centerY },
+                elementCenter: { x: elementCenterX, y: elementCenterY }
+            });
+        });
+    }
+
+    // Přímé volání pro centrování rostlinné buňky
+    function centerPlantCell() {
+        const cellElement = modalImg || document.querySelector('.modal-content img') || document.getElementById('rostlinna-bunka');
+        
+        if (cellElement) {
+            centerElementExactly(cellElement);
+        } else {
+            console.error("Element rostlinné buňky nebyl nalezen!");
+        }
     }
     
-    // Kliknutí na obrázek pro přepínání zvětšení
+    // Jednotná funkce pro přepínání zoomu (pro desktop i mobil)
+    function handleZoomToggle(x, y) {
+        if (!isZoomed) {
+            // Zvětšení obrázku
+            isZoomed = true;
+            currentScale = zoomFactor;
+            modalImg.style.cursor = 'grab';
+            
+            // Použijeme zvětšení v místě kliknutí/dotyku
+            zoomAtPoint(x, y);
+            
+            console.log("Zvětšeno: isZoomed =", isZoomed, ", scale =", currentScale);
+        } else {
+            // Zmenšení obrázku
+            resetZoom();
+            console.log("Zmenšeno: isZoomed =", isZoomed);
+        }
+    }
+    
+    // Kliknutí na obrázek pro přepínání zvětšení (desktop)
     modalImg.addEventListener('click', function(e) {
-        if (!isDragging && !wasDragging) {
+        if (!isMobile && !isDragging && !wasDragging) {
             if (!isZoomed) {
                 // Zvětšení obrázku
                 isZoomed = true;
-                currentScale = zoomFactor; // Použijeme pevně nastavený faktor zvětšení
+                currentScale = zoomFactor;
                 modalImg.style.cursor = 'grab';
                 
-                // Použijeme jednotnou funkci pro všechny typy obrázků
-                zoomAtClickPoint(e);
+                // Použijeme jednotnou funkci pro zvětšení v místě kliknutí
+                zoomAtPoint(e.clientX, e.clientY);
                 
-                console.log("Zvětšeno: isZoomed =", isZoomed, ", scale =", currentScale);
+                console.log("Zvětšeno kliknutím: isZoomed =", isZoomed, ", scale =", currentScale);
             } else {
                 // Zmenšení obrázku
                 resetZoom();
@@ -3855,13 +4110,103 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
     });
     
-    // Začátek tažení obrázku
+    // VYLEPŠENÁ ČÁST PRO MOBILNÍ ZAŘÍZENÍ
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
+    
+    // Začátek dotyku
+    modalImg.addEventListener('touchstart', function(e) {
+        // Zaznamenáme pozici dotyku
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchMoved = false;
+        
+        if (isZoomed) {
+            // Začátek tažení při zvětšeném obrázku
+            isDragging = true;
+            wasDragging = false;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            lastX = startX;  // Pro plynulejší pohyb
+            lastY = startY;  // Pro plynulejší pohyb
+            initialTranslateX = translateX;
+            initialTranslateY = translateY;
+        }
+    }, { passive: true });
+    
+    // VYLEPŠENÝ pohyb při dotyku
+    modalImg.addEventListener('touchmove', function(e) {
+        // Získání souřadnic aktuálního dotyku
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        
+        // Detekce většího pohybu - zabráníme interpretaci jako tap 
+        // využíváme citlivost na menší hodnotu pro lepší detekci
+        if (Math.abs(touchX - touchStartX) > 3 || 
+            Math.abs(touchY - touchStartY) > 3) {
+            touchMoved = true;
+        }
+        
+        // Posouvání zvětšeného obrázku
+        if (isDragging && isZoomed) {
+            // Vypočítáme delta pohybu od posledního pohybu
+            const deltaX = touchX - lastX;
+            const deltaY = touchY - lastY;
+            
+            // Aktualizujeme poslední pozici
+            lastX = touchX;
+            lastY = touchY;
+            
+            // Přímá aktualizace posunu - VYLEPŠENO pro plynulejší pohyb
+            translateX += deltaX;
+            translateY += deltaY;
+            
+            // Rychlá aplikace transformace pro okamžitou odezvu
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            
+            if (Math.abs(touchX - startX) > 5 || Math.abs(touchY - startY) > 5) {
+                wasDragging = true;
+            }
+            
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Konec dotyku
+    modalImg.addEventListener('touchend', function(e) {
+        // Ukončení tažení
+        if (isDragging) {
+            isDragging = false;
+            
+            // Krátké zpoždění pro přesnější detekci kliknutí vs tažení
+            setTimeout(function() {
+                wasDragging = false;
+            }, 100);
+        }
+        
+        // Pokud byl minimální pohyb, interpretujeme jako tap
+        if (!touchMoved && !wasDragging) {
+            // Získáme poslední pozici dotyku
+            var touch = e.changedTouches[0];
+            
+            // Pouze pro mobilní zařízení používáme jednotnou funkci pro přepínání zoomu
+            if (isMobile) {
+                handleZoomToggle(touch.clientX, touch.clientY);
+                e.preventDefault();
+            }
+        }
+    });
+    
+    // VYLEPŠENÝ začátek tažení obrázku (desktop)
     modalImg.addEventListener('mousedown', function(e) {
         if (isZoomed) {
             isDragging = true;
             wasDragging = false;
             startX = e.clientX;
             startY = e.clientY;
+            lastX = startX;  // Pro plynulejší pohyb
+            lastY = startY;  // Pro plynulejší pohyb 
             initialTranslateX = translateX;
             initialTranslateY = translateY;
             modalImg.style.cursor = 'grabbing';
@@ -3869,27 +4214,101 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Posouvání obrázku při tažení
+    // VYLEPŠENÉ posouvání obrázku při tažení (desktop)
     document.addEventListener('mousemove', function(e) {
         if (isDragging && isZoomed) {
-            var moveX = e.clientX - startX;
-            var moveY = e.clientY - startY;
+            // Vypočítáme delta pohybu od posledního pohybu
+            const deltaX = e.clientX - lastX;
+            const deltaY = e.clientY - lastY;
             
-            if (Math.abs(moveX) > 3 || Math.abs(moveY) > 3) {
+            // Aktualizujeme poslední pozici
+            lastX = e.clientX;
+            lastY = e.clientY;
+            
+            // Přímá aktualizace posunu - VYLEPŠENO
+            // Přímá aktualizace posunu - VYLEPŠENO pro plynulejší pohyb
+            translateX += deltaX;
+            translateY += deltaY;
+            
+            // Rychlá aplikace transformace pro okamžitou odezvu
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            
+            if (Math.abs(touchX - startX) > 5 || Math.abs(touchY - startY) > 5) {
                 wasDragging = true;
             }
             
-            // Aktualizace posunu
-            translateX = initialTranslateX + moveX;
-            translateY = initialTranslateY + moveY;
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Konec dotyku
+    modalImg.addEventListener('touchend', function(e) {
+        // Ukončení tažení
+        if (isDragging) {
+            isDragging = false;
             
-            // Aplikace transformace - zachování pořadí translate, scale
-            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            // Krátké zpoždění pro přesnější detekci kliknutí vs tažení
+            setTimeout(function() {
+                wasDragging = false;
+            }, 100);
+        }
+        
+        // Pokud byl minimální pohyb, interpretujeme jako tap
+        if (!touchMoved && !wasDragging) {
+            // Získáme poslední pozici dotyku
+            var touch = e.changedTouches[0];
+            
+            // Pouze pro mobilní zařízení používáme jednotnou funkci pro přepínání zoomu
+            if (isMobile) {
+                handleZoomToggle(touch.clientX, touch.clientY);
+                e.preventDefault();
+            }
+        }
+    });
+    
+    // VYLEPŠENÝ začátek tažení obrázku (desktop)
+    modalImg.addEventListener('mousedown', function(e) {
+        if (isZoomed) {
+            isDragging = true;
+            wasDragging = false;
+            startX = e.clientX;
+            startY = e.clientY;
+            lastX = startX;  // Pro plynulejší pohyb
+            lastY = startY;  // Pro plynulejší pohyb 
+            initialTranslateX = translateX;
+            initialTranslateY = translateY;
+            modalImg.style.cursor = 'grabbing';
             e.preventDefault();
         }
     });
     
-    // Ukončení tažení
+    // VYLEPŠENÉ posouvání obrázku při tažení (desktop)
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging && isZoomed) {
+            // Vypočítáme delta pohybu od posledního pohybu
+            const deltaX = e.clientX - lastX;
+            const deltaY = e.clientY - lastY;
+            
+            // Aktualizujeme poslední pozici
+            lastX = e.clientX;
+            lastY = e.clientY;
+            
+            // Přímá aktualizace posunu - VYLEPŠENO pro plynulejší pohyb
+            translateX += deltaX;
+            translateY += deltaY;
+            
+            // Rychlá aplikace transformace pro okamžitou odezvu
+            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            
+            if (Math.abs(e.clientX - startX) > 3 || Math.abs(e.clientY - startY) > 3) {
+                wasDragging = true;
+            }
+            
+            e.preventDefault();
+        }
+    });
+    
+    // Ukončení tažení (desktop)
     document.addEventListener('mouseup', function() {
         if (isDragging) {
             isDragging = false;
@@ -3897,7 +4316,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalImg.style.cursor = 'grab';
             }
             
-            // Resetování wasDragging po krátké prodlevě
+            // Krátké zpoždění pro přesnější detekci kliknutí vs tažení
             setTimeout(function() {
                 wasDragging = false;
             }, 100);
@@ -3914,72 +4333,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Podpora pro kolečko myši pro zoom
+    // Podpora pro kolečko myši pro zoom (desktop)
     modalImg.addEventListener('wheel', function(e) {
         e.preventDefault();
         
         if (e.deltaY < 0 && !isZoomed) {
             // Scroll nahoru - přiblížit
-            // Simulujeme kliknutí pro konzistentní chování
-            var clickEvent = new MouseEvent('click', {
-                clientX: e.clientX,
-                clientY: e.clientY
-            });
-            modalImg.dispatchEvent(clickEvent);
+            handleZoomToggle(e.clientX, e.clientY);
         } else if (e.deltaY > 0 && isZoomed) {
             // Scroll dolů - oddálit
             resetZoom();
         }
     }, { passive: false });
     
-    // Dotyková podpora
-    modalImg.addEventListener('touchstart', function(e) {
-        if (isZoomed && e.touches.length === 1) {
-            isDragging = true;
-            wasDragging = false;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            initialTranslateX = translateX;
-            initialTranslateY = translateY;
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    modalImg.addEventListener('touchmove', function(e) {
-        if (isDragging && isZoomed) {
-            var moveX = e.touches[0].clientX - startX;
-            var moveY = e.touches[0].clientY - startY;
-            
-            if (Math.abs(moveX) > 5 || Math.abs(moveY) > 5) {
-                wasDragging = true;
-            }
-            
-            // Aktualizace posunu
-            translateX = initialTranslateX + moveX;
-            translateY = initialTranslateY + moveY;
-            
-            // Aplikace transformace
-            modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    modalImg.addEventListener('touchend', function() {
-        isDragging = false;
+    // Styl křížku (hover efekt)
+    if (!isMobile) {
+        closeBtn.addEventListener('mouseenter', function() {
+            this.style.color = '#fff';
+        });
         
-        setTimeout(function() {
-            wasDragging = false;
-        }, 100);
-    });
+        closeBtn.addEventListener('mouseleave', function() {
+            this.style.color = '#bbb';
+        });
+    }
     
-    // Styl křížku
-    closeBtn.addEventListener('mouseenter', function() {
-        this.style.color = '#fff'; // Bílá barva při najetí myší
-    });
-    
-    closeBtn.addEventListener('mouseleave', function() {
-        this.style.color = '#bbb'; // Původní barva
-    });
     
     // Zavřít modal při kliknutí na křížek
     closeBtnContainer.addEventListener('click', function(e) {
@@ -3987,6 +4364,14 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
         e.preventDefault();
     });
+    
+    // Pro mobilní zařízení - dotyk na tlačítko zavřít
+    closeBtnContainer.addEventListener('touchend', function(e) {
+        closeModal();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+    
     
     // Zavřít modal při kliknutí na pozadí
     modal.addEventListener('click', function(e) {
@@ -4009,6 +4394,13 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+    
+    // Potlačení výchozích dotykových gest prohlížeče v modalu
+    modal.addEventListener('touchmove', function(e) {
+        if (isZoomed) {
+            e.preventDefault();
+        }
+    }, { passive: false });
 });
 //---------COOKIES FUNCIONALITY--------------//
 // JavaScript pro fungování oznámení o cookies
@@ -4340,13 +4732,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 //-------PDF FUNCIONALITY--------//
- // Počkáme na načtení stránky
+// Počkáme na načtení stránky
 document.addEventListener('DOMContentLoaded', function() {
     // Získáme reference na elementy
     const showPdfBtn = document.getElementById('showPdfBtn');
     
     // Pokud element showPdfBtn neexistuje na aktuální stránce, ukončíme inicializaci PDF prohlížeče
-    // ale už nezobrazujeme chybovou hlášku, protože to je očekávaný stav na stránkách bez PDF
     if (!showPdfBtn) {
         return; // Ukončíme inicializaci, pokud tlačítko neexistuje
     }
@@ -4362,117 +4753,746 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
+    // Proměnné pro sledování stavu
+    let isPdfOpen = false;
+    let pdfHasFocus = false; // Klíčová proměnná - určuje, zda má PDF focus
+    
+    // Funkce pro detekci typu prohlížeče
+    function getBrowserType() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes('chrome') && !userAgent.includes('edg')) return 'chrome';
+        if (userAgent.includes('firefox')) return 'firefox';
+        if (userAgent.includes('safari') && !userAgent.includes('chrome')) return 'safari';
+        if (userAgent.includes('edg')) return 'edge';
+        return 'other';
+    }
+    
+    // Funkce pro simulaci klávesových událostí v PDF
+    function simulateKeyInPdf(keyCode, key) {
+        try {
+            const iframeWindow = pdfFrame.contentWindow;
+            if (iframeWindow) {
+                const keyEvent = new KeyboardEvent('keydown', {
+                    key: key,
+                    keyCode: keyCode,
+                    which: keyCode,
+                    bubbles: true,
+                    cancelable: true
+                });
+                
+                if (iframeWindow.document) {
+                    iframeWindow.document.dispatchEvent(keyEvent);
+                    
+                    const keyUpEvent = new KeyboardEvent('keyup', {
+                        key: key,
+                        keyCode: keyCode,
+                        which: keyCode,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    iframeWindow.document.dispatchEvent(keyUpEvent);
+                }
+            }
+        } catch (error) {
+            console.log('Fallback: Používám alternativní metodu pro ovládání PDF');
+        }
+    }
+    
+    // Funkce pro nastavení focus na PDF
+    function setFocusOnPdf() {
+        pdfFrame.focus();
+        
+        const browserType = getBrowserType();
+        
+        setTimeout(() => {
+            try {
+                if (pdfFrame.contentWindow && pdfFrame.contentWindow.focus) {
+                    pdfFrame.contentWindow.focus();
+                }
+                
+                if (browserType === 'chrome' || browserType === 'edge') {
+                    const pdfEmbed = pdfFrame.contentDocument?.querySelector('embed');
+                    if (pdfEmbed && pdfEmbed.focus) {
+                        pdfEmbed.focus();
+                    }
+                }
+            } catch (error) {
+                console.log('Focus management fallback');
+            }
+        }, 200);
+    }
+    
     // Funkce pro otevření PDF
     function openPdfViewer() {
-        // Nastavíme cestu k PDF souboru
-        pdfFrame.src = 'docs/darwin.pdf'; // Upravte cestu k vašemu PDF
-        
-        // Zobrazíme překryvnou vrstvu
+        pdfFrame.src = 'docs/darwin.pdf';
         pdfOverlay.style.display = 'block';
+        // NEBLOKUJEME scrollování - necháme stránku scrollovatelnou
+        // document.body.style.overflow = 'hidden'; // Odstraněno!
+        isPdfOpen = true;
         
-        // Zablokujeme scrollování stránky
-        document.body.style.overflow = 'hidden';
+        // DŮLEŽITÉ: Při otevření PDF NEMÁ automaticky focus
+        pdfHasFocus = false;
         
-        // Přidáme neviditelný overlay pro zachycení kláves
-        addKeyboardTrap();
+        console.log('PDF otevřeno - šipky ovládají pozadí stránky. Klikněte do PDF pro ovládání PDF.');
     }
     
     // Funkce pro zavření PDF
     function closePdfViewer() {
-        // Skryjeme překryvnou vrstvu
         pdfOverlay.style.display = 'none';
-        
-        // Vyčistíme iframe (pro odstranění PDF)
         pdfFrame.src = '';
+        // Nemusíme obnovovat overflow, protože jsme ho neblokovali
+        isPdfOpen = false;
+        pdfHasFocus = false;
         
-        // Obnovíme scrollování stránky
-        document.body.style.overflow = '';
-        
-        // Odstraníme keyboard trap
-        removeKeyboardTrap();
+        console.log('PDF zavřeno - normální ovládání stránky obnoveno.');
     }
     
-    // Přidáme event listener na tlačítko pro otevření PDF
-    showPdfBtn.addEventListener('click', openPdfViewer);
+    // Hlavní funkce pro obsluhu kláves
+    function handleKeydown(e) {
+        // ESC vždy zavírá PDF pokud je otevřené
+        if (isPdfOpen && (e.key === 'Escape' || e.keyCode === 27)) {
+            closePdfViewer();
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        
+        // Pokud PDF není otevřené, necháme normální chování
+        if (!isPdfOpen) {
+            return;
+        }
+        
+        // Pokud je PDF otevřené ale NEMÁ focus, necháme šipky ovládat pozadí
+        if (!pdfHasFocus) {
+            return; // Šipky budou normálně ovládat stránku v pozadí
+        }
+        
+        // Pouze pokud má PDF focus, přesměrujeme navigační klávesy do PDF
+        const key = e.key;
+        const keyCode = e.keyCode || e.which;
+        
+        const navigationKeys = [
+            'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+            'PageUp', 'PageDown', 'Home', 'End', 'Space'
+        ];
+        
+        const navigationKeyCodes = [33, 34, 35, 36, 37, 38, 39, 40, 32];
+        
+        if (navigationKeys.includes(key) || navigationKeyCodes.includes(keyCode)) {
+            // Zabráníme výchozímu chování stránky
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            // Pošleme klávesu do PDF
+            simulateKeyInPdf(keyCode, key);
+            
+            console.log('Klávesa přesměrována do PDF:', key);
+        }
+    }
     
-    // Přidáme event listener na tlačítko pro zavření PDF
-    pdfCloseBtn.addEventListener('click', closePdfViewer);
+    // Přidáme globální handler pro klávesy
+    document.addEventListener('keydown', handleKeydown, true);
     
-    // Přidáme event listener pro zavření kliknutím mimo PDF
+    // Handler pro kliknutí na overlay
     pdfOverlay.addEventListener('click', function(e) {
-        // Zavřeme PDF pouze když uživatel klikne na překryvnou vrstvu, ne na PDF
         if (e.target === pdfOverlay) {
+            // Kliknutí mimo PDF - zavřeme PDF
             closePdfViewer();
         }
     });
     
-    // Vytvoříme element pro zachycení klávesových událostí
-    let keyboardTrap = null;
+    // KLÍČOVÝ handler - kliknutí DO PDF oblasti nastaví focus
+    pdfFrame.addEventListener('click', function(e) {
+        pdfHasFocus = true;
+        setFocusOnPdf();
+        console.log('PDF má nyní focus - šipky ovládají PDF');
+        e.stopPropagation();
+    });
     
-    function addKeyboardTrap() {
-        // Vytvoříme nový div, který bude zachytávat klávesové události
-        keyboardTrap = document.createElement('div');
-        keyboardTrap.id = 'keyboardTrap';
-        keyboardTrap.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; opacity: 0; pointer-events: none;';
+    // Handler pro kliknutí mimo PDF (ale uvnitř overlay) - odebere focus z PDF
+    pdfOverlay.addEventListener('click', function(e) {
+        // Pokud klikneme mimo PDF iframe, ale stále uvnitř overlay
+        if (e.target !== pdfFrame && !pdfFrame.contains(e.target)) {
+            pdfHasFocus = false;
+            console.log('Focus odebrán z PDF - šipky opět ovládají pozadí stránky');
+        }
+    });
+    
+    // Handler při načtení PDF
+    pdfFrame.addEventListener('load', function() {
+        if (isPdfOpen) {
+            // Při načtení PDF stále nemá automaticky focus
+            console.log('PDF načteno - čeká na kliknutí pro aktivaci ovládání');
+        }
+    });
+    
+    // Event listenery pro tlačítka
+    showPdfBtn.addEventListener('click', openPdfViewer);
+    pdfCloseBtn.addEventListener('click', closePdfViewer);
+    
+    // Podpora pro mouse wheel - pouze když má PDF focus
+    pdfOverlay.addEventListener('wheel', function(e) {
+        if (isPdfOpen && pdfHasFocus) {
+            // Necháme wheel události procházet do PDF
+            e.stopPropagation();
+        }
+        // Pokud PDF nemá focus, wheel normálně ovládá pozadí stránku
+    }, { passive: true });
+    
+    // Zablokujeme "beforeunload" varování při zavírání PDF
+    function disableBeforeUnloadWarning() {
+        // Odstraníme všechny existující beforeunload listenery
+        window.onbeforeunload = null;
         
-        // Přidáme event listener pro zachycení klávesy ESC
-        keyboardTrap.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closePdfViewer();
+        // Přepíšeme addEventListener pro beforeunload aby se nemohl přidat nový
+        const originalAddEventListener = window.addEventListener;
+        window.addEventListener = function(type, listener, options) {
+            if (type === 'beforeunload') {
+                // Ignorujeme beforeunload listenery když je PDF otevřené
+                if (isPdfOpen) {
+                    console.log('Blokován beforeunload listener kvůli otevřenému PDF');
+                    return;
+                }
             }
-        });
-        
-        // Pro Safari a některé starší prohlížeče zkontrolujeme i keyCode
-        keyboardTrap.addEventListener('keydown', function(e) {
-            if (e.keyCode === 27) {
-                closePdfViewer();
-            }
-        });
-        
-        // Přidáme element do DOM
-        document.body.appendChild(keyboardTrap);
-        
-        // Nastavíme focus na náš trap
-        keyboardTrap.setAttribute('tabindex', '0');
-        keyboardTrap.focus();
-        
-        // Budeme periodicky kontrolovat focus a případně ho vracet zpět na keyboardTrap
-        startFocusInterval();
+            return originalAddEventListener.call(this, type, listener, options);
+        };
     }
     
-    function removeKeyboardTrap() {
-        if (keyboardTrap) {
-            document.body.removeChild(keyboardTrap);
-            keyboardTrap = null;
-            stopFocusInterval();
+    // Funkce pro obnovení normálního chování beforeunload
+    function enableBeforeUnloadWarning() {
+        // Obnovíme originální addEventListener (pokud je potřeba)
+        // V praxi obvykle není potřeba, protože po zavření PDF se stránka většinou nezmění
+    }
+    
+    // Přidáme blokování varování při otevření PDF
+    const originalOpenPdfViewer = openPdfViewer;
+    openPdfViewer = function() {
+        originalOpenPdfViewer();
+        disableBeforeUnloadWarning();
+    };
+    
+    // Alternativní řešení - kompletně zablokujeme beforeunload pro celou stránku
+    // (odkomentujte pokud chcete úplně zakázat všechna varování)
+    /*
+    window.addEventListener('beforeunload', function(e) {
+        // Zablokujeme výchozí chování
+        e.preventDefault();
+        // Nevracíme žádnou hodnotu - nebude se zobrazovat varování
+        return undefined;
+    });
+    */
+    
+    console.log('PDF viewer inicializován s inteligentním focus managementem a potlačením beforeunload varování');
+});
+
+//-------PDF FUNCIONALITY FOR ORIGIN OF LIFE--------//
+// Počkáme na načtení stránky
+document.addEventListener('DOMContentLoaded', function() {
+    // Získáme reference na elementy
+    const showPdfBtn = document.getElementById('showOriginPdfBtn');
+    
+    // Pokud element showOriginPdfBtn neexistuje na aktuální stránce, ukončíme inicializaci PDF prohlížeče
+    if (!showPdfBtn) {
+        return; // Ukončíme inicializaci, pokud tlačítko neexistuje
+    }
+    
+    // Pokračujeme pouze pokud existuje tlačítko pro zobrazení PDF
+    const pdfOverlay = document.getElementById('originPdfOverlay');
+    const pdfCloseBtn = document.getElementById('originPdfCloseBtn');
+    const pdfFrame = document.getElementById('originPdfFrame');
+    
+    // Kontrola existence potřebných elementů
+    if (!pdfOverlay || !pdfCloseBtn || !pdfFrame) {
+        console.error('Některé z potřebných elementů pro PDF prohlížeč nebyly nalezeny');
+        return;
+    }
+    
+    // Proměnné pro sledování stavu
+    let isPdfOpen = false;
+    let pdfHasFocus = false; // Klíčová proměnná - určuje, zda má PDF focus
+    
+    // Funkce pro detekci typu prohlížeče
+    function getBrowserType() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes('chrome') && !userAgent.includes('edg')) return 'chrome';
+        if (userAgent.includes('firefox')) return 'firefox';
+        if (userAgent.includes('safari') && !userAgent.includes('chrome')) return 'safari';
+        if (userAgent.includes('edg')) return 'edge';
+        return 'other';
+    }
+    
+    // Funkce pro simulaci klávesových událostí v PDF
+    function simulateKeyInPdf(keyCode, key) {
+        try {
+            const iframeWindow = pdfFrame.contentWindow;
+            if (iframeWindow) {
+                const keyEvent = new KeyboardEvent('keydown', {
+                    key: key,
+                    keyCode: keyCode,
+                    which: keyCode,
+                    bubbles: true,
+                    cancelable: true
+                });
+                
+                if (iframeWindow.document) {
+                    iframeWindow.document.dispatchEvent(keyEvent);
+                    
+                    const keyUpEvent = new KeyboardEvent('keyup', {
+                        key: key,
+                        keyCode: keyCode,
+                        which: keyCode,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    iframeWindow.document.dispatchEvent(keyUpEvent);
+                }
+            }
+        } catch (error) {
+            console.log('Fallback: Používám alternativní metodu pro ovládání PDF');
         }
     }
     
-    // Interval pro kontrolu focusu
-    let focusInterval = null;
-    
-    function startFocusInterval() {
-        focusInterval = setInterval(function() {
-            if (keyboardTrap && document.activeElement !== keyboardTrap && 
-                document.activeElement !== pdfCloseBtn) {
-                // Vrátíme focus na náš trap, pokud je uživatel klikl jinam
-                keyboardTrap.focus();
+    // Funkce pro nastavení focus na PDF
+    function setFocusOnPdf() {
+        pdfFrame.focus();
+        
+        const browserType = getBrowserType();
+        
+        setTimeout(() => {
+            try {
+                if (pdfFrame.contentWindow && pdfFrame.contentWindow.focus) {
+                    pdfFrame.contentWindow.focus();
+                }
+                
+                if (browserType === 'chrome' || browserType === 'edge') {
+                    const pdfEmbed = pdfFrame.contentDocument?.querySelector('embed');
+                    if (pdfEmbed && pdfEmbed.focus) {
+                        pdfEmbed.focus();
+                    }
+                }
+            } catch (error) {
+                console.log('Focus management fallback');
             }
-        }, 100);
+        }, 200);
     }
     
-    function stopFocusInterval() {
-        if (focusInterval) {
-            clearInterval(focusInterval);
-            focusInterval = null;
+    // Funkce pro otevření PDF
+    function openPdfViewer() {
+        pdfFrame.src = 'docs/origin_of_life.pdf';
+        pdfOverlay.style.display = 'block';
+        // NEBLOKUJEME scrollování - necháme stránku scrollovatelnou
+        // document.body.style.overflow = 'hidden'; // Odstraněno!
+        isPdfOpen = true;
+        
+        // DŮLEŽITÉ: Při otevření PDF NEMÁ automaticky focus
+        pdfHasFocus = false;
+        
+        console.log('PDF otevřeno - šipky ovládají pozadí stránky. Klikněte do PDF pro ovládání PDF.');
+    }
+    
+    // Funkce pro zavření PDF
+    function closePdfViewer() {
+        pdfOverlay.style.display = 'none';
+        pdfFrame.src = '';
+        // Nemusíme obnovovat overflow, protože jsme ho neblokovali
+        isPdfOpen = false;
+        pdfHasFocus = false;
+        
+        console.log('PDF zavřeno - normální ovládání stránky obnoveno.');
+    }
+    
+    // Hlavní funkce pro obsluhu kláves
+    function handleKeydown(e) {
+        // ESC vždy zavírá PDF pokud je otevřené
+        if (isPdfOpen && (e.key === 'Escape' || e.keyCode === 27)) {
+            closePdfViewer();
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        
+        // Pokud PDF není otevřené, necháme normální chování
+        if (!isPdfOpen) {
+            return;
+        }
+        
+        // Pokud je PDF otevřené ale NEMÁ focus, necháme šipky ovládat pozadí
+        if (!pdfHasFocus) {
+            return; // Šipky budou normálně ovládat stránku v pozadí
+        }
+        
+        // Pouze pokud má PDF focus, přesměrujeme navigační klávesy do PDF
+        const key = e.key;
+        const keyCode = e.keyCode || e.which;
+        
+        const navigationKeys = [
+            'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+            'PageUp', 'PageDown', 'Home', 'End', 'Space'
+        ];
+        
+        const navigationKeyCodes = [33, 34, 35, 36, 37, 38, 39, 40, 32];
+        
+        if (navigationKeys.includes(key) || navigationKeyCodes.includes(keyCode)) {
+            // Zabráníme výchozímu chování stránky
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            // Pošleme klávesu do PDF
+            simulateKeyInPdf(keyCode, key);
+            
+            console.log('Klávesa přesměrována do PDF:', key);
         }
     }
     
-    // Pro úplnost přidáme ještě globální posluchač
-    document.addEventListener('keydown', function(e) {
-        if ((e.key === 'Escape' || e.keyCode === 27) && 
-            pdfOverlay.style.display === 'block') {
+    // Přidáme globální handler pro klávesy
+    document.addEventListener('keydown', handleKeydown, true);
+    
+    // Handler pro kliknutí na overlay
+    pdfOverlay.addEventListener('click', function(e) {
+        if (e.target === pdfOverlay) {
+            // Kliknutí mimo PDF - zavřeme PDF
             closePdfViewer();
         }
-    }, true);
+    });
+    
+    // KLÍČOVÝ handler - kliknutí DO PDF oblasti nastaví focus
+    pdfFrame.addEventListener('click', function(e) {
+        pdfHasFocus = true;
+        setFocusOnPdf();
+        console.log('PDF má nyní focus - šipky ovládají PDF');
+        e.stopPropagation();
+    });
+    
+    // Handler pro kliknutí mimo PDF (ale uvnitř overlay) - odebere focus z PDF
+    pdfOverlay.addEventListener('click', function(e) {
+        // Pokud klikneme mimo PDF iframe, ale stále uvnitř overlay
+        if (e.target !== pdfFrame && !pdfFrame.contains(e.target)) {
+            pdfHasFocus = false;
+            console.log('Focus odebrán z PDF - šipky opět ovládají pozadí stránky');
+        }
+    });
+    
+    // Handler při načtení PDF
+    pdfFrame.addEventListener('load', function() {
+        if (isPdfOpen) {
+            // Při načtení PDF stále nemá automaticky focus
+            console.log('PDF načteno - čeká na kliknutí pro aktivaci ovládání');
+        }
+    });
+    
+    // Event listenery pro tlačítka
+    showPdfBtn.addEventListener('click', openPdfViewer);
+    pdfCloseBtn.addEventListener('click', closePdfViewer);
+    
+    // Podpora pro mouse wheel - pouze když má PDF focus
+    pdfOverlay.addEventListener('wheel', function(e) {
+        if (isPdfOpen && pdfHasFocus) {
+            // Necháme wheel události procházet do PDF
+            e.stopPropagation();
+        }
+        // Pokud PDF nemá focus, wheel normálně ovládá pozadí stránku
+    }, { passive: true });
+    
+    // Zablokujeme "beforeunload" varování při zavírání PDF
+    function disableBeforeUnloadWarning() {
+        // Odstraníme všechny existující beforeunload listenery
+        window.onbeforeunload = null;
+        
+        // Přepíšeme addEventListener pro beforeunload aby se nemohl přidat nový
+        const originalAddEventListener = window.addEventListener;
+        window.addEventListener = function(type, listener, options) {
+            if (type === 'beforeunload') {
+                // Ignorujeme beforeunload listenery když je PDF otevřené
+                if (isPdfOpen) {
+                    console.log('Blokován beforeunload listener kvůli otevřenému PDF');
+                    return;
+                }
+            }
+            return originalAddEventListener.call(this, type, listener, options);
+        };
+    }
+    
+    // Funkce pro obnovení normálního chování beforeunload
+    function enableBeforeUnloadWarning() {
+        // Obnovíme originální addEventListener (pokud je potřeba)
+        // V praxi obvykle není potřeba, protože po zavření PDF se stránka většinou nezmění
+    }
+    
+    // Přidáme blokování varování při otevření PDF
+    const originalOpenPdfViewer = openPdfViewer;
+    openPdfViewer = function() {
+        originalOpenPdfViewer();
+        disableBeforeUnloadWarning();
+    };
+    
+    // Alternativní řešení - kompletně zablokujeme beforeunload pro celou stránku
+    // (odkomentujte pokud chcete úplně zakázat všechna varování)
+    /*
+    window.addEventListener('beforeunload', function(e) {
+        // Zablokujeme výchozí chování
+        e.preventDefault();
+        // Nevracíme žádnou hodnotu - nebude se zobrazovat varování
+        return undefined;
+    });
+    */
+    
+    console.log('PDF viewer pro Origin of Life inicializován s inteligentním focus managementem a potlačením beforeunload varování');
+});
+
+
+//-------PDF FUNCIONALITY FOR PRESAH--------//
+// Počkáme na načtení stránky
+document.addEventListener('DOMContentLoaded', function() {
+    // Získáme reference na elementy
+    const showPdfBtn = document.getElementById('showPresahPdfBtn');
+    
+    // Pokud element showPresahPdfBtn neexistuje na aktuální stránce, ukončíme inicializaci PDF prohlížeče
+    if (!showPdfBtn) {
+        return; // Ukončíme inicializaci, pokud tlačítko neexistuje
+    }
+    
+    // Pokračujeme pouze pokud existuje tlačítko pro zobrazení PDF
+    const pdfOverlay = document.getElementById('presahPdfOverlay');
+    const pdfCloseBtn = document.getElementById('presahPdfCloseBtn');
+    const pdfFrame = document.getElementById('presahPdfFrame');
+    
+    // Kontrola existence potřebných elementů
+    if (!pdfOverlay || !pdfCloseBtn || !pdfFrame) {
+        console.error('Některé z potřebných elementů pro PDF prohlížeč nebyly nalezeny');
+        return;
+    }
+    
+    // Proměnné pro sledování stavu
+    let isPdfOpen = false;
+    let pdfHasFocus = false; // Klíčová proměnná - určuje, zda má PDF focus
+    
+    // Funkce pro detekci typu prohlížeče
+    function getBrowserType() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes('chrome') && !userAgent.includes('edg')) return 'chrome';
+        if (userAgent.includes('firefox')) return 'firefox';
+        if (userAgent.includes('safari') && !userAgent.includes('chrome')) return 'safari';
+        if (userAgent.includes('edg')) return 'edge';
+        return 'other';
+    }
+    
+    // Funkce pro simulaci klávesových událostí v PDF
+    function simulateKeyInPdf(keyCode, key) {
+        try {
+            const iframeWindow = pdfFrame.contentWindow;
+            if (iframeWindow) {
+                const keyEvent = new KeyboardEvent('keydown', {
+                    key: key,
+                    keyCode: keyCode,
+                    which: keyCode,
+                    bubbles: true,
+                    cancelable: true
+                });
+                
+                if (iframeWindow.document) {
+                    iframeWindow.document.dispatchEvent(keyEvent);
+                    
+                    const keyUpEvent = new KeyboardEvent('keyup', {
+                        key: key,
+                        keyCode: keyCode,
+                        which: keyCode,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    iframeWindow.document.dispatchEvent(keyUpEvent);
+                }
+            }
+        } catch (error) {
+            console.log('Fallback: Používám alternativní metodu pro ovládání PDF');
+        }
+    }
+    
+    // Funkce pro nastavení focus na PDF
+    function setFocusOnPdf() {
+        pdfFrame.focus();
+        
+        const browserType = getBrowserType();
+        
+        setTimeout(() => {
+            try {
+                if (pdfFrame.contentWindow && pdfFrame.contentWindow.focus) {
+                    pdfFrame.contentWindow.focus();
+                }
+                
+                if (browserType === 'chrome' || browserType === 'edge') {
+                    const pdfEmbed = pdfFrame.contentDocument?.querySelector('embed');
+                    if (pdfEmbed && pdfEmbed.focus) {
+                        pdfEmbed.focus();
+                    }
+                }
+            } catch (error) {
+                console.log('Focus management fallback');
+            }
+        }, 200);
+    }
+    
+    // Funkce pro otevření PDF
+    function openPdfViewer() {
+        pdfFrame.src = 'docs/presah.pdf'; // Změněna cesta k PDF souboru
+        pdfOverlay.style.display = 'block';
+        // NEBLOKUJEME scrollování - necháme stránku scrollovatelnou
+        // document.body.style.overflow = 'hidden'; // Odstraněno!
+        isPdfOpen = true;
+        
+        // DŮLEŽITÉ: Při otevření PDF NEMÁ automaticky focus
+        pdfHasFocus = false;
+        
+        console.log('PDF otevřeno - šipky ovládají pozadí stránky. Klikněte do PDF pro ovládání PDF.');
+    }
+    
+    // Funkce pro zavření PDF
+    function closePdfViewer() {
+        pdfOverlay.style.display = 'none';
+        pdfFrame.src = '';
+        // Nemusíme obnovovat overflow, protože jsme ho neblokovali
+        isPdfOpen = false;
+        pdfHasFocus = false;
+        
+        console.log('PDF zavřeno - normální ovládání stránky obnoveno.');
+    }
+    
+    // Hlavní funkce pro obsluhu kláves
+    function handleKeydown(e) {
+        // ESC vždy zavírá PDF pokud je otevřené
+        if (isPdfOpen && (e.key === 'Escape' || e.keyCode === 27)) {
+            closePdfViewer();
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        
+        // Pokud PDF není otevřené, necháme normální chování
+        if (!isPdfOpen) {
+            return;
+        }
+        
+        // Pokud je PDF otevřené ale NEMÁ focus, necháme šipky ovládat pozadí
+        if (!pdfHasFocus) {
+            return; // Šipky budou normálně ovládat stránku v pozadí
+        }
+        
+        // Pouze pokud má PDF focus, přesměrujeme navigační klávesy do PDF
+        const key = e.key;
+        const keyCode = e.keyCode || e.which;
+        
+        const navigationKeys = [
+            'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight',
+            'PageUp', 'PageDown', 'Home', 'End', 'Space'
+        ];
+        
+        const navigationKeyCodes = [33, 34, 35, 36, 37, 38, 39, 40, 32];
+        
+        if (navigationKeys.includes(key) || navigationKeyCodes.includes(keyCode)) {
+            // Zabráníme výchozímu chování stránky
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            // Pošleme klávesu do PDF
+            simulateKeyInPdf(keyCode, key);
+            
+            console.log('Klávesa přesměrována do PDF:', key);
+        }
+    }
+    
+    // Přidáme globální handler pro klávesy
+    document.addEventListener('keydown', handleKeydown, true);
+    
+    // Handler pro kliknutí na overlay
+    pdfOverlay.addEventListener('click', function(e) {
+        if (e.target === pdfOverlay) {
+            // Kliknutí mimo PDF - zavřeme PDF
+            closePdfViewer();
+        }
+    });
+    
+    // KLÍČOVÝ handler - kliknutí DO PDF oblasti nastaví focus
+    pdfFrame.addEventListener('click', function(e) {
+        pdfHasFocus = true;
+        setFocusOnPdf();
+        console.log('PDF má nyní focus - šipky ovládají PDF');
+        e.stopPropagation();
+    });
+    
+    // Handler pro kliknutí mimo PDF (ale uvnitř overlay) - odebere focus z PDF
+    pdfOverlay.addEventListener('click', function(e) {
+        // Pokud klikneme mimo PDF iframe, ale stále uvnitř overlay
+        if (e.target !== pdfFrame && !pdfFrame.contains(e.target)) {
+            pdfHasFocus = false;
+            console.log('Focus odebrán z PDF - šipky opět ovládají pozadí stránky');
+        }
+    });
+    
+    // Handler při načtení PDF
+    pdfFrame.addEventListener('load', function() {
+        if (isPdfOpen) {
+            // Při načtení PDF stále nemá automaticky focus
+            console.log('PDF načteno - čeká na kliknutí pro aktivaci ovládání');
+        }
+    });
+    
+    // Event listenery pro tlačítka
+    showPdfBtn.addEventListener('click', openPdfViewer);
+    pdfCloseBtn.addEventListener('click', closePdfViewer);
+    
+    // Podpora pro mouse wheel - pouze když má PDF focus
+    pdfOverlay.addEventListener('wheel', function(e) {
+        if (isPdfOpen && pdfHasFocus) {
+            // Necháme wheel události procházet do PDF
+            e.stopPropagation();
+        }
+        // Pokud PDF nemá focus, wheel normálně ovládá pozadí stránku
+    }, { passive: true });
+    
+    // Zablokujeme "beforeunload" varování při zavírání PDF
+    function disableBeforeUnloadWarning() {
+        // Odstraníme všechny existující beforeunload listenery
+        window.onbeforeunload = null;
+        
+        // Přepíšeme addEventListener pro beforeunload aby se nemohl přidat nový
+        const originalAddEventListener = window.addEventListener;
+        window.addEventListener = function(type, listener, options) {
+            if (type === 'beforeunload') {
+                // Ignorujeme beforeunload listenery když je PDF otevřené
+                if (isPdfOpen) {
+                    console.log('Blokován beforeunload listener kvůli otevřenému PDF');
+                    return;
+                }
+            }
+            return originalAddEventListener.call(this, type, listener, options);
+        };
+    }
+    
+    // Funkce pro obnovení normálního chování beforeunload
+    function enableBeforeUnloadWarning() {
+        // Obnovíme originální addEventListener (pokud je potřeba)
+        // V praxi obvykle není potřeba, protože po zavření PDF se stránka většinou nezmění
+    }
+    
+    // Přidáme blokování varování při otevření PDF
+    const originalOpenPdfViewer = openPdfViewer;
+    openPdfViewer = function() {
+        originalOpenPdfViewer();
+        disableBeforeUnloadWarning();
+    };
+    
+    // Alternativní řešení - kompletně zablokujeme beforeunload pro celou stránku
+    // (odkomentujte pokud chcete úplně zakázat všechna varování)
+    /*
+    window.addEventListener('beforeunload', function(e) {
+        // Zablokujeme výchozí chování
+        e.preventDefault();
+        // Nevracíme žádnou hodnotu - nebude se zobrazovat varování
+        return undefined;
+    });
+    */
+    
+    console.log('PDF viewer pro Presah inicializován s inteligentním focus managementem a potlačením beforeunload varování');
 });

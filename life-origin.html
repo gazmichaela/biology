@@ -88,7 +88,15 @@
             </div>           
             <h2>Teorie o vzniku života na Zemi</h2>
             <p>Existuje hned několik teoríí o vzniku Života na Zemi. Vznikl život v oceánech, pomocí síly Boží, nebo se sem dostal z vesmíru? Kompletní přehled možných teorií je v přiloženém pdf souboru.</p>
-            <a href="docs/origin_of_life.pdf" class="button-light">Otevřít zde (pdf)</a>
+            <a class="button-light" id="showOriginPdfBtn">Otevřít zde (pdf)</a>
+
+<!-- Překryvná vrstva pro PDF -->
+<div class="pdf-overlay" id="originPdfOverlay">
+    <div class="pdf-viewer-container">
+        <div class="pdf-close-button" id="originPdfCloseBtn">&times;</div>
+        <iframe class="pdf-iframe" id="originPdfFrame"></iframe>
+    </div>
+</div>
             <br>
             <a href="docs/origin_of_life.pdf" target="_blank" class="button">Otevřít na nové kartě (pdf) &#8599;</a>
             <br>

@@ -1,3 +1,4 @@
+
 /* DOMEČEK */
 .home-icon {
     display: inline-block;
@@ -158,7 +159,9 @@
     opacity: 1;
     visibility: visible;
     transition: opacity 0.3s ease-in-out, visibility 0s; /* Bez zpoždění pro visibility */
+
 }
+
 
 .dropdown-content {
     left: 50%; /* V polovině tlačítka*/
@@ -253,3 +256,7 @@
 .home-icon {
     content-visibility: auto; 
 }*/
+
+
+
+

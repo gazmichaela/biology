@@ -95,7 +95,15 @@
             <p>Tento přístup má výrazné přesahy do dalších oborů – principy systémové biologie, které se zaměřují na komplexní interakce v systémech, nacházejí
                 inspiraci v přírodě a uplatnění například při navrhování technických či informačních systémů.
                 Příklady <strong>přesahů v systémové biologii</strong> najdete v příloze níže.</p>
-            <a href="docs/presah.pdf" class="button-light">Otevřít zde (pdf)</a>
+           <a class="button-light" id="showPresahPdfBtn">Otevřít zde (pdf)</a>
+
+<!-- Překryvná vrstva pro PDF -->
+<div class="pdf-overlay" id="presahPdfOverlay">
+    <div class="pdf-viewer-container">
+        <div class="pdf-close-button" id="presahPdfCloseBtn">&times;</div>
+        <iframe class="pdf-iframe" id="presahPdfFrame"></iframe>
+    </div>
+</div>
             <br>
             <a href="docs/presah.pdf" class="button" target="_blank">Otevřít na nové kartě (pdf) &#8599;</a>             
             <br>
