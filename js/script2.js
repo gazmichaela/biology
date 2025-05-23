@@ -3852,7 +3852,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
         modalImg.style.cursor = isMobile ? 'default' : 'zoom-in';
         modalImg.style.maxWidth = '100%';
         modalImg.style.maxHeight = '100%';
-        modalImg.style.borderRadius = '0'; // Reset zaoblení při zmenšení
+        modalImg.style.borderRadius = '10px';
         
         // Důležité: Nastavení transformOrigin na střed a reset transformace
         modalImg.style.transformOrigin = 'center';
@@ -3945,7 +3945,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
         modalImg.style.maxHeight = 'none';
         
         // Nastavení zaoblených rohů při zvětšení
-        modalImg.style.borderRadius = '50px'; // Přidání zaoblení při zvětšení
+        modalImg.style.borderRadius = '20px'; // Přidání zaoblení při zvětšení
         
         // Skryjeme zdroje při zoomu
         toggleSourceVisibility(false);

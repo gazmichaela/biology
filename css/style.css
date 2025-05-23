@@ -414,6 +414,37 @@ td:first-child {
 }
 
 
+/* VÝZNAM SLOV PRO NAJETÍ MYŠÍ */
+.tooltip {
+    position: relative;
+    cursor: help;
+    text-decoration: dotted underline;
+}
+
+.tooltip .tooltiptext {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s 1s ease;
+    font-size: medium;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.tooltip:hover .tooltiptext {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s 0.1s ease;
+}
+
 /* PŘI PROBLÉMECH ODKOMENTOVAT */
 
 /* Prioritní načítání menu */
