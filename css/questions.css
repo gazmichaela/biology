@@ -7,7 +7,7 @@
 .question {
     background-color: #f1f1f1;
     padding: 10px;
-    font-size: 18px;
+    font-size: 0.85em;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -19,13 +19,13 @@
     background-color: #e9e9e9;
     border-left: 3px solid #4CAF50;
     display: none; /* Odpověď je skrytá */
-    font-size: 17px;
+    font-size: 0.8em;
 }
 
 /* Tlačítko pro zobrazení všech otázek */
 #toggle-questions-btn {
     padding: 10px 15px;
-    font-size: 18px;
+    font-size: 0.95em;
     font-weight: bold;
     cursor: pointer;
     background-color: #309ce5;

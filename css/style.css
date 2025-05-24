@@ -327,7 +327,7 @@ footer p {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     padding: 10px 15px;
-    font-size: 12px;
+    font-size: 0.65em;
     max-width: 280px;
     z-index: 1000;
     border: 1px solid #e0e0e0;
@@ -349,7 +349,7 @@ footer p {
     border: 1px solid #ddd;
     padding: 4px 10px;
     border-radius: 3px;
-    font-size: 11px;
+    font-size: 0.8em;
     cursor: pointer;
     transition: background-color 0.2s;
     margin-right: 5px;
@@ -442,13 +442,25 @@ td:first-child {
     font-weight: 500;
     font-style: normal;
     line-height: 1.3;
+    animation: visibilityTooltext 0s 1s forwards;
+}
+
+@keyframes visibilityTooltext {
+    to { visibility: hidden; }
 }
 
 .tooltip:hover .tooltiptext {
     opacity: 1;
     pointer-events: auto;
-    transition: opacity 0.3s 0.1s ease;
+    animation: fadeTooltext 0.3s;
+    visibility: visible;
 }
+
+@keyframes fadeTooltext {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 
 /* PŘI PROBLÉMECH ODKOMENTOVAT */
 
