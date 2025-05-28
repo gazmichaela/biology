@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Sun Icon</title>
+  <style>
+    .sun-icon {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e0e0e0; /* Světle šedé pozadí */
+    }
+
+    .sun-icon .sun {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #fff 50%, #4a4a4a 50%);
+      border: 4px solid #4a4a4a; /* Stejná barva a šířka jako paprsky */
+      position: relative;
+      z-index: 2;
+    }
+
+    .sun-icon .ray {
+      position: absolute;
+      width: 4px;
+      height: 12px;
+      background-color: #4a4a4a;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+      z-index: 1;
+    }
+
+    /* 8 paprsků kolem */
+    .sun-icon .ray:nth-child(2) { transform: translate(-50%, -50%) rotate(0deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(3) { transform: translate(-50%, -50%) rotate(45deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(5) { transform: translate(-50%, -50%) rotate(135deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(6) { transform: translate(-50%, -50%) rotate(180deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(7) { transform: translate(-50%, -50%) rotate(225deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(8) { transform: translate(-50%, -50%) rotate(270deg) translateY(-35px); }
+    .sun-icon .ray:nth-child(9) { transform: translate(-50%, -50%) rotate(315deg) translateY(-35px); }
+  </style>
+</head>
+<body>
+  <div class="sun-icon">
+    <div class="sun"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+    <div class="ray"></div>
+  </div>
+  </body>
+<style>
+    .moon-icon {
+      width: 150px;
+      height: 150px;
+      background-color: #4a4a4a; /* tmavě šedé pozadí */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .moon-shape {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: white;
+      position: absolute;
+      left: 40px;
+      top: 45px;
+      z-index: 1;
+    }
+
+    .moon-shape::after {
+      content: "";
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #4a4a4a; /* překrývající šedý kruh */
+      position: absolute;
+      left: 12px; /* posunutím vznikne srpek */
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="moon-icon">
+    <div class="moon-shape"></div>
+  </div>
+
+</html>

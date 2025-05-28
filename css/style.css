@@ -3,6 +3,7 @@ Toto je výchozí CSS soubor se základními styly a styly neroztříděnými do
 Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé.
 Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
 Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css
+Některé styly mohou být v JS
 */
 
 /* ===== 1. Variabilní fonty ===== */
@@ -79,7 +80,7 @@ body {
     font-family: 'Inter', 'Arial', sans-serif;
     font-size: 1.3em;
     background-color: #f0f9f0;
-    min-width: 1116px;
+    /* min-width: 1116px; */
     margin: 0;
     color: #023f1e;
 }
@@ -113,7 +114,6 @@ header h1 {
 
 header ul {
     list-style: none;
-    padding: 0;
     margin-top: 1px;
     display: flex;
     justify-content: center;
@@ -145,6 +145,11 @@ section {
     text-align: justify; 
 }
 
+article section p + ul,
+article section p + ol {
+    margin-top: -0.25em;
+}
+
 article section li {
     margin-left: 1.2em;
     line-height: 1.4;
@@ -173,23 +178,27 @@ article section p {
 article section h2 {
     background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
     padding: 0 0.15em;
-    font-size: 1.35em;
+    font-size: 1.4em;
     margin-top: 100px; /* Mezera */
     display: inline-block; /* Zajistí podtržení pouze pod textem */
+    font-weight: 700;
+    margin-bottom: 0.9em;
 }
 
 article section h3 {
     text-decoration: underline #00c5003d;
     font-weight: 600;
     padding: 2px 5px;
-    font-size: 1.25em;
+    font-size: 1.3em;
     margin-top: 60px;
+    margin-bottom: 0.8em
 }
 
 article section h4 {
     margin-top: 3em;
-    margin-bottom: 1em;
-    font-size: 1em;
+    margin-bottom: 0.4em;
+    font-size: 1.1em;
+    font-weight: 600;
     margin-left: 0.5em;
 }
 
@@ -199,6 +208,11 @@ article section h5 {
     font-weight: 600;
     font-style: italic;
     margin-left: 1em;
+}
+
+article section h5 + ul,
+article section h5 + ol {
+    margin-top: 0.5em;
 }
 
 article section small {
@@ -490,3 +504,225 @@ td:first-child {
 {
     content-visibility: auto; 
 }*/
+/* Přesné pixelové ikony z MS Paint - pixel po pixelu */
+
+/* Tmavý režim pro body */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+/* Header v tmavém režimu */
+body.dark-mode header {
+    background-color: #77afe0ee;
+    border-bottom: 1px solid #77afe0ee;
+}
+
+/* Hlavní články v tmavém režimu */
+body.dark-mode .main-article {
+    background: #2a2a2a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Nadpisy článků v tmavém režimu */
+body.dark-mode .article-title {
+    color: #64b5f6;
+}
+
+/* Meta informace článků v tmavém režimu */
+body.dark-mode .article-meta {
+    color: #aaa;
+}
+
+/* Text článků v tmavém režimu */
+body.dark-mode .article-excerpt {
+    color: #ccc;
+}
+
+/* Sidebar sekce v tmavém režimu */
+body.dark-mode .sidebar-section {
+    background: #2a2a2a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Sidebar nadpisy v tmavém režimu */
+body.dark-mode .sidebar-title {
+    color: #64b5f6;
+    border-bottom-color: #64b5f6;
+}
+
+/* Odpočítávání v tmavém režimu */
+body.dark-mode .countdown {
+    color: #64b5f6;
+}
+
+/* Karty článků v tmavém režimu */
+body.dark-mode .article-card {
+    background: #2a2a2a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Nadpisy karet v tmavém režimu */
+body.dark-mode .card-title {
+    color: #64b5f6;
+}
+
+/* Tlačítko tmavého režimu v tmavém režimu */
+body.dark-mode .dark-mode-toggle {
+    background: #3a3a3a;
+    color: #ffd700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+ .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: white;
+            color: #ffd700;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background:  black;
+            color: #ffd700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+
+
+           /* Animace přechodu */
+        .fade-transition {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fade-transition.show {
+            opacity: 1;
+        }
+
+        
+        /* Ikona slunce - OPRAVENÁ VERZE */
+.sun-icon {
+    width: 19px;
+    height: 19px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun-icon .sun {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #fff 50%, #4a4a4a 50%); /* Půlka bílá, půlka tmavá */
+    border: 2px solid #4a4a4a; /* Tmavý okraj */
+    position: relative;
+    z-index: 2;
+}
+
+.sun-icon .ray {
+    position: absolute;
+    width: 1.5px;
+    height: 4px; /* Delší paprsky */
+    background-color: #4a4a4a; /* Tmavé paprsky */
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    z-index: 1;
+}
+/* Firefox specifické opravy */
+@-moz-document url-prefix() {
+    .sun {
+        margin: 0;
+        padding: 0;
+        
+    }
+    .ray {
+        margin: 0;
+        padding: 0;
+        transform-origin: center center;
+    }
+    .ray:nth-child(2) { transform: translate(-1px, -1px) rotate(0deg) translateY(-10px); }
+    .ray:nth-child(3) { transform: translate(-1px, -1px) rotate(45deg) translateY(-10px); }
+    .ray:nth-child(4) { transform: translate(-1px, -1px) rotate(90deg) translateY(-10px); }
+    .ray:nth-child(5) { transform: translate(-1px, -1px) rotate(135deg) translateY(-10px); }
+    .ray:nth-child(6) { transform: translate(-1px, -1px) rotate(180deg) translateY(-10px); }
+    .ray:nth-child(7) { transform: translate(-1px, -1px) rotate(225deg) translateY(-10px); }
+    .ray:nth-child(8) { transform: translate(-1px, -1px) rotate(270deg) translateY(-10px); }
+    .ray:nth-child(9) { transform: translate(-1px, -1px) rotate(315deg) translateY(-10px); }
+}
+
+/* Zajistí konzistentní zobrazení ve všech prohlížečích */
+.sun-icon * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+/* 8 paprsků kolem slunce - vzdálenější od středu */
+.sun-icon .ray:nth-child(2) { transform: translate(-50%, -50%) rotate(0deg) translateY(-14px); }
+.sun-icon .ray:nth-child(3) { transform: translate(-50%, -50%) rotate(45deg) translateY(-14px); }
+.sun-icon .ray:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg) translateY(-13px); }
+.sun-icon .ray:nth-child(5) { transform: translate(-50%, -50%) rotate(135deg) translateY(-14px); }
+.sun-icon .ray:nth-child(6) { transform: translate(-50%, -50%) rotate(180deg) translateY(-13px); }
+.sun-icon .ray:nth-child(7) { transform: translate(-50%, -50%) rotate(225deg) translateY(-14px); }
+.sun-icon .ray:nth-child(8) { transform: translate(-50%, -50%) rotate(270deg) translateY(-14px); }
+.sun-icon .ray:nth-child(9) { transform: translate(-50%, -50%) rotate(315deg) translateY(-14px); }
+
+/* Ikona měsíce - dva srpky jako na obrázku */
+.moon-icon {
+    width: 30px;
+    height: 30px;
+    background: #3a3a3a;
+    position: relative;
+    display: inline-block;
+    border-radius: 3px;
+}
+
+/* Větší vnější srpek */
+.moon-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+/* Menší vnitřní srpek */
+.moon-icon::after {
+    content: '';
+    position: absolute;
+    top: 48%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid white;
+    border-radius: 50%;
+    background: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
