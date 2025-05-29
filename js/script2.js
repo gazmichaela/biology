@@ -5740,6 +5740,9 @@ const body = document.body;
 
 // Zkontrolujeme, jestli element existuje
 if (darkModeToggle) {
+    // Přidáme plynulou animaci pro změnu pozadí a barev
+    body.style.transition = 'background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease';
+    
     // Kontrola uložené preference
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     if (isDarkMode) {
@@ -5761,8 +5764,8 @@ if (darkModeToggle) {
         const currentIcon = darkModeToggle.querySelector('.sun-icon, svg');
         
         if (currentIcon) {
-            // Animace - posun současné ikony dolů
-            currentIcon.style.transform = 'translateY(30px)';
+            // Animace - posun současné ikony dolů (jen 10px)
+            currentIcon.style.transform = 'translateY(10px)';
             currentIcon.style.opacity = '0';
             currentIcon.style.transition = 'all 0.25s ease';
             
@@ -5780,8 +5783,8 @@ if (darkModeToggle) {
                 const newIcon = darkModeToggle.querySelector('.sun-icon, svg');
                 
                 if (newIcon) {
-                    // Nastavíme novou ikonu mimo obrazovku (nahoře)
-                    newIcon.style.transform = 'translateY(-30px)';
+                    // Nastavíme novou ikonu mimo obrazovku (nahoře, jen -10px)
+                    newIcon.style.transform = 'translateY(-10px)';
                     newIcon.style.opacity = '0';
                     newIcon.style.transition = 'all 0.25s ease';
                     
