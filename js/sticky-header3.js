@@ -28,7 +28,7 @@ function insertStickyHeaderStyles() {
     background-color: #77afe0ee;
     text-align: center;
     color: white;
-    z-index: 1000;
+    z-index: 999;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     transform: translateY(-100%);
@@ -36,6 +36,7 @@ function insertStickyHeaderStyles() {
     flex-direction: column;
     align-items: center;
     padding: 9px 0;
+      transition: transform 0.3s ease, opacity 0.3s ease; /* přidej také opacity */
 }
 
 .sticky-header.visible {
@@ -269,13 +270,6 @@ function insertStickyHeaderStyles() {
     background-color: #1c77e8;
     color: white;
 }
-    .sticky-header .main-button.active:hover,
-.sticky-header .maine-button.active:hover,
-.sticky-header .dropdown-content a.active:hover,
-.sticky-header .dropdown-content-second a.active:hover {
-    background-color: #28a745 !important;
-    color: white !important;
-}
 
 /* Dead zone for dropdown hover */
 .sticky-header-dead-zone, 
@@ -284,8 +278,8 @@ function insertStickyHeaderStyles() {
     z-index: 999;
     background-color: transparent;
     pointer-events: auto;
-    /* Uncomment next line for debugging */
-    /* background-color: rgba(255, 0, 0, 0.2); */
+   
+ 
 }
 
 .sticky-header .home-icon {
@@ -293,7 +287,9 @@ function insertStickyHeaderStyles() {
     position: relative;
     text-decoration: none;
     cursor: pointer;
-    pointer-events: auto;
+    pointer-events: none;
+       padding: 0; /* Přidej toto */
+    margin: 0; /* Přidej toto */
 }
 
 .sticky-header .home-icon img {
@@ -302,6 +298,7 @@ function insertStickyHeaderStyles() {
     margin-left: 10px;
     margin-top: 9.3px;
     pointer-events: auto;
+    cursor:pointer;
 }
 
 .sticky-header .home-icon:hover img {
@@ -421,17 +418,21 @@ function initStickyHeaderFunctionality() {
                 const scrollY = window.scrollY || document.documentElement.scrollTop;
                 
                 // If we're at the top or within original header area, hide sticky header immediately
-                if (scrollY <= mainHeaderHeight) {
-                    stickyHeader.classList.remove('visible');
-                    stickyHeader.classList.remove('scrolled');
-                    
-                    // Set transform directly for immediate hiding without animation
-                    stickyHeader.style.transform = 'translateY(-100%)';
-                    stickyHeader.style.transition = 'none';
-                } else {
+              if (scrollY <= mainHeaderHeight + 1.5) { // přidej malý buffer
+    stickyHeader.classList.remove('visible');
+    
+    stickyHeader.classList.remove('scrolled');
+    
+    // Plynulé zmizení místo okamžitého
+    stickyHeader.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
+    stickyHeader.style.transform = 'translateY(-100%)';
+    stickyHeader.style.opacity = '0';
+}
+                else {
                     // Restore normal transition behavior
                     stickyHeader.style.transition = '';
                     stickyHeader.style.transform = '';
+                    stickyHeader.style.opacity = '1'; 
                     
                     // Show header when scrolling up
                     if (scrollY < lastScrollY) {
@@ -747,6 +748,7 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     let isClickOpened = false;
     let isSubmenuActive = false;
     let isClosingInProgress = false;
+    let repositionTimeoutSticky;
     let mouseX = 0, mouseY = 0;
     
     const inactivityDelay = 2000;
@@ -763,7 +765,7 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     deadZoneElement.className = `sticky-header-dead-zone sticky-dead-zone-${index}`;
     deadZoneElement.style.position = "absolute";
     deadZoneElement.style.display = "none";
-    deadZoneElement.style.zIndex = "999";
+    deadZoneElement.style.zIndex = "1050";
     deadZoneElement.style.backgroundColor = "transparent";
     deadZoneElement.style.pointerEvents = "auto";
     document.body.appendChild(deadZoneElement);
@@ -775,36 +777,43 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
         clearTimeout(window.autoHideTimeouts[inactivityTimeoutKey]);
         clearTimeout(window.autoHideTimeouts[clickInactivityTimeoutKey]);
     }
-    
-    // Funkce pro nastavení dead zone pozice
-    function updateDeadZonePosition() {
+    function startStickyPositionMonitoring() {
+    function updatePositions() {
         if (dropdownContent.style.display === "block") {
-            const toggleRect = dropdownToggle.getBoundingClientRect();
-            const contentRect = dropdownContent.getBoundingClientRect();
-            
-            // Pozice dead zone mezi tlačítkem a obsahem
-            deadZoneElement.style.left = Math.min(toggleRect.left, contentRect.left) + "px";
-            deadZoneElement.style.top = toggleRect.bottom + "px";
-            deadZoneElement.style.width = Math.max(toggleRect.width, contentRect.width) + "px";
-            deadZoneElement.style.height = (contentRect.top - toggleRect.bottom) + "px";
-            deadZoneElement.style.display = "block";
+            updateDeadZonePosition();
+            repositionTimeoutSticky = setTimeout(updatePositions, 100);
         }
     }
-    
+    clearTimeout(repositionTimeoutSticky);
+    updatePositions();
+}
+function updateDeadZonePosition() {
+    if (dropdownContent.style.display === "block") {
+        const toggleRect = dropdownToggle.getBoundingClientRect();
+        const contentRect = dropdownContent.getBoundingClientRect();
+        
+     deadZoneElement.style.left = toggleRect.left + "px";
+deadZoneElement.style.top = toggleRect.bottom + "px";
+deadZoneElement.style.width = toggleRect.width + "px";
+deadZoneElement.style.height = Math.max(5, contentRect.top - toggleRect.bottom) + "px";
+        deadZoneElement.style.display = "block";
+        deadZoneElement.style.pointerEvents = "auto";
+        deadZoneElement.style.zIndex = "999";
+    }
+}
     // Funkce pro zobrazení menu
     function showMenu() {
-        clearAllTimeouts();
-        isClosingInProgress = false;
-        
-        dropdownContent.style.display = "block";
-        
-        requestAnimationFrame(() => {
-            dropdownContent.style.opacity = "1";
-            dropdownContent.style.visibility = "visible";
-            updateDeadZonePosition();
-            
-            // Označíme toggle jako aktivní
-      
+    clearAllTimeouts();
+    isClosingInProgress = false;
+    
+  dropdownContent.style.display = "block";
+
+requestAnimationFrame(() => {
+    dropdownContent.style.opacity = "1";
+    dropdownContent.style.visibility = "visible";
+    updateDeadZonePosition(); 
+    startStickyPositionMonitoring();
+    // Jen jeden volání až po zobrazení
         });
         
         if (isClickOpened) {
@@ -816,6 +825,7 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     // Funkce pro skrytí menu
     function hideMenu() {
         clearAllTimeouts();
+        clearTimeout(repositionTimeoutSticky);
         isClosingInProgress = true;
         
         dropdownContent.style.opacity = "0";
@@ -1012,20 +1022,20 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
         }
     });
     
-    deadZoneElement.addEventListener("mouseleave", function(e) {
-        if (isClickOpened) return;
+deadZoneElement.addEventListener("mouseleave", function(e) {
+    if (isClickOpened) return;
+    
+    const toElement = e.relatedTarget;
+    if (toElement !== dropdownToggle && !dropdownToggle.contains(toElement) && 
+        toElement !== dropdownContent && !dropdownContent.contains(toElement)) {
         
-        const toElement = e.relatedTarget;
-        if ((toElement !== dropdownToggle && !dropdownToggle.contains(toElement)) && 
-            (toElement !== dropdownContent && !dropdownContent.contains(toElement))) {
-            
-            window.dropdownTimeouts[timeoutKey] = setTimeout(function() {
-                if (!isClickOpened) {
-                    hideMenu();
-                }
-            }, 300);
-        }
-    });
+        window.dropdownTimeouts[timeoutKey] = setTimeout(() => {
+            if (!isClickOpened) {
+                hideMenu();
+            }
+        }, 100);
+    }
+});
     
     // Sledování pozice myši
     document.addEventListener('mousemove', function(e) {

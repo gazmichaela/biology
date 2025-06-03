@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porovnání šířky obrazovky</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            background-color: white;
+            border: 2px solid #333;
+            position: relative;
+        }
+        
+        .screen-representation {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 3px solid #1976d2;
+        }
+        
+        .screen-label {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            background: #1976d2;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .content-1200 {
+            width: 1200px;
+            height: 150px;
+            background: linear-gradient(45deg, #c8e6c9, #81c784);
+            border: 3px solid #388e3c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .content-label {
+            background: #388e3c;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .measurements {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .measurement-item {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        
+        .highlight {
+            background: #fff59d;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .side-margins {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: rgba(255, 152, 0, 0.3);
+            border: 2px dashed #ff9800;
+        }
+        
+        .left-margin {
+            left: 0;
+            width: 360px;
+        }
+        
+        .right-margin {
+            right: 0;
+            width: 360px;
+        }
+        
+        .margin-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ff9800;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 1920px) {
+            .container {
+                max-width: 100%;
+            }
+            .screen-representation {
+                background: linear-gradient(45deg, #ffebee, #ffcdd2);
+                border-color: #d32f2f;
+            }
+            .screen-label {
+                background: #d32f2f;
+            }
+            .screen-label::after {
+                content: " (Váš monitor je menší)";
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .content-1200 {
+                width: 100%;
+                background: linear-gradient(45deg, #fff3e0, #ffcc02);
+                border-color: #f57c00;
+            }
+            .content-label {
+                background: #f57c00;
+            }
+            .content-label::after {
+                content: " (Přizpůsobeno)";
+            }
+            .side-margins {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Porovnání: 1200px obsah na 1920px monitoru</h1>
+    
+    <div class="container">
+        <div class="screen-representation">
+            <div class="screen-label">1920px široký monitor</div>
+            
+            <div class="side-margins left-margin">
+                <div class="margin-label">360px</div>
+            </div>
+            
+            <div class="content-1200">
+                <div class="content-label">1200px široký obsah</div>
+            </div>
+            
+            <div class="side-margins right-margin">
+                <div class="margin-label">360px</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="measurements">
+        <h3>📏 Detaily rozměrů:</h3>
+        <div class="measurement-item">
+            <strong>Celková šířka monitoru:</strong> <span class="highlight">1920px</span>
+        </div>
+        <div class="measurement-item">
+            <strong>Šířka obsahu:</strong> <span class="highlight">1200px</span>
+        </div>
+        <div class="measurement-item">
+            <strong>Procento zabírané obsahu:</strong> <span class="highlight">62,5%</span> (1200 ÷ 1920 = 0,625)
+        </div>
+        <div class="measurement-item">
+            <strong>Volné místo po stranách:</strong> <span class="highlight">720px celkem</span> (360px vlevo + 360px vpravo)
+        </div>
+        <div class="measurement-item">
+            <strong>Poměr:</strong> Obsah zabírá <span class="highlight">přibližně 2/3</span> šířky obrazovky
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px;">
+        <strong>💡 Praktický dopad:</strong> Obsah široký 1200px na Full HD monitoru vypadá jako většinový obsah s přiměřenými okraji po stranách - ideální pro čitelnost a nevypadá ani příliš úzce, ani příliš široce.
+    </div>
+</body>
+</html>
