@@ -119,7 +119,7 @@ function insertStickyHeaderStyles() {
     align-items: center;
     justify-content: center;
     padding: 12px 10px;
-    height: 42px;
+    /*height: 42px;*/
     width: 40px;
     margin-left: 2px;
 }
@@ -418,7 +418,7 @@ function initStickyHeaderFunctionality() {
                 const scrollY = window.scrollY || document.documentElement.scrollTop;
                 
                 // If we're at the top or within original header area, hide sticky header immediately
-              if (scrollY <= mainHeaderHeight + 1.5) { // přidej malý buffer
+              if (scrollY <= Math.max(mainHeaderHeight + 1.5, 10)) { // přidej malý buffer
     stickyHeader.classList.remove('visible');
     
     stickyHeader.classList.remove('scrolled');
@@ -479,7 +479,38 @@ function initStickyHeaderFunctionality() {
     })();
         // Initialize dropdown functionality for the sticky header
     initializeStickyDropdowns();
-    
+    // Debounce funkce pro rychlé přepínání
+let themeChangeTimeout;
+
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && 
+            (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme')) {
+            
+            // Zrušíme předchozí timeout pokud existuje
+            if (themeChangeTimeout) {
+                clearTimeout(themeChangeTimeout);
+            }
+            
+            // Zachováme aktuální stav
+            const currentScrollY = window.scrollY || document.documentElement.scrollTop;
+            const wasVisible = stickyHeader.classList.contains('visible');
+            
+            if (wasVisible && currentScrollY > 50) {
+                themeChangeTimeout = setTimeout(() => {
+                    if (stickyHeader && (window.scrollY || document.documentElement.scrollTop) > 50) {
+                        stickyHeader.classList.add('visible');
+                        stickyHeader.style.opacity = '1';
+                        stickyHeader.style.transform = 'translateY(0)';
+                    }
+                }, 0);
+            }
+        }
+    });
+});
+
+observer.observe(document.body, { attributes: true, subtree: false });
+observer.observe(document.documentElement, { attributes: true, subtree: false });
     console.log('Sticky header functionality initialized');
 }
 

@@ -85,6 +85,11 @@ body {
     color: #023f1e;
 }
 
+body.dark-mode {
+    background-color: #222222;
+    color: #c8c1b5;
+}
+
 noscript {
     font-size: 3em;
     font-weight: 900;
@@ -101,7 +106,11 @@ body > header {
     padding: 1px 0;
     color: white;
     z-index: 1001;
-     position: sticky;
+    position: sticky;
+}
+
+body.dark-mode header {
+    background-color: #77afe0ee; /* Zajistí, že při tmavém režimu bude header opravdu stejné barvy */
 }
 
 header p {
@@ -187,6 +196,10 @@ article section h2 {
     margin-bottom: 0.9em;
 }
 
+body.dark-mode article section h2 {
+    background: linear-gradient(to top, #1aff1a44 10%, transparent 60%);
+}
+
 article section h3 {
     text-decoration: underline #00c5003d;
     font-weight: 600;
@@ -194,6 +207,10 @@ article section h3 {
     font-size: 1.3em;
     margin-top: 60px;
     margin-bottom: 0.8em
+}
+
+body.dark-mode article section h3 {
+    text-decoration: underline #1aff1a44;
 }
 
 article section h4 {
@@ -242,12 +259,25 @@ article section .button-light {
     position: relative;
 }
 
+body.dark-mode .button,
+body.dark-mode .button-light {
+    color: #e6e6e6;
+}
+
 article section .button {
     background: #1c77e8;
 }
 
+body.dark-mode .button {
+    background: #1c78e8f1;
+}
+
 article section .button-light {
     background-color: #309ce5;
+}
+
+body.dark-mode .button-light {
+    background: #309ce5f1;
 }
 
 article section .button:hover,
@@ -286,6 +316,14 @@ footer p {
 .no-a-style {
     color: inherit;
     text-decoration: none;
+}
+
+body.dark-mode a:link {
+    color: skyblue;
+}
+
+body.dark-mode article section .citace a:visited {
+    color:cornflowerblue;
 }
 
 .citace {
@@ -347,8 +385,8 @@ footer p {
     position: fixed;
     bottom: 15px;
     left: 15px;
-    background: rgba(255, 255, 255, 0.97);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #FFFFFFF7;
+    box-shadow: 0 2px 8px #0000001A;
     border-radius: 4px;
     padding: 10px 15px;
     font-size: 0.65em;
@@ -356,6 +394,11 @@ footer p {
     z-index: 1000;
     border: 1px solid #e0e0e0;
     display: none; /* Počáteční stav - skryto */
+}
+
+body.dark-mode .cookies-mini-notice {
+    background: black;
+        border: 1px solid #585858;
 }
 
 .cookies-mini-notice.show {
@@ -366,6 +409,14 @@ footer p {
 .cookies-mini-notice p {
     margin-bottom: 8px;
     color: #444;
+}
+
+body.dark-mode .cookies-mini-notice p {
+    color: #c8c1b5;
+}
+
+body.dark-mode .cookies-mini-notice a {
+    color: skyblue;
 }
 
 .cookies-mini-notice button {
@@ -379,8 +430,18 @@ footer p {
     margin-right: 5px;
 }
 
+body.dark-mode .cookies-mini-notice button {
+    background-color: #2c2c2c;
+    border: 1px solid #3b3b3b;
+    color: #c8c1b5;
+}
+
 .cookies-mini-notice button:hover {
     background-color: #e8e8e8;
+}
+
+body.dark-mode .cookies-mini-notice button:hover {
+    background-color: #202020;
 }
 
 @keyframes fadeIn {
@@ -421,12 +482,21 @@ table {
     margin: 30px auto 40px 5%;
 }
 
+body.dark-mode table {
+    border: 1px solid white;
+}
+
 /* Styl pro buňky tabulky */
 th, td {
     padding: 4px;  /* Větší vnitřní okraje buněk */
     text-align: center;
     border: 1px solid black;
     font-size: 1em;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+    border: 1px solid white;
 }
 
 th:first-child {
@@ -473,6 +543,11 @@ td:first-child {
     to { visibility: hidden; }
 }
 
+body.dark-mode .tooltip .tooltiptext {
+    background-color: #333;
+    color: #e0deda;
+}
+
 .tooltip:hover .tooltiptext {
     opacity: 1;
     pointer-events: auto;
@@ -507,39 +582,6 @@ td:first-child {
     content-visibility: auto; 
 }*/
 
-/* Tmavý režim pro body */
-body.dark-mode {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-}
-
-/* Header v tmavém režimu */
-body.dark-mode header {
-    background-color: #77afe0ee;
-    border-bottom: 1px solid #77afe0ee;
-}
-
-/* Hlavní články v tmavém režimu */
-body.dark-mode .main-article {
-    background: #2a2a2a;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-/* Nadpisy článků v tmavém režimu */
-body.dark-mode .article-title {
-    color: #64b5f6;
-}
-
-/* Meta informace článků v tmavém režimu */
-body.dark-mode .article-meta {
-    color: #aaa;
-}
-
-/* Text článků v tmavém režimu */
-body.dark-mode .article-excerpt {
-    color: #ccc;
-}
-
 /* Sidebar sekce v tmavém režimu */
 body.dark-mode .sidebar-section {
     background: #2a2a2a;
@@ -563,58 +605,41 @@ body.dark-mode .article-card {
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-/* Nadpisy karet v tmavém režimu */
-body.dark-mode .card-title {
-    color: #64b5f6;
+/* Tlačítko tmavého režimu v tmavém režimu */
+ .dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    background: white;
 }
 
-/* Tlačítko tmavého režimu v tmavém režimu */
 body.dark-mode .dark-mode-toggle {
-    background: #3a3a3a;
-    color: #ffd700;
+    background:  black;
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
+/* Animace přechodu */
+.fade-transition {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
- .dark-mode-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            background: white;
-            color: #ffd700;
-        }
+.fade-transition.show {
+    opacity: 1;
+}
 
-        body.dark-mode .dark-mode-toggle {
-            background:  black;
-            color: #ffd700;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-
-
-
-           /* Animace přechodu */
-        .fade-transition {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .fade-transition.show {
-            opacity: 1;
-        }
-
-        
-        /* Ikona slunce - OPRAVENÁ VERZE */
+    /* Ikona slunce - OPRAVENÁ VERZE */
 .sun-icon {
     width: 19px;
     height: 19px;
