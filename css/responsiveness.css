@@ -11,10 +11,7 @@
         margin-top: 20px;
     }
     
-    .logo {
-        width: 150px;
-        margin: 18px 0px 0px 25px;
-    }
+
     
     article {
         margin-right: 40px;
@@ -63,7 +60,7 @@
     
     header h1 {
         font-size: 28px;
-        margin-top: 15px;
+        margin-top: 25px;
         margin-bottom: 10px;
     }
     
@@ -77,27 +74,10 @@
         font-size: 16px;
     }
     
-    .logo {
-        width: 120px;
-        margin: 15px 0px 0px 20px;
-        position: static;
-        display: block;
-        margin-bottom: 10px;
-    }
+ 
+
     
-    .logo a {
-        display: block;
-        width: 100%;
-        height: auto;
-        position: static;
-    }
-    
-    .logo img {
-        position: static;
-        width: 100%;
-        height: auto;
-    }
-    
+
     .container {
         flex-direction: column;
         align-items: flex-start;
@@ -168,11 +148,11 @@
         font-size: 0.85em;
     }
     
-     footer {
-        padding: 20px 8px 0px 8px;
-        font-size: 11px;
-        height: 159px;
-        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
+    footer {
+        padding: 30px 10px 0px 10px;
+        font-size: 12px;
+        height: 190px;
+        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
     }
     
     .cookies-mini-notice {
@@ -199,18 +179,14 @@
     
     header h1 {
         font-size: 24px;
-        margin-top: 10px;
+        margin-top: 30px;
     }
     
     header ul li {
         margin: 6px 0;
         font-size: 15px;
     }
-    
-    .logo {
-        width: 100px;
-        margin: 10px 0px 0px 15px;
-    }
+
     
     article {
         margin-right: 15px;
@@ -293,7 +269,7 @@
     footer {
         padding: 20px 8px 0px 8px;
         font-size: 11px;
-        height: 120px;
+        height: 159px;
         clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
     
@@ -344,10 +320,7 @@
         font-size: 20px;
     }
     
-    .logo {
-        width: 80px;
-        margin: 8px 0px 0px 10px;
-    }
+
     
     article {
         margin-right: 10px;
@@ -408,10 +381,7 @@
         font-size: 14px;
     }
     
-    .logo {
-        width: 90px;
-        margin: 8px 0px 0px 15px;
-    }
+
     
     article section h2 {
         margin-top: 30px;
@@ -1237,7 +1207,6 @@ body.dark-mode .escape-info {
     
 }
 
-
 /* BURGER MENU TLAČÍTKO */
 .burger-menu {
     display: none;
@@ -1247,8 +1216,8 @@ body.dark-mode .escape-info {
     top: 15px;
     right: 20px;
     z-index: 1003;
-    width: 30px;
-    height: 25px;
+    width: 17px;
+    height: 17px;
     justify-content: space-between;
 }
 
@@ -1260,56 +1229,47 @@ body.dark-mode .escape-info {
     transition: all 0.3s ease;
 }
 
-/* Animace burgeru při otevření */
-.burger-menu.active .burger-line:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
 
-.burger-menu.active .burger-line:nth-child(2) {
+
+/* OVERLAY PRO ZAVŘENÍ MENU KLIKNUTÍM MIMO */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
     opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.burger-menu.active .burger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(8px, -8.9px);
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* RESPONZIVNÍ NAVIGACE */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1175px) {
     /* Zajistí, že se stránka neprolí horizontálně */
     html, body {
         overflow-x: hidden;
         max-width: 100vw;
     }
-    
-    /* Zajistí, že header zůstane na svém místě - KLÍČOVÁ ÚPRAVA */
-    header {
-        position: relative;
-        z-index: 1004;
-        max-width: 100vw;
-        overflow-x: hidden;
-        min-height: auto; /* Přidáno pro stabilitu */
-        height: auto; /* Přidáno pro stabilitu */
-    }
-    
+
+ 
     /* Zobrazí burger menu */
     .burger-menu {
         display: flex;
     }
-    
-   /* PŘIDEJTE NA ZAČÁTEK VAŠEHO CSS - KRITICKÉ PRO STABILITU HEADERU */
-header {
-    overflow: hidden !important;
-    position: relative !important;
-    z-index: 1004 !important;
-}
 
-/* Zajistí, že mobilní menu je při načítání stránky definitivně skryté */
-@media screen and (max-width: 768px) {
+    /* Zajistí, že mobilní menu je při načítání stránky definitivně skryté */
     .button-container {
         position: fixed;
         top: 0;
-        left: 100% !important; /* Síla !important zajistí, že menu je skutečně skryté */
-        width: 100vw;
+        right: -50vw !important; /* Změna: menu se vysunuje zprava a má šířku 50vw */
+        width: 50vw; /* Maximálně polovina obrazovky */
         height: 100vh;
         background-color: #f0f9f0;
         flex-direction: column;
@@ -1322,48 +1282,81 @@ header {
         padding-right: 0;
         box-sizing: border-box;
         overflow-x: hidden;
-        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
+        transition: right 0.3s ease-in-out;
         transform: translateZ(0);
-        will-change: left;
-        visibility: hidden; /* Dodatečná ochrana */
+        will-change: right;
+        visibility: hidden;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     }
     
     /* Zobrazí jen když je skutečně aktivní */
     .button-container.mobile-menu-active {
-        left: 0 !important;
+        right: 0 !important;
         visibility: visible !important;
     }
     
     /* Zajistí, že header má fixní výšku */
     header {
-        min-height: 120px; /* Změňte podle vaší potřeby */
-        max-height: 120px; /* Změňte podle vaší potřeby */
-        height: 60px !important; /* Změňte podle vaší potřeby */
-    }
-}
-    
-    /* Zobrazí mobilní menu když je aktivní */
-    .button-container.mobile-menu-active {
-        left: 0;
+        min-height: 120px;
+        max-height: 120px;
+        height: 60px !important;
     }
     
-    /* Zabrání scrollování stránky když je menu otevřené - ÚPRAVA */
+    /* Zabrání scrollování stránky když je menu otevřené */
     body.menu-open {
         overflow: hidden;
         position: fixed;
-        width: 100vw; /* Změněno z 100% na 100vw */
-        height: 100vh; /* Změněno z 100% na 100vh */
+        width: 100vw;
+        height: 100vh;
         top: 0;
         left: 0;
     }
     
     /* NOVÉ - Zajistí stabilitu při načítání stránky */
     .button-container:not(.mobile-menu-active) {
-        visibility: hidden; /* Skryje menu při načítání */
+        visibility: hidden;
     }
     
     .button-container.mobile-menu-active {
-        visibility: visible; /* Zobrazí jen když je aktivní */
+        visibility: visible;
+    }
+
+    /* KŘÍŽEK PRO ZAVŘENÍ MENU */
+    .menu-close-button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        height: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1004;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+
+
+    .menu-close-button::before,
+    .menu-close-button::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 3px;
+        background-color: #025227;
+        border-radius: 1px;
+    }
+
+    .menu-close-button::before {
+        transform: rotate(45deg);
+    }
+
+    .menu-close-button::after {
+        transform: rotate(-45deg);
     }
     
     /* Upraví styly tlačítek pro mobilní verzi */
@@ -1371,8 +1364,8 @@ header {
     .maine-button,
     .dropdown-toggle,
     .dropdown-toggle-second {
-        width: 80%;
-        max-width: calc(100vw - 40px);
+        width: 90%; /* Zvětšeno kvůli menší šířce menu */
+        max-width: calc(50vw - 30px); /* Upraveno pro poloviční šířku */
         margin: 10px 0;
         text-align: center;
         border-radius: 20px;
@@ -1388,7 +1381,7 @@ header {
     .dropdown-toggle-second {
         border-top-left-radius: 20px;
         border-bottom-left-radius: 20px;
-        max-width: calc(100vw - 40px);
+        max-width: calc(50vw - 30px);
         margin-left: 0;
     }
     
@@ -1408,8 +1401,8 @@ header {
     
     .dropdown-content a,
     .dropdown-content-second a {
-        width: 80%;
-        max-width: calc(100vw - 40px);
+        width: 90%;
+        max-width: calc(50vw - 30px);
         margin: 5px auto;
         border-radius: 15px;
         background-color: #e8f5e8;
@@ -1434,19 +1427,28 @@ header {
     }
 }
 
-/* Pro menší telefony */
+/* Pro menší telefony - menu bude 60% obrazovky */
 @media screen and (max-width: 480px) {
     .burger-menu {
         right: 15px;
         top: 12px;
+    }
+
+    .button-container {
+        right: -60vw !important;
+        width: 60vw; /* Pro malé telefony trochu větší */
+    }
+
+    .button-container.mobile-menu-active {
+        right: 0 !important;
     }
     
     .main-button,
     .maine-button,
     .dropdown-toggle,
     .dropdown-toggle-second {
-        width: 90%;
-        max-width: calc(100vw - 20px);
+        width: 95%;
+        max-width: calc(60vw - 20px);
         font-size: 14px;
         padding: 10px 15px;
         box-sizing: border-box;
@@ -1454,7 +1456,384 @@ header {
     
     .dropdown-content a,
     .dropdown-content-second a {
-        width: 90%;
-        max-width: calc(100vw - 20px);
+        width: 95%;
+        max-width: calc(60vw - 20px);
+    }
+}
+
+/* DESKTOP NAVIGACE - ponecháme vaši stávající */
+.desktop-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-item {
+    background-color: #025227;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: #034a33;
+}
+
+/* MOBILNÍ NAVIGACE - nové názvy pro responzivní verzi */
+.mobile-nav-container {
+    position: fixed;
+    top: 0;
+    right: -50vw !important; /* Změna: menu se vysunuje zprava */
+    width: 50vw; /* Maximálně polovina obrazovky */
+    height: 100vh;
+    background-color: #f0f9f0;
+    z-index: 1002;
+    overflow-y: auto;
+    padding-top: 80px;
+    transition: right 0.3s ease-in-out;
+    visibility: hidden;
+    transform: translateZ(0);
+    will-change: right;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+
+}
+
+.mobile-nav-container.mobile-menu-active {
+    right: 0 !important;
+    visibility: visible !important;
+}
+
+.mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px; /* Zmenšeno kvůli menší šířce */
+    gap: 5px;
+}
+
+/* Mobilní položky seznamu - upraveno jako seznam */
+.mobile-nav-button {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 12px 15px; /* Zmenšeno padding */
+    border: none;
+    background: none;
+    color: #025227;
+    text-decoration: none;
+    text-align: left;
+    font-size: 15px; /* Trochu menší font */
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    display: block;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-nav-button:hover {
+    background-color: #e8f5e8;
+    color: #034a33;
+}
+
+/* Mobilní rozbalovací sekce */
+.mobile-expandable {
+    width: 100%;
+    margin: 0;
+}
+
+.mobile-expand-header {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 12px 15px;
+    background: none;
+    color: #025227;
+    text-decoration: none;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-expand-header:hover {
+    background-color: #e8f5e8;
+    color: #034a33;
+}
+
+.mobile-expand-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.mobile-expand-header.expanded .mobile-expand-arrow {
+    transform: rotate(180deg);
+}
+
+.mobile-expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: transparent;
+}
+
+.mobile-expand-content.expanded {
+    max-height: 500px;
+}
+
+.mobile-sub-item {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 10px 30px; /* Zmenšeno padding */
+    background: none;
+    color: #666;
+    text-decoration: none;
+    border-radius: 0;
+    font-size: 13px;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-sub-item:hover {
+    background-color: #f5f5f5;
+    color: #025227;
+}
+
+/* Sub-rozbalovací pro mobilní */
+.mobile-sub-expandable {
+    margin: 0;
+}
+
+.mobile-sub-expand-header {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 10px 30px;
+    background: none;
+    color: #666;
+    border-radius: 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-sub-expand-header:hover {
+    background-color: #f5f5f5;
+    color: #025227;
+}
+
+.mobile-sub-expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.mobile-sub-expand-content.expanded {
+    max-height: 300px;
+}
+
+.mobile-sub-sub-item {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 8px 45px; /* Zmenšeno padding */
+    background: none;
+    color: #888;
+    text-decoration: none;
+    border-radius: 0;
+    font-size: 12px;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.mobile-sub-sub-item:hover {
+    background-color: #f9f9f9;
+    color: #025227;
+}
+
+/* Home ikona pro mobilní */
+.mobile-home-icon {
+    width: auto;
+    max-width: none;
+    margin: 20px 15px 10px;
+    padding: 15px;
+    background-color: #4a90e2;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.mobile-home-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+/* RESPONZIVNÍ STYLY */
+@media screen and (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    .burger-menu {
+        display: flex;
+    }
+    
+    .desktop-nav {
+        display: none;
+    }
+}
+
+/* Pro velmi malé telefony - menu bude 70% obrazovky */
+@media screen and (max-width: 320px) {
+    .button-container,
+    .mobile-nav-container {
+        right: -70vw !important;
+        width: 70vw;
+         transition: right 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .button-container.mobile-menu-active,
+    .mobile-nav-container.mobile-menu-active {
+        right: 0 !important;
+    }
+
+    .main-button,
+    .maine-button,
+    .dropdown-toggle,
+    .dropdown-toggle-second {
+        max-width: calc(70vw - 20px);
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+    
+    .dropdown-content a,
+    .dropdown-content-second a {
+        max-width: calc(70vw - 20px);
+    }
+}
+
+/* Hlavní obsah stránky */
+.page-content {
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-content h1 {
+    color: #025227;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.content-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+
+/* Základní styl pro logo kontejner */
+.logo {
+    display: block; /* Zachováme block pro pozici */
+    width: 150px; /* Zachováme původní šířku pro pozici */
+    height: auto; /* Přidáme explicitní výšku */
+    margin: 18px 0px 0px 25px; /* Zachováme původní margin */
+}
+
+/* Link uvnitř loga - pouze velikost obrázku */
+.logo a {
+    display: inline-block; /* Inline-block pro přizpůsobení obsahu */
+    width: fit-content; /* Přizpůsobí se pouze velikosti obrázku */
+    height: auto;
+    text-decoration: none;
+     /* Přidáme float pro zachování layoutu */
+}
+
+/* Obrázek loga */
+.logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 150px; /* Nebo vaše požadovaná velikost */
+}
+
+/* Responsive úpravy */
+@media screen and (max-width: 767px) {
+    .logo {
+        width: 120px; /* Zachováme původní šířku */
+        margin: 15px 0px 0px 20px;
+        display: block; /* Zachováme block */
+        margin-bottom: 10px;
+        float: none;
+    }
+    
+    .logo a {
+        display: inline-block;
+        width: fit-content; /* Přizpůsobí se obsahu */
+        height: auto;
+        position: static;
+    }
+    
+    .logo img {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-width: 120px;
+    }
+}
+
+@media screen and (max-width: 567px) {
+    .logo {
+        width: 100px; /* Zachováme původní šířku */
+        margin: 10px 0px 0px 15px;
+    }
+    
+    .logo a {
+        width: fit-content; /* Přizpůsobí se obsahu */
+    }
+    
+    .logo img {
+        max-width: 100px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .logo {
+        width: 80px; /* Zachováme původní šířku */
+        margin: 8px 0px 0px 10px;
+    }
+    
+    .logo a {
+        width: fit-content; /* Přizpůsobí se obsahu */
+    }
+    
+    .logo img {
+        max-width: 80px;
     }
 }

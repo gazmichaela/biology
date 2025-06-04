@@ -17,6 +17,7 @@
     <!--<script src="js/pdf.js" defer></script>-->
     <script src="js/source.js" defer></script>
     <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
     <link rel="preload" href="js/dropdowns.js" as="script">
     <link rel="preload" href="js/active-menu.js" as="script">
     <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
@@ -74,6 +75,62 @@
             </div>
    
         </ul>
+                 <!-- Burger menu tlačítko -->
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+        </div>
+    </header>
+
+         <!-- Mobilní navigace -->
+    <nav class="mobile-nav-container" id="mobileMenu">
+        <button class="menu-close-button" aria-label="Zavřít menu"></button>
+        <div class="mobile-nav-list">
+        <!-- Mobilní home ikona - vložte na začátek mobilního menu -->
+<a href="index.html" class="mobile-nav-button">Domů</a>
+            <!-- Základy systémového myšlení -->
+            <div class="mobile-expandable">
+                <div class="mobile-expand-header" onclick="toggleMobileExpand(this)">
+                    <span>Základy systémového myšlení</span>
+                    <span class="mobile-expand-arrow">▼</span>
+                </div>
+                <div class="mobile-expand-content">
+                    <!-- Sub-rozbalovací: Úvod -->
+                    <div class="mobile-sub-expandable">
+                        <div class="mobile-sub-expand-header" onclick="toggleMobileSubExpand(this)">
+                            <span>Úvod</span>
+                            <span class="mobile-expand-arrow">▼</span>
+                        </div>
+                        <div class="mobile-sub-expand-content">
+                            <a href="system-approach.html" class="mobile-sub-sub-item">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-sub-sub-item">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    
+                    <a href="system-theory.html" class="mobile-sub-item">Teorie systémů</a>
+                </div>
+            </div>
+
+            <!-- Základy živých soustav -->
+            <div class="mobile-expandable">
+                <div class="mobile-expand-header" onclick="toggleMobileExpand(this)">
+                    <span>Základy živých soustav</span>
+                    <span class="mobile-expand-arrow">▼</span>
+                </div>
+                <div class="mobile-expand-content">
+                    <a href="life-properties.html" class="mobile-sub-item">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html" class="mobile-sub-item">Vznik života</a>
+                </div>
+            </div>
+
+            <!-- Jednotlivá tlačítka -->
+            <a href="cell.html" class="mobile-nav-button">Buněčné a nebuněčné organismy</a>
+            <a href="human.html" class="mobile-nav-button">Člověk</a>
+
+        </div>
+    </nav>
         <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
     </header>
 
