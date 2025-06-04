@@ -291,7 +291,7 @@ article section .button-light:hover {
 footer {
     box-sizing: border-box;
     text-align: left;
-    height: 200px;
+    height: 220px;
     color: white;
     background: #3f7093;
     padding: 50px 0px 0px 10px;
@@ -503,7 +503,7 @@ th:first-child {
     font-weight: normal;
 }
 
-td:first-child {
+td:first-child :not(.extra-bunka) {
     font-weight: bold; /* Tučný text v první buňce */
 }
 

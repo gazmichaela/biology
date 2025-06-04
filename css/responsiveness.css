@@ -1,0 +1,1460 @@
+/* ===== RESPONZIVNÍ MEDIA QUERIES ===== */
+
+/* Tablet Portrait - 768px až 1023px */
+@media screen and (max-width: 1023px) {
+    body {
+        font-size: 1.2em;
+    }
+    
+    header h1 {
+        font-size: 35px;
+        margin-top: 20px;
+    }
+    
+    .logo {
+        width: 150px;
+        margin: 18px 0px 0px 25px;
+    }
+    
+    article {
+        margin-right: 40px;
+        margin-left: 30px;
+    }
+    
+    section {
+        margin-left: 15px;
+        padding: 15px 0px 40px 0px;
+    }
+    
+    article section h2 {
+        font-size: 1.3em;
+        margin-top: 80px;
+    }
+    
+    article section h3 {
+        font-size: 1.2em;
+        margin-top: 50px;
+    }
+    
+    .video-wrapper {
+        width: 85%;
+    }
+    
+    table {
+        width: 85%;
+        font-size: 0.9em;
+    }
+    
+    th, td {
+        padding: 6px;
+    }
+}
+
+/* Mobile Landscape - 568px až 767px */
+@media screen and (max-width: 767px) {
+    body {
+        font-size: 1.1em;
+    }
+    
+    header {
+        padding: 5px 0;
+        position: relative;
+    }
+    
+    header h1 {
+        font-size: 28px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    
+    header ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    header ul li {
+        margin: 8px 0;
+        font-size: 16px;
+    }
+    
+    .logo {
+        width: 120px;
+        margin: 15px 0px 0px 20px;
+        position: static;
+        display: block;
+        margin-bottom: 10px;
+    }
+    
+    .logo a {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+    
+    .logo img {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+    
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    article {
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    
+    section {
+        margin-left: 10px;
+        padding: 10px 0px 30px 0px;
+    }
+    
+    article section p {
+        margin-left: 0.8em;
+        text-align: left;
+    }
+    
+    article section li {
+        margin-left: 0.8em;
+    }
+    
+    article section h2 {
+        font-size: 1.2em;
+        margin-top: 60px;
+        margin-bottom: 0.7em;
+    }
+    
+    article section h3 {
+        font-size: 1.1em;
+        margin-top: 40px;
+        margin-bottom: 0.6em;
+    }
+    
+    article section h4 {
+        margin-top: 2em;
+        margin-left: 0.3em;
+    }
+    
+    article section h5 {
+        margin-left: 0.6em;
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 10px;
+        margin-top: 15px;
+        padding: 8px 16px;
+        font-size: 0.9em;
+        display: block;
+        width: fit-content;
+    }
+    
+    .video-wrapper {
+        width: 95%;
+    }
+    
+    table {
+        width: 95%;
+        font-size: 0.8em;
+        margin: 20px auto 30px 2.5%;
+    }
+    
+    th, td {
+        padding: 4px 2px;
+        font-size: 0.85em;
+    }
+    
+     footer {
+        padding: 20px 8px 0px 8px;
+        font-size: 11px;
+        height: 159px;
+        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    .cookies-mini-notice {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+        font-size: 0.6em;
+    }
+    
+    .dark-mode-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Mobile Portrait - do 567px */
+@media screen and (max-width: 567px) {
+    body {
+        font-size: 1em;
+    }
+    
+    header h1 {
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    
+    header ul li {
+        margin: 6px 0;
+        font-size: 15px;
+    }
+    
+    .logo {
+        width: 100px;
+        margin: 10px 0px 0px 15px;
+    }
+    
+    article {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    
+    section {
+        margin-left: 5px;
+        padding: 8px 0px 25px 0px;
+    }
+    
+    article section p {
+        margin-left: 0.5em;
+        margin-bottom: 0.6em;
+    }
+    
+    article section li {
+        margin-left: 0.5em;
+        margin-bottom: 0.3em;
+    }
+    
+    article section h2 {
+        font-size: 1.1em;
+        margin-top: 50px;
+        margin-bottom: 0.6em;
+        padding: 0 0.1em;
+    }
+    
+    article section h3 {
+        font-size: 1.05em;
+        margin-top: 35px;
+        margin-bottom: 0.5em;
+        padding: 2px 3px;
+    }
+    
+    article section h4 {
+        font-size: 1em;
+        margin-top: 1.5em;
+        margin-left: 0.2em;
+    }
+    
+    article section h5 {
+        font-size: 0.95em;
+        margin-left: 0.4em;
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 5px;
+        margin-top: 12px;
+        padding: 7px 14px;
+        font-size: 0.85em;
+        border-radius: 15px;
+    }
+    
+    table {
+        width: 98%;
+        font-size: 0.7em;
+        margin: 15px auto 25px 1%;
+    }
+    
+    th, td {
+        padding: 3px 1px;
+        font-size: 0.8em;
+    }
+    
+    .tooltip {
+        white-space: normal;
+    }
+    
+    .tooltip .tooltiptext {
+        font-size: small;
+        white-space: normal;
+        max-width: 200px;
+        left: 0;
+        transform: none;
+        bottom: 110%;
+    }
+    
+    footer {
+        padding: 20px 8px 0px 8px;
+        font-size: 11px;
+        height: 120px;
+        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    .cookies-mini-notice {
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+        padding: 8px 12px;
+        font-size: 0.55em;
+    }
+    
+    .dark-mode-toggle {
+        bottom: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .sun-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .sun-icon .sun {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .sun-icon .ray {
+        width: 1px;
+        height: 3px;
+    }
+    
+    .moon-icon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* Extra malé mobily - do 320px */
+@media screen and (max-width: 320px) {
+    body {
+        font-size: 0.9em;
+    }
+    
+    header h1 {
+        font-size: 20px;
+    }
+    
+    .logo {
+        width: 80px;
+        margin: 8px 0px 0px 10px;
+    }
+    
+    article {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    
+    section {
+        margin-left: 2px;
+    }
+    
+    article section p {
+        margin-left: 0.3em;
+    }
+    
+    article section li {
+        margin-left: 0.3em;
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 2px;
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    
+    table {
+        font-size: 0.65em;
+    }
+    
+    th, td {
+        padding: 2px 1px;
+    }
+    
+    .cookies-mini-notice {
+        font-size: 0.5em;
+        padding: 6px 10px;
+    }
+}
+
+/* Landscape orientace pro mobily */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    header {
+        position: static;
+    }
+    
+    header h1 {
+        font-size: 22px;
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+    
+    header ul {
+        padding: 5px 0;
+    }
+    
+    header ul li {
+        margin: 4px 10px;
+        font-size: 14px;
+    }
+    
+    .logo {
+        width: 90px;
+        margin: 8px 0px 0px 15px;
+    }
+    
+    article section h2 {
+        margin-top: 30px;
+    }
+    
+    article section h3 {
+        margin-top: 25px;
+    }
+    
+    footer {
+        height: 100px;
+        padding: 15px 8px 0px 8px;
+    }
+}
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    article section .button:hover,
+    article section .button-light:hover {
+        outline: 1.5px solid black;
+        outline-offset: 0px;
+        z-index: 1;
+        font-weight: 800;
+    }
+    
+    .tooltip:hover .tooltiptext {
+        opacity: 1;
+        pointer-events: auto;
+        animation: fadeTooltext 0.3s;
+        visibility: visible;
+    }
+}
+
+
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Flexibilní obrázky */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== RESPONZIVNÍ STYLY PRO FAQ/OTÁZKY ===== */
+
+/* Desktop a tablet - původní velikosti */
+@media screen and (min-width: 768px) {
+    .question {
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-size: 0.85em;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+    
+    .answer {
+        padding: 10px;
+        background-color: #e9e9e9;
+        border-left: 3px solid #4CAF50;
+        display: none;
+        font-size: 0.8em;
+    }
+    
+    #toggle-questions-btn {
+        padding: 10px 15px;
+        font-size: 0.95em;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #309ce5;
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+}
+
+/* Mobile Landscape - 568px až 767px */
+@media screen and (max-width: 767px) {
+    .question {
+        background-color: #f1f1f1;
+        padding: 12px 8px;
+        font-size: 0.9em;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+    
+    .answer {
+        padding: 12px 8px;
+        background-color: #e9e9e9;
+        border-left: 3px solid #4CAF50;
+        display: none;
+        font-size: 0.85em;
+        line-height: 1.4;
+    }
+    
+    #toggle-questions-btn {
+        padding: 12px 18px;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #309ce5;
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        margin-top: 25px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Mobile Portrait - do 567px */
+@media screen and (max-width: 567px) {
+    .question {
+        background-color: #f1f1f1;
+        padding: 14px 10px;
+        font-size: 0.95em;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+        touch-action: manipulation; /* Lepší dotyková odezva */
+    }
+    
+    .answer {
+        padding: 14px 10px;
+        background-color: #e9e9e9;
+        border-left: 4px solid #4CAF50;
+        display: none;
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+    
+    #toggle-questions-btn {
+        padding: 14px 20px;
+        font-size: 1.05em;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #309ce5;
+        color: white;
+        border: 1px solid black;
+        border-radius: 6px;
+        margin-bottom: 30px;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        touch-action: manipulation;
+    }
+}
+
+/* Extra malé mobily - do 320px */
+@media screen and (max-width: 320px) {
+    .question {
+        padding: 12px 8px;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    
+    .answer {
+        padding: 12px 8px;
+        font-size: 0.85em;
+        border-left: 3px solid #4CAF50;
+    }
+    
+    #toggle-questions-btn {
+        padding: 12px 16px;
+        font-size: 1em;
+        margin-bottom: 25px;
+        margin-top: 15px;
+    }
+}
+
+/* Tmavý režim pro všechny velikosti */
+body.dark-mode .question {
+    background-color: #333131;
+    border: 1px solid #505050;
+    color: #c8c1b5;
+}
+
+body.dark-mode .answer {
+    background-color: #2b2c2b;
+    color: #c8c1b5;
+    border-left-color: #4CAF50;
+}
+
+body.dark-mode #toggle-questions-btn {
+    background-color: #309ce5f1;
+    color: #e6e6e6;
+}
+
+body.dark-mode .question.open {
+    background-color: #404040;
+}
+
+/* Společné styly pro všechny velikosti */
+.hidden {
+    display: none;
+}
+
+.question:focus {
+    outline: none;
+}
+
+.question.open {
+    background-color: #dcdcdc;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    .question:hover {
+        background-color: #e8e8e8;
+    }
+    
+    body.dark-mode .question:hover {
+        background-color: #3a3a3a;
+    }
+    
+    #toggle-questions-btn:hover {
+        background-color: #2a8bc7;
+    }
+    
+    body.dark-mode #toggle-questions-btn:hover {
+        background-color: #2a8bc7f1;
+    }
+}
+
+/* Animace pro rozbalování odpovědí na mobilech */
+@media screen and (max-width: 767px) {
+    .answer {
+        transition: all 0.3s ease;
+    }
+}
+
+/* ===== RESPONZIVNÍ STYLY PRO PDF OVERLAY ===== */
+
+/* Desktop a tablet - původní velikosti */
+@media screen and (min-width: 768px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .escape-info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        z-index: 1010;
+    }
+}
+
+/* Mobile Landscape - 568px až 767px */
+@media screen and (max-width: 767px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 95%;
+        height: 90%;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 40px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1001;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+    }
+    
+    .escape-info {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-size: 15px;
+        z-index: 1010;
+    }
+}
+
+/* Mobile Portrait - do 567px */
+@media screen and (max-width: 567px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 98%;
+        height: 95%;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        width: 45px;
+        height: 45px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 26px;
+        line-height: 45px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        z-index: 1001;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        border: 2px solid #f0f0f0;
+    }
+    
+    .escape-info {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 16px;
+        z-index: 1010;
+        text-align: center;
+    }
+}
+
+/* Extra malé mobily - do 320px */
+@media screen and (max-width: 320px) {
+    .pdf-viewer-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
+    
+    .pdf-close-button {
+        top: 5px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        line-height: 40px;
+    }
+    
+    .escape-info {
+        top: 10px;
+        left: 10px;
+        right: 60px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .pdf-iframe {
+        border-radius: 0;
+    }
+}
+
+/* Landscape orientace pro mobily */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .pdf-viewer-container {
+        width: 98%;
+        height: 98%;
+    }
+    
+    .pdf-close-button {
+        top: -8px;
+        right: -8px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+        line-height: 35px;
+    }
+    
+    .escape-info {
+        top: 8px;
+        left: 8px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+/* Společné styly pro všechny velikosti */
+.pdf-overlay, .pdf-viewer-container, .pdf-close-button, .pdf-iframe {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pdf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Tmavý režim pro PDF overlay */
+body.dark-mode .pdf-viewer-container {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+}
+
+body.dark-mode .pdf-close-button {
+    background-color: #3a3a3a;
+    color: white;
+    border-color: #555;
+}
+
+body.dark-mode .escape-info {
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #444;
+}
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    .pdf-close-button:hover {
+        background-color: #f5f5f5;
+        transform: scale(1.1);
+        transition: all 0.2s ease;
+    }
+    
+    body.dark-mode .pdf-close-button:hover {
+        background-color: #4a4a4a;
+    }
+}
+
+
+/* RESPONZIVITA PRO OBRÁZKY - Media Queries */
+
+/* Tablety - do 1024px */
+@media screen and (max-width: 1024px) {
+    .img-right {
+        width: 30%;
+        min-width: 280px;
+        max-width: 500px;
+        margin-left: 30px;
+        margin-top: 15px;
+    }
+    
+    .img-right-big {
+        width: 45%;
+        margin-left: 15px;
+    }
+    
+    .img-right-middle {
+        width: 35%;
+    }
+    
+    .img-right-top {
+        width: 30%;
+        min-width: 280px;
+        max-width: 500px;
+        margin-top: 60px;
+        margin-left: 30px;
+    }
+    
+    .img-left {
+        width: 35%;
+        margin-left: 3%;
+        margin-right: 15px;
+    }
+    
+    .img-bottom {
+        width: 45%;
+        margin-left: 3%;
+    }
+    
+    .img-next {
+        width: 50%;
+    }
+    
+    /* Info boxy */
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+        width: 260px;
+    }
+    
+    .info-box-medium:hover:not(.force-close),
+    .info-box-medium.active {
+        width: 180px;
+    }
+    
+    .info-box-medium-second:hover:not(.force-close),
+    .info-box-medium-second.active {
+        width: 210px;
+    }
+    
+    .info-box-left:hover:not(.force-close),
+    .info-box-left.active {
+        width: 260px;
+    }
+    
+    .info-box-long-left:hover:not(.force-close),
+    .info-box-long-left.active {
+        width: 230px;
+    }
+    
+    .info-box-medium-third:hover:not(.force-close),
+    .info-box-medium-third.active {
+        width: 230px;
+    }
+    
+    .info-box-long:hover:not(.force-close),
+    .info-box-long.active {
+        width: 270px;
+    }
+}
+
+/* Menší tablety a větší mobily - do 768px */
+@media screen and (max-width: 768px) {
+    .img-right {
+        width: 40%;
+        min-width: 240px;
+        max-width: 400px;
+        margin-left: 20px;
+        margin-top: 10px;
+    }
+    
+    .img-right-big {
+        width: 50%;
+        margin-left: 10px;
+    }
+    
+    .img-right-middle {
+        width: 45%;
+        margin: 0.8%;
+        margin-left: 1.5%;
+    }
+    
+    .img-right-top {
+        width: 40%;
+        min-width: 240px;
+        max-width: 400px;
+        margin-top: 40px;
+        margin-left: 20px;
+    }
+    
+    .img-left {
+        width: 40%;
+        margin-left: 2%;
+        margin-right: 10px;
+    }
+    
+    .img-bottom {
+        width: 50%;
+        margin-left: 2%;
+    }
+    
+    .img-next {
+        width: 60%;
+        margin-left: 1%;
+    }
+    
+    /* Info boxy - menší rozměry */
+    .info-box,
+    .info-box-short,
+    .info-box-medium-second,
+    .info-box-left,
+    .info-box-long-left,
+    .info-box-medium-third,
+    .info-box-short-third,
+    .info-box-short-fourth,
+    .info-box-long,
+    .info-box-short-second,
+    .info-box-medium {
+        font-size: 12px;
+        width: 22px;
+        height: 22px;
+    }
+    
+    .info-box::before,
+    .info-box-short::before,
+    .info-box-medium::before,
+    .info-box-medium-second::before,
+    .info-box-left::before,
+    .info-box-long-left::before,
+    .info-box-medium-third::before,
+    .info-box-short-third::before,
+    .info-box-short-fourth::before,
+    .info-box-long::before,
+    .info-box-short-second::before {
+        left: 3px;
+        top: 3px;
+        right: 3px;
+        bottom: 3px;
+        max-width: 14px;
+    }
+    
+    .info-box .icon-circle,
+    .info-box-short .icon-circle-short,
+    .info-box-medium .icon-circle-medium,
+    .info-box-medium-second .icon-circle-medium-second,
+    .info-box-left .icon-circle-left,
+    .info-box-long-left .icon-circle-long-left,
+    .info-box-medium-third .icon-circle-medium-third,
+    .info-box-short-third .icon-circle-short-third,
+    .info-box-short-fourth .icon-circle-short-fourth,
+    .info-box-long .icon-circle-long,
+    .info-box-short-second .icon-circle-short-second {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+        width: 220px;
+    }
+    
+    .info-box-short:hover:not(.force-close),
+    .info-box-short.active {
+        width: 115px;
+    }
+    
+    .info-box-medium:hover:not(.force-close),
+    .info-box-medium.active {
+        width: 160px;
+    }
+    
+    .info-box-medium-second:hover:not(.force-close),
+    .info-box-medium-second.active {
+        width: 190px;
+    }
+    
+    .info-box-left:hover:not(.force-close),
+    .info-box-left.active {
+        width: 220px;
+    }
+    
+    .info-box-long-left:hover:not(.force-close),
+    .info-box-long-left.active {
+        width: 200px;
+    }
+    
+    .info-box-medium-third:hover:not(.force-close),
+    .info-box-medium-third.active {
+        width: 200px;
+    }
+    
+    .info-box-short-third:hover:not(.force-close),
+    .info-box-short-third.active {
+        width: 110px;
+    }
+    
+    .info-box-short-fourth:hover:not(.force-close),
+    .info-box-short-fourth.active {
+        width: 115px;
+    }
+    
+    .info-box-long:hover:not(.force-close),
+    .info-box-long.active {
+        width: 240px;
+    }
+    
+    .info-box-short-second:hover:not(.force-close),
+    .info-box-short-second.active {
+        width: 105px;
+    }
+    
+    .info-box span,
+    .info-box-short span,
+    .info-box-medium span,
+    .info-box-medium-second span,
+    .info-box-left span,
+    .info-box-long-left span,
+    .info-box-medium-third span,
+    .info-box-short-third span,
+    .info-box-short-fourth span,
+    .info-box-long span,
+    .info-box-short-second span {
+        left: 22px;
+        margin-left: 8px;
+    }
+}
+
+/* Mobily - do 480px */
+@media screen and (max-width: 480px) {
+    .img-right,
+    .img-right-big,
+    .img-right-middle,
+    .img-right-top,
+    .img-left {
+        float: none;
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .img-right-top {
+        margin-top: 10px;
+    }
+    
+    .img-bottom {
+        width: 90%;
+        margin: 10px auto;
+        margin-left: auto;
+        display: block;
+    }
+    
+    .img-next {
+        width: 90%;
+        margin: 10px auto;
+        margin-left: auto;
+        display: block;
+    }
+    
+}
+
+/* Velmi malé mobily - do 360px */
+@media screen and (max-width: 360px) {
+    .img-right,
+    .img-right-big,
+    .img-right-middle,
+    .img-right-top,
+    .img-left,
+    .img-bottom,
+    .img-next {
+        width: 95%;
+        margin: 8px auto;
+    }
+    
+}
+
+
+/* BURGER MENU TLAČÍTKO */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 1003;
+    width: 30px;
+    height: 25px;
+    justify-content: space-between;
+}
+
+.burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #025227;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Animace burgeru při otevření */
+.burger-menu.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8.9px);
+}
+
+/* RESPONZIVNÍ NAVIGACE */
+@media screen and (max-width: 768px) {
+    /* Zajistí, že se stránka neprolí horizontálně */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+    
+    /* Zajistí, že header zůstane na svém místě - KLÍČOVÁ ÚPRAVA */
+    header {
+        position: relative;
+        z-index: 1004;
+        max-width: 100vw;
+        overflow-x: hidden;
+        min-height: auto; /* Přidáno pro stabilitu */
+        height: auto; /* Přidáno pro stabilitu */
+    }
+    
+    /* Zobrazí burger menu */
+    .burger-menu {
+        display: flex;
+    }
+    
+   /* PŘIDEJTE NA ZAČÁTEK VAŠEHO CSS - KRITICKÉ PRO STABILITU HEADERU */
+header {
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 1004 !important;
+}
+
+/* Zajistí, že mobilní menu je při načítání stránky definitivně skryté */
+@media screen and (max-width: 768px) {
+    .button-container {
+        position: fixed;
+        top: 0;
+        left: 100% !important; /* Síla !important zajistí, že menu je skutečně skryté */
+        width: 100vw;
+        height: 100vh;
+        background-color: #f0f9f0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 80px;
+        z-index: 1002;
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        transition: left 0.3s ease-in-out;
+        transform: translateZ(0);
+        will-change: left;
+        visibility: hidden; /* Dodatečná ochrana */
+    }
+    
+    /* Zobrazí jen když je skutečně aktivní */
+    .button-container.mobile-menu-active {
+        left: 0 !important;
+        visibility: visible !important;
+    }
+    
+    /* Zajistí, že header má fixní výšku */
+    header {
+        min-height: 120px; /* Změňte podle vaší potřeby */
+        max-height: 120px; /* Změňte podle vaší potřeby */
+        height: 60px !important; /* Změňte podle vaší potřeby */
+    }
+}
+    
+    /* Zobrazí mobilní menu když je aktivní */
+    .button-container.mobile-menu-active {
+        left: 0;
+    }
+    
+    /* Zabrání scrollování stránky když je menu otevřené - ÚPRAVA */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100vw; /* Změněno z 100% na 100vw */
+        height: 100vh; /* Změněno z 100% na 100vh */
+        top: 0;
+        left: 0;
+    }
+    
+    /* NOVÉ - Zajistí stabilitu při načítání stránky */
+    .button-container:not(.mobile-menu-active) {
+        visibility: hidden; /* Skryje menu při načítání */
+    }
+    
+    .button-container.mobile-menu-active {
+        visibility: visible; /* Zobrazí jen když je aktivní */
+    }
+    
+    /* Upraví styly tlačítek pro mobilní verzi */
+    .main-button,
+    .maine-button,
+    .dropdown-toggle,
+    .dropdown-toggle-second {
+        width: 80%;
+        max-width: calc(100vw - 40px);
+        margin: 10px 0;
+        text-align: center;
+        border-radius: 20px;
+        box-sizing: border-box;
+    }
+    
+    .main-button {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    
+    .dropdown-toggle,
+    .dropdown-toggle-second {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        max-width: calc(100vw - 40px);
+        margin-left: 0;
+    }
+    
+    /* Upraví dropdown menu pro mobil */
+    .dropdown-content,
+    .dropdown-content-second {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0;
+        transform: none;
+        left: auto;
+        overflow-x: hidden;
+    }
+    
+    .dropdown-content a,
+    .dropdown-content-second a {
+        width: 80%;
+        max-width: calc(100vw - 40px);
+        margin: 5px auto;
+        border-radius: 15px;
+        background-color: #e8f5e8;
+        box-sizing: border-box;
+    }
+    
+    .dropdown-content a.centered {
+        padding-left: 20px;
+        justify-content: center;
+    }
+    
+    /* Sub-dropdown pro mobil */
+    .sub-dropdown-content {
+        position: static;
+        margin-left: 0;
+        box-shadow: none;
+        background-color: transparent;
+        opacity: 1;
+        visibility: visible;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+/* Pro menší telefony */
+@media screen and (max-width: 480px) {
+    .burger-menu {
+        right: 15px;
+        top: 12px;
+    }
+    
+    .main-button,
+    .maine-button,
+    .dropdown-toggle,
+    .dropdown-toggle-second {
+        width: 90%;
+        max-width: calc(100vw - 20px);
+        font-size: 14px;
+        padding: 10px 15px;
+        box-sizing: border-box;
+    }
+    
+    .dropdown-content a,
+    .dropdown-content-second a {
+        width: 90%;
+        max-width: calc(100vw - 20px);
+    }
+}
