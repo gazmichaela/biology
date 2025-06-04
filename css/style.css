@@ -318,7 +318,7 @@ footer p {
     text-decoration: none;
 }
 
-body.dark-mode a:link {
+body.dark-mode article section a:link :not(.button) {
     color: skyblue;
 }
 

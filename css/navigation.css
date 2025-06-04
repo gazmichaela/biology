@@ -23,8 +23,8 @@
 .button-container {
     display: flex;
     align-items: center;
-    margin-right: 1.5vmax;
-    margin-left: 1.5vmax;
+    margin-right: 1.43vmax;
+    margin-left: 1.43vmax;
     white-space: nowrap; /* Text se v tlačítkách nebude zalamovat při změnšení okna*/
 }
 

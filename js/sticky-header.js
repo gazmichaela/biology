@@ -70,7 +70,8 @@ function insertStickyHeaderStyles() {
 .sticky-header .button-container {
     display: flex;
     align-items: center;
-    margin: 0 1.5vmax;
+     margin: 0 1.43vmax;
+
     white-space: nowrap;
     margin-top: 1px;
 }
@@ -123,7 +124,17 @@ function insertStickyHeaderStyles() {
     margin-left: 2px;
 }
 
+/* Active state for clicked dropdown toggle */
+.sticky-header .dropdown-toggle.clicked,
+.sticky-header .dropdown-toggle-second.clicked {
+    background-color: #309ce5;
+    color: white;
+}
 
+.sticky-header .dropdown-toggle.clicked .arrow,
+.sticky-header .dropdown-toggle-second.clicked .arrow {
+    color: white;
+}
 
 .sticky-header .arrow {
     font-size: 18px;
@@ -217,12 +228,11 @@ function insertStickyHeaderStyles() {
     content: '';
     position: absolute;
     top: -14px;
-    right: -17px;
+    right: -16px;
     bottom: -9.5px;
     left: -4.8px;
     z-index: 1;
     border-top-right-radius: 5px; 
-  
 }
 
 .sticky-header .sub-dropdown-content {
@@ -268,13 +278,6 @@ function insertStickyHeaderStyles() {
 .sticky-header .dropdown-content-second a.active {
     background-color: #1c77e8;
     color: white;
-}
-    .sticky-header .main-button.active:hover,
-.sticky-header .maine-button.active:hover,
-.sticky-header .dropdown-content a.active:hover,
-.sticky-header .dropdown-content-second a.active:hover {
-    background-color: #28a745 !important;
-    color: white !important;
 }
 
 /* Dead zone for dropdown hover */
@@ -322,7 +325,80 @@ function insertStickyHeaderStyles() {
 `;
     document.head.appendChild(styleTag);
 }
-
+function clearAllDropdownStates() {
+    // Vyčistíme localStorage
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sticky_menu_') && key.endsWith('_open')) {
+            localStorage.removeItem(key);
+        }
+        if (key.startsWith('sticky_submenu_') && key.endsWith('_open')) {
+            localStorage.removeItem(key);
+            
+        }
+    });
+    
+    
+    // Vyčistíme všechny timeouty
+    if (window.dropdownTimeouts) {
+        Object.values(window.dropdownTimeouts).forEach(timeout => {
+            clearTimeout(timeout);
+        });
+        window.dropdownTimeouts = {};
+    }
+    
+    if (window.autoHideTimeouts) {
+        Object.values(window.autoHideTimeouts).forEach(timeout => {
+            clearTimeout(timeout);
+        });
+        window.autoHideTimeouts = {};
+    }
+    
+    // PŘIDEJ TUTO ČÁST - fyzicky zavřeme všechny dropdowny
+    const stickyHeader = document.querySelector('.sticky-header');
+    if (stickyHeader) {
+        // Zavřeme hlavní dropdowny
+        const dropdownContents = stickyHeader.querySelectorAll('.dropdown-content, .dropdown-content-second');
+        dropdownContents.forEach(content => {
+            content.style.opacity = '0';
+            content.style.visibility = 'hidden';
+            content.style.display = 'none';
+        });
+        
+        // Zavřeme sub-dropdowny
+        const subDropdownContents = stickyHeader.querySelectorAll('.sub-dropdown-content');
+        subDropdownContents.forEach(content => {
+            content.style.opacity = '0';
+            content.style.visibility = 'hidden';
+            content.style.display = 'none';
+        });
+        
+        // Zavřeme dead zones
+        const deadZones = document.querySelectorAll('.sticky-header-dead-zone, .sub-dropdown-dead-zone');
+        deadZones.forEach(zone => {
+            zone.style.display = 'none';
+        });
+        
+        // Odebereme aktivní třídy
+        const activeToggles = stickyHeader.querySelectorAll('.dropdown-toggle.clicked, .dropdown-toggle-second.clicked');
+        activeToggles.forEach(toggle => {
+            toggle.classList.remove('clicked');
+        });
+        // Reset stavových proměnných
+if (window.stickyDropdownStates) {
+    Object.keys(window.stickyDropdownStates).forEach(key => {
+        window.stickyDropdownStates[key].isClickOpened = false;
+        window.stickyDropdownStates[key].isSubmenuActive = false;
+        window.stickyDropdownStates[key].isClosingInProgress = false;
+    });
+}
+// Reset lokálních stavů v každém dropdown
+for (let i = 0; i < 10; i++) {
+    if (window[`resetStickyDropdownState_${i}`]) {
+        window[`resetStickyDropdownState_${i}`]();
+    }
+}
+    }
+}
 // Create the sticky header structure
 function createStickyHeader() {
     const stickyHeader = document.createElement('div');
@@ -338,6 +414,10 @@ function createStickyHeader() {
     
     // Clone the entire header content to preserve structure and classes
     const headerContent = originalHeader.cloneNode(true);
+    // Zkopíruj také CSS třídy a styly z původního headeru
+const originalStyles = window.getComputedStyle(originalHeader);
+stickyHeader.style.overflowX = originalStyles.overflowX;
+stickyHeader.style.overflowY = originalStyles.overflowY;
     
     // Remove any ID attributes from the cloned elements to avoid duplicates
     const elementsWithId = headerContent.querySelectorAll('[id]');
@@ -421,17 +501,21 @@ function initStickyHeaderFunctionality() {
                 const scrollY = window.scrollY || document.documentElement.scrollTop;
                 
                 // If we're at the top or within original header area, hide sticky header immediately
-                if (scrollY <= mainHeaderHeight) {
-                    stickyHeader.classList.remove('visible');
-                    stickyHeader.classList.remove('scrolled');
-                    
-                    // Set transform directly for immediate hiding without animation
-                    stickyHeader.style.transform = 'translateY(-100%)';
-                    stickyHeader.style.transition = 'none';
-                } else {
+              if (scrollY <= Math.max(mainHeaderHeight + 1.5, 10)) { // přidej malý buffer
+    stickyHeader.classList.remove('visible');
+    clearAllDropdownStates(); // Zavři všechny dropdowny
+    stickyHeader.classList.remove('scrolled');
+    
+    // Plynulé zmizení místo okamžitého
+    stickyHeader.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
+    stickyHeader.style.transform = 'translateY(-100%)';
+    stickyHeader.style.opacity = '0';
+}
+                else {
                     // Restore normal transition behavior
                     stickyHeader.style.transition = '';
                     stickyHeader.style.transform = '';
+                    stickyHeader.style.opacity = '1'; 
                     
                     // Show header when scrolling up
                     if (scrollY < lastScrollY) {
@@ -447,6 +531,7 @@ function initStickyHeaderFunctionality() {
                     // Hide header when scrolling down
                     else if (scrollY > lastScrollY) {
                         stickyHeader.classList.remove('visible');
+                         clearAllDropdownStates(); 
                     }
                 }
                 
@@ -460,25 +545,61 @@ function initStickyHeaderFunctionality() {
     
     window.addEventListener('scroll', handleScroll);
     
-    // Initial check to set correct state on page load
-    (function initialCheck() {
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
-        
-        if (scrollY > mainHeaderHeight) {
+// Initial check to set correct state on page load
+(function initialCheck() {
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    
+    if (scrollY > mainHeaderHeight) {
+        // VYNUTÍME zobrazení sticky headeru při každém refreshu
+        setTimeout(() => {
             stickyHeader.style.transition = '';
-            stickyHeader.style.transform = '';
+            stickyHeader.style.transform = 'translateY(0)';
+            stickyHeader.style.opacity = '1';
+            stickyHeader.style.visibility = 'visible';
             stickyHeader.classList.add('visible');
             
             if (scrollY > mainHeaderHeight + 100) {
                 stickyHeader.classList.add('scrolled');
             }
             
-            console.log('Sticky header shown on page load at scroll position:', scrollY);
-        }
-    })();
+            console.log('Sticky header forcibly shown on page load at scroll position:', scrollY);
+        }, 50); // Malé zpoždění zajistí, že se aplikuje po načtení
+    }
+})();
         // Initialize dropdown functionality for the sticky header
     initializeStickyDropdowns();
-    
+    // Debounce funkce pro rychlé přepínání
+let themeChangeTimeout;
+
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && 
+            (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme')) {
+            
+            // Zrušíme předchozí timeout pokud existuje
+            if (themeChangeTimeout) {
+                clearTimeout(themeChangeTimeout);
+            }
+            
+            // Zachováme aktuální stav
+            const currentScrollY = window.scrollY || document.documentElement.scrollTop;
+            const wasVisible = stickyHeader.classList.contains('visible');
+            
+            if (wasVisible && currentScrollY > 50) {
+                themeChangeTimeout = setTimeout(() => {
+                    if (stickyHeader && (window.scrollY || document.documentElement.scrollTop) > 50) {
+                        stickyHeader.classList.add('visible');
+                        stickyHeader.style.opacity = '1';
+                        stickyHeader.style.transform = 'translateY(0)';
+                    }
+                }, 0);
+            }
+        }
+    });
+});
+
+observer.observe(document.body, { attributes: true, subtree: false });
+observer.observe(document.documentElement, { attributes: true, subtree: false });
     console.log('Sticky header functionality initialized');
 }
 
@@ -734,6 +855,14 @@ function showSubMenu() {
 
 function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, index) {
     // Vytvoříme jedinečné identifikátory pro tento dropdown
+    // Globální stav pro tento dropdown
+if (!window.stickyDropdownStates) window.stickyDropdownStates = {};
+const stateKey = `dropdown_${index}`;
+window.stickyDropdownStates[stateKey] = {
+    isClickOpened: false,
+    isSubmenuActive: false,
+    isClosingInProgress: false
+};
     const timeoutKey = `hideTimeout_${dropdownId}`;
     const animationTimeoutKey = `animationTimeout_${dropdownId}`;
     const inactivityTimeoutKey = `inactivityTimeout_${dropdownId}`;
@@ -747,6 +876,7 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     let isClickOpened = false;
     let isSubmenuActive = false;
     let isClosingInProgress = false;
+    let repositionTimeoutSticky;
     let mouseX = 0, mouseY = 0;
     
     const inactivityDelay = 2000;
@@ -763,7 +893,7 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     deadZoneElement.className = `sticky-header-dead-zone sticky-dead-zone-${index}`;
     deadZoneElement.style.position = "absolute";
     deadZoneElement.style.display = "none";
-    deadZoneElement.style.zIndex = "999";
+    deadZoneElement.style.zIndex = "1050";
     deadZoneElement.style.backgroundColor = "transparent";
     deadZoneElement.style.pointerEvents = "auto";
     document.body.appendChild(deadZoneElement);
@@ -775,36 +905,43 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
         clearTimeout(window.autoHideTimeouts[inactivityTimeoutKey]);
         clearTimeout(window.autoHideTimeouts[clickInactivityTimeoutKey]);
     }
-    
-    // Funkce pro nastavení dead zone pozice
-    function updateDeadZonePosition() {
+    function startStickyPositionMonitoring() {
+    function updatePositions() {
         if (dropdownContent.style.display === "block") {
-            const toggleRect = dropdownToggle.getBoundingClientRect();
-            const contentRect = dropdownContent.getBoundingClientRect();
-            
-            // Pozice dead zone mezi tlačítkem a obsahem
-            deadZoneElement.style.left = Math.min(toggleRect.left, contentRect.left) + "px";
-            deadZoneElement.style.top = toggleRect.bottom + "px";
-            deadZoneElement.style.width = Math.max(toggleRect.width, contentRect.width) + "px";
-            deadZoneElement.style.height = (contentRect.top - toggleRect.bottom) + "px";
-            deadZoneElement.style.display = "block";
+            updateDeadZonePosition();
+            repositionTimeoutSticky = setTimeout(updatePositions, 100);
         }
     }
-    
+    clearTimeout(repositionTimeoutSticky);
+    updatePositions();
+}
+function updateDeadZonePosition() {
+    if (dropdownContent.style.display === "block") {
+        const toggleRect = dropdownToggle.getBoundingClientRect();
+        const contentRect = dropdownContent.getBoundingClientRect();
+        
+     deadZoneElement.style.left = toggleRect.left + "px";
+deadZoneElement.style.top = toggleRect.bottom + "px";
+deadZoneElement.style.width = toggleRect.width + "px";
+deadZoneElement.style.height = Math.max(5, contentRect.top - toggleRect.bottom) + "px";
+        deadZoneElement.style.display = "block";
+        deadZoneElement.style.pointerEvents = "auto";
+        deadZoneElement.style.zIndex = "999";
+    }
+}
     // Funkce pro zobrazení menu
     function showMenu() {
-        clearAllTimeouts();
-        isClosingInProgress = false;
-        
-        dropdownContent.style.display = "block";
-        
-        requestAnimationFrame(() => {
-            dropdownContent.style.opacity = "1";
-            dropdownContent.style.visibility = "visible";
-            updateDeadZonePosition();
-            
-            // Označíme toggle jako aktivní
-      
+    clearAllTimeouts();
+    isClosingInProgress = false;
+    
+  dropdownContent.style.display = "block";
+
+requestAnimationFrame(() => {
+    dropdownContent.style.opacity = "1";
+    dropdownContent.style.visibility = "visible";
+    updateDeadZonePosition(); 
+    startStickyPositionMonitoring();
+    // Jen jeden volání až po zobrazení
         });
         
         if (isClickOpened) {
@@ -816,6 +953,7 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     // Funkce pro skrytí menu
     function hideMenu() {
         clearAllTimeouts();
+        clearTimeout(repositionTimeoutSticky);
         isClosingInProgress = true;
         
         dropdownContent.style.opacity = "0";
@@ -879,10 +1017,17 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     
     // Event listenery pro tento dropdown
     
-  dropdownToggle.addEventListener("mouseenter", function(e) {
+dropdownToggle.addEventListener("mouseenter", function(e) {
+    // PŘIDEJ TUTO KONTROLU NA ZAČÁTEK:
+    if (isClickOpened) {
+        return; // Pokud je dropdown otevřený kliknutím, ignoruj mouseenter
+    }
+    
     if (e.target.closest('.sub-dropdown-toggle')) {
         return;
     }
+    
+    // zbytek kódu zůstává stejný...
     
     // Zavřeme ostatní dropdowns
     closeOtherStickyDropdowns(index);
@@ -1012,20 +1157,20 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
         }
     });
     
-    deadZoneElement.addEventListener("mouseleave", function(e) {
-        if (isClickOpened) return;
+deadZoneElement.addEventListener("mouseleave", function(e) {
+    if (isClickOpened) return;
+    
+    const toElement = e.relatedTarget;
+    if (toElement !== dropdownToggle && !dropdownToggle.contains(toElement) && 
+        toElement !== dropdownContent && !dropdownContent.contains(toElement)) {
         
-        const toElement = e.relatedTarget;
-        if ((toElement !== dropdownToggle && !dropdownToggle.contains(toElement)) && 
-            (toElement !== dropdownContent && !dropdownContent.contains(toElement))) {
-            
-            window.dropdownTimeouts[timeoutKey] = setTimeout(function() {
-                if (!isClickOpened) {
-                    hideMenu();
-                }
-            }, 300);
-        }
-    });
+        window.dropdownTimeouts[timeoutKey] = setTimeout(() => {
+            if (!isClickOpened) {
+                hideMenu();
+            }
+        }, 100);
+    }
+});
     
     // Sledování pozice myši
     document.addEventListener('mousemove', function(e) {
@@ -1046,6 +1191,13 @@ function initializeSingleDropdown(dropdownToggle, dropdownContent, dropdownId, i
     // Export funkcí pro tento dropdown
     window[`closeStickyDropdown_${index}`] = function() {
         hideMenu();
+    
+    };
+    // Export reset funkce pro tento dropdown
+    window[`resetStickyDropdownState_${index}`] = function() {
+        isClickOpened = false;
+        isSubmenuActive = false;
+        isClosingInProgress = false;
     };
     
     // Obnovení stavu po refreshu
@@ -1284,45 +1436,7 @@ function initializeStickySubDropdowns(stickyHeader) {
     });
 }
 
-// Funkce pro vyčištění všech dropdown stavů
-function clearAllDropdownStates() {
-    // Vyčistíme localStorage
-    Object.keys(localStorage).forEach(key => {
-        if (key.startsWith('sticky_menu_') && key.endsWith('_open')) {
-            localStorage.removeItem(key);
-        }
-        // Vyčistíme také sub-dropdown stavy
-Object.keys(localStorage).forEach(key => {
-    if (key.startsWith('sticky_submenu_') && key.endsWith('_open')) {
-        localStorage.removeItem(key);
-    }
-});
-    });
-    
-    // Vyčistíme všechny timeouty
-    if (window.dropdownTimeouts) {
-        Object.values(window.dropdownTimeouts).forEach(timeout => {
-            clearTimeout(timeout);
-        });
-        window.dropdownTimeouts = {};
-    }
-    
-    if (window.autoHideTimeouts) {
-        Object.values(window.autoHideTimeouts).forEach(timeout => {
-            clearTimeout(timeout);
-        });
-        window.autoHideTimeouts = {};
-    }
-    
-    // Odebereme aktivní třídy
-    const stickyHeader = document.querySelector('.sticky-header');
-    if (stickyHeader) {
-        const activeToggles = stickyHeader.querySelectorAll('.dropdown-toggle.clicked, .dropdown-toggle-second.clicked');
-        activeToggles.forEach(toggle => {
-            toggle.classList.remove('clicked');
-        });
-    }
-}
+
 
 
 // Export hlavní funkce
