@@ -1186,6 +1186,12 @@ body.dark-mode .escape-info {
         left: 22px;
         margin-left: 8px;
     }
+
+    header h1 {
+    font-size: 34px;
+    }
+
+   
 }
 
 /* Mobily - do 480px */
@@ -1332,9 +1338,9 @@ body.dark-mode .escape-info {
     
     /* Zajistí, že header má fixní výšku */
     header {
-        /* min-height: 160px;
+         /* min-height: 160px; */
         max-height: 160px;
-        height: 60px !important; */
+       /* height: 60px !important; */
         height: auto;
     }
     
@@ -1346,6 +1352,7 @@ body.dark-mode .escape-info {
         height: 100vh;
         top: 0;
         left: 0;
+        z-index: 1009;
     }
     
     /* NOVÉ - Zajistí stabilitu při načítání stránky */
@@ -1832,7 +1839,7 @@ body.dark-mode .escape-info {
     display: block;
     width: 100%;
     height: auto;
-    max-width: 150px; /* Nebo vaše požadovaná velikost */
+    max-width: 100px; /* Nebo vaše požadovaná velikost */
 }
 
 /* Responsive úpravy */
