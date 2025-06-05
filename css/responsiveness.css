@@ -320,7 +320,9 @@
         font-size: 20px;
     }
     
-
+    footer {
+        height: 200px;
+    }
     
     article {
         margin-right: 10px;
@@ -332,13 +334,25 @@
     }
     
     article section p {
-        margin-left: 0.3em;
+        margin-left: 0em;
     }
     
-    article section li {
-        margin-left: 0.3em;
+    article section li,
+    article section ol {
+    margin-left: 0em;
+    padding: 1.2em;
     }
-    
+
+    article section li li,
+    article section ol li {
+        margin-left: 0em;
+        padding: 0px;
+    }
+
+    article section li li li {
+        margin-left: 0em;
+    }
+
     article section .button,
     article section .button-light {
         margin-left: 2px;
@@ -805,6 +819,23 @@ body.dark-mode .question.open {
         z-index: 1010;
         text-align: center;
     }
+
+    article section li,
+    article section ol {
+    margin-left: -0.25em;
+    }
+
+    article section li li {
+        margin-left: 0.2em;
+    }
+
+    article section li li li {
+        margin-left: 0.1em;
+    }
+
+    article section p {
+        margin-left: 0.2em;
+    }
 }
 
 /* Extra malé mobily - do 320px */
@@ -1189,6 +1220,9 @@ body.dark-mode .escape-info {
         margin-left: auto;
         display: block;
     }
+        footer {
+        height: 180px;
+    }
     
 }
 
@@ -1298,9 +1332,10 @@ body.dark-mode .escape-info {
     
     /* Zajistí, že header má fixní výšku */
     header {
-        min-height: 120px;
-        max-height: 120px;
-        height: 60px !important;
+        /* min-height: 160px;
+        max-height: 160px;
+        height: 60px !important; */
+        height: auto;
     }
     
     /* Zabrání scrollování stránky když je menu otevřené */
@@ -1458,6 +1493,23 @@ body.dark-mode .escape-info {
     .dropdown-content-second a {
         width: 95%;
         max-width: calc(60vw - 20px);
+    }
+
+    article section li,
+    article section ol {
+    margin-left: -0.25em;
+    }
+
+    article section li li {
+        margin-left: 0.2em;
+    }
+
+    article section li li li {
+        margin-left: 0.1em;
+    }
+
+    article section p {
+        margin-left: 0.2em;
     }
 }
 
