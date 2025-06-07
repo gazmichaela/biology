@@ -72,6 +72,7 @@ Některé styly mohou být v JS
   font-display: swap;
 }
 
+
 html {
     background: #3f7093;
 }
@@ -85,10 +86,24 @@ body {
     color: #023f1e;
 }
 
-body.dark-mode {
-    background-color: #222222;
-    color: #c8c1b5;
-}
+ .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: white;
+        }
 
 noscript {
     font-size: 3em;
@@ -109,9 +124,7 @@ body > header {
     position: sticky;
 }
 
-body.dark-mode header {
-    background-color: #77afe0ee; /* Zajistí, že při tmavém režimu bude header opravdu stejné barvy */
-}
+
 
 header p {
     font-weight: 600;
@@ -196,9 +209,6 @@ article section h2 {
     margin-bottom: 0.9em;
 }
 
-body.dark-mode article section h2 {
-    background: linear-gradient(to top, #1aff1a44 10%, transparent 60%);
-}
 
 article section h3 {
     text-decoration: underline #00c5003d;
@@ -209,9 +219,7 @@ article section h3 {
     margin-bottom: 0.8em
 }
 
-body.dark-mode article section h3 {
-    text-decoration: underline #1aff1a44;
-}
+
 
 article section h4 {
     margin-top: 3em;
@@ -259,26 +267,19 @@ article section .button-light {
     position: relative;
 }
 
-body.dark-mode .button,
-body.dark-mode .button-light {
-    color: #e6e6e6;
-}
+
 
 article section .button {
     background: #1c77e8;
 }
 
-body.dark-mode .button {
-    background: #1c78e8f1;
-}
+
 
 article section .button-light {
     background-color: #309ce5;
 }
 
-body.dark-mode .button-light {
-    background: #309ce5f1;
-}
+
 
 article section .button:hover,
 article section .button-light:hover {
@@ -307,6 +308,8 @@ footer a {
 
 footer p {
     text-align: center;
+margin-left: 1px;
+margin-right: 1px;
 }
 
 .sidemap a {
@@ -318,13 +321,9 @@ footer p {
     text-decoration: none;
 }
 
-body.dark-mode article section a:link :not(.button) {
-    color: skyblue;
-}
 
-body.dark-mode article section .citace a:visited {
-    color:cornflowerblue;
-}
+
+
 
 .citace {
     text-align: left;
@@ -396,10 +395,7 @@ body.dark-mode article section .citace a:visited {
     display: none; /* Počáteční stav - skryto */
 }
 
-body.dark-mode .cookies-mini-notice {
-    background: black;
-        border: 1px solid #585858;
-}
+
 
 .cookies-mini-notice.show {
     display: block;
@@ -411,13 +407,8 @@ body.dark-mode .cookies-mini-notice {
     color: #444;
 }
 
-body.dark-mode .cookies-mini-notice p {
-    color: #c8c1b5;
-}
 
-body.dark-mode .cookies-mini-notice a {
-    color: skyblue;
-}
+
 
 .cookies-mini-notice button {
     background-color: #f5f5f5;
@@ -430,19 +421,13 @@ body.dark-mode .cookies-mini-notice a {
     margin-right: 5px;
 }
 
-body.dark-mode .cookies-mini-notice button {
-    background-color: #2c2c2c;
-    border: 1px solid #3b3b3b;
-    color: #c8c1b5;
-}
+
 
 .cookies-mini-notice button:hover {
     background-color: #e8e8e8;
 }
 
-body.dark-mode .cookies-mini-notice button:hover {
-    background-color: #202020;
-}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -482,9 +467,6 @@ table {
     margin: 30px auto 40px 5%;
 }
 
-body.dark-mode table {
-    border: 1px solid white;
-}
 
 /* Styl pro buňky tabulky */
 th, td {
@@ -494,10 +476,7 @@ th, td {
     font-size: 1em;
 }
 
-body.dark-mode th,
-body.dark-mode td {
-    border: 1px solid white;
-}
+
 
 th:first-child {
     font-weight: normal;
@@ -543,10 +522,7 @@ td:first-child :not(.extra-bunka) {
     to { visibility: hidden; }
 }
 
-body.dark-mode .tooltip .tooltiptext {
-    background-color: #333;
-    color: #e0deda;
-}
+
 
 .tooltip:hover .tooltiptext {
     opacity: 1;
@@ -582,53 +558,16 @@ body.dark-mode .tooltip .tooltiptext {
     content-visibility: auto; 
 }*/
 
-/* Sidebar sekce v tmavém režimu */
-body.dark-mode .sidebar-section {
-    background: #2a2a2a;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
 
-/* Sidebar nadpisy v tmavém režimu */
-body.dark-mode .sidebar-title {
-    color: #64b5f6;
-    border-bottom-color: #64b5f6;
-}
 
-/* Odpočítávání v tmavém režimu */
-body.dark-mode .countdown {
-    color: #64b5f6;
-}
 
-/* Karty článků v tmavém režimu */
-body.dark-mode .article-card {
-    background: #2a2a2a;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
+
+
+
 
 /* Tlačítko tmavého režimu v tmavém režimu */
- .dark-mode-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    background: white;
-}
 
-body.dark-mode .dark-mode-toggle {
-    background:  black;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
+
 /* Animace přechodu */
 .fade-transition {
     opacity: 0;
@@ -752,3 +691,5 @@ body.dark-mode .dark-mode-toggle {
     border-right-color: transparent;
     border-bottom-color: transparent;
 }
+
+

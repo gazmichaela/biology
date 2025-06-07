@@ -14,10 +14,6 @@
     margin-bottom: 5px;
 }
 
-body.dark-mode .question {
-    background-color: #333131;
-    border: 1px solid #505050;
-}
 
 .answer {
     padding: 10px;
@@ -25,10 +21,6 @@ body.dark-mode .question {
     border-left: 3px solid #4CAF50;
     display: none; /* Odpověď je skrytá */
     font-size: 0.8em;
-}
-
-body.dark-mode .answer {
-    background-color: #2b2c2b;
 }
 
 /* Tlačítko pro zobrazení všech otázek */
@@ -45,10 +37,7 @@ body.dark-mode .answer {
     margin-top: 30px;
 }
 
-body.dark-mode #toggle-questions-btn {
-    background-color: #309ce5f1;
-        color: #e6e6e6;
-}
+
 
 .question:focus {
     outline: none; /* Zabrání modrému rámečku kolem otázek */

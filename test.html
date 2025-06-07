@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Test</title>
+    
+    <!-- ANTI-FLICKER s cookies -->
+    <script>
+    (function(){
+        let isDark = document.cookie.split(';').some(c => c.trim().startsWith('darkMode=true'));
+        let bgColor = isDark ? '#222222' : '#f0f9f0';
+        let textColor = isDark ? '#c8c1b5' : '#023f1e';
+        
+        document.documentElement.style.cssText = `background:${bgColor}!important;color:${textColor}!important;`;
+        if(isDark) document.documentElement.className = 'dark-mode';
+    })();
+    </script>
+    
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            transition: all 0.3s ease;
+        }
+        .dark-mode { 
+            background: #222222 !important; 
+            color: #c8c1b5 !important; 
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cookie Dark Mode Test</h1>
+    
+    <div class="status">
+        <strong>Aktuální stav:</strong> <span id="status"></span><br>
+        <strong>Cookie hodnota:</strong> <span id="cookie-value"></span><br>
+        <strong>LocalStorage:</strong> <span id="localstorage-value"></span>
+    </div>
+    
+    <button onclick="toggleDarkMode()">Přepnout režim</button>
+    <button onclick="reloadPage()">Reload stránku</button>
+    <button onclick="clearAll()">Vymazat vše</button>
+    
+    <p>Test: Klikni na "Přepnout režim", pak na "Reload stránku". Pokud se stránka načte bez problikávání ve správném režimu, cookies fungují!</p>
+    
+    <script>
+        function updateStatus() {
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('status').textContent = isDark ? 'Tmavý režim' : 'Světlý režim';
+            
+            const cookieValue = document.cookie.split(';').find(c => c.trim().startsWith('darkMode='));
+            document.getElementById('cookie-value').textContent = cookieValue || 'Není nastaveno';
+            
+            const lsValue = localStorage.getItem('darkMode');
+            document.getElementById('localstorage-value').textContent = lsValue || 'Není nastaveno';
+        }
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.documentElement.classList.toggle('dark-mode');
+            
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            // Uložit do localStorage
+            localStorage.setItem('darkMode', isDark);
+            
+            // Uložit do cookies
+            document.cookie = `darkMode=${isDark};path=/;max-age=31536000;SameSite=Lax`;
+            
+            updateStatus();
+        }
+        
+        function reloadPage() {
+            location.reload();
+        }
+        
+        function clearAll() {
+            localStorage.removeItem('darkMode');
+            document.cookie = 'darkMode=;path=/;max-age=0';
+            location.reload();
+        }
+        
+        // Inicializace při načtení
+        document.addEventListener('DOMContentLoaded', function() {
+            // Synchronizace localStorage s cookies
+            const cookieValue = document.cookie.split(';').find(c => c.trim().startsWith('darkMode=true'));
+            const isDark = !!cookieValue;
+            
+            if(isDark) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'true');
+            }
+            
+            updateStatus();
+        });
+    </script>
+</body>
+</html>
