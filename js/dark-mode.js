@@ -203,10 +203,11 @@
             background: #309ce5f1;
         }
         
-        body.dark-mode article section a:link:not(.button) {
+        body.dark-mode article section a:link:not(.button):not(.sidemap a) {
             color: skyblue;
         }
         
+       
         body.dark-mode article section .citace a:visited {
             color: cornflowerblue;
         }
@@ -252,6 +253,8 @@
             background: #2a2a2a;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
+
+
         
         body.dark-mode .sidebar-title {
             color: #64b5f6;
