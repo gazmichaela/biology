@@ -3,6 +3,8 @@
 
 <head>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Člověk</title>
     <script>
     (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
@@ -95,6 +97,9 @@
             <div class="burger-line"></div>
         </div>
   
+              <!-- Overlay pro zavření menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
           <!-- Mobilní navigace -->
     <nav class="mobile-nav-container" id="mobileNav">
         <!-- Křížek pro zavření -->
@@ -170,7 +175,7 @@
                 <li><strong>Epitelová tkáň</strong> – slouží k ochraně těla, jako je kůže či pokožka.</li>
                 <li><strong>Pojivová tkáň</strong> – zahrnuje několik podtypů:
                     <ul>
-                        <li><strong>Vazivo</strong>, jež poskytuje tělu soudržnou strukturu.</li>
+                        <li><strong>Vazivo</strong>, jež poskytuje tělu <dfn class="tooltip">soudržnou<span class="tooltiptext" aria-hidden="true">části těla<br>držící pohromadě</span></dfn> strukturu.</li>
                         <li><strong>Chrupavka</strong> pokrývá kloubní části kostí a zajišťuje hladký pohyb kloubu
                             v kostní jamce.</li>
                         <li><strong>Kost</strong> je pevná, silná a silně mineralizovaná.</li>
@@ -181,7 +186,7 @@
                 <li><strong>Trofická tkáň</strong> – to jsou tekutiny jako krev a míza.</li>
             </ol>
             <h3>Epitelová tkáň</h3>
-            <p>Buňky jsou uspořádány ve vrstvách, mezi buňkami nejsou prakticky žádné mezibuněčné prostory. Epitel pokrývá jak tělní povrch, tak i dutiny.
+            <p>Buňky jsou uspořádány ve vrstvách, mezi buňkami nejsou prakticky žádné mezibuněčné prostory. Epitel pokrývá jak tělní povrch, tak i <dfn class="tooltip">dutiny<span class="tooltiptext" aria-hidden="true">vnitřní prostory<br>v těle </span></dfn>.
                 Epitelovou tkáň najdeme na trávicí trubici, dýchacích cestách, močových cestách a i na pohrudniční a pobřišnicové dutině. Epitely nemají
                 vlastní cévní zásobení a jejich výživa se děje prolínáním z hloubky z tkání uložených pod epitelem.</p>
             <p>Podle funkčního hlediska rozdělujeme na:</p>
@@ -195,11 +200,11 @@
             </ol>
             <h3>Pojivová tkáň</h3>
             <p>Tkáň pojivová je také označována jako tkáň podpůrná, protože jejím hlavním úkolem je poskytování opory měkkým částem těla. Buňky pojivové tkáně
-                jsou od sebe oddáleny a jejich štěrbiny jsou vyplněny mezibuněčnou hmotou. Tato tkáň je tvořena buňkami, mezibuněčnou hmotou a vlákny. Hmota
+                jsou od sebe oddáleny a jejich <dfn class="tooltip">štěrbiny<span class="tooltiptext" aria-hidden="true">úzké mezery</span></dfn> jsou vyplněny mezibuněčnou hmotou. Tato tkáň je tvořena buňkami, mezibuněčnou hmotou a vlákny. Hmota
                 mezibuněčná je tvořena roztokem bílkovin.</p>
             <ol style="list-style-type: upper-roman;">
                 <h4><li>Tkáň vazivová</li></h4>
-                <p>Vazivo je měkká a poddajná tkáň bohatá na vodu. Skládá se z buněk a mezibuněčné hmoty, ve které se nacházejí různá vláknitá struktury zajišťující pevnost a pružnost.</p>
+                <p>Vazivo je měkká a <dfn class="tooltip">poddajná<span class="tooltiptext" aria-hidden="true">přizpůsobivá, <br> ohebná</span></dfn> tkáň bohatá na vodu. Skládá se z buněk a mezibuněčné hmoty, ve které se nacházejí různá vláknitá struktury zajišťující pevnost a pružnost.</p>
                 <p>Tuto tkáň najdeme například v:</p>
                 <ul>
                     <li>slezině,</li>
@@ -235,8 +240,7 @@
                 <h5>Vývoj a růst kostí</h5>
                 <p>Kosti se během vývoje vytvářejí z <strong>chrupavky</strong> nebo <strong>vazivového základu</strong>
                     prostřednictvím procesu zvaného <strong>osifikace</strong> (neboli <strong>kostnatění</strong>), kdy osifikační jádra rozšiřují tvorbu kostní hmoty.
-                    Kosti rostou jak do šířky, tak do délky; do šířky díky okostici, do délky díky růstové chrupavce, která je u
-                    některých kostí otevřená.</p>
+                    Kosti rostou jak do šířky, tak do délky; do šířky díky okostici, do délky díky růstové chrupavce.</p>
                 <p>Kosti se spojují různými způsoby:</p>
                 <ul>
                     <li><strong>Vazivem</strong>, což zajišťuje pevné spojení a pružnost, jak tomu je například u švů na lebce. Pružnost je důležitá pro správný vývoj
@@ -250,17 +254,17 @@
                     strukturách, čímž připomínají pletencovité struktury houbovité kosti.</p>
             </ol>
             <h3>Svalová tkáň</h3>
-            <p>Nejdůležitějším úkolem tkáně svalové je zajišťování pohybu. Ten je vykonán za pomocí svalových plotének, které mají schopnost se zkracovat. V plazmě svalových buněk se nachází svalová vlákna, myofibrily.
+            <p>Nejdůležitějším úkolem tkáně svalové je zajišťování pohybu. Ten je vykonán za pomocí svalových plotének, které mají schopnost se zkracovat. V plazmě svalových buněk se nachází svalová vlákna, <dfn><strong>myofibrily</strong></dfn>.
                 Podle upořádání myofibrilů rozeznáváme svalstvo hladké, příčně pruhované a srdeční svalovinu.</p>
             <ol style="list-style-type: upper-roman;">
                 <h4><li>Tkáň svalová hladká</li></h4>
                 <p>Hladká svalová tkáň je tvořená jednojadernými svalovými buňkami, ve kterých rovnoběžně probíhají hladké myofibrily. Tato svalová tkáň nepodléhá naší vůli a je prakticky neunavitelná. Hladké svalstvo je řízeno nervy vegetativními.
                     Nachází se ve stěně střevní a dýchacích cest, močovodů a močového měchýře, ve stěně cév, v děloze, ve vejcovodu a v kůži.</p>
                 <h4><li>Tkáň svalová příčně pruhovaná</li></h4>
-                <p>Příčně pruhovaná svalovina se skládá z mnohojaderných svalových buněk. Jádra jsou uložena při povrchu, uvnitř jsou pruhované myofibrily. Myofibrily se skládají z úseků světlejších a tmavších, z aktinových a myozinových jednotek.
+                <p>Příčně pruhovaná svalovina se skládá z mnohojaderných svalových buněk. Jádra jsou uložena při povrchu, uvnitř jsou pruhované myofibrily. Myofibrily se skládají z úseků světlejších a tmavších, <dfn class="tooltip">z aktinových a myozinových jednotek<span class="tooltiptext" aria-hidden="true">hlavní bílkoviny, které umožňují svalové <br> stahy tím, že se vzájemně posouvají</span></dfn>.
                     Příčně pruhované svalstvo má díky myoglobinu červenou barvu. Tato tkáň podléhá naší vůli a velmi rychle se unaví. Je řízena nervy mozkomíšními. Příčně pruhovaná tkáň tvoří podklad kosterního svalstva, svalstva jazyku a hltanu.</p>
                 <h4><li>Srdeční svalovina</li></h4>
-                <p>Vyskytuje se pouze v srdeční stěně. Není naší vůlí ovládána a pracuje nepřetržitě. Činnost svaloviny je řízena nervy vegetativními, které ji buď zpomalují, nebo zrychlují.</p>
+                <p>Vyskytuje se pouze v srdeční stěně. Není naší vůlí ovládána a pracuje nepřetržitě. Činnost svaloviny je řízena <dfn class="tooltip">nervy vegetativními<span class="tooltiptext" aria-hidden="true">nervy autonomního nervového <br> systému, které řídí <br> automatické funkce těla<br> </span></dfn>, které ji buď zpomalují, nebo zrychlují.</p>
             </ol>
             <h3>Nervová tkáň</h3>
             <p>Nervová tkáň osahuje vysoce specializované buňky, proto je funkčně velmi složitá. Nervové buňky mají hvězdicovitý tvar a skládají se z těla a výběžků. Tyto buňky označujeme jako neurony. Ve tkáni nervové je obrovský počet neuronů. Jednotlivé neurony vytváří podklad reflexní činnosti.</p>
@@ -293,7 +297,7 @@
                     <li>zajišťuje oporu těla, předurčuje jeho tvar a velikost;</li>
                     <li>slouží k ochraně orgánů a tkání;</li>
                     <li>je důležitý pevný prvek pohybového systému;</li>
-                    <li>zabezpečuje rezervoár minerálních látek (Ca, P);</li>
+                    <li>zabezpečuje <dfn class="tooltip">rezervoár<span class="tooltiptext" aria-hidden="true">zásobárnu</span></dfn> minerálních látek (Ca, P);</li>
                     <li>zajišťuje tvorbu krve → kostní dřeň.</li>
                 </ul>
                 <h4><li>Svalová soustava</li></h4>
@@ -303,14 +307,14 @@
                 <ul>
                     <li>upínající se na kosti,</li>
                     <li>ovládající se naši vůlí,</li>
-                    <li>odpovídající spolu s kostmi a šlachami za všechny formy volního pohybu.</li>
+                    <li>odpovídající spolu s kostmi a šlachami za všechny formy volného pohybu.</li>
                 </ul>
                 <h5>Funkce:</h5>
                 <ul>
                     <li>pohyb člověka,</li>
                     <li>udržení vzpřímené polohy,</li>
                     <li>tvar těla,</li>
-                    <li>termoregulace,</li>
+                    <li><dfn class="tooltip">termoregulace<span class="tooltiptext" aria-hidden="true">schopnost organismu <br> udržet si vnitřní teplotu</span></dfn>,</li>
                     <li>fungování oběhu krve.</li>
                 </ul>
                 <h4 id="obehovasoustava"><li>Oběhová soustava</li></h4>
@@ -359,7 +363,7 @@
                 <h4><li>Vylučovací soustava</li></h4>
                 <p>
                     Ve všech buňkách probíhá nepřetržitě látková přeměna, nezbytná pro činnost lidského organismu. V průběhu metabolismu vznikají látky, které organismus nepotřebuje, nebo jsou pro něj přímo škodlivé. Odstraňování těchto škodlivých a přebytečných látek je nezbytné pro správné fungování organismu. Pokud by
-                    nedocházelo k jejich odstraňování, přebytečné látky mohou zásadně změnit životní podmínky buněk, a mohlo by dojít k vážnému poškození organismu.
+                    nedocházelo k jejich odstraňování, přebytečné látky mohou zásadně změnit životní podmínky buněk a mohlo by dojít k vážnému poškození organismu.
                 </p>
                 <p>
                     Při závažné poruše činnosti ledvin člověk umírá během několika dnů. Organismus se zbavuje zplodin vyloučením neboli exkrecí. K exkretům řadíme např. močovinu, soli, kyselinu močovou, kreatin aj. Na vylučování látek z těla se podílí dýchací soustava, trávicí soustava i kůže. Nejdůležitější roli při
@@ -390,7 +394,8 @@
                 </ul>
                 <h4><li>Endokrinní soustava</li></h4>
                 <p>
-                    Endokrinní soustava zabezpečuje látkové řízení organismu. Tato soustava se také označuje jako soustava žláz s vnitřní sekrecí. Tyto žlázy nemají vývody, ale mají podobnou morfologickou stavbu. Jejich tkáň má však drobné odchylky, které se projeví na produkci různých výměšků, tj. hormonů-inkretů.
+                    Endokrinní soustava zabezpečuje látkové řízení organismu. Tato soustava se také označuje jako soustava <dfn class="tooltip">žláz s vnitřní sekrecí<span class="tooltiptext" aria-hidden="true">žlázy, které nemají vývod, <br> ale vylučují své látky přímo do krve</span></dfn>.
+                    Tyto žlázy nemají vývody, ale mají podobnou <dfn class="tooltip">morfologickou stavbu<span class="tooltiptext" aria-hidden="true">stavba a tvar tkáně <br> nebo orgánu (jak vypadá <br> pod mikroskopem)</span></dfn>. Jejich tkáň má však drobné odchylky, které se projeví na produkci různých výměšků, tj. hormonů-inkretů.
                 </p>
                 <h4><li>Nervová soustava</li></h4>
                 <p>

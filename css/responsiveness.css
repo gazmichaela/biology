@@ -10,8 +10,15 @@
         font-size: 35px;
         margin-top: 20px;
     }
-    
 
+    footer {
+        height: 250px;
+    }
+
+    footer p {
+        margin-left: 70px;
+        margin-right: 70px;
+    }
     
     article {
         margin-right: 40px;
@@ -73,8 +80,11 @@
         margin: 8px 0;
         font-size: 16px;
     }
-    
- 
+
+    footer p {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
 
     
 
@@ -269,7 +279,7 @@
     footer {
         padding: 20px 8px 0px 8px;
         font-size: 11px;
-        height: 159px;
+        height: 170px;
         clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
     
@@ -511,7 +521,6 @@ img {
         border-radius: 5px;
         margin-bottom: 25px;
         margin-top: 25px;
-        width: 100%;
         text-align: center;
     }
 }

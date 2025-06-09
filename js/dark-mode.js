@@ -237,12 +237,12 @@
         }
         
         body.dark-mode table {
-            border: 1px solid white;
+            border: 2px solid #c8c1b5;
         }
         
         body.dark-mode th,
         body.dark-mode td {
-            border: 1px solid white;
+            border: 1px solid #c8c1b5;
         }
         
         body.dark-mode .tooltip .tooltiptext {

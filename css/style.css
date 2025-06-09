@@ -207,6 +207,7 @@ article section h2 {
     display: inline-block; /* Zajistí podtržení pouze pod textem */
     font-weight: 700;
     margin-bottom: 0.9em;
+    text-align: left; 
 }
 
 
@@ -216,7 +217,8 @@ article section h3 {
     padding: 2px 5px;
     font-size: 1.3em;
     margin-top: 60px;
-    margin-bottom: 0.8em
+    margin-bottom: 0.8em;
+    text-align: left; 
 }
 
 
@@ -227,6 +229,7 @@ article section h4 {
     font-size: 1.1em;
     font-weight: 600;
     margin-left: 0.5em;
+    text-align: left; 
 }
 
 article section h5 {
@@ -235,6 +238,7 @@ article section h5 {
     font-weight: 600;
     font-style: italic;
     margin-left: 1em;
+    text-align: left; 
 }
 
 article section h5 + ul,
@@ -307,9 +311,9 @@ footer a {
 }
 
 footer p {
-    text-align: center;
-margin-left: 1px;
-margin-right: 1px;
+text-align: center;
+margin-left: 50px;
+margin-right: 50px;
 }
 
 .sidemap a {
@@ -462,7 +466,7 @@ margin-right: 1px;
 table {
     width: 70%;
     max-width: 1800px;
-    border: 1px solid black;
+    border: 2px solid black;
     border-collapse: collapse; /* Sloučení okrajů buněk */
     margin: 30px auto 40px 5%;
 }
@@ -475,7 +479,6 @@ th, td {
     border: 1px solid black;
     font-size: 1em;
 }
-
 
 
 th:first-child {
@@ -508,7 +511,7 @@ td:first-child :not(.extra-bunka) {
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s 0.6s ease;
-    font-size: medium;
+    font-size: 0.8em;
     white-space: nowrap;
     pointer-events: none;
     text-decoration: none;
