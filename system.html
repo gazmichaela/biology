@@ -92,6 +92,57 @@
             <div class="burger-line"></div>
         </div>
   
+          <!-- Mobilní navigace -->
+    <nav class="mobile-nav-container" id="mobileNav">
+        <!-- Křížek pro zavření -->
+        <button class="menu-close-button" id="closeButton"></button>
+        
+        <div class="mobile-nav-list">
+            <!-- Home ikona -->
+             <a href="index.html" class="mobile-nav-button">Domů</a>
+
+            <!-- Základy systémového myšlení -->
+            <div class="mobile-expandable">
+                <a class="mobile-expand-header" data-target="system-menu">
+                    <span>Základy systémového myšlení</span>
+                    <span class="mobile-expand-arrow">▼</span>
+                </a>
+                <div class="mobile-expand-content" id="system-menu">
+        
+                    
+                    <!-- Sub-dropdown pro Úvod -->
+                    <div class="mobile-sub-expandable">
+                        <a class="mobile-sub-expand-header" data-target="intro-menu">
+                            <span>Úvod</span>
+                            <span class="mobile-expand-arrow">▼</span>
+                        </a>
+                        <div class="mobile-sub-expand-content" id="intro-menu">
+                            <a href="system-approach.html" class="mobile-sub-sub-item">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-sub-sub-item">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    
+                    <a href="system-theory.html" class="mobile-sub-item">Teorie systémů</a>
+                </div>
+            </div>
+
+            <!-- Základy živých soustav -->
+            <div class="mobile-expandable">
+                <a class="mobile-expand-header" data-target="life-menu">
+                    <span>Základy živých soustav</span>
+                    <span class="mobile-expand-arrow">▼</span>
+                </a>
+                <div class="mobile-expand-content" id="life-menu">
+                    <a href="life-properties.html" class="mobile-sub-item">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html" class="mobile-sub-item">Vznik života</a>
+                </div>
+            </div>
+
+            <!-- Jednoduché odkazy -->
+            <a href="cell.html" class="mobile-nav-button">Buněčné a nebuněčné organismy</a>
+            <a href="human.html" class="mobile-nav-button">Člověk</a>
+        </div>
+    </nav>
         <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
     </header>
 
