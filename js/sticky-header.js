@@ -322,9 +322,160 @@ function insertStickyHeaderStyles() {
         font-size: 16px;
     }
 }
+/* Sticky header - zvětšení výšky */
+/* Základní styly sticky headeru zůstávají nezměněné pro desktop */
 
+/* BURGER MENU TLAČÍTKO - Sticky Header */
+.sticky-header .burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;  /* Stejné jako normální header */
+    right: 20px; /* Stejné jako normální header */
+    z-index: 1003;
+    width: 17px;
+    height: 17px;
+    justify-content: space-between;
+}
 
+.sticky-header .burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #025227;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
 
+/* Animace pro otevření burger menu */
+.sticky-header .burger-menu.open .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px) !important;
+}
+
+.sticky-header .burger-menu.open .burger-line:nth-child(2) {
+    opacity: 0 !important;
+}
+
+.sticky-header .burger-menu.open .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px) !important;
+}
+
+/* Responsivní zobrazení pro sticky header */
+@media screen and (max-width: 1175px) { /* Použij stejný breakpoint jako v normálním headeru */
+    .sticky-header .burger-menu {
+        display: flex; /* Použij flex místo block pro konzistenci */
+    }
+    
+    /* Skryj normální navigaci na mobilech */
+    .sticky-header ul:not(.mobile-menu) {
+        display: none;
+    }
+    
+    .sticky-header .button-container {
+        display: none;
+    }
+}
+
+/* Mobile menu ve sticky headeru */
+.sticky-header .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100vw; /* Celá šířka obrazovky */
+    min-height: 300px; /* Minimální výška pro vyšší lištu */
+    background-color: #77afe0ee;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    /*padding: 20px 0;*/ /* Přidání paddingu pro větší výšku */
+}
+
+.sticky-header .mobile-menu.show {
+    display: block;
+}
+
+.sticky-header .mobile-menu li {
+    display: block;
+    margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sticky-header .mobile-menu a {
+    display: block;
+    padding: 20px 20px; /* Větší padding pro vyšší položky */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+  /* Ještě větší výška pro malé telefony */
+    .sticky-header {
+       /* padding: 12px 0;*/
+        min-height: 30px;
+    }
+
+.sticky-header .mobile-menu a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Pro menší telefony - stejné jako normální header */
+@media screen and (max-width: 480px) {
+    .sticky-header .burger-menu {
+        right: 15px; /* Stejné jako normální header */
+        top: 12px;   /* Stejné jako normální header */
+    }
+    
+    .sticky-header .mobile-menu {
+        width: 100vw; /* Celá šířka i na malých telefonech */
+    }
+    
+    /* Ještě větší výška pro malé telefony */
+    .sticky-header {
+        padding: 15px 0;
+        min-height: 10px;
+    }
+}
+
+/* Skrytí mobilní navigace ve sticky headeru */
+.sticky-header .menu-overlay,
+.sticky-header .mobile-nav-container {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Zajištění, že mobilní navigační elementy neovlivní sticky header */
+.sticky-header .mobile-nav-list,
+.sticky-header .mobile-expandable,
+.sticky-header .mobile-expand-header,
+.sticky-header .mobile-expand-content,
+.sticky-header .mobile-nav-button,
+.sticky-header .mobile-sub-item,
+.sticky-header .mobile-sub-expandable,
+.sticky-header .mobile-sub-expand-header,
+.sticky-header .mobile-sub-expand-content,
+.sticky-header .mobile-sub-sub-item,
+.sticky-header .mobile-home-icon,
+.sticky-header .mobile-menu-close-button {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Zajištění, že burger menu ve sticky headeru funguje správně */
+@media screen and (max-width: 1175px) {
+    .sticky-header .burger-menu {
+        display: flex !important;
+    }
+    
+    /* Sticky header má vlastní mobilní menu systém, takže skryjeme novou mobilní navigaci */
+    .sticky-header .menu-overlay,
+    .sticky-header .mobile-nav-container {
+        display: none !important;
+    }
+}
 `;
     document.head.appendChild(styleTag);
 }
@@ -402,7 +553,7 @@ for (let i = 0; i < 10; i++) {
 }
     }
 }
-// Create the sticky header structure
+// Upravená funkce createStickyHeader pro kopírování burger menu
 function createStickyHeader() {
     const stickyHeader = document.createElement('div');
     stickyHeader.className = 'sticky-header';
@@ -417,10 +568,15 @@ function createStickyHeader() {
     
     // Clone the entire header content to preserve structure and classes
     const headerContent = originalHeader.cloneNode(true);
+    
+    // PŘIDEJTE TUTO ČÁST - odebereme mobilní navigační elementy
+
+//const mobileElements = headerContent.querySelectorAll('.menu-overlay, .mobile-nav-container, #menuOverlay, #mobileNav, .mobile-nav-list, .mobile-expandable, .mobile-expand-header, .mobile-expand-content, .mobile-sub-expandable');
+//mobileElements.forEach(element => element.remove());
     // Zkopíruj také CSS třídy a styly z původního headeru
-const originalStyles = window.getComputedStyle(originalHeader);
-stickyHeader.style.overflowX = originalStyles.overflowX;
-stickyHeader.style.overflowY = originalStyles.overflowY;
+    const originalStyles = window.getComputedStyle(originalHeader);
+    stickyHeader.style.overflowX = originalStyles.overflowX;
+    stickyHeader.style.overflowY = originalStyles.overflowY;
     
     // Remove any ID attributes from the cloned elements to avoid duplicates
     const elementsWithId = headerContent.querySelectorAll('[id]');
@@ -434,6 +590,14 @@ stickyHeader.style.overflowY = originalStyles.overflowY;
     dropdownElements.forEach(element => {
         element.classList.add('sticky-clone');
     });
+    
+    // PŘIDÁNO: Kopírování burger menu
+    const burgerMenu = headerContent.querySelector('.burger-menu');
+    if (burgerMenu) {
+        // Ujistíme se, že burger menu má správné ID pro sticky verzi 
+        burgerMenu.setAttribute('id', 'sticky-burgerMenu');
+        console.log('Burger menu copied to sticky header');
+    }
     
     // Extract and append main navigation elements
     const navElement = headerContent.querySelector('nav');
@@ -457,29 +621,38 @@ stickyHeader.style.overflowY = originalStyles.overflowY;
                 
                 stickyHeader.appendChild(navContainer);
             } else {
-                // Last resort: copy all visible links
-                const navList = document.createElement('ul');
-                
-                const links = headerContent.querySelectorAll('a');
-                links.forEach(link => {
-                    if (link.offsetParent !== null) { // Only visible links
-                        const li = document.createElement('li');
-                        li.appendChild(link);
-                        navList.appendChild(li);
-                    }
-                });
-                
-                stickyHeader.appendChild(navList);
+                // UPRAVENO: Pokud nenajdeme button-container, zkusíme najít burger menu
+                if (burgerMenu) {
+                    stickyHeader.appendChild(burgerMenu);
+                } else {
+                    // Last resort: copy all visible links
+                    const navList = document.createElement('ul');
+                    
+                    const links = headerContent.querySelectorAll('a');
+                    links.forEach(link => {
+                        if (link.offsetParent !== null) { // Only visible links
+                            const li = document.createElement('li');
+                            li.appendChild(link);
+                            navList.appendChild(li);
+                        }
+                    });
+                    
+                    stickyHeader.appendChild(navList);
+                }
             }
         }
+    }
+    
+    // PŘIDÁNO: Pokud burger menu nebylo přidáno výše, přidej ho samostatně
+    if (!stickyHeader.querySelector('.burger-menu') && burgerMenu) {
+        stickyHeader.appendChild(burgerMenu);
     }
     
     // Append the sticky header to the body
     document.body.appendChild(stickyHeader);
     
-    console.log('Sticky header created with appropriate navigation structure');
+    console.log('Sticky header created with burger menu and appropriate navigation structure');
 }
-
 // Initialize sticky header functionality
 function initStickyHeaderFunctionality() {
     const stickyHeader = document.querySelector('.sticky-header');
@@ -1449,3 +1622,268 @@ window.clearAllDropdownStates = clearAllDropdownStates;
 
 
 
+
+// Přidejte tuto funkci do vašeho kódu
+function initializeStickyBurgerMenu() {
+    const stickyHeader = document.querySelector('.sticky-header');
+    if (!stickyHeader) {
+        console.error('Sticky header not found');
+        return;
+    }
+    
+    // Najdeme burger menu ve sticky headeru
+    const stickyBurgerMenu = stickyHeader.querySelector('.burger-menu');
+    if (!stickyBurgerMenu) {
+        console.log('Burger menu not found in sticky header');
+        return;
+    }
+    
+    // Najdeme potřebné elementy (používáme původní ID, protože mobilní nav je jen jedna)
+    const mobileNav = document.getElementById('mobileNav');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeButton = document.getElementById('closeButton');
+    
+    if (!mobileNav || !menuOverlay || !closeButton) {
+        console.error('Mobile navigation elements not found');
+        return;
+    }
+    
+    // Přidáme event listener pro sticky burger menu
+    stickyBurgerMenu.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Sticky burger menu clicked');
+        
+        // Zavřeme všechny dropdowny před otevřením mobile menu
+        clearAllDropdownStates();
+        
+        // Otevřeme mobilní navigaci
+        mobileNav.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.classList.add('menu-open');
+        
+        console.log('Mobile navigation opened from sticky header');
+    });
+    
+    console.log('Sticky burger menu initialized');
+}
+
+// Upravte funkce initStickyHeaderFunctionality - přidejte volání inicializace burger menu
+function initStickyHeaderFunctionality() {
+    const stickyHeader = document.querySelector('.sticky-header');
+    const mainHeader = document.querySelector('header');
+    
+    if (!stickyHeader || !mainHeader) {
+        console.error('Sticky header or main header not found');
+        return;
+    }
+    
+    // Initialize home icon functionality
+    initializeHomeIcon(stickyHeader);
+    
+    // PŘIDEJTE TOTO - inicializace burger menu
+    initializeStickyBurgerMenu();
+    
+    const mainHeaderHeight = mainHeader.offsetHeight;
+    let lastScrollY = window.scrollY || document.documentElement.scrollTop;
+    let ticking = false;
+    
+    // Handle scroll event
+    function handleScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY || document.documentElement.scrollTop;
+                
+                // If we're at the top or within original header area, hide sticky header immediately
+                if (scrollY <= Math.max(mainHeaderHeight + 1.5, 10)) { // přidej malý buffer
+                    stickyHeader.classList.remove('visible');
+                    clearAllDropdownStates(); // Zavři všechny dropdowny
+                    stickyHeader.classList.remove('scrolled');
+                    
+                    // Plynulé zmizení místo okamžitého
+                    stickyHeader.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
+                    stickyHeader.style.transform = 'translateY(-100%)';
+                    stickyHeader.style.opacity = '0';
+                }
+                else {
+                    // Restore normal transition behavior
+                    stickyHeader.style.transition = '';
+                    stickyHeader.style.transform = '';
+                    stickyHeader.style.opacity = '1'; 
+                    
+                    // Show header when scrolling up
+                    if (scrollY < lastScrollY) {
+                        stickyHeader.classList.add('visible');
+                        
+                        // Add scrolled class for more compact look when further down
+                        if (scrollY > mainHeaderHeight + 100) {
+                            stickyHeader.classList.add('scrolled');
+                        } else {
+                            stickyHeader.classList.remove('scrolled');
+                        }
+                    } 
+                    // Hide header when scrolling down
+                    else if (scrollY > lastScrollY) {
+                        stickyHeader.classList.remove('visible');
+                        clearAllDropdownStates(); 
+                    }
+                }
+                
+                lastScrollY = scrollY;
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Initial check to set correct state on page load
+    (function initialCheck() {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        
+        if (scrollY > mainHeaderHeight) {
+            // VYNUTÍME zobrazení sticky headeru při každém refreshu
+            setTimeout(() => {
+                stickyHeader.style.transition = '';
+                stickyHeader.style.transform = 'translateY(0)';
+                stickyHeader.style.opacity = '1';
+                stickyHeader.style.visibility = 'visible';
+                stickyHeader.classList.add('visible');
+                
+                if (scrollY > mainHeaderHeight + 100) {
+                    stickyHeader.classList.add('scrolled');
+                }
+                
+                console.log('Sticky header forcibly shown on page load at scroll position:', scrollY);
+            }, 50); // Malé zpoždění zajistí, že se aplikuje po načtení
+        }
+    })();
+    
+    // Initialize dropdown functionality for the sticky header
+    initializeStickyDropdowns();
+    
+    // Debounce funkce pro rychlé přepínání
+    let themeChangeTimeout;
+
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && 
+                (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme')) {
+                
+                // Zrušíme předchozí timeout pokud existuje
+                if (themeChangeTimeout) {
+                    clearTimeout(themeChangeTimeout);
+                }
+                
+                // Zachováme aktuální stav
+                const currentScrollY = window.scrollY || document.documentElement.scrollTop;
+                const wasVisible = stickyHeader.classList.contains('visible');
+                
+                if (wasVisible && currentScrollY > 50) {
+                    themeChangeTimeout = setTimeout(() => {
+                        if (stickyHeader && (window.scrollY || document.documentElement.scrollTop) > 50) {
+                            stickyHeader.classList.add('visible');
+                            stickyHeader.style.opacity = '1';
+                            stickyHeader.style.transform = 'translateY(0)';
+                        }
+                    }, 0);
+                }
+            }
+        });
+    });
+
+    observer.observe(document.body, { attributes: true, subtree: false });
+    observer.observe(document.documentElement, { attributes: true, subtree: false });
+    
+    console.log('Sticky header functionality initialized');
+}
+
+// ALTERNATIVNÍ ŘEŠENÍ - pokud výše uvedené nefunguje, zkuste toto:
+// Můžete také přidat tuto kontrolu do funkce clearAllDropdownStates:
+
+function clearAllDropdownStatesUpdated() {
+    // Vyčistíme localStorage
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sticky_menu_') && key.endsWith('_open')) {
+            localStorage.removeItem(key);
+        }
+        if (key.startsWith('sticky_submenu_') && key.endsWith('_open')) {
+            localStorage.removeItem(key);
+            
+        }
+    });
+    
+    // Vyčistíme všechny timeouty
+    if (window.dropdownTimeouts) {
+        Object.values(window.dropdownTimeouts).forEach(timeout => {
+            clearTimeout(timeout);
+        });
+        window.dropdownTimeouts = {};
+    }
+    
+    if (window.autoHideTimeouts) {
+        Object.values(window.autoHideTimeouts).forEach(timeout => {
+            clearTimeout(timeout);
+        });
+        window.autoHideTimeouts = {};
+    }
+    
+    // PŘIDEJ TUTO ČÁST - fyzicky zavřeme všechny dropdowny
+    const stickyHeader = document.querySelector('.sticky-header');
+    if (stickyHeader) {
+        // Zavřeme hlavní dropdowny
+        const dropdownContents = stickyHeader.querySelectorAll('.dropdown-content, .dropdown-content-second');
+        dropdownContents.forEach(content => {
+            content.style.opacity = '0';
+            content.style.visibility = 'hidden';
+            content.style.display = 'none';
+        });
+        
+        // Zavřeme sub-dropdowny
+        const subDropdownContents = stickyHeader.querySelectorAll('.sub-dropdown-content');
+        subDropdownContents.forEach(content => {
+            content.style.opacity = '0';
+            content.style.visibility = 'hidden';
+            content.style.display = 'none';
+        });
+        
+        // Zavřeme dead zones
+        const deadZones = document.querySelectorAll('.sticky-header-dead-zone, .sub-dropdown-dead-zone');
+        deadZones.forEach(zone => {
+            zone.style.display = 'none';
+        });
+        
+        // Odebereme aktivní třídy
+        const activeToggles = stickyHeader.querySelectorAll('.dropdown-toggle.clicked, .dropdown-toggle-second.clicked');
+        activeToggles.forEach(toggle => {
+            toggle.classList.remove('clicked');
+        });
+        
+        // PŘIDÁNO: Ujistíme se, že burger menu je stále viditelné
+        const stickyBurgerMenu = stickyHeader.querySelector('.burger-menu');
+        if (stickyBurgerMenu) {
+            stickyBurgerMenu.style.display = ''; // Reset display
+            stickyBurgerMenu.style.visibility = 'visible';
+            stickyBurgerMenu.style.opacity = '1';
+        }
+        
+        // Reset stavových proměnných
+        if (window.stickyDropdownStates) {
+            Object.keys(window.stickyDropdownStates).forEach(key => {
+                window.stickyDropdownStates[key].isClickOpened = false;
+                window.stickyDropdownStates[key].isSubmenuActive = false;
+                window.stickyDropdownStates[key].isClosingInProgress = false;
+            });
+        }
+        
+        // Reset lokálních stavů v každém dropdown
+        for (let i = 0; i < 10; i++) {
+            if (window[`resetStickyDropdownState_${i}`]) {
+                window[`resetStickyDropdownState_${i}`]();
+            }
+        }
+    }
+}

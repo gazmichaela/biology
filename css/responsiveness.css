@@ -1560,6 +1560,7 @@ body.dark-mode .escape-info {
 
 }
 
+
 .mobile-nav-container.mobile-menu-active {
     right: 0 !important;
     visibility: visible !important;
@@ -1820,7 +1821,7 @@ body.dark-mode .escape-info {
 /* Základní styl pro logo kontejner */
 .logo {
     display: block; /* Zachováme block pro pozici */
-    width: 150px; /* Zachováme původní šířku pro pozici */
+     width: 175px; /* Zachováme původní šířku pro pozici */
     height: auto; /* Přidáme explicitní výšku */
     margin: 18px 0px 0px 25px; /* Zachováme původní margin */
 }
@@ -1845,7 +1846,7 @@ body.dark-mode .escape-info {
 /* Responsive úpravy */
 @media screen and (max-width: 767px) {
     .logo {
-        width: 120px; /* Zachováme původní šířku */
+         width: 80px; /* Zachováme původní šířku */
         margin: 15px 0px 0px 20px;
         display: block; /* Zachováme block */
         margin-bottom: 10px;
@@ -1869,7 +1870,8 @@ body.dark-mode .escape-info {
 
 @media screen and (max-width: 567px) {
     .logo {
-        width: 100px; /* Zachováme původní šířku */
+         width: 80px;
+         /* Zachováme původní šířku */
         margin: 10px 0px 0px 15px;
     }
     
@@ -1884,6 +1886,22 @@ body.dark-mode .escape-info {
 
 @media screen and (max-width: 320px) {
     .logo {
+        width: 80px; /* Zachováme původní šířku */
+        margin: 8px 0px 0px 10px;
+    }
+    
+    .logo a {
+        width: fit-content; /* Přizpůsobí se obsahu */
+    }
+    
+    .logo img {
+        max-width: 80px;
+    }
+}
+
+@media screen and (max-width: 1175px) {
+    /* Zajistí, že se stránka neprolí horizontálně */
+        .logo {
         width: 80px; /* Zachováme původní šířku */
         margin: 8px 0px 0px 10px;
     }

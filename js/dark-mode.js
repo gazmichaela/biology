@@ -173,6 +173,7 @@
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         
+   
         body.dark-mode {
             background-color: #222222 !important;
             color: #c8c1b5 !important;
