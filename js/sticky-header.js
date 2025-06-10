@@ -467,21 +467,88 @@ function insertStickyHeaderStyles() {
     opacity: 0 !important;
 }
 
-/* Zajištění, že mobilní navigační elementy neovlivní sticky header */
-.sticky-header .mobile-nav-list,
-.sticky-header .mobile-expandable,
-.sticky-header .mobile-expand-header,
-.sticky-header .mobile-expand-content,
-.sticky-header .mobile-nav-button,
-.sticky-header .mobile-sub-item,
-.sticky-header .mobile-sub-expandable,
-.sticky-header .mobile-sub-expand-header,
-.sticky-header .mobile-sub-expand-content,
-.sticky-header .mobile-sub-sub-item,
-.sticky-header .mobile-home-icon,
-.sticky-header .mobile-menu-close-button {
-    display: none !important;
-    visibility: hidden !important;
+
+.sticky-header .mobile-sub-item {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 10px 30px; /* Zmenšeno padding */
+    background: none;
+    color: #666;
+    text-decoration: none;
+    border-radius: 0;
+    font-size: 13px;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sticky-header .mobile-sub-item:hover {
+    background-color: #f5f5f5;
+    color: #025227;
+}
+
+
+.sticky-header .mobile-sub-expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.sticky-header .mobile-sub-expand-content.expanded {
+    max-height: 300px;
+}
+
+.sticky-header .mobile-sub-sub-item {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 8px 45px; /* Zmenšeno padding */
+    background: none;
+    color: #888;
+    text-decoration: none;
+    border-radius: 0;
+    font-size: 12px;
+    display: block;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.sticky-header .mobile-sub-sub-item:hover {
+    background-color: #f9f9f9;
+    color: #025227;
+}
+
+.sticky-header .mobile-sub-expand-header {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 10px 30px;
+    background: none;
+    color: #666;
+    border-radius: 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sticky-header .mobile-sub-expand-header:hover {
+    background-color: #f5f5f5;
+    color: #025227;
+}
+
+/* Sub-rozbalovací pro mobilní */
+.sticky-header .mobile-sub-expandable {
+    margin: 0;
 }
 
 /* Zajištění, že burger menu ve sticky headeru funguje správně */
