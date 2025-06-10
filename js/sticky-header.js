@@ -783,7 +783,8 @@ function initStickyHeaderFunctionality() {
                 const scrollY = window.scrollY || document.documentElement.scrollTop;
                 
                 // If we're at the top or within original header area, hide sticky header immediately
-              if (scrollY <= Math.max(mainHeaderHeight + 1.5, 10)) { // přidej malý buffer
+             const hideBuffer = 50; // Můžete změnit číslo podle potřeby
+if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) { // přidej malý buffer
     stickyHeader.classList.remove('visible');
     clearAllDropdownStates(); // Zavři všechny dropdowny
     stickyHeader.classList.remove('scrolled');
@@ -890,19 +891,32 @@ function initializeHomeIcon(stickyHeader) {
     const homeIcons = stickyHeader.querySelectorAll('.home-icon');
     
     homeIcons.forEach(homeIcon => {
-        if (!homeIcon.hasAttribute('href')) {
-            homeIcon.setAttribute('href', '/');
+        // Vypneme pointer events na kontejneru, ale zachováme styling
+        homeIcon.style.cursor = 'default';
+        homeIcon.style.pointerEvents = 'none';
+        homeIcon.removeAttribute('href');
+        
+        // Najdeme PNG obrázek uvnitř home ikony
+        const imgElement = homeIcon.querySelector('img');
+        
+        if (imgElement) {
+            // Povolíme pointer events pouze na IMG elementu
+            imgElement.style.cursor = 'pointer';
+            imgElement.style.pointerEvents = 'auto';
+            
+            imgElement.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                
+                // Clear dropdown states before navigation
+                clearAllDropdownStates();
+                window.location.href = '/';
+            });
+            
+            console.log('Home icon click handler attached to IMG element only');
+        } else {
+            console.warn('No IMG element found in home icon');
         }
-        
-        homeIcon.style.cursor = 'pointer';
-        
-        homeIcon.addEventListener('click', function(e) {
-            // Clear dropdown states before navigation
-            clearAllDropdownStates();
-            window.location.href = homeIcon.getAttribute('href') || '/';
-        });
-        
-        console.log('Home icon initialized with click functionality');
     });
 }
 // UNIVERZÁLNÍ FUNKCE PRO APLIKOVÁNÍ DROPDOWN FUNKCÍ NA STICKY HEADER
@@ -2041,6 +2055,7 @@ function initStickyHeaderFunctionality() {
     const mainHeaderHeight = mainHeader.offsetHeight;
     let lastScrollY = window.scrollY || document.documentElement.scrollTop;
     let ticking = false;
+    const hideBuffer = 44; // Nastavitelný buffer
     
     // Handle scroll event
     function handleScroll() {
