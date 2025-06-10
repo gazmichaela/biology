@@ -93,11 +93,27 @@
             background: black !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
         }
-        
-        /* Přechody se aplikují až po načtení */
-        .dark-mode-toggle.loaded {
-            transition: all 0.3s ease !important;
-        }
+        /* RESPONZIVNÍ STYLY - aplikují se okamžitě */
+@media (max-width: 768px) {
+    .dark-mode-toggle {
+        width: 40px !important;
+        height: 40px !important;
+        bottom: 15px !important;
+        right: 15px !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .dark-mode-toggle {
+        width: 35px !important;
+        height: 35px !important;
+        bottom: 10px !important;
+        right: 10px !important;
+        font-size: 1rem !important;
+    }
+}
+   
         
         /* Třída pro zobrazení po načtení */
         html.ready, body.ready {
