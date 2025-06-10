@@ -147,75 +147,67 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return loadingDiv;
         }
-        
-        // Vylepšené fallback tlačítka
-        function createFallbackButtons() {
-            const fallbackDiv = document.createElement('div');
-            fallbackDiv.id = `${frameId}_fallback`;
-            fallbackDiv.style.cssText = `
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(255, 255, 255, 0.98);
-                padding: 25px;
-                border-radius: 16px;
-                box-shadow: 0 12px 48px rgba(0,0,0,0.3);
-                text-align: center;
-                z-index: 1002;
-                max-width: min(900px, 100%);
-  
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(255,255,255,0.3);
-            `;
+       // Vylepšené fallback tlačítka
+function createFallbackButtons() {
+    const fallbackDiv = document.createElement('div');
+    fallbackDiv.id = `${frameId}_fallback`;
+    fallbackDiv.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.98);
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+        text-align: center;
+        z-index: 1002;
+        width: min(300px, 85vw);
+        height: min(300px, 85vh);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,0.3);
+    `;
+    
+    const mobileInfo = detectMobile();
+    const downloadUrl = pdfPath;
+    
+    fallbackDiv.innerHTML = `
+        <p style="margin: 0 0 20px 0; font-size: 16px; color: #333; line-height: 1.5;">
+            Váš mobilní prohlížeč může mít problém zobrazit PDF přímo na stránce. Vyberte si způsob zobrazení:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <a href="${downloadUrl}" target="_blank" 
+               style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.3s; width: 100%; box-sizing: border-box;"
+               onmouseover="this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.transform='translateY(0)';">
+                <span>Otevřít v novém okně</span>
+            </a>
             
-            const mobileInfo = detectMobile();
-            const downloadUrl = pdfPath;
+            ${mobileInfo.isMobile ? `
+                <a href="${downloadUrl}" download 
+                   style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: #28a745; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.3s; width: 100%; box-sizing: border-box;"
+                   onmouseover="this.style.transform='translateY(-2px)';"
+                   onmouseout="this.style.transform='translateY(0)';">
+                    <span>Stáhnout do zařízení</span>
+                </a>
+            ` : ''}
             
-           
-            
-            fallbackDiv.innerHTML = `
-               
-                    Vyberte si způsob zobrazení:
-                </p>
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <a href="${downloadUrl}" target="_blank" 
-                       style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: linear-gradient(135deg, #007bff); color: white; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.3s; "
-                       onmouseover="this.style.transform='translateY(-2px)';
-                       onmouseout="this.style.transform='translateY(0)'; >
-                        
-                        <span>Otevřít v novém okně</span>
-                    </a>
-                    
-                    ${mobileInfo.isMobile ? `
-                        <a href="${downloadUrl}" download 
-                           style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: linear-gradient(135deg, #28a745, #1e7e34); color: white; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.3s; box-shadow: 0 4px 15px rgba(40,167,69,0.3);"
-                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(40,167,69,0.4)'"
-                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(40,167,69,0.3)'">
-                            
-                            <span>Stáhnout do zařízení</span>
-                        </a>
-                    ` : ''}
-                    
-                    ${pdfLoadAttempts < maxLoadAttempts ? `
-                        <button onclick="window.${frameId}_retryFromFallback();"
-                                style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: linear-gradient(135deg, #6c757d, #545b62); color: white; border: none; border-radius: 10px; font-weight: 500; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(108,117,125,0.3);"
-                                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(108,117,125,0.4)'"
-                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(108,117,125,0.3)'">
-                            
-                            <span>Zkusit znovu </span>
-                        </button>
-                    ` : `
-                        
-                    `}
-                </div>
-                
-                
-                
-            `;
-            
-            return fallbackDiv;
-        }
+            ${pdfLoadAttempts < maxLoadAttempts ? `
+                <button onclick="window.${frameId}_retryFromFallback();"
+                        style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: #6c757d; color: white; border: none; border-radius: 10px; font-weight: 500; cursor: pointer; transition: all 0.3s; width: 100%; box-sizing: border-box;"
+                        onmouseover="this.style.transform='translateY(-2px)';"
+                        onmouseout="this.style.transform='translateY(0)';">
+                    <span>Zkusit znovu</span>
+                </button>
+            ` : ''}
+        </div>
+    `;
+    
+    return fallbackDiv;
+}
         
         // Aplikace mobilních stylů
         function applyMobileStyles() {

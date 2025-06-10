@@ -795,10 +795,10 @@ body.dark-mode .question.open {
     
     .pdf-close-button {
         position: absolute;
-        top: -12px;
-        right: -12px;
-        width: 45px;
-        height: 45px;
+        top: -4px;
+        right: -4px;
+        width: 25px;
+        height: 25px;
         background-color: white;
         border-radius: 50%;
         font-size: 26px;
@@ -936,18 +936,6 @@ body.dark-mode .escape-info {
     border: 1px solid #444;
 }
 
-/* Hover efekty pouze pro desktop */
-@media (hover: hover) and (pointer: fine) {
-    .pdf-close-button:hover {
-        background-color: #f5f5f5;
-        transform: scale(1.1);
-        transition: all 0.2s ease;
-    }
-    
-    body.dark-mode .pdf-close-button:hover {
-        background-color: #4a4a4a;
-    }
-}
 
 
 /* RESPONZIVITA PRO OBRÁZKY - Media Queries */

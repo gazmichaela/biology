@@ -52,7 +52,7 @@ sourceContainer.style.backgroundColor = 'transparent'; // Bez pozadí
 sourceContainer.style.color = '#fff';
 sourceContainer.style.padding = '10px';
 sourceContainer.style.width = '150px'; // Pevná šířka prostoru pro zdroje
-sourceContainer.style.fontSize = '14px';
+sourceContainer.style.fontSize = window.innerWidth < 768 ? '12px' : '14px';
 sourceContainer.style.zIndex = '9999';
 sourceContainer.style.transition = 'opacity 0.1s ease';
 sourceContainer.style.opacity = '1';
@@ -229,50 +229,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
         document.body.style.overflow = 'hidden';
     }
     
-    // Vytvoření tlačítka pro zoom pro mobilní zařízení
-    if (isMobile) {
-        var zoomButton = document.createElement('div');
-        zoomButton.className = 'zoom-button';
-        zoomButton.style.position = 'absolute';
-        zoomButton.style.bottom = '20px';
-        zoomButton.style.right = '20px';
-        zoomButton.style.width = '50px';
-        zoomButton.style.height = '50px';
-        zoomButton.style.borderRadius = '50%';
-        zoomButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        zoomButton.style.display = 'flex';
-        zoomButton.style.alignItems = 'center';
-        zoomButton.style.justifyContent = 'center';
-        zoomButton.style.zIndex = '1001';
-        zoomButton.style.cursor = 'pointer';
-        
-        var zoomIcon = document.createElement('div');
-        zoomIcon.style.color = '#fff';
-        zoomIcon.style.fontSize = '24px';
-        zoomIcon.style.fontWeight = 'bold';
-        zoomIcon.innerHTML = '+';
-        
-        zoomButton.appendChild(zoomIcon);
-        modal.appendChild(zoomButton);
-        
-        // Event listener pro tlačítko zoom na dotyk
-        zoomButton.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            handleZoomToggle(window.innerWidth / 2, window.innerHeight / 2);
-            zoomIcon.innerHTML = isZoomed ? '-' : '+';
-        }, { passive: false });
-        
-        // Event listener pro tlačítko zoom na klik
-        zoomButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            handleZoomToggle(window.innerWidth / 2, window.innerHeight / 2);
-            zoomIcon.innerHTML = isZoomed ? '-' : '+';
-        });
-    }
+    
     
     // Resetování funkce pro zoom
     function resetZoom() {
@@ -605,30 +562,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
         }
     }, { passive: false });
     
-    // Konec dotyku
-    modalImg.addEventListener('touchend', function(e) {
-        // Ukončení tažení
-        if (isDragging) {
-            isDragging = false;
-            
-            // Krátké zpoždění pro přesnější detekci kliknutí vs tažení
-            setTimeout(function() {
-                wasDragging = false;
-            }, 100);
-        }
-        
-        // Pokud byl minimální pohyb, interpretujeme jako tap
-        if (!touchMoved && !wasDragging) {
-            // Získáme poslední pozici dotyku
-            var touch = e.changedTouches[0];
-            
-            // Pouze pro mobilní zařízení používáme jednotnou funkci pro přepínání zoomu
-            if (isMobile) {
-                handleZoomToggle(touch.clientX, touch.clientY);
-                e.preventDefault();
-            }
-        }
-    });
+   
     
     // VYLEPŠENÝ začátek tažení obrázku (desktop)
     modalImg.addEventListener('mousedown', function(e) {
@@ -691,10 +625,9 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
             var touch = e.changedTouches[0];
             
             // Pouze pro mobilní zařízení používáme jednotnou funkci pro přepínání zoomu
-            if (isMobile) {
-                handleZoomToggle(touch.clientX, touch.clientY);
-                e.preventDefault();
-            }
+           // Používáme jednotnou funkci pro přepínání zoomu pro všechna zařízení
+handleZoomToggle(touch.clientX, touch.clientY);
+e.preventDefault();
         }
     });
     
@@ -833,4 +766,30 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
             e.preventDefault();
         }
     }, { passive: false });
+
+
+// Responzivní úpravy
+function updateResponsiveLayout() {
+    if (window.innerWidth < 768) {
+        // Při malých obrazovkách
+        sourceContainer.style.fontSize = '12px';
+        sourceContainer.style.position = 'relative';
+        sourceContainer.style.top = 'auto';
+        sourceContainer.style.transform = 'none';
+        sourceContainer.style.right = 'auto';
+        sourceContainer.style.marginTop = '10px';
+        mainContainer.style.flexDirection = 'column';
+    } else {
+        // Při velkých obrazovkách (původní nastavení)
+        sourceContainer.style.fontSize = '14px';
+        sourceContainer.style.position = 'absolute';
+        sourceContainer.style.top = '90%';
+        sourceContainer.style.transform = 'translateY(-90%)';
+        sourceContainer.style.right = '20px';
+        sourceContainer.style.marginTop = '0';
+        mainContainer.style.flexDirection = 'row';
+    }
+}
+
+window.addEventListener('resize', updateResponsiveLayout);
 });
