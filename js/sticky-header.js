@@ -108,6 +108,8 @@ function insertStickyHeaderStyles() {
     /* a přidej specifické styly pro sticky verzi */
 }
 
+
+
 .sticky-menu-overlay {
     /* Zkopíruj všechny styly z původního overlay */
 }
@@ -333,6 +335,8 @@ function insertStickyHeaderStyles() {
         margin-top: 8px;
     }
     
+
+    
     .sticky-header ul li {
         margin: 0 10px;
         font-size: 16px;
@@ -395,7 +399,7 @@ function insertStickyHeaderStyles() {
 /* Mobile menu ve sticky headeru */
 .sticky-header .mobile-menu {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 100%;
     left: 0;
     right: 0;
@@ -1659,6 +1663,8 @@ window.clearAllDropdownStates = clearAllDropdownStates;
 
 // OPRAVENÁ FUNKCE PRO INICIALIZACI STICKY BURGER MENU
 function initializeStickyBurgerMenu() {
+    console.log('Sticky header position:', stickyHeader.getBoundingClientRect());
+console.log('Sticky mobile nav position:', stickyMobileNav.getBoundingClientRect());
     const stickyHeader = document.querySelector('.sticky-header');
     if (!stickyHeader) {
         console.error('Sticky header not found');
@@ -1695,6 +1701,8 @@ function initializeStickyBurgerMenu() {
     newStickyBurgerMenu.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        // Zapamatuj si aktuální scroll pozici
+const currentScrollY = window.scrollY;
         
         console.log('Sticky burger menu clicked');
         clearAllDropdownStates();
@@ -1705,6 +1713,10 @@ function initializeStickyBurgerMenu() {
         
         if (activeStickyMobileNav && activeStickyMenuOverlay) {
             // Otevřeme sticky mobilní navigaci
+            // Zajisti, že se nepohne scroll
+document.body.style.top = `-${currentScrollY}px`;
+document.body.style.position = 'fixed';
+document.body.style.width = '100%';
             activeStickyMobileNav.classList.add('active');
             activeStickyMenuOverlay.classList.add('active');
             document.body.classList.add('menu-open');
@@ -1725,6 +1737,14 @@ function initializeStickyBurgerMenu() {
             e.preventDefault();
             e.stopPropagation();
             
+              // PŘIDEJ TADY TENTO KÓD:
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    
+
             const activeStickyMobileNav = document.getElementById('sticky-mobileNav');
             const activeStickyMenuOverlay = document.getElementById('sticky-menuOverlay');
             
@@ -1744,6 +1764,12 @@ function initializeStickyBurgerMenu() {
     // Zavření při kliknutí na overlay
     newStickyMenuOverlay.addEventListener('click', function(e) {
         if (e.target === newStickyMenuOverlay) {
+              // PŘIDEJ TADY TENTO KÓD:
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1)
             const activeStickyMobileNav = document.getElementById('sticky-mobileNav');
             
             if (activeStickyMobileNav) {
@@ -1943,6 +1969,7 @@ function initStickyHeaderFunctionality() {
     
     // PŘIDEJTE TOTO - inicializace burger menu
     initializeStickyBurgerMenu();
+    
     
     const mainHeaderHeight = mainHeader.offsetHeight;
     let lastScrollY = window.scrollY || document.documentElement.scrollTop;

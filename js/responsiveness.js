@@ -1,4 +1,4 @@
-// UNIVERZÁLNÍ FUNKCE PRO BURGER MENU - FUNGUJE PRO HLAVNÍ I STICKY HEADER
+// UNIVERZÁLNÍ FUNKCE PRO BURGER MENU - OPRAVENÁ VERZE
 
 // Získání elementů - hlavní header
 const burgerMenu = document.getElementById('burgerMenu');
@@ -10,49 +10,42 @@ const body = document.body;
 // Proměnná pro uložení aktuální pozice scrollu
 let currentScrollPosition = 0;
 
-// Univerzální funkce pro otevření menu
-function openMenu(isSticky = false) {
-    if (isSticky) {
-        // Pro sticky header používáme POUZE sticky elementy
-        const stickyMobileNav = document.getElementById('sticky-mobileNav');
-        const stickyMenuOverlay = document.getElementById('sticky-menuOverlay');
-        
-        // DŮLEŽITÉ: Nejprve zavřeme hlavní menu, pokud je otevřené
-        if (mobileNav && menuOverlay) {
-            mobileNav.classList.remove('mobile-menu-active');
-            menuOverlay.classList.remove('active');
-        }
-        
-        if (stickyMobileNav && stickyMenuOverlay) {
-            stickyMobileNav.classList.add('mobile-menu-active', 'active');
-            stickyMenuOverlay.classList.add('active');
-            body.classList.add('menu-open');
-            console.log('Sticky menu opened');
+// Univerzální funkce pro otevření menu - OPRAVENÁ
+function openMenu(isSticky = true) {
+    // Nejprve zavřeme VŠECHNA menu čistě
+    closeAllMenusClean();
+    
+    // Krátké zpoždění pro zajištění čistého stavu
+    setTimeout(() => {
+        if (isSticky) {
+            // Pro sticky header používáme POUZE sticky elementy
+            const stickyMobileNav = document.getElementById('sticky-mobileNav');
+            const stickyMenuOverlay = document.getElementById('sticky-menuOverlay');
+            
+            if (stickyMobileNav && stickyMenuOverlay) {
+                // Přidáme třídu specifickou pro sticky menu
+                body.classList.add('sticky-menu-open');
+                stickyMobileNav.classList.add('mobile-menu-active', 'active');
+                stickyMenuOverlay.classList.add('active');
+                console.log('Sticky menu opened');
+            } else {
+                console.error('Sticky mobile navigation elements not found');
+            }
         } else {
-            console.error('Sticky mobile navigation elements not found');
+            // Pro hlavní header používáme původní elementy
+            if (mobileNav && menuOverlay) {
+                // Přidáme třídu specifickou pro hlavní menu
+                body.classList.add('main-menu-open');
+                mobileNav.classList.add('mobile-menu-active');
+                menuOverlay.classList.add('active');
+                console.log('Main menu opened');
+            }
         }
-    } else {
-        // Pro hlavní header používáme původní elementy
-        // DŮLEŽITÉ: Nejprve zavřeme sticky menu, pokud je otevřené
-        const stickyMobileNav = document.getElementById('sticky-mobileNav');
-        const stickyMenuOverlay = document.getElementById('sticky-menuOverlay');
-        
-        if (stickyMobileNav && stickyMenuOverlay) {
-            stickyMobileNav.classList.remove('mobile-menu-active', 'active');
-            stickyMenuOverlay.classList.remove('active');
-        }
-        
-        if (mobileNav && menuOverlay) {
-            mobileNav.classList.add('mobile-menu-active');
-            menuOverlay.classList.add('active');
-            body.classList.add('menu-open');
-            console.log('Main menu opened');
-        }
-    }
+    }, 50);
 }
 
-// Univerzální funkce pro zavření menu
-function closeMenu(isSticky = false) {
+// Univerzální funkce pro zavření menu - OPRAVENÁ
+function closeMenu(isSticky = true) {
     if (isSticky) {
         // Pro sticky header
         const stickyMobileNav = document.getElementById('sticky-mobileNav');
@@ -61,7 +54,7 @@ function closeMenu(isSticky = false) {
         if (stickyMobileNav && stickyMenuOverlay) {
             stickyMobileNav.classList.remove('mobile-menu-active', 'active');
             stickyMenuOverlay.classList.remove('active');
-            body.classList.remove('menu-open');
+            body.classList.remove('sticky-menu-open');
             console.log('Sticky menu closed');
         }
     } else {
@@ -69,18 +62,36 @@ function closeMenu(isSticky = false) {
         if (mobileNav && menuOverlay) {
             mobileNav.classList.remove('mobile-menu-active');
             menuOverlay.classList.remove('active');
-            body.classList.remove('menu-open');
+            body.classList.remove('main-menu-open');
             console.log('Main menu closed');
         }
     }
 }
 
+// NOVÁ funkce pro čisté zavření všech menu
+function closeAllMenusClean() {
+    // Zavření hlavního menu
+    if (mobileNav && menuOverlay) {
+        mobileNav.classList.remove('mobile-menu-active');
+        menuOverlay.classList.remove('active');
+    }
+    
+    // Zavření sticky menu
+    const stickyMobileNav = document.getElementById('sticky-mobileNav');
+    const stickyMenuOverlay = document.getElementById('sticky-menuOverlay');
+    
+    if (stickyMobileNav && stickyMenuOverlay) {
+        stickyMobileNav.classList.remove('mobile-menu-active', 'active');
+        stickyMenuOverlay.classList.remove('active');
+    }
+    
+    // Odstranění všech body tříd
+    body.classList.remove('menu-open', 'main-menu-open', 'sticky-menu-open');
+}
+
 // Univerzální funkce pro zavření všech menu
 function closeAllMenus() {
-    // Zavřeme hlavní menu
-    closeMenu(false);
-    // Zavřeme sticky menu
-    closeMenu(true);
+    closeAllMenusClean();
 }
 
 // Event listenery pro hlavní burger menu
@@ -158,13 +169,8 @@ function initializeStickyBurgerMenu() {
             clearAllDropdownStates();
         }
         
-        // DŮLEŽITÉ: Zavřeme všechna ostatní menu před otevřením sticky menu
-        closeAllMenus();
-        
-        // Krátké zpoždění a pak otevřeme pouze sticky menu
-        setTimeout(() => {
-            openMenu(true);
-        }, 10);
+        // Otevřeme sticky menu
+        openMenu(true);
     });
     
     // Event listener pro zavření sticky mobilní navigace
@@ -198,18 +204,18 @@ function initializeStickyBurgerMenu() {
 
 // Funkce pro inicializaci rozbalovacích menu ve sticky verzi
 function initializeStickyExpandableMenus(stickyMobileNav) {
-    // Funkce pro rozbalovací menu
-    function toggleExpandableMenu(header, contentId) {
+    if (!stickyMobileNav) return;
+    
+    // Funkce pro rozbalovací menu - POUZE pro sticky verzi
+    function toggleStickyExpandableMenu(header, contentId) {
         const content = document.getElementById(contentId);
         if (!content) return;
-        
-        const arrow = header.querySelector('.mobile-expand-arrow');
         
         if (content.classList.contains('expanded')) {
             content.classList.remove('expanded');
             header.classList.remove('expanded');
         } else {
-            // Zavřít všechna ostatní rozbalovací menu na stejné úrovni
+            // Zavřít všechna ostatní rozbalovací menu POUZE ve sticky navigaci
             const allContents = stickyMobileNav.querySelectorAll('.mobile-expand-content, .mobile-sub-expand-content');
             const allHeaders = stickyMobileNav.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
             
@@ -231,7 +237,7 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
         }
     }
     
-    // Event listenery pro rozbalovací menu ve sticky verzi
+    // Event listenery POUZE pro rozbalovací menu ve sticky verzi
     const expandHeaders = stickyMobileNav.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
     expandHeaders.forEach(header => {
         // Odebereme staré listenery klonováním
@@ -241,37 +247,38 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
         newHeader.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('data-target');
-            toggleExpandableMenu(this, targetId);
+            toggleStickyExpandableMenu(this, targetId);
         });
     });
 }
 
-// Funkce pro rozbalovací menu v hlavním headeru (původní kód)
-function toggleExpandableMenu(header, contentId) {
+// Funkce pro rozbalovací menu POUZE v hlavním headeru
+function toggleMainExpandableMenu(header, contentId) {
     const content = document.getElementById(contentId);
     if (!content) return;
-    
-    const arrow = header.querySelector('.mobile-expand-arrow');
     
     if (content.classList.contains('expanded')) {
         content.classList.remove('expanded');
         header.classList.remove('expanded');
     } else {
-        // Zavřít všechna ostatní rozbalovací menu na stejné úrovni
-        const allContents = document.querySelectorAll('.mobile-expand-content, .mobile-sub-expand-content');
-        const allHeaders = document.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
-        
-        allContents.forEach(c => {
-            if (c !== content) {
-                c.classList.remove('expanded');
-            }
-        });
-        
-        allHeaders.forEach(h => {
-            if (h !== header) {
-                h.classList.remove('expanded');
-            }
-        });
+        // Zavřít všechna ostatní rozbalovací menu POUZE v hlavní navigaci
+        const mainNav = document.getElementById('mobileNav');
+        if (mainNav) {
+            const allContents = mainNav.querySelectorAll('.mobile-expand-content, .mobile-sub-expand-content');
+            const allHeaders = mainNav.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
+            
+            allContents.forEach(c => {
+                if (c !== content) {
+                    c.classList.remove('expanded');
+                }
+            });
+            
+            allHeaders.forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('expanded');
+                }
+            });
+        }
         
         // Otevřít aktuální menu
         content.classList.add('expanded');
@@ -279,13 +286,19 @@ function toggleExpandableMenu(header, contentId) {
     }
 }
 
-// Event listenery pro rozbalovací menu v hlavním headeru
-document.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header').forEach(header => {
-    header.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('data-target');
-        toggleExpandableMenu(this, targetId);
-    });
+// Event listenery pro rozbalovací menu POUZE v hlavním headeru
+document.addEventListener('DOMContentLoaded', function() {
+    const mainNav = document.getElementById('mobileNav');
+    if (mainNav) {
+        const mainExpandHeaders = mainNav.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
+        mainExpandHeaders.forEach(header => {
+            header.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                toggleMainExpandableMenu(this, targetId);
+            });
+        });
+    }
 });
 
 // Zavření menu při změně velikosti okna
@@ -295,9 +308,9 @@ window.addEventListener('resize', function() {
     }
 });
 
-// Prevent scroll na mobilních zařízeních při otevřeném menu
+// Prevent scroll na mobilních zařízeních při otevřeném menu - OPRAVENO
 document.addEventListener('touchmove', function(e) {
-    if (body.classList.contains('menu-open')) {
+    if (body.classList.contains('main-menu-open') || body.classList.contains('sticky-menu-open')) {
         e.preventDefault();
     }
 }, { passive: false });
