@@ -1,5 +1,4 @@
-// VYLEPŠENÉ ŘEŠENÍ PROBLIKÁVÁNÍ - musí být první řádky v externím JS souboru
-// Tento kód se spustí okamžitě bez čekání na DOM
+//-----------DARK MODE FUNCIONALITY-------------//
 
 // 1. OKAMŽITÉ nastavení před načtením čehokoli jiného
 (function() {

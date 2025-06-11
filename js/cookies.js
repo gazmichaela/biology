@@ -1,5 +1,4 @@
 //---------COOKIES FUNCIONALITY--------------//
-// JavaScript pro fungování oznámení o cookies
 
 document.addEventListener('DOMContentLoaded', function() {
     // Kontrola, zda již bylo oznámení potvrzeno
