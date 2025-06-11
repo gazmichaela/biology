@@ -209,6 +209,10 @@ margin-top: 45px;
         font-size: 1em;
     }
     
+    header {
+        max-height: 190px !important;
+    }
+
     header h1 {
         font-size: 24px;
         margin-top: 30px;
@@ -301,7 +305,7 @@ margin-top: 45px;
     footer {
         padding: 20px 8px 0px 8px;
         font-size: 11px;
-        height: 170px;
+        height: 210px;
         clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
     
@@ -353,7 +357,12 @@ margin-top: 45px;
     }
     
     footer {
-        height: 200px;
+        height: 250px;
+    }
+
+    footer p {
+        margin-left: 43px;
+        margin-right: 43px;
     }
     
     article {
@@ -991,7 +1000,7 @@ body.dark-mode .escape-info {
         min-width: 280px;
         max-width: 500px;
         margin-top: 60px;
-        margin-left: 30px;
+        margin-left: 12px;
     }
     
     .img-left {
@@ -1001,12 +1010,12 @@ body.dark-mode .escape-info {
     }
     
     .img-bottom {
-        width: 45%;
+        width: 95%;
         margin-left: 3%;
     }
     
     .img-next {
-        width: 50%;
+        width: 90%;
     }
     
     /* Info boxy */
@@ -1049,30 +1058,34 @@ body.dark-mode .escape-info {
 /* Menší tablety a větší mobily - do 768px */
 @media screen and (max-width: 768px) {
     .img-right {
-        width: 40%;
+        width: 100%;
         min-width: 240px;
         max-width: 400px;
         margin-left: 20px;
         margin-top: 10px;
+        float: none;
     }
     
     .img-right-big {
-        width: 50%;
+        width: 90%;
         margin-left: 10px;
+        float: none;
     }
     
     .img-right-middle {
-        width: 45%;
+        width: 90%;
         margin: 0.8%;
         margin-left: 1.5%;
+        float: none;
     }
     
     .img-right-top {
-        width: 40%;
-        min-width: 240px;
-        max-width: 400px;
+        width: 100%;
+        max-width: 450px;
         margin-top: 40px;
-        margin-left: 20px;
+        margin-left: auto;
+        margin-right: 500px;
+        float: none;
     }
     
     .img-left {
@@ -1082,12 +1095,12 @@ body.dark-mode .escape-info {
     }
     
     .img-bottom {
-        width: 50%;
+        width: 95%;
         margin-left: 2%;
     }
     
     .img-next {
-        width: 60%;
+        width: 100%;
         margin-left: 1%;
     }
     
@@ -1249,9 +1262,6 @@ body.dark-mode .escape-info {
         margin: 10px auto;
         margin-left: auto;
         display: block;
-    }
-        footer {
-        height: 180px;
     }
     
 }
