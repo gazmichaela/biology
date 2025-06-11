@@ -1340,6 +1340,7 @@ body.dark-mode .escape-info {
 
     /* Zajistí, že mobilní menu je při načítání stránky definitivně skryté */
     .button-container {
+       
         position: fixed;
         top: 0;
         right: -50vw !important; /* Změna: menu se vysunuje zprava a má šířku 50vw */
@@ -1608,6 +1609,7 @@ body.dark-mode .escape-info {
     flex-direction: column;
     padding: 0 15px; /* Zmenšeno kvůli menší šířce */
     gap: 5px;
+  
 }
 
 /* Mobilní položky seznamu - upraveno jako seznam */
@@ -1626,7 +1628,25 @@ body.dark-mode .escape-info {
     transition: color 0.3s ease, background-color 0.3s ease;
     display: block;
     box-sizing: border-box;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #b6b6b6;
+}
+
+.mobile-nav-button-big {
+    border-bottom: 1px solid grey;
+    margin-bottom: 13px;
+}
+
+.mobile-nav-button-mid {
+    border-bottom: 1px solid rgb(151, 151, 151);
+    margin-bottom: 8px;
+}
+
+.mobile-nav-button-two {
+    margin-left: 20px;
+}
+
+.mobile-nav-button-three {
+    margin-left: 40px;
 }
 
 .mobile-nav-button:hover {
