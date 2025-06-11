@@ -300,6 +300,7 @@ margin-top: 45px;
         left: 0;
         transform: none;
         bottom: 110%;
+        z-index: 9999;
     }
     
     footer {
