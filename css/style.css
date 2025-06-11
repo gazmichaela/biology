@@ -81,7 +81,7 @@ body {
     font-family: 'Inter', 'Arial', sans-serif;
     font-size: 1.3em;
     background-color: #f0f9f0;
-    /* min-width: 1116px; */
+    min-width: 248px;
     margin: 0;
     color: #023f1e;
 }
