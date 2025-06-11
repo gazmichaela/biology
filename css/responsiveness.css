@@ -1624,7 +1624,7 @@ body.dark-mode .escape-info {
     color: #025227;
     text-decoration: none;
     text-align: left;
-    font-size: 15px; /* Trochu menší font */
+    font-size: 15p; /* Trochu menší font */
     font-weight: 500;
     transition: color 0.3s ease, background-color 0.3s ease;
     display: block;
@@ -1634,12 +1634,12 @@ body.dark-mode .escape-info {
 
 .mobile-nav-button-big {
     border-bottom: 1px solid grey;
-    margin-bottom: 13px;
+    margin-bottom: 7%;
 }
 
 .mobile-nav-button-mid {
     border-bottom: 1px solid rgb(151, 151, 151);
-    margin-bottom: 8px;
+    margin-bottom: 5%;
 }
 
 .mobile-nav-button-two {
