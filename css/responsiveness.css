@@ -54,6 +54,36 @@
     }
 }
 
+#mobileNav, #sticky-mobileNav {
+    max-height: 100vh; /* odečti výšku headeru */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin; /* pro Firefox */
+}
+
+/* Stylování scrollbaru pro Webkit browsery */
+#mobileNav::-webkit-scrollbar, 
+#sticky-mobileNav::-webkit-scrollbar {
+    width: 4px;
+}
+
+#mobileNav::-webkit-scrollbar-track, 
+#sticky-mobileNav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#mobileNav::-webkit-scrollbar-thumb, 
+#sticky-mobileNav::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+#mobileNav, #sticky-mobileNav {
+    max-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* pro smooth scroll na iOS */
+}
 /* Mobile Landscape - 568px až 767px */
 @media screen and (max-width: 767px) {
     body {
@@ -114,6 +144,7 @@ margin-top: 45px;
         flex-direction: column;
         align-items: flex-start;
     }
+
     
     article {
         margin-right: 20px;
@@ -423,7 +454,7 @@ margin-top: 45px;
     }
     
     header h1 {
-        font-size: 22px;
+        
         margin-top: 8px;
         margin-bottom: 5px;
     }
@@ -448,7 +479,7 @@ margin-top: 45px;
     }
     
     footer {
-        height: 100px;
+      
         padding: 15px 8px 0px 8px;
     }
 }
@@ -1318,11 +1349,16 @@ body.dark-mode .escape-info {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+      touch-action: none !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .menu-overlay.active {
     opacity: 1;
     visibility: visible;
+       touch-action: none !important;
 }
 
 /* RESPONZIVNÍ NAVIGACE */
@@ -1364,12 +1400,34 @@ body.dark-mode .escape-info {
         will-change: right;
         visibility: hidden;
         box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        /* Nové vlastnosti pro správné chování dotykových gest */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y; /* Povolí pouze vertikální scrollování v menu */
     }
     
+     .button-container,
+    .mobile-nav-container {
+        /* Zajistí plný prostor pro scrollování */
+        max-height: 100vh;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+    
+    .no-scroll {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+    .mobile-nav-list {
+        /* Přidá prostor pro posledních několik položek */
+        padding-bottom: 40px;
+    }
+
     /* Zobrazí jen když je skutečně aktivní */
     .button-container.mobile-menu-active {
         right: 0 !important;
         visibility: visible !important;
+         touch-action: pan-y !important;
     }
     
     /* Zajistí, že header má fixní výšku */
@@ -1391,7 +1449,13 @@ body.dark-mode .escape-info {
         height: 100vh;
         top: 0;
         left: 0;
-        z-index: 1009;
+        z-index: 1000;
+            touch-action: none !important;
+    -webkit-overflow-scrolling: auto !important;
+    overscroll-behavior: none !important;
+     /* Dodatečné vlastnosti pro iOS */
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
     }
     
     /* NOVÉ - Zajistí stabilitu při načítání stránky */
@@ -1596,6 +1660,9 @@ body.dark-mode .escape-info {
     transform: translateZ(0);
     will-change: right;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
 
 }
 
@@ -1603,6 +1670,7 @@ body.dark-mode .escape-info {
 .mobile-nav-container.mobile-menu-active {
     right: 0 !important;
     visibility: visible !important;
+       touch-action: pan-y !important;
 }
 
 .mobile-nav-list {
@@ -1612,7 +1680,15 @@ body.dark-mode .escape-info {
     gap: 5px;
   
 }
-
+/* 5. ZAJIŠTĚNÍ SPRÁVNÉHO CHOVÁNÍ PRO VŠECHNY PRVKY V MENU */
+.mobile-nav-list,
+.mobile-nav-button,
+.mobile-expand-header,
+.mobile-expand-content,
+.mobile-sub-item {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+}
 /* Mobilní položky seznamu - upraveno jako seznam */
 .mobile-nav-button {
     width: auto;
@@ -1624,22 +1700,24 @@ body.dark-mode .escape-info {
     color: #025227;
     text-decoration: none;
     text-align: left;
-    font-size: 15p; /* Trochu menší font */
+    font-size: 0.8em; /* Trochu menší font */
     font-weight: 500;
     transition: color 0.3s ease, background-color 0.3s ease;
     display: block;
     box-sizing: border-box;
     border-bottom: 1px solid #b6b6b6;
+    line-height: 1;
+    
 }
 
 .mobile-nav-button-big {
     border-bottom: 1px solid grey;
-    margin-bottom: 7%;
+    margin-bottom: 5%;
 }
 
 .mobile-nav-button-mid {
     border-bottom: 1px solid rgb(151, 151, 151);
-    margin-bottom: 5%;
+    margin-bottom: 3%;
 }
 
 .mobile-nav-button-two {
@@ -1684,7 +1762,14 @@ body.dark-mode .escape-info {
 .mobile-expand-header:hover {
     background-color: #e8f5e8;
     color: #034a33;
+
 }
+
+#mobileNav, #sticky-mobileNav {
+    max-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* pro smooth scroll na iOS */
+} 
 
 .mobile-expand-arrow {
     font-size: 12px;
@@ -1835,6 +1920,7 @@ body.dark-mode .escape-info {
          transition: right 0.3s ease-in-out, visibility 0.3s ease-in-out;
     }
 
+    
     .button-container.mobile-menu-active,
     .mobile-nav-container.mobile-menu-active {
         right: 0 !important;

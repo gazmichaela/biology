@@ -215,7 +215,6 @@ function initializeStickyBurgerMenu() {
     
     console.log('Sticky burger menu initialized successfully');
 }
-
 // HLAVNÍ FUNKCE pro inicializaci rozbalovacích menu ve sticky verzi - KOMPLETNĚ PŘEPRACOVANÁ
 function initializeStickyExpandableMenus(stickyMobileNav) {
     if (!stickyMobileNav) {
@@ -561,21 +560,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Zavření menu při změně velikosti okna
+// Vylepšené zavření menu při změně velikosti okna
 window.addEventListener('resize', function() {
     if (window.innerWidth > 1175) {
         closeAllMenus();
     }
 });
 
-// Prevent scroll na mobilních zařízeních při otevřeném menu - OPRAVENO
+// Vylepšené prevent scroll na mobilních zařízeních
 document.addEventListener('touchmove', function(e) {
     if (body.classList.contains('main-menu-open') || body.classList.contains('sticky-menu-open')) {
-        e.preventDefault();
+        // Povolíme scroll pouze uvnitř mobilní navigace
+        const isInsideMobileNav = e.target.closest('#mobileNav, #sticky-mobileNav');
+        if (!isInsideMobileNav) {
+            e.preventDefault();
+        }
     }
 }, { passive: false });
 
-// Zavření všech menu při kliknutí mimo
+// Vylepšené zavření všech menu při kliknutí mimo
 document.addEventListener('click', function(e) {
     // Zkontrolujeme, jestli klik nebyl na burger menu nebo uvnitř mobilní navigace
     const isMainBurger = burgerMenu && burgerMenu.contains(e.target);
@@ -586,6 +589,16 @@ document.addEventListener('click', function(e) {
         closeAllMenus();
     }
 });
+
+// Dodatečné zajištění pro escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        if (body.classList.contains('main-menu-open') || body.classList.contains('sticky-menu-open')) {
+            closeAllMenus();
+        }
+    }
+});
+
 
 // VYLEPŠENÁ DEBUGOVACÍ FUNKCE
 function debugStickyMenu() {
