@@ -76,3 +76,30 @@
     z-index: 1010;
 }
 
+.pdf-overlay,
+.pdf-viewer-container,
+.pdf-close-button,
+.pdf-iframe {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Tmavý režim pro PDF overlay */
+body.dark-mode .pdf-viewer-container {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+}
+
+body.dark-mode .pdf-close-button {
+    background-color: #3a3a3a;
+    color: white;
+    border-color: #555;
+}
+
+body.dark-mode .escape-info {
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 1px solid #444;
+}

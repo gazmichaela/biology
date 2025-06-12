@@ -1,6 +1,12 @@
 /* Obrázky v navigaci se nacházejí v navigation.css; Logo v style.css */
 /* Pokud není v article obrázek, tenhle CSS se nemusí dávat jako link v HTML */
 
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 .img-right {
     margin: 10px;
     /* margin: 1%; */

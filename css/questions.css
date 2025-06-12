@@ -48,3 +48,45 @@
     transition: background-color 0.3s ease;
 }
 
+/* Pro tmavý režim */
+body.dark-mode .question {
+    background-color: #333131;
+    border: 1px solid #505050;
+    color: #c8c1b5;
+}
+
+body.dark-mode .answer {
+    background-color: #2b2c2b;
+    color: #c8c1b5;
+    border-left-color: #4CAF50;
+}
+
+body.dark-mode #toggle-questions-btn {
+    background-color: #309ce5f1;
+    color: #e6e6e6;
+}
+
+body.dark-mode .question.open {
+    background-color: #404040;
+}
+
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    .question:hover {
+        background-color: #e8e8e8;
+    }
+    
+    body.dark-mode .question:hover {
+        background-color: #3a3a3a;
+    }
+    
+    #toggle-questions-btn:hover {
+        background-color: #2a8bc7;
+    }
+    
+    body.dark-mode #toggle-questions-btn:hover {
+        background-color: #2a8bc7f1;
+    }
+}
+

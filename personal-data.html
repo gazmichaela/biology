@@ -10,7 +10,8 @@
     </script>
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="css/img.css"> -->
-    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
     <link rel="stylesheet" href="css/responsiveness.css">
     <script src="js/dropdowns.js" defer></script>
     <script src="js/active-menu.js" defer></script>
@@ -39,6 +40,8 @@
         <br>
         <h1>Zásady používání cookies</h1>
         <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul>
             <a href="index.html" class="home-icon">
                 <picture>
@@ -46,13 +49,14 @@
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
                 </picture>
             </a>
+
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
                     <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</button></span>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
-                <div class="dropdown-content">  
+                <div class="dropdown-content">
                     <div class="sub-dropdown">
                         <a href="system-introduction.html" class="centered">Úvod</a>
                         <span class="sub-dropdown-toggle">&#9656;</span>
@@ -69,60 +73,65 @@
             <li class="dropdown">
                 <div class="button-container"> 
                     <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</button></span>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second">
                     <a href="life-properties.html">Vlastnosti živých soustav</a>
                     <a href="life-origin.html">Vznik života</a>
                 </div>
             </li>
-              
-            <!-- Buňka, Člověk, Otázky -->
+
+            <!-- Buňka, Člověk -->
             <div class="button-container">
                 <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
                 <a href="human.html" class="maine-button">Člověk</a>
             </div>
-
         </ul>
-            <!-- Burger menu tlačítko -->
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
         <div class="burger-menu" id="burgerMenu">
             <div class="burger-line"></div>
             <div class="burger-line"></div>
             <div class="burger-line"></div>
         </div>
   
-          <!-- Overlay pro zavření menu -->
-    <div class="menu-overlay" id="menuOverlay"></div>
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- Mobilní navigace -->
-    <nav class="mobile-nav-container" id="mobileNav">
-        <!-- Křížek pro zavření -->
-        <button class="menu-close-button" id="closeButton"></button>
-        
-        <div class="mobile-nav-list">
-            <!-- Home ikona -->
-             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
 
-            <!-- Základy systémového myšlení -->
-            <div class="mobile-expandable">
-                <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
-                    <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
-                       <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
-                        <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
-                    <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big">Teorie systémů</a>
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
          
-            <!-- Základy živých soustav -->
-               <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
-               <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
-               <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
            
-            <!-- Jednoduché odkazy -->
-            <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
-            <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
-        </div>
-    </nav>
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
         <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
     </header>
     

@@ -18,7 +18,6 @@
     filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%); /*Odpovídá přibližně barvě #309ce5 */
 }
 
-
 /* TLAČÍTKA V NAVIGACI, DROPDOWN */
 .button-container {
     display: flex;

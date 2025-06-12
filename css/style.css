@@ -86,6 +86,11 @@ body {
     color: #023f1e;
 }
 
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
  .dark-mode-toggle {
             position: fixed;
             bottom: 20px;
@@ -100,7 +105,7 @@ body {
             justify-content: center;
             font-size: 1.5rem;
             transition: all 0.3s ease;
-            z-index: 1000;
+            z-index: 10001;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             background: white;
         }
@@ -108,6 +113,7 @@ body {
 noscript {
     font-size: 3em;
     font-weight: 900;
+        background-color: #77afe0ee;
 }
 
 /* JavaScript helper class */
@@ -132,8 +138,7 @@ header p {
 
 header h1 {
     font-size: 40px;
-    margin: 0;
-    margin-top: 23px;
+    margin: 23px 10px 0px 10px;
 }
 
 header ul {
@@ -327,7 +332,9 @@ margin-right: 50px;
 
 
 
-
+.hidden {
+    display: none;
+}
 
 .citace {
     text-align: left;
@@ -336,11 +343,12 @@ margin-right: 50px;
 .logo {
     width: 175px;
     height: auto;
+    display: block;
     position: absolute;
     left: 0;
     top: 0;
     z-index: 1000;
-    margin: 21px 0px 0px 33px;
+    margin: 18px 0px 0px 25px;
     opacity: 0;               /* Na začátku je obrázek neviditelný */
     animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
 }
@@ -355,9 +363,10 @@ margin-right: 50px;
 
 .logo a {
     display: inline-block;
-    width: 70%; 
-    height: 70%; 
+    width: fit-content; 
+    height: auto; 
     position: relative;
+    text-decoration: none;
     left: 15%; 
     top: 15%; 
 }
@@ -369,8 +378,7 @@ margin-right: 50px;
     position: absolute;
     left: -15%; 
     top: -15%; 
-    width: 143%;
-    height: auto;
+    max-width: 100px;
 }
 
 .container {
