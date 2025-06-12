@@ -1325,6 +1325,10 @@ body.dark-mode .escape-info {
     width: 17px;
     height: 17px;
     justify-content: space-between;
+     touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .burger-line {
@@ -1672,6 +1676,17 @@ body.dark-mode .escape-info {
     visibility: visible !important;
        touch-action: pan-y !important;
 }
+
+html.menu-open,
+html.menu-open body {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    touch-action: none !important;
+    -webkit-overflow-scrolling: auto !important;
+}
+
 
 .mobile-nav-list {
     display: flex;
