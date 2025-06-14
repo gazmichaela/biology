@@ -1958,7 +1958,7 @@ function initStickyHeaderFunctionality() {
     const mainHeaderHeight = mainHeader.offsetHeight;
     let lastScrollY = window.scrollY || document.documentElement.scrollTop;
     let ticking = false;
-    const hideBuffer = 45; 
+    const hideBuffer = 48; 
     
 
     function handleScroll() {
