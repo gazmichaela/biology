@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
       target = target.parentElement;
     }
     
-    // Pokud se dotýká odkazu v info-boxu, neděláme nic
+   
     if (touchedInfoBoxLink) {
       return;
     }

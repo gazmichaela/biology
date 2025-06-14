@@ -37,9 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     imageContainer.style.justifyContent = 'center';
     imageContainer.style.overflow = 'hidden';
     
-    // Kontejner pro zdroje
-// Upravená část kódu pro zobrazení zdrojů na pravé straně modálu
-// Nahraďte původní definici sourceContainer touto verzí:
+
 
 // Kontejner pro zdroje - umístěný na pravé straně
 var sourceContainer = document.createElement('div');
@@ -564,7 +562,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
     
    
     
-    // VYLEPŠENÝ začátek tažení obrázku (desktop)
+  
     modalImg.addEventListener('mousedown', function(e) {
         if (isZoomed) {
             isDragging = true;
@@ -580,7 +578,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
         }
     });
     
-    // VYLEPŠENÉ posouvání obrázku při tažení (desktop)
+   
     document.addEventListener('mousemove', function(e) {
         if (isDragging && isZoomed) {
             // Vypočítáme delta pohybu od posledního pohybu
@@ -591,8 +589,7 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
             lastX = e.clientX;
             lastY = e.clientY;
             
-            // Přímá aktualizace posunu - VYLEPŠENO
-            // Přímá aktualizace posunu - VYLEPŠENO pro plynulejší pohyb
+           
             translateX += deltaX;
             translateY += deltaY;
             
@@ -624,14 +621,12 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
             // Získáme poslední pozici dotyku
             var touch = e.changedTouches[0];
             
-            // Pouze pro mobilní zařízení používáme jednotnou funkci pro přepínání zoomu
-           // Používáme jednotnou funkci pro přepínání zoomu pro všechna zařízení
-handleZoomToggle(touch.clientX, touch.clientY);
-e.preventDefault();
+          
+        handleZoomToggle(touch.clientX, touch.clientY);
+        e.preventDefault();
         }
     });
     
-    // VYLEPŠENÝ začátek tažení obrázku (desktop)
     modalImg.addEventListener('mousedown', function(e) {
         if (isZoomed) {
             isDragging = true;
@@ -647,7 +642,7 @@ e.preventDefault();
         }
     });
     
-    // VYLEPŠENÉ posouvání obrázku při tažení (desktop)
+   
     document.addEventListener('mousemove', function(e) {
         if (isDragging && isZoomed) {
             // Vypočítáme delta pohybu od posledního pohybu

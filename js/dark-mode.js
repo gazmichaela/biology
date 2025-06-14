@@ -60,7 +60,6 @@
             }
         `}
         
-        /* OKAMŽITÉ stylování toggle tlačítka pro zamezení problikávání */
         .dark-mode-toggle {
             position: fixed !important;
             bottom: 20px !important;
@@ -85,14 +84,14 @@
             `}
         }
         
-        /* Specifické pravidlo pro tmavý režim - musí být silnější */
+       
         html.dark-mode .dark-mode-toggle,
         body.dark-mode .dark-mode-toggle,
         .dark-mode .dark-mode-toggle {
             background: black !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
         }
-        /* RESPONZIVNÍ STYLY - aplikují se okamžitě */
+       
 @media (max-width: 768px) {
     .dark-mode-toggle {
         width: 40px !important;
@@ -113,8 +112,7 @@
     }
 }
    
-        
-        /* Třída pro zobrazení po načtení */
+     
         html.ready, body.ready {
             visibility: visible !important;
             opacity: 1 !important;
@@ -663,7 +661,7 @@ window.addEventListener('load', function() {
                 localStorage.removeItem('isFirstMenuOpen');
                 localStorage.removeItem('isMouseOverFirstToggle');
             } catch (e) {
-                // Ignored
+                
             }
         }
     }, 5000);

@@ -1,5 +1,4 @@
- // Zbytek kódu zůstává beze změny
-    // ----- FAQ FUNCTIONALITY -----
+    // ----- FAQ FUNCTIONALITY -----//
     const faqItems = document.querySelectorAll(".faq");
     if (faqItems.length > 0) {
         faqItems.forEach(faq => {

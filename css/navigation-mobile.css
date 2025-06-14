@@ -404,8 +404,6 @@ html.menu-open body {
 
 
 
-
-/* POKUD TO NIC NEDĚLÁ, ODSTRANIT */
 .mobile-expand-header,
 .mobile-expand-content {
     touch-action: manipulation;

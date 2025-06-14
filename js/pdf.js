@@ -1,4 +1,4 @@
-//-------IMPROVED PDF FUNCTIONALITY WITH MOBILE SUPPORT--------//
+//-------PDF FUNCIONALITY--------//
 document.addEventListener('DOMContentLoaded', function() {
     // Univerzální funkce pro inicializaci PDF vieweru
     function initPdfViewer(config) {
@@ -33,84 +33,224 @@ document.addEventListener('DOMContentLoaded', function() {
         let fallbackShown = false;
         let loadingTimeout = null;
         let pdfLoadAttempts = 0;
-        const maxLoadAttempts = 3;
+        const maxLoadAttempts = 2;
+        const loadingTimeoutDuration = 4000; // 4 sekundy
         
-        // Vylepšená detekce mobilního zařízení
+        // Vylepšená detekce mobilního zařízení a tabletů
         function detectMobile() {
             const userAgent = navigator.userAgent.toLowerCase();
-            const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(userAgent);
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            const isSmallScreen = window.innerWidth <= 768;
-            const isIOS = /ipad|iphone|ipod/.test(userAgent);
-            const isAndroid = /android/.test(userAgent);
+            const platform = navigator.platform?.toLowerCase() || '';
             
-            return {
-                isMobile: isMobileUA || (isTouchDevice && isSmallScreen),
+            // Detekce různých zařízení - rozšířené vzory
+            const patterns = {
+                iOS: /ipad|iphone|ipod/,
+                android: /android/,
+                windows: /windows phone|windows mobile|wpdesktop|windows nt.*touch/,
+                blackberry: /blackberry|bb10|rim/,
+                opera: /opera mini|opera mobi/,
+                mobile: /mobile|phone|mobi|mini/,
+                tablet: /tablet|ipad|playbook|silk|(puffin(?!.*(IP|AP|WP)))|kindle|nook|kobo/ 
+            };
+            
+            const isIOS = patterns.iOS.test(userAgent);
+            const isAndroid = patterns.android.test(userAgent);
+            const isWindowsMobile = patterns.windows.test(userAgent);
+            const isBlackberry = patterns.blackberry.test(userAgent);
+            const isOperaMobile = patterns.opera.test(userAgent);
+            const isMobilePattern = patterns.mobile.test(userAgent);
+            const isTabletPattern = patterns.tablet.test(userAgent);
+            
+            // Touch podpora
+            const isTouchDevice = 'ontouchstart' in window || 
+                                navigator.maxTouchPoints > 0 || 
+                                navigator.msMaxTouchPoints > 0;
+            
+            // Velikost obrazovky - vylepšené hranice
+            const screenWidth = Math.max(window.screen.width, window.screen.height);
+            const screenHeight = Math.min(window.screen.width, window.screen.height);
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            const isVerySmallScreen = viewportWidth <= 480;
+            const isSmallScreen = viewportWidth <= 768;
+            const isMediumScreen = viewportWidth > 768 && viewportWidth <= 1024;
+            const isLargeScreen = viewportWidth > 1024;
+            
+            // Orientace
+            const isPortrait = viewportHeight > viewportWidth;
+            const isLandscape = viewportWidth > viewportHeight;
+            
+            // Pixel density
+            const pixelRatio = window.devicePixelRatio || 1;
+            const isHighDPI = pixelRatio > 1.5;
+            
+            // Detekce specifických tabletů pomocí kombinace faktorů
+            const isLikelyTablet = (
+                // Explicitní tablet vzory
+                isTabletPattern ||
+                // iPad detekce
+                (isIOS && screenWidth >= 768) ||
+                // Android tablet - kombinace Android + dotyková obrazovka + větší rozlišení + absence "mobile" v UA
+                (isAndroid && isTouchDevice && viewportWidth >= 600 && !isMobilePattern) ||
+                // Obecné tablety - dotyková zařízení s rozlišením typickým pro tablety
+                (isTouchDevice && viewportWidth >= 768 && viewportWidth <= 1366 && isHighDPI) ||
+                // Windows tablety
+                (isWindowsMobile && viewportWidth >= 768) ||
+                // Kindle, Nook a podobné
+                /kindle|nook|kobo/.test(userAgent)
+            );
+            
+            // Kombinované vyhodnocení pro mobilní telefony
+            const isMobileDevice = (
+                // Explicitní mobilní vzory
+                isMobilePattern ||
+                // iOS telefony
+                (isIOS && !isLikelyTablet) ||
+                // Android telefony
+                (isAndroid && (isMobilePattern || viewportWidth < 600)) ||
+                // Windows Mobile
+                (isWindowsMobile && !isLikelyTablet) ||
+                // BlackBerry
+                isBlackberry ||
+                // Opera Mobile
+                isOperaMobile ||
+                // Velmi malé obrazovky
+                isVerySmallScreen ||
+                // Malé dotykové zařízení
+                (isTouchDevice && isSmallScreen && !isLikelyTablet)
+            ) && !isLikelyTablet; // Tablet má přednost
+            
+            const result = {
+                isMobile: isMobileDevice,
+                isTablet: isLikelyTablet,
+                isMobileOrTablet: isMobileDevice || isLikelyTablet,
                 isIOS: isIOS,
                 isAndroid: isAndroid,
+                isWindowsMobile: isWindowsMobile,
                 isTouchDevice: isTouchDevice,
-                isSmallScreen: isSmallScreen
+                isSmallScreen: isSmallScreen,
+                isMediumScreen: isMediumScreen,
+                isLargeScreen: isLargeScreen,
+                isVerySmallScreen: isVerySmallScreen,
+                isPortrait: isPortrait,
+                isLandscape: isLandscape,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+                viewportWidth: viewportWidth,
+                viewportHeight: viewportHeight,
+                pixelRatio: pixelRatio,
+                isHighDPI: isHighDPI,
+                userAgent: userAgent,
+                platform: platform
             };
+            
+            console.log('Detekce zařízení:', result);
+            return result;
         }
         
-        // Detekce podpory PDF v prohlížeči
+        // Vylepšená detekce podpory PDF v prohlížeči
         function checkPdfSupport() {
             return new Promise((resolve) => {
-                // Rychlá kontrola založená na user agentu
                 const mobileInfo = detectMobile();
                 
-                // iOS Safari obvykle nepodporuje PDF v iframe
+                // Pro iOS zařízení (iPhone, iPad) - obvykle mají problémy s PDF v iframe
                 if (mobileInfo.isIOS) {
+                    console.log('iOS detekován - PDF v iframe obvykle nefunguje');
                     resolve(false);
                     return;
                 }
                 
-                // Android Chrome/Firefox obvykle podporuje PDF
-                if (mobileInfo.isAndroid) {
-                    resolve(true);
+                // Pro mobilní zařízení s velmi malou obrazovkou
+                if (mobileInfo.isVerySmallScreen) {
+                    console.log('Velmi malá obrazovka - doporučujeme fallback');
+                    resolve(false);
                     return;
                 }
                 
-                // Pro desktop a ostatní případy testujeme
-                const testFrame = document.createElement('iframe');
-                testFrame.style.cssText = 'position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;';
-                testFrame.src = 'data:application/pdf;base64,JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFsgMyAwIFIgXQovQ291bnQgMQo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvUGFnZQovUGFyZW50IDIgMCBSCi9NZWRpYUJveCBbIDAgMCA2MTIgNzkyIF0KPj4KZW5kb2JqCnhyZWYKMCA0CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU4IDAwMDAwIG4gCjAwMDAwMDAxMTUgMDAwMDAgbiAKdHJhaWxlcgo8PAovU2l6ZSA0Ci9Sb290IDEgMCBSCj4+CnN0YXJ0eHJlZgoxOTQKJSVFT0Y=';
-                
-                let resolved = false;
-                
-                const timeout = setTimeout(() => {
-                    if (!resolved) {
-                        resolved = true;
-                        if (document.body.contains(testFrame)) {
-                            document.body.removeChild(testFrame);
+                // Pro všechna mobilní/tablet zařízení zkusíme důkladnější test
+                if (mobileInfo.isMobileOrTablet) {
+                    console.log('Mobilní/tablet zařízení - testuji PDF podporu důkladně');
+                    
+                    // Zkusíme více způsobů detekce
+                    let testsPassed = 0;
+                    let testsCompleted = 0;
+                    const totalTests = 2;
+                    
+                    // Test 1: Zkusíme načíst minimální PDF
+                    const testFrame = document.createElement('iframe');
+                    testFrame.style.cssText = 'position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;';
+                    testFrame.src = 'data:application/pdf;base64,JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL1BhZ2VzCi9LaWRzIFsgMyAwIFIgXQovQ291bnQgMQo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvUGFnZQovUGFyZW50IDIgMCBSCi9NZWRpYUJveCBbIDAgMCA2MTIgNzkyIF0KPj4KZW5kb2JqCnhyZWYKMCA0CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU4IDAwMDAwIG4gCjAwMDAwMDAxMTUgMDAwMDAgbiAKdHJhaWxlcgo8PAovU2l6ZSA0Ci9Sb290IDEgMCBSCj4+CnN0YXJ0eHJlZgoxOTQKJSVFT0Y=';
+                    
+                    let test1Resolved = false;
+                    
+                    const finishTest = () => {
+                        testsCompleted++;
+                        if (testsCompleted >= totalTests) {
+                            if (document.body.contains(testFrame)) {
+                                document.body.removeChild(testFrame);
+                            }
+                            
+                            // Pokud prošel alespoň jeden test, považujeme PDF za podporované
+                            const isSupported = testsPassed > 0;
+                            console.log(`PDF podpora test dokončen: ${testsPassed}/${totalTests} testů prošlo, výsledek: ${isSupported}`);
+                            resolve(isSupported);
                         }
-                        resolve(false);
-                    }
-                }, 2000);
-                
-                testFrame.onload = () => {
-                    if (!resolved) {
-                        resolved = true;
-                        clearTimeout(timeout);
-                        if (document.body.contains(testFrame)) {
-                            document.body.removeChild(testFrame);
+                    };
+                    
+                    const test1Timeout = setTimeout(() => {
+                        if (!test1Resolved) {
+                            test1Resolved = true;
+                            console.log('PDF test 1 timeout');
+                            finishTest();
                         }
-                        resolve(true);
-                    }
-                };
-                
-                testFrame.onerror = () => {
-                    if (!resolved) {
-                        resolved = true;
-                        clearTimeout(timeout);
-                        if (document.body.contains(testFrame)) {
-                            document.body.removeChild(testFrame);
+                    }, 1000);
+                    
+                    testFrame.onload = () => {
+                        if (!test1Resolved) {
+                            test1Resolved = true;
+                            clearTimeout(test1Timeout);
+                            console.log('PDF test 1 úspěšný');
+                            testsPassed++;
+                            finishTest();
                         }
-                        resolve(false);
-                    }
-                };
-                
-                document.body.appendChild(testFrame);
+                    };
+                    
+                    testFrame.onerror = () => {
+                        if (!test1Resolved) {
+                            test1Resolved = true;
+                            clearTimeout(test1Timeout);
+                            console.log('PDF test 1 neúspěšný');
+                            finishTest();
+                        }
+                    };
+                    
+                    document.body.appendChild(testFrame);
+                    
+                    // Test 2: Kontrola MIME typu podpory
+                    setTimeout(() => {
+                        try {
+                            const mimeSupported = navigator.mimeTypes && 
+                                                 navigator.mimeTypes['application/pdf'] && 
+                                                 navigator.mimeTypes['application/pdf'].enabledPlugin;
+                            
+                            if (mimeSupported) {
+                                console.log('PDF test 2 úspěšný - MIME typ podporován');
+                                testsPassed++;
+                            } else {
+                                console.log('PDF test 2 neúspěšný - MIME typ nepodporován');
+                            }
+                        } catch (e) {
+                            console.log('PDF test 2 chyba:', e);
+                        }
+                        
+                        finishTest();
+                    }, 200);
+                    
+                } else {
+                    // Desktop - obvykle podporuje PDF
+                    console.log('Desktop zařízení - PDF obvykle podporováno');
+                    resolve(true);
+                }
             });
         }
         
@@ -147,74 +287,85 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return loadingDiv;
         }
-       // Vylepšené fallback tlačítka
-function createFallbackButtons() {
-    const fallbackDiv = document.createElement('div');
-    fallbackDiv.id = `${frameId}_fallback`;
-    fallbackDiv.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.98);
-        padding: 20px;
-        border-radius: 16px;
-        box-shadow: 0 12px 48px rgba(0,0,0,0.3);
-        text-align: center;
-        z-index: 1002;
-        width: min(300px, 85vw);
-        height: min(300px, 85vh);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255,255,255,0.3);
-    `;
-    
-    const mobileInfo = detectMobile();
-    const downloadUrl = pdfPath;
-    
-    fallbackDiv.innerHTML = `
-        <p style="margin: 0 0 20px 0; font-size: 16px; color: #333; line-height: 1.5;">
-            Váš mobilní prohlížeč může mít problém zobrazit PDF přímo na stránce. Vyberte si způsob zobrazení:
-        </p>
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <a href="${downloadUrl}" target="_blank" 
-               style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.3s; width: 100%; box-sizing: border-box;"
-               onmouseover="this.style.transform='translateY(-2px)';"
-               onmouseout="this.style.transform='translateY(0)';">
-                <span>Otevřít v novém okně</span>
-            </a>
+        
+        // Vylepšené fallback tlačítka s lepším rozpoznáním zařízení
+        function createFallbackButtons() {
+            const fallbackDiv = document.createElement('div');
+            fallbackDiv.id = `${frameId}_fallback`;
+            fallbackDiv.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 255, 255, 0.98);
+                padding: 25px;
+                border-radius: 16px;
+                box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+                text-align: center;
+                z-index: 1002;
+                width: min(300px, 60vw);
+                max-height: 85vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,0.3);
+                overflow-y: auto;
+            `;
             
-            ${mobileInfo.isMobile ? `
-                <a href="${downloadUrl}" download 
-                   style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: #28a745; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.3s; width: 100%; box-sizing: border-box;"
-                   onmouseover="this.style.transform='translateY(-2px)';"
-                   onmouseout="this.style.transform='translateY(0)';">
-                    <span>Stáhnout do zařízení</span>
-                </a>
-            ` : ''}
+            const mobileInfo = detectMobile();
+            const downloadUrl = pdfPath;
             
-            ${pdfLoadAttempts < maxLoadAttempts ? `
-                <button onclick="window.${frameId}_retryFromFallback();"
-                        style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; background: #6c757d; color: white; border: none; border-radius: 10px; font-weight: 500; cursor: pointer; transition: all 0.3s; width: 100%; box-sizing: border-box;"
-                        onmouseover="this.style.transform='translateY(-2px)';"
-                        onmouseout="this.style.transform='translateY(0)';">
-                    <span>Zkusit znovu</span>
-                </button>
-            ` : ''}
-        </div>
-    `;
-    
-    return fallbackDiv;
-}
+            let deviceType = 'zařízení';
+            if (mobileInfo.isIOS) deviceType = 'iOS zařízení';
+            else if (mobileInfo.isAndroid) deviceType = 'Android zařízení';
+            else if (mobileInfo.isTablet) deviceType = 'tablet';
+            else if (mobileInfo.isMobile) deviceType = 'mobilní telefon';
+            
+            fallbackDiv.innerHTML = `
+                <h3 style="margin: 0 0 15px 0; color: #333; font-size: 18px;">
+                    PDF viewer
+                </h3>
+                <p style="margin: 0 0 20px 0; font-size: 15px; color: #555; line-height: 1.4;">
+                    Vaše ${deviceType} může mít problémy se zobrazením PDF přímo na stránce. Vyberte si způsob zobrazení:
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <a href="${downloadUrl}" target="_blank" 
+                       style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s; width: 100%; box-sizing: border-box; font-size: 15px;"
+                       onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0,123,255,0.3)';"
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <span>Otevřít v novém okně</span>
+                    </a>
+                    
+                    <a href="${downloadUrl}" download 
+                       style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s; width: 100%; box-sizing: border-box; font-size: 15px;"
+                       onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(40,167,69,0.3)';"
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <span>Stáhnout soubor</span>
+                    </a>
+                    
+                    ${pdfLoadAttempts < maxLoadAttempts ? `
+                        <button onclick="window.${frameId}_retryFromFallback();"
+                                style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.3s; width: 100%; box-sizing: border-box; font-size: 15px;"
+                                onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(108,117,125,0.3)';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <span>Zkusit znovu</span>
+                        </button>
+                    ` : ''}
+                </div>
+                
+              
+            `;
+            
+            return fallbackDiv;
+        }
         
         // Aplikace mobilních stylů
         function applyMobileStyles() {
             const mobileInfo = detectMobile();
             
-            if (mobileInfo.isMobile) {
-                // Iframe styls pro mobil
+            if (mobileInfo.isMobileOrTablet) {
+                // Iframe styly pro mobilní zařízení
                 pdfFrame.style.cssText += `
                     width: 100% !important;
                     height: 100% !important;
@@ -226,7 +377,7 @@ function createFallbackButtons() {
                     background: white;
                 `;
                 
-                // Overlay styly pro mobil
+                // Overlay styly pro mobilní zařízení
                 pdfOverlay.style.cssText += `
                     padding: 0 !important;
                     background: rgba(0,0,0,0.95) !important;
@@ -238,7 +389,7 @@ function createFallbackButtons() {
                     z-index: 1000 !important;
                 `;
                 
-                // Mobilní viewport meta tag
+                // Viewport meta tag pro mobilní zařízení
                 let viewport = document.querySelector('meta[name="viewport"]');
                 if (!viewport) {
                     viewport = document.createElement('meta');
@@ -269,7 +420,7 @@ function createFallbackButtons() {
             }
         };
         
-        // Nová funkce pro retry z fallback dialogu
+        // funkce pro retry z fallback dialogu
         window[`${frameId}_retryFromFallback`] = function() {
             console.log(`Retry z fallback dialogu - pokus #${pdfLoadAttempts + 1}`);
             
@@ -294,9 +445,9 @@ function createFallbackButtons() {
                 hideLoadingIndicator();
                 console.log(`Loading timeout po ${pdfLoadAttempts}. pokusu`);
                 
-                // Po timeoutu vždy zobrazíme fallback (bez ohledu na počet pokusů)
+                // Po timeoutu zobrazíme fallback
                 showFallbackOptions();
-            }, 5000); // 5 sekund timeout
+            }, loadingTimeoutDuration);
         }
         
         // Skrytí loading indikátoru
@@ -339,7 +490,7 @@ function createFallbackButtons() {
         // Hlavní funkce pro otevření PDF
         async function openPdfViewer() {
             const mobileInfo = detectMobile();
-            isMobile = mobileInfo.isMobile;
+            isMobile = mobileInfo.isMobileOrTablet;
             fallbackShown = false;
             pdfLoadAttempts = 0;
             
@@ -354,23 +505,26 @@ function createFallbackButtons() {
             // Blokujeme scrollování na pozadí
             document.body.style.overflow = 'hidden';
             
-            // Zobrazíme loading indikátor
+            // Zobrazíme loading indikátor nejdříve
             showLoadingIndicator();
             
-            // Pro mobilní zařízení zkontrolujeme podporu PDF
+            // Pro mobilní a tablet zařízení zkontrolujeme podporu PDF
             if (isMobile) {
                 const pdfSupported = await checkPdfSupport();
-                console.log('PDF podpora na mobilu:', pdfSupported);
+                console.log('PDF podpora na mobilním/tablet zařízení:', pdfSupported);
                 
-                if (!pdfSupported && mobileInfo.isIOS) {
-                    // iOS obvykle nepodporuje PDF v iframe - zobrazíme fallback
-                    console.log('iOS detekován - zobrazuji fallback možnosti');
+                if (!pdfSupported) {
+                    // Zobrazíme fallback po loading období
+                    console.log('PDF nepodporováno - zobrazuji fallback možnosti');
                     setTimeout(() => {
                         showFallbackOptions();
-                    }, 1000);
+                    }, 1500); // Delší čekání aby bylo vidět loading
                     return;
                 }
             }
+            
+            // Zobrazíme loading indikátor nejdříve
+            showLoadingIndicator();
             
             // Načteme PDF
             pdfFrame.style.display = 'block';
@@ -389,7 +543,7 @@ function createFallbackButtons() {
                 pdfFrame.removeEventListener('load', loadHandler);
                 pdfFrame.removeEventListener('error', errorHandler);
                 
-                // Při chybě vždy zobrazíme fallback
+                // Při chybě zobrazíme fallback
                 showFallbackOptions();
             };
             
@@ -476,14 +630,14 @@ function createFallbackButtons() {
         window.addEventListener('resize', function() {
             if (isPdfOpen) {
                 const newMobileInfo = detectMobile();
-                if (newMobileInfo.isMobile !== isMobile) {
-                    isMobile = newMobileInfo.isMobile;
+                if (newMobileInfo.isMobileOrTablet !== isMobile) {
+                    isMobile = newMobileInfo.isMobileOrTablet;
                     applyMobileStyles();
                 }
             }
         });
         
-        console.log(`${viewerName} PDF viewer inicializován s vylepšenou mobilní podporou`);
+        console.log(`${viewerName} PDF viewer inicializován s vylepšenou detekcí mobilních zařízení`);
     }
     
     // Inicializace všech PDF viewerů
@@ -519,7 +673,7 @@ function createFallbackButtons() {
         initPdfViewer(config);
     });
 });
-//-------PDF FUNCIONALITY FOR ORIGIN OF LIFE--------//
+//-------PDF FUNCIONALITY ORIGIN OF LIFE--------//
 // Počkáme na načtení stránky
 document.addEventListener('DOMContentLoaded', function() {
     // Získáme reference na elementy
@@ -760,22 +914,12 @@ document.addEventListener('DOMContentLoaded', function() {
         disableBeforeUnloadWarning();
     };
     
-    // Alternativní řešení - kompletně zablokujeme beforeunload pro celou stránku
-    // (odkomentujte pokud chcete úplně zakázat všechna varování)
-    /*
-    window.addEventListener('beforeunload', function(e) {
-        // Zablokujeme výchozí chování
-        e.preventDefault();
-        // Nevracíme žádnou hodnotu - nebude se zobrazovat varování
-        return undefined;
-    });
-    */
     
     console.log('PDF viewer pro Origin of Life inicializován s inteligentním focus managementem a potlačením beforeunload varování');
 });
 
 
-//-------PDF FUNCIONALITY FOR PRESAH--------//
+//-------PDF FUNCIONALITY PRESAH--------//
 // Počkáme na načtení stránky
 document.addEventListener('DOMContentLoaded', function() {
     // Získáme reference na elementy
@@ -870,13 +1014,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function openPdfViewer() {
         pdfFrame.src = 'docs/presah.pdf'; // Změněna cesta k PDF souboru
         pdfOverlay.style.display = 'block';
-        // NEBLOKUJEME scrollování - necháme stránku scrollovatelnou
-        // document.body.style.overflow = 'hidden'; // Odstraněno!
         isPdfOpen = true;
-        
-        // DŮLEŽITÉ: Při otevření PDF NEMÁ automaticky focus
         pdfHasFocus = false;
-        
         console.log('PDF otevřeno - šipky ovládají pozadí stránky. Klikněte do PDF pro ovládání PDF.');
     }
     
@@ -1015,17 +1154,6 @@ document.addEventListener('DOMContentLoaded', function() {
         originalOpenPdfViewer();
         disableBeforeUnloadWarning();
     };
-    
-    // Alternativní řešení - kompletně zablokujeme beforeunload pro celou stránku
-    // (odkomentujte pokud chcete úplně zakázat všechna varování)
-    /*
-    window.addEventListener('beforeunload', function(e) {
-        // Zablokujeme výchozí chování
-        e.preventDefault();
-        // Nevracíme žádnou hodnotu - nebude se zobrazovat varování
-        return undefined;
-    });
-    */
     
     console.log('PDF viewer pro Presah inicializován s inteligentním focus managementem a potlačením beforeunload varování');
 });

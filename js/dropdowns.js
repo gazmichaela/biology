@@ -540,14 +540,14 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
         
-        // NOVÉ: Zlepšený kód pro agresivnější obnovu stavu menu při refreshi
+        //Zlepšený kód pro obnovu stavu menu při refreshi
         function setupAggressiveRefreshHandling() {
             // Kontrolujeme, zda jde o refresh stránky
             const isRefresh = localStorage.getItem('isRefreshing') === 'true';
             localStorage.removeItem('isRefreshing');
             
             if (isRefresh) {
-                // Byla to akce refresh - musíme agresivněji obnovit stav
+                // Byla to akce refresh - musíme  obnovit stav
                 // Nastavíme sérii časovačů, které budou zkoušet obnovit stav menu
                 const refreshTimers = [10, 30, 50, 100, 200, 300, 500, 1000];
                 
@@ -599,7 +599,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         
-        // Spustíme agresivní zpracování obnovy při refreshi
+        // Spustíme  zpracování obnovy při refreshi
         setupAggressiveRefreshHandling();
         
         // Přidáme reakci na načtení všech zdrojů (obrázky, CSS, skripty)
@@ -709,7 +709,7 @@ if (dropdownToggle && dropdownContent) {
     let animationTimeoutFirst;
     let inactivityTimeoutFirst; // Timeout pro neaktivitu
     let repositionTimeoutFirst; // Timeout pro přepočet pozice
-    let submenuHideTimeout; // NOVÉ: Timeout specificky pro submenu
+    let submenuHideTimeout; // Timeout specificky pro submenu
     let clickInactivityTimeout; // NOVÝ: Timeout pro zavření po kliknutí při nečinnosti
 const clickInactivityDelay = 2000; // 5 sekund pro zavření po kliknutí
     const inactivityDelay = 2000; // 2 sekundy neaktivity
@@ -849,7 +849,7 @@ const clickInactivityDelay = 2000; // 5 sekund pro zavření po kliknutí
             const menuRect = dropdownContent.getBoundingClientRect();
             const toggleRect = dropdownToggle.getBoundingClientRect();
             
-            // UPRAVENO: Použít novou funkci pro kontrolu submenu
+            // Použít novou funkci pro kontrolu submenu
             const isMouseOverSubElements = isMouseOverSubmenuElements();
             
             // Kontrola hlavních prvků
@@ -877,11 +877,11 @@ if (!isMouseOverMenu && !isMouseOverToggle && !isMouseOverDeadZone && !isMouseOv
     hideMenu();
     isClickOpened = false;
 }
-// ODSTRANIT ELSE ČÁST - nerestarovat časovač když je myš nad menu
+
         }, inactivityDelay);
     }
     
-    // NOVÁ: Funkce pro spuštění časovače zavření po kliknutí
+    // Funkce pro spuštění časovače zavření po kliknutí
 function startClickInactivityTimer() {
     clearTimeout(clickInactivityTimeout);
     clickInactivityTimeout = setTimeout(() => {
@@ -923,7 +923,7 @@ function startClickInactivityTimer() {
         clearTimeout(animationTimeoutFirst);
         clearTimeout(inactivityTimeoutFirst);
         clearTimeout(repositionTimeoutFirst); // Zrušit monitorování pozice
-        clearTimeout(submenuHideTimeout); // PŘIDÁNO: Zrušit timeout submenu
+        clearTimeout(submenuHideTimeout); // Zrušit timeout submenu
         
         // Nastavíme příznak, že probíhá zavírání
         isClosingInProgress = true;
@@ -976,7 +976,7 @@ function startClickInactivityTimer() {
         }
     };
     
-  // UPRAVENO: Lépe zpracovat událost zobrazení menu po najetí kurzoru
+  // Lépe zpracovat událost zobrazení menu po najetí kurzoru
 dropdownToggle.addEventListener("mouseenter", function() {
     // Aktualizujeme čas posledního pohybu myši
     lastMouseMoveTime = Date.now();
@@ -994,18 +994,18 @@ dropdownToggle.addEventListener("mouseenter", function() {
         });
     }
     
-    // UPRAVENO: Zrušíme všechny submenu timeouty při najetí na hlavní tlačítko
+    // Zrušíme všechny submenu timeouty při najetí na hlavní tlačítko
     clearTimeout(submenuHideTimeout);
     
-    // NOVÉ: Uložíme informaci o tom, že kurzor je nad tlačítkem
+    // Uložíme informaci o tom, že kurzor je nad tlačítkem
     localStorage.setItem('isMouseOverFirstToggle', 'true');
 });
     
-    // NOVÉ: Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
+    // Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
     dropdownToggle.addEventListener("mouseleave", function(e) {
         localStorage.removeItem('isMouseOverFirstToggle');
         
-       // NOVÉ: Pokud je otevřeno kliknutím, restartovat časovač při odchodu myši
+       // Pokud je otevřeno kliknutím, restartovat časovač při odchodu myši
 if (isClickOpened) {
     startClickInactivityTimer();
     return;
@@ -1054,9 +1054,9 @@ if (isClickOpened) {
             // Jinak ho otevřeme a nastavíme flag
             isClickOpened = true;
             
-            // UPRAVENO: Použít bezpečnou funkci pro skrytí submenu
-            // UPRAVENO: Zrušíme timeout pro skrytí submenu při kliknutí
-clearTimeout(submenuHideTimeout);
+            // Použít bezpečnou funkci pro skrytí submenu
+            // Zrušíme timeout pro skrytí submenu při kliknutí
+            clearTimeout(submenuHideTimeout);
             
             // Vynucené okamžité zobrazení menu
             dropdownContent.style.display = "block";
@@ -1075,7 +1075,7 @@ clearTimeout(submenuHideTimeout);
                 // Spustíme časovač nečinnosti
                 startInactivityTimer();
                 // Spustíme nový časovač pro zavření po kliknutí
-startClickInactivityTimer();
+                startClickInactivityTimer();
             });
         }
     });
@@ -1118,11 +1118,11 @@ startClickInactivityTimer();
                 // Spustíme kontinuální monitorování pozice
                 startPositionMonitoring();
             });
-} else if (isClickOpened) {
+           } else if (isClickOpened) {
     // Pokud je otevřeno kliknutím, ZRUŠÍME OBA časovače
     clearTimeout(clickInactivityTimeout);
     clearTimeout(inactivityTimeoutFirst);
-}
+   }
     });
     
     // Přidáme posluchače událostí myši pro resetování časovače nečinnosti
@@ -1208,7 +1208,7 @@ startClickInactivityTimer();
     
     // Skrytí podmenu při opuštění kurzoru podmenu - pouze pokud není otevřeno kliknutím
     dropdownContent.addEventListener("mouseleave", function(e) {
-// NOVÉ: Pokud je otevřeno kliknutím, restartovat časovač při odchodu myši
+// Pokud je otevřeno kliknutím, restartovat časovač při odchodu myši
 if (isClickOpened) {
     startClickInactivityTimer();
     return;
@@ -1283,7 +1283,7 @@ if (isClickOpened) {
         }
     });
     
-    // UPRAVENO: Export funkce pro submenu, která bude nastavovat stav submenu
+    // Export funkce pro submenu, která bude nastavovat stav submenu
     window.setSubmenuActive = function(active) {
         isSubmenuActive = active;
         isMouseOverSubmenu = active; // PŘIDÁNO: Synchronizace stavů
@@ -1300,14 +1300,14 @@ if (isClickOpened) {
         }
     };
 
-    // NOVÉ: Příznak pro stav načítání DOM
+    // Příznak pro stav načítání DOM
     let domContentLoaded = false;
     let pageLoaded = false;
     
-    // NOVÉ: Příznak pro sledování, zda máme zobrazit menu po načtení
+    // Příznak pro sledování, zda máme zobrazit menu po načtení
     let shouldShowMenuAfterLoad = false;
     
-    // NOVÉ: Optimalizovaná funkce pro kontrolu pozice myši
+    // Optimalizovaná funkce pro kontrolu pozice myši
 function checkMousePosition() {
     // Aktualizujeme pozici myši z localStorage
     const savedMouseX = parseInt(localStorage.getItem('mouseX')) || 0;
@@ -1360,7 +1360,7 @@ function checkMousePosition() {
         }
     }
 }
-    // NOVÉ: Událost pro DOMContentLoaded - nejrychlejší způsob zjištění, že DOM je připraven
+    // Událost pro DOMContentLoaded - nejrychlejší způsob zjištění, že DOM je připraven
     document.addEventListener('DOMContentLoaded', function() {
         domContentLoaded = true;
         
@@ -1373,7 +1373,7 @@ function checkMousePosition() {
         }
     });
     
-    // NOVÉ: Událost pro load - záložní mechanismus, pokud by DOMContentLoaded nebylo zavoláno
+    // Událost pro load - záložní mechanismus, pokud by DOMContentLoaded nebylo zavoláno
     window.addEventListener('load', function() {
         pageLoaded = true;
         
@@ -1393,7 +1393,7 @@ function checkMousePosition() {
         }
     });
     
-    // NOVÉ: Spustíme základní kontrolu ihned a nečekáme na DOMContentLoaded
+    // Spustíme základní kontrolu ihned a nečekáme na DOMContentLoaded
     // Toto zajistí, že menu může být zobrazeno co nejdříve po načtení stránky
     setTimeout(function() {
         if (!domContentLoaded) {
@@ -1402,7 +1402,7 @@ function checkMousePosition() {
     }, 0);
 }
 
-// UPRAVENO: Sledování pozice myši s optimalizací
+// Sledování pozice myši s optimalizací
 let mouseMoveThrottle = false;
 document.addEventListener('mousemove', function(e) {
     mouseX = e.clientX;
@@ -1419,7 +1419,7 @@ document.addEventListener('mousemove', function(e) {
     }
 });
 
-// NOVÉ: Optimalizace sledování pozice myši s debouncing
+// Optimalizace sledování pozice myši s debouncing
 let lastMouseUpdate = 0;
 const MOUSE_UPDATE_INTERVAL = 100; // Minimální interval mezi aktualizacemi v ms
 
@@ -1439,7 +1439,7 @@ document.addEventListener('mousemove', function(e) {
     }
 });
 
-// NOVÉ: Vyčištění localStorage při zavření stránky
+// Vyčištění localStorage při zavření stránky
 window.addEventListener('beforeunload', function() {
     // Vyčistíme pouze pozici myši, ale zachováme stavy menu
     // které mohou být potřebné po refreshu
@@ -1448,7 +1448,7 @@ window.addEventListener('beforeunload', function() {
     localStorage.removeItem('isMouseOverFirstToggle');
 });
 
-// NOVÉ: Vyčištění starých stavů při načtení stránky (prevence chyb)
+// Vyčištění starých stavů při načtení stránky (prevence chyb)
 window.addEventListener('load', function() {
     // Po 5 sekundách vyčistíme všechny stavy, aby nedošlo k chybám
     setTimeout(function() {
@@ -1476,7 +1476,7 @@ window.dropdownMenu = {
     }
 };
 
-// NOVÉ: Debug funkce pro vývojáře (pouze v development módu)
+// Debug funkce pro vývojáře (pouze v development módu)
 if (typeof console !== 'undefined' && console.log) {
     window.debugDropdown = function() {
         console.log('Dropdown Debug Info:', {
@@ -1495,8 +1495,6 @@ if (typeof console !== 'undefined' && console.log) {
         });
     };
 }
-
-// Konec dropdown menu funkcionality
 
 // ----- SECOND DROPDOWN MENU FUNCTIONALITY -----
 const dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
@@ -1528,11 +1526,11 @@ if (dropdownToggle2 && dropdownContent2) {
     deadZoneElement2.style.display = "none";
     deadZoneElement2.style.zIndex = "999"; // Vysoký z-index
     
-    // NOVÉ: Příznak pro stav načítání DOM
+    // Příznak pro stav načítání DOM
     let domContentLoaded2 = false;
     let pageLoaded2 = false;
     
-    // NOVÉ: Příznak pro sledování, zda máme zobrazit menu po načtení
+    // Příznak pro sledování, zda máme zobrazit menu po načtení
     let shouldShowMenuAfterLoad2 = false;
     
     // Funkce pro nastavení pozice a rozměrů mrtvé zóny s vyšší spolehlivostí
@@ -1626,7 +1624,7 @@ if (dropdownToggle2 && dropdownContent2) {
             dropdownContent2.style.opacity = "1";
             dropdownContent2.style.visibility = "visible";
             
-            // NOVÉ: Spustíme kontinuální monitorování pozice
+            // Spustíme kontinuální monitorování pozice
             startPositionMonitoring2();
         });
         
@@ -1677,7 +1675,7 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     };
     
-    // NOVÉ: Optimalizovaná funkce pro kontrolu pozice myši
+    // Optimalizovaná funkce pro kontrolu pozice myši
     function checkMousePosition2() {
         // Kontrola uložené pozice z localStorage
         const savedMouseX = parseInt(localStorage.getItem('mouseX')) || 0;
@@ -1719,7 +1717,7 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     }
     
-    // NOVÉ: Událost pro DOMContentLoaded - nejrychlejší způsob zjištění, že DOM je připraven
+    // Událost pro DOMContentLoaded - nejrychlejší způsob zjištění, že DOM je připraven
     document.addEventListener('DOMContentLoaded', function() {
         domContentLoaded2 = true;
         
@@ -1732,7 +1730,7 @@ if (dropdownToggle2 && dropdownContent2) {
         }
     });
     
-    // NOVÉ: Událost pro load - záložní mechanismus, pokud by DOMContentLoaded nebylo zavoláno
+    // Událost pro load - záložní mechanismus, pokud by DOMContentLoaded nebylo zavoláno
     window.addEventListener('load', function() {
         pageLoaded2 = true;
         
@@ -1775,11 +1773,11 @@ if (dropdownToggle2 && dropdownContent2) {
             });
         }
         
-        // NOVÉ: Uložíme informaci o tom, že kurzor je nad tlačítkem
+        // Uložíme informaci o tom, že kurzor je nad tlačítkem
         localStorage.setItem('isMouseOverSecondToggle', 'true');
     });
     
-    // NOVÉ: Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
+    // Přidat listener pro mouseleave na toggle tlačítko pro záznam pozice
     dropdownToggle2.addEventListener("mouseleave", function(e) {
         localStorage.removeItem('isMouseOverSecondToggle');
         
@@ -1834,7 +1832,7 @@ if (dropdownToggle2 && dropdownContent2) {
                 dropdownContent2.style.opacity = "1";
                 dropdownContent2.style.visibility = "visible";
                 
-                // NOVÉ: Spustíme kontinuální monitorování pozice
+                // Spustíme kontinuální monitorování pozice
                 startPositionMonitoring2();
                 
                 // Uložení stavu do localStorage
@@ -1861,7 +1859,7 @@ if (dropdownToggle2 && dropdownContent2) {
                 dropdownContent2.style.opacity = "1";
                 dropdownContent2.style.visibility = "visible";
                 
-                // NOVÉ: Spustíme kontinuální monitorování pozice
+                // Spustíme kontinuální monitorování pozice
                 startPositionMonitoring2();
             });
         } else if (isClickOpened2) {
@@ -2008,6 +2006,7 @@ document.addEventListener('mousemove', function(e) {
     localStorage.setItem('mouseX', mouseX);
     localStorage.setItem('mouseY', mouseY);
 });
+
 // ----- SUB-DROPDOWN MENU FUNCTIONALITY -----
 const subDropdownToggle = document.querySelector(".sub-dropdown-toggle");
 const subDropdownContent = document.querySelector(".sub-dropdown-content");
@@ -2019,7 +2018,7 @@ if (subDropdownToggle && subDropdownContent) {
     let isClickOpenedSub = false;
     let isMouseOverMenu = false; // Proměnná pro sledování, jestli je myš nad menu
     
-    // KOMPLETNÍ PŘEPRACOVÁNÍ ANIMACE:
+    
     // 1. Nejdřív aplikujeme CSS přímo do elementu pro zajištění konzistence
     const originalDisplay = window.getComputedStyle(subDropdownContent).display;
     // Nastavíme transition na všechny vlastnosti pro zajištění plynulosti
@@ -2074,7 +2073,7 @@ if (subDropdownToggle && subDropdownContent) {
         }
     }
     
-    // ZCELA PŘEPRACOVANÁ FUNKCE PRO ZOBRAZENÍ
+    
     function showMenuSub() {
         // Zrušíme všechny předchozí timeouty
         clearTimeout(hideTimeoutSub);
@@ -2083,7 +2082,7 @@ if (subDropdownToggle && subDropdownContent) {
         // Resetujeme příznak zavírání
         isClosingInProgressSub = false;
         
-        // DŮLEŽITÉ: Sekvence zobrazení
+       
         // 1. Nejprve nastavíme display na block, ale stále s opacity 0
         subDropdownContent.style.display = originalDisplay || "block";
         
@@ -2108,7 +2107,7 @@ if (subDropdownToggle && subDropdownContent) {
         }
     }
     
-    // ZCELA PŘEPRACOVANÁ FUNKCE PRO PLYNULÉ ZAVŘENÍ 
+    
     function smoothCloseSubMenu(skipDelay = false) {
         // Pokud je menu již zavřené, neděláme nic
         if (subDropdownContent.style.display === "none") return;
@@ -2120,7 +2119,7 @@ if (subDropdownToggle && subDropdownContent) {
         // Nastavíme příznak, že probíhá zavírání
         isClosingInProgressSub = true;
         
-        // KRITICKÉ: Explicitně zajistíme, že menu je viditelné během animace
+        
         // Tím se zajistí, že bude vidět animace opacity
         if (subDropdownContent.style.display === "none") {
             subDropdownContent.style.display = originalDisplay || "block";
@@ -2304,7 +2303,7 @@ if (subDropdownToggle && subDropdownContent) {
     subDropdownContent.addEventListener("mouseenter", function() {
         isMouseOverMenu = true;
         
-        // DŮLEŽITÁ ZMĚNA: Pokud probíhá animace zavírání, zrušíme ji a znovu zobrazíme menu
+       
         if (isClosingInProgressSub) {
             showMenuSub();
         }
