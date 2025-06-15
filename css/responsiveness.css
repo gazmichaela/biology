@@ -231,8 +231,8 @@ OBSAH:
         bottom: 10px;
         left: 10px;
         right: 10px;
-        max-width: none;
-        font-size: 0.6em;
+        max-width: 300px;
+        font-size: 0.75em;
     }
     
     .dark-mode-toggle {
@@ -375,7 +375,7 @@ OBSAH:
         left: 8px;
         right: 8px;
         padding: 8px 12px;
-        font-size: 0.55em;
+        max-width: 250px;
     }
     
     .dark-mode-toggle {
@@ -429,6 +429,10 @@ OBSAH:
     .h1-long h1 {
         transform: translateY(5px);
     }
+
+    .cookies-mini-notice {
+        max-width: 220px;
+    }
 }
 
 
@@ -454,7 +458,6 @@ OBSAH:
         font-size: 1.4em;
         transform: translateY(0px);
     }
-    
 
 
     footer {
@@ -511,8 +514,8 @@ OBSAH:
     }
     
     .cookies-mini-notice {
-        font-size: 0.5em;
         padding: 6px 10px;
+        max-width: 160px;
     }
 }
 
@@ -632,12 +635,11 @@ OBSAH:
         display: none;
         font-size: 0.87em;
         line-height: 1.5;
-         margin-bottom: 6px;
-         margin-top: 2px;
+        margin-bottom: 6px;
+        margin-top: 2px;
     }
     
     #toggle-questions-btn {
-       /* padding: 14px 20px;*/
         font-size: 1.05em;
         font-weight: bold;
         cursor: pointer;
@@ -645,9 +647,7 @@ OBSAH:
         color: white;
         border: 1px solid black;
         border-radius: 6px;
-        margin-bottom: 30px;
         margin-top: 20px;
-       /* width: 42%;*/
         height: 5%;
         text-align: center;
         touch-action: manipulation;

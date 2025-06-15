@@ -21,6 +21,8 @@
     border-left: 3px solid #4CAF50;
     display: none; /* Odpověď je skrytá */
     font-size: 0.8em;
+    margin-bottom: 10px;
+    margin-top: -2px;
 }
 
 /* Tlačítko pro zobrazení všech otázek */

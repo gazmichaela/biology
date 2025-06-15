@@ -255,7 +255,7 @@ article section h5 + ol {
 article section small {
     font-size: 0.75em;
     display: block;
-    margin-top: 1%;
+    margin-top: 1.5em;
 }
 
 article section .button,
@@ -403,8 +403,8 @@ margin-right: 50px;
     box-shadow: 0 2px 8px #0000001A;
     border-radius: 4px;
     padding: 10px 15px;
-    font-size: 0.65em;
-    max-width: 280px;
+    font-size: 0.70em;
+    max-width: 300px;
     z-index: 1000;
     border: 1px solid #e0e0e0;
     display: none; /* Počáteční stav - skryto */
