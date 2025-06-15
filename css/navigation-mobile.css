@@ -8,6 +8,7 @@ OBSAH:
 - mobilní navigace obecně
 - mobilní navigace:
     - do 1175px
+    - do 1023px
     - do 768px
     - do 480px
 */
@@ -208,12 +209,7 @@ html.menu-open body {
 
     .logo {
         width: 150px; 
-        margin: 8px 0px 0px 10px;
-    }
-    
-    
-    .logo img {
-        max-width: 80px;
+        margin: 15px 0px 0px 20px;
     }
 
     /* Zobrazí burger menu */
@@ -338,6 +334,13 @@ html.menu-open body {
     
 }
 
+@media screen and (max-width: 1023px) {
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     
     .burger-menu {
@@ -358,11 +361,6 @@ html.menu-open body {
     .logo a {
         position: static;
     }
-    
-    .logo img {
-        position: static;
-        max-width: 120px;
-    }
 }
 
 
@@ -371,21 +369,12 @@ html.menu-open body {
         width: 130px;
         margin: 10px 0px 0px 15px;
     }
-    
-    
-    .logo img {
-        max-width: 100px;
-    }
 }
 
 @media screen and (max-width: 320px) {
     .logo {
-        width: 130px; /* Zachováme původní šířku */
+        width: 100px;
         margin: 8px 0px 0px 10px;
-    }
-    
-    .logo img {
-        max-width: 80px;
     }
 }
 

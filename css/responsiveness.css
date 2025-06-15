@@ -49,6 +49,14 @@ OBSAH:
         height: auto;
         max-height: 150px;
     }
+
+    header h1 {
+        transform: translateY(5px);
+    }
+
+    .h1-index {
+        max-height: 170px;
+    }
 }
 
 
@@ -58,8 +66,11 @@ OBSAH:
     }
     
     header h1 {
-        font-size: 35px;
-        margin-top: 20px;
+        font-size: 1.9em;
+    }
+
+    .h1-index {
+        max-height: 155px;
     }
 
     footer {
@@ -112,33 +123,16 @@ OBSAH:
     }
     
     header {
-        padding: 5px 0;
-        position: relative;
-        height: 100px;
+        max-height: 130px;
     }
     
     header h1 {
-        margin-top: 25px;
         font-size: 1.8em;
-        transform: translateY(3p);
-    }
-
-    .h1-long {
-        height: 160px;
-    }
-    
-    .h1-long > h1 {
-        font-size: 1.7em;
         transform: translateY(10px);
     }
 
     .h1-index {
-        height: 170px;
-    }
-
-    .h1-index h1 {
-        font-size: 1.7em;
-        transform: translateY(10px);
+        max-height: 140px;
     }
     
     header ul {
@@ -256,14 +250,26 @@ OBSAH:
     }
     
     header {
-        max-height: 190px !important;
+        max-height: 100px;
     }
 
     header h1 {
-        font-size: 24px;
-        margin-top: 30px;
+        font-size: 1.6em;
+        transform: translateY(2px);
+    }
+
+    .h1-long {
+        max-height: 130px;
     }
     
+    .h1-long h1 {
+        transform: translateY(14px);
+    }
+
+    .h1-index {
+        max-height: 140px;
+    }
+
     header ul li {
         margin: 6px 0;
         font-size: 15px;
@@ -298,7 +304,7 @@ OBSAH:
         margin-left: 0.1em;
     }
     
-    article section h2 /*změnit u index.html*/ {
+    article section h2 {
         font-size: 1.4em;
         margin-top: 50px;
         margin-bottom: 0.6em;
@@ -403,7 +409,7 @@ OBSAH:
 
 
 @media screen and (max-width: 480px) {
-        article section li,
+    article section li,
     article section ol {
         margin-left: -0.25em;
     }
@@ -419,6 +425,10 @@ OBSAH:
     article section p {
         margin-left: 0.2em;
     }
+
+    .h1-long h1 {
+        transform: translateY(5px);
+    }
 }
 
 
@@ -427,10 +437,26 @@ OBSAH:
         font-size: 0.9em;
     }
     
+    header {
+        max-height: 80px;
+    }
+
     header h1 {
-        font-size: 20px;
+        font-size: 1.5em;
+        transform: translateY(0px);
+    }
+
+    .h1-long {
+        height: 100px;
+    }
+
+    .h1-long h1 {
+        font-size: 1.4em;
+        transform: translateY(0px);
     }
     
+
+
     footer {
         height: 250px;
     }
