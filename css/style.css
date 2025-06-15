@@ -216,6 +216,19 @@ article section h2 {
     text-align: left; 
 }
 
+article section .h2-wrap > h2 {
+    margin-bottom: 0em;
+}
+
+article section .h2-wrap h2 + br + h2,
+article section .h2-wrap h2 + br + h2 + br + h2 {
+    margin-top: 0.2em;
+}
+
+article section .h2-wrap {
+    visibility: hidden;
+    display: none;
+}
 
 article section h3 {
     text-decoration: underline #00c5003d;
