@@ -114,22 +114,30 @@ OBSAH:
     header {
         padding: 5px 0;
         position: relative;
-        height: 160px;
+        height: 100px;
     }
     
     header h1 {
         margin-top: 25px;
-        font-size: 2.6em;
-        transform: translateY(17px);
+        font-size: 1.8em;
+        transform: translateY(3p);
     }
 
-    header .h1-long h1 {
-        font-size: 0.5em !important;
+    .h1-long {
+        height: 160px;
+    }
+    
+    .h1-long > h1 {
+        font-size: 1.7em;
         transform: translateY(10px);
     }
 
-    header .h1-index h1 {
-        font-size: 0.9em !important;
+    .h1-index {
+        height: 170px;
+    }
+
+    .h1-index h1 {
+        font-size: 1.7em;
         transform: translateY(10px);
     }
     
