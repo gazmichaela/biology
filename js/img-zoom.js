@@ -148,15 +148,15 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
         // Nastavíme pouze cursor: pointer bez efektu zvětšení
         img.style.cursor = 'pointer';
         
-        // Pro mobilní zařízení - reagujeme na dotyk bez zvětšení
-        img.addEventListener('touchstart', function(event) {
-            // Zabráníme výchozímu chování
-            event.preventDefault();
-        }, { passive: false });
-        
-        img.addEventListener('touchend', function() {
-            openModal(this.src, this.getAttribute('data-source') || '');
-        });
+      // Pro mobilní zařízení - pouze click event
+img.addEventListener('touchend', function(event) {
+    // Zkontrolujeme, zda se nejedná o scroll/swipe
+    if (!event.cancelable) return;
+    
+    // Otevřeme modal pouze při skutečném kliknutí (ne při scrollování)
+    openModal(this.src, this.getAttribute('data-source') || '');
+    event.preventDefault();
+});
     });
     
     // Funkce pro skrytí/zobrazení zdrojů

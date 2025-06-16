@@ -93,8 +93,8 @@ OBSAH:
     }
     
     article {
-        margin-right: 40px;
-        margin-left: 30px;
+        margin-right: 50px;
+        margin-left: 25px;
     }
     
     section {
@@ -166,8 +166,8 @@ OBSAH:
     }
 
     article {
-        margin-right: 20px;
-        margin-left: 20px;
+        margin-right: 25px;
+        margin-left: 10px;
     }
     
     section {
@@ -177,7 +177,6 @@ OBSAH:
     
     article section p {
         margin-left: 0.8em;
-        text-align: left;
     }
     
     article section li {
@@ -286,8 +285,8 @@ OBSAH:
     }
 
    article {
-        margin-right: 15px;
-        margin-left: 15px;
+        margin-right: 20px;
+        margin-left: 5px;
     }
     
     section {
@@ -478,16 +477,22 @@ OBSAH:
     }
     
     article {
-        margin-right: 10px;
-        margin-left: 10px;
+        margin-right: 15px;
+        margin-left: 5px;
     }
     
     section {
-        margin-left: 2px;
+        margin-left: 5px;
     }
     
     article section p {
         margin-left: 0em;
+    }
+
+    article section ol,
+    article section ul {
+        margin-left: 0em;
+        padding-left: 15px;
     }
 
     article section li {
@@ -844,7 +849,7 @@ OBSAH:
 
 @media screen and (max-width: 1023px) {
     .img-right {
-        width: 30%;
+        width: 40%;
         min-width: 280px;
         max-width: 500px;
         margin-left: 30px;
@@ -852,16 +857,18 @@ OBSAH:
     }
     
     .img-right-big {
-        width: 45%;
+        width: 60%;
         margin-left: 15px;
     }
     
     .img-right-middle {
-        width: 35%;
+        width: 50%;
+        max-width: 420px;
+        min-width: 380px;
     }
     
     .img-right-top {
-        width: 30%;
+        width: 40%;
         min-width: 280px;
         max-width: 500px;
         margin-top: 60px;
@@ -869,7 +876,7 @@ OBSAH:
     }
     
     .img-left {
-        width: 35%;
+        width: 50%;
         margin-left: 3%;
         margin-right: 15px;
     }
@@ -923,10 +930,11 @@ OBSAH:
 
 @media screen and (max-width: 768px) {
     .img-right {
-        width: 100%;
-        min-width: 240px;
+        width: auto;
+        min-width: 200px;
         max-width: 400px;
-        margin-left: 20px;
+        margin-left: 10%;
+        margin-right: 10%;
         margin-top: 10px;
         float: none;
     }
@@ -942,19 +950,23 @@ OBSAH:
         margin: 0.8%;
         margin-left: 1.5%;
         float: none;
+        max-width: 100%;
     }
     
     .img-right-top {
-        width: 100%;
-        max-width: 450px;
-        margin-top: 40px;
-        margin-left: auto;
-        margin-right: 500px;
+        width: 90%;
+        max-width: 640px;
+        margin-top: 5vh;
+        margin-left: calc(5% + 5px);
+        margin-right: 5%;
         float: none;
+        margin-bottom: -1vh;
     }
     
     .img-left {
-        width: 40%;
+        width: auto;
+        min-width: 200px;
+        max-width: 400px;
         margin-left: 2%;
         margin-right: 10px;
     }
@@ -1106,7 +1118,7 @@ OBSAH:
     }
     
     .img-right-top {
-        margin-top: 10px;
+        margin-top: 30px;
     }
     
     .img-bottom {
@@ -1135,6 +1147,11 @@ OBSAH:
     .img-next {
         width: 95%;
         margin: 8px auto;
+    }
+
+    .img-right-top {
+        margin-top: 30px;
+        margin-bottom: 0;
     }
 }
 

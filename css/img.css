@@ -1,6 +1,6 @@
 /* Obrázky v navigaci se nacházejí v navigation.css; Logo v style.css */
 /* Pokud není v article obrázek, tenhle CSS se nemusí dávat jako link v HTML */
-/* Responzivita v style.css */
+/* Responzivita v responsiveness.css */
 
 img {
     max-width: 100%;
