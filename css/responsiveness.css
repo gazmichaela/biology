@@ -361,16 +361,36 @@ OBSAH:
         white-space: normal;
     }
     
+ .tooltip .tooltiptext {
+    font-size: small;
+    white-space: normal;
+    max-width: 200px; /* výchozí pro mobil */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 110%;
+    z-index: 9999;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
     .tooltip .tooltiptext {
-        font-size: small;
-        white-space: normal;
-        max-width: 200px;
-        left: 0;
-        transform: none;
-        bottom: 110%;
-        z-index: 9999;
+        max-width: 300px;
     }
-    
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .tooltip .tooltiptext {
+        max-width: 400px;
+    }
+}
+
+/* Velké obrazovky */
+@media (min-width: 1440px) {
+    .tooltip .tooltiptext {
+        max-width: 500px;
+    }
+}
     footer {
         padding: 20px 8px 0px 8px;
         font-size: 0.75em;
@@ -893,22 +913,22 @@ OBSAH:
     /* Info boxy */
     .info-box:hover:not(.force-close),
     .info-box.active {
-        width: 260px;
+        width: 310px;
     }
     
     .info-box-medium:hover:not(.force-close),
     .info-box-medium.active {
-        width: 180px;
+        width: 210px;
     }
     
     .info-box-medium-second:hover:not(.force-close),
     .info-box-medium-second.active {
-        width: 210px;
+        width: 250px;
     }
     
     .info-box-left:hover:not(.force-close),
     .info-box-left.active {
-        width: 260px;
+        width: 295px;
     }
     
     .info-box-long-left:hover:not(.force-close),
@@ -918,12 +938,12 @@ OBSAH:
     
     .info-box-medium-third:hover:not(.force-close),
     .info-box-medium-third.active {
-        width: 230px;
+        width: 270px;
     }
     
     .info-box-long:hover:not(.force-close),
     .info-box-long.active {
-        width: 270px;
+        width: 310px;
     }
 }
 
@@ -1033,12 +1053,12 @@ OBSAH:
     
     .info-box:hover:not(.force-close),
     .info-box.active {
-        width: 220px;
+        width: 265px;
     }
     
     .info-box-short:hover:not(.force-close),
     .info-box-short.active {
-        width: 115px;
+        width: 120px;
     }
     
     .info-box-medium:hover:not(.force-close),
@@ -1048,12 +1068,12 @@ OBSAH:
     
     .info-box-medium-second:hover:not(.force-close),
     .info-box-medium-second.active {
-        width: 190px;
+        width: 240px;
     }
     
     .info-box-left:hover:not(.force-close),
     .info-box-left.active {
-        width: 220px;
+        width: 290px;
     }
     
     .info-box-long-left:hover:not(.force-close),
@@ -1063,7 +1083,7 @@ OBSAH:
     
     .info-box-medium-third:hover:not(.force-close),
     .info-box-medium-third.active {
-        width: 200px;
+        width: 250px;
     }
     
     .info-box-short-third:hover:not(.force-close),
@@ -1073,17 +1093,17 @@ OBSAH:
     
     .info-box-short-fourth:hover:not(.force-close),
     .info-box-short-fourth.active {
-        width: 115px;
+        width: 133px;
     }
     
     .info-box-long:hover:not(.force-close),
     .info-box-long.active {
-        width: 240px;
+        width: 290px;
     }
     
     .info-box-short-second:hover:not(.force-close),
     .info-box-short-second.active {
-        width: 105px;
+        width: 110px;
     }
     
     .info-box span,

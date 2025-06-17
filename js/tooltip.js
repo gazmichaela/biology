@@ -1,111 +1,74 @@
-function adjustTooltipPosition() {
+function adjustTooltip(tooltipElement) {
+    const tooltipText = tooltipElement.querySelector('.tooltiptext');
+    if (!tooltipText) return;
+    
+    // Dočasně zobraz tooltip pro měření
+    tooltipText.style.visibility = 'visible';
+    tooltipText.style.opacity = '1';
+    
+    // Získej rozměry
+    const rect = tooltipText.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Reset pozice
+    tooltipText.style.left = '0';
+    tooltipText.style.transform = 'none';
+    tooltipText.style.bottom = '110%';
+    tooltipText.style.top = 'auto';
+    tooltipText.style.right = 'auto';
+    
+    // Znovu získej rozměry po resetu
+    const newRect = tooltipText.getBoundingClientRect();
+    
+    // Kontrola horizontální pozice
+    if (newRect.left < 0) {
+        // Tooltip je moc vlevo - posuň doprava
+        tooltipText.style.left = '0';
+    } else if (newRect.right > viewportWidth) {
+        // Tooltip je moc vpravo - posuň doleva
+        const overflow = newRect.right - viewportWidth;
+        tooltipText.style.left = `-${overflow + 10}px`;
+    }
+    
+    // Kontrola vertikální pozice
+    if (newRect.top < 0) {
+        // Tooltip je moc nahoře - přesuň dolu
+        tooltipText.style.bottom = 'auto';
+        tooltipText.style.top = '110%';
+    }
+    
+    // Skryj tooltip zpět
+    tooltipText.style.visibility = '';
+    tooltipText.style.opacity = '';
+}
+
+// Přidej event listenery - pouze na mobilních zařízeních
+document.addEventListener('DOMContentLoaded', function() {
+    // Detekce mobilního zařízení
+    const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (!isMobile) return; // Na desktopu nedělej nic
+    
     const tooltips = document.querySelectorAll('.tooltip');
     
     tooltips.forEach(tooltip => {
-        const tooltipText = tooltip.querySelector('.tooltiptext');
-        if (!tooltipText) return;
-        
-        let isPersistent = false;
-        let hoverCount = 0;
-        let hoverTimer = null;
-        
         tooltip.addEventListener('mouseenter', function() {
-            hoverCount++;
-            
-            // Při druhém najetí udělej tooltip persistent
-            if (hoverCount === 2) {
-                isPersistent = true;
-                tooltipText.style.pointerEvents = 'auto';
-                // Vynucuj zobrazení tooltip i při persistent módu
-                tooltipText.style.visibility = 'visible';
-                tooltipText.style.opacity = '1';
-                hoverCount = 0; // Reset po aktivaci
-            }
-            
-            // Reset počítadla po 800ms (čas na druhé najetí)
-            clearTimeout(hoverTimer);
-            hoverTimer = setTimeout(() => {
-                hoverCount = 0;
-            }, 800);
-            
-            // Resetuj na původní pozici
-            tooltipText.style.left = '0';
-            tooltipText.style.right = 'auto';
-            tooltipText.style.maxWidth = '200px';
-            tooltipText.style.transform = 'none';
-            
-            // Krátké timeout aby se tooltip zobrazil a mohli jsme změřit rozměry
             setTimeout(() => {
-                const rect = tooltipText.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                const padding = 10;
-                
-                // Zkontroluj přetečení vpravo
-                if (rect.right > viewportWidth - padding) {
-                    const overflow = rect.right - (viewportWidth - padding);
-                    const currentLeft = parseInt(tooltipText.style.left) || 0;
-                    tooltipText.style.left = `${currentLeft - overflow}px`;
-                }
-                
-                // Zkontroluj přetečení vlevo
-                const newRect = tooltipText.getBoundingClientRect();
-                if (newRect.left < padding) {
-                    tooltipText.style.left = `${padding - rect.left}px`;
-                    tooltipText.style.transform = 'none';
-                }
-                
-                // Na malých obrazovkách omezte šířku
-                if (viewportWidth < 768) {
-                    const maxWidth = Math.min(200, viewportWidth - (padding * 2));
-                    tooltipText.style.maxWidth = `${maxWidth}px`;
-                    tooltipText.style.whiteSpace = 'normal';
-                    tooltipText.style.wordWrap = 'break-word';
-                }
+                adjustTooltip(this);
             }, 10);
         });
+    });
+    
+    // Přizpůsob při resize okna - pouze na mobilu
+    window.addEventListener('resize', function() {
+        const isMobileNow = window.innerWidth <= 768;
+        if (!isMobileNow) return;
         
-        tooltip.addEventListener('mouseleave', function() {
-            // Pokud není persistent, tooltip zmizí normálně
-            if (!isPersistent) return;
-            
-            // Pro persistent tooltip - NEZAKAZUJ zobrazení
-            // Tooltip zůstane viditelný dokud jsme na slově
-        });
-        
-        // Event listener pro tooltip samotný
-        tooltipText.addEventListener('mouseleave', function() {
-            if (isPersistent) {
-                // Zkontroluj jestli myš není stále nad původním elementem
-                setTimeout(() => {
-                    if (!tooltip.matches(':hover')) {
-                        isPersistent = false;
-                        tooltipText.style.pointerEvents = '';
-                        // Povol CSS aby tooltip zmizel
-                        tooltipText.style.visibility = '';
-                        tooltipText.style.opacity = '';
-                    }
-                }, 50);
-            }
-        });
-        
-        // Přidej event listener pro kliknutí mimo tooltip pro jeho zavření
-        document.addEventListener('click', function(e) {
-            if (isPersistent && !tooltip.contains(e.target) && !tooltipText.contains(e.target)) {
-                isPersistent = false;
-                tooltipText.style.pointerEvents = '';
-                tooltipText.style.visibility = '';
-                tooltipText.style.opacity = '';
+        tooltips.forEach(tooltip => {
+            if (tooltip.matches(':hover')) {
+                adjustTooltip(tooltip);
             }
         });
     });
-}
-
-// Spusť po načtení DOM
-document.addEventListener('DOMContentLoaded', adjustTooltipPosition);
-
-// Znovu nastav při změně velikosti okna
-window.addEventListener('resize', () => {
-    // Debounce pro optimalizaci
-    clearTimeout(window.tooltipResizeTimeout);
-    window.tooltipResizeTimeout = setTimeout(adjustTooltipPosition, 250);
 });

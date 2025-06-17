@@ -170,14 +170,19 @@ img.addEventListener('touchend', function(event) {
         modalImg.src = imgSrc;
         
         // Nastavení textu se zdrojem
-        sourceContainer.innerHTML = sourceText || '';
-        
-        // Zobrazení/skrytí kontejneru se zdrojem podle toho, zda máme text
-        sourceContainer.style.display = sourceText ? 'block' : 'none';
-        
-        // Resetování hodnot při otevření
-        resetZoom();
-        
+     // Nastavení textu se zdrojem
+sourceContainer.innerHTML = sourceText || '';
+
+// Resetování hodnot při otevření
+resetZoom();
+
+// Zobrazení/skrytí kontejneru se zdrojem - skrýt na mobilu, zobrazit na desktopu  
+// Zobrazení/skrytí kontejneru se zdrojem podle velikosti obrazovky a textu
+if (window.innerWidth < 1175) {
+    sourceContainer.style.display = 'none';
+} else {
+    sourceContainer.style.display = sourceText ? 'block' : 'none';
+}
         // Počkat na načtení obrázku a poté zjistit jeho rozměry
         modalImg.onload = function() {
             // Zjištění přesné velikosti obrázku
@@ -246,8 +251,8 @@ img.addEventListener('touchend', function(event) {
         modalImg.style.transform = 'translate(0px, 0px) scale(1)';
         
         // Zobrazíme zdroje při resetování zoomu
-        toggleSourceVisibility(true);
-        
+      // Zobrazíme zdroje při resetování zoomu pouze na desktopu
+toggleSourceVisibility(!isMobile);
         console.log("Reset zoom: isZoomed =", isZoomed);
     }
 
@@ -335,7 +340,10 @@ img.addEventListener('touchend', function(event) {
         modalImg.style.borderRadius = '20px'; // Přidání zaoblení při zvětšení
         
         // Skryjeme zdroje při zoomu
-        toggleSourceVisibility(false);
+     // Skryjeme zdroje při zoomu pouze pokud nejsme na mobilu (na mobilu jsou už tak skryté)
+if (!isMobile) {
+    toggleSourceVisibility(false);
+}
         
         // Použijeme promisy pro správné načasování operací
         return new Promise(resolve => {
@@ -765,7 +773,7 @@ img.addEventListener('touchend', function(event) {
 
 // Responzivní úpravy
 function updateResponsiveLayout() {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 1175) {
         // Při malých obrazovkách
         sourceContainer.style.fontSize = '12px';
         sourceContainer.style.position = 'relative';
@@ -774,6 +782,10 @@ function updateResponsiveLayout() {
         sourceContainer.style.right = 'auto';
         sourceContainer.style.marginTop = '10px';
         mainContainer.style.flexDirection = 'column';
+        
+        // PŘIDAT:
+        sourceContainer.style.display = 'none';
+        
     } else {
         // Při velkých obrazovkách (původní nastavení)
         sourceContainer.style.fontSize = '14px';
@@ -783,8 +795,12 @@ function updateResponsiveLayout() {
         sourceContainer.style.right = '20px';
         sourceContainer.style.marginTop = '0';
         mainContainer.style.flexDirection = 'row';
+        
+        // ZMĚNIT Z původního kódu na:
+        sourceContainer.style.display = sourceContainer.innerHTML ? 'block' : 'none';
     }
 }
+
 
 window.addEventListener('resize', updateResponsiveLayout);
 });
