@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Teorie systémů </title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/questions.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <script src="js/FaQ.js" defer></script>
+    <!-- <script src="js/tooltip.js" defer></script>  -->
+    <!--<script src="js/img-zoom.js" defer></script>-->
+    <!--<script src="js/pdf.js" defer></script>-->
+    <script src="js/source.js" defer></script>
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <!-- <link rel="preload" href="js/dropdowns.js" as="script">
+    <link rel="preload" href="js/active-menu.js" as="script"> -->
+    <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
+</head>
+
+<body>
+    <header aria-hidden="true">
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+            </picture>
+        </a>
+        <br>
+        <h1>Teorie systémů</h1>
+        <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul>
+            <a href="index.html" class="home-icon">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+    </header>
+    
+    <article>
+        <section>
+            <div class="img-wrapper img-right-top">
+                <picture>
+                    <source srcset="images/webp/system-nerv-ai.webp" type="image/webp" data-src="images/webp/system-nerv-ai.webp">
+                    <img src="images/png/system-nerv-ai.png" data-src="images/png/system-nerv-ai.png">
+                </picture>   
+                <div class="info-box-short">
+                    <div class="icon-circle-short">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                </div>
+            </div>
+
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal">
+                <h2>Úvod do teorie systémů</h2>
+            </div>
+            <div class="h2-wrap">
+                <h2>Úvod</h2>
+                <br>
+                <h2>do teorie systémů</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <p>Teorie systémů je
+                <dfn class="tooltip">interdisciplinární věda<span class="tooltiptext" aria-hidden="true">věda, která spojuje <br> poznatky z různých oborů <br> a využívá je společně</span></dfn>,
+                která analyzuje
+                <dfn class="tooltip">vzorce<span class="tooltiptext" aria-hidden="true">opakující se způsoby <br> chování nebo uspořádání</span></dfn>
+                a 
+                <dfn class="tooltip">interakce<span class="tooltiptext" aria-hidden="true">vzájemné vlivy mezi částmi systému</span></dfn>
+                mezi složkami složitých celků a 
+                vztahy mezi nimi. Cílem teorie systémů je zkoumat, jakým způsobem jsou jednotlivé části (tzv. elementy) 
+                propojeny do celku (systému), jak spolu navzájem interagují a jakým způsobem tento celek komunikuje s 
+                okolím. Teorie systémů nachází uplatnění napříč různými oblastmi, včetně biologie, inženýrství, ekologie, 
+                ekonomie, sociálních věd a kybernetiky. Klíčovým přínosem teorie systémů je její schopnost identifikovat 
+                obecné principy, které jsou univerzální pro širokou škálu systémů, což umožňuje lepší pochopení a modelování 
+                jejich chování.</p>
+            <ol>
+                <h4><li>Definice systému</li></h4>
+                    <p>Systém je obecně definován jako <strong>soubor vzájemně provázaných elementů</strong>, které tvoří celek a interagují za 
+                        účelem dosažení určitého cíle nebo funkce. Elementy systému mohou mít různé povahy – mohou jimi být 
+                        fyzické objekty, informace, procesy, lidé nebo subjekty. Každý systém vykazuje <dfn><strong>vlastnosti emergentní</strong></dfn> (tzv. 
+                        emergenci), což znamená, že celek vykazuje chování, které není jednoduše odvoditelné z chování jeho 
+                        jednotlivých částí. Například organismus jako celek má vlastnosti (např. vědomí), které nelze vysvětlit pouze 
+                        chováním jednotlivých buněk. V každodenním životě se systémy objevují téměř ve všech oblastech: biologické 
+                        systémy zahrnují např. buňky, orgány a ekosystémy, zatímco technické systémy zahrnují mechanické systémy, 
+                        počítačové sítě či energetické distribuční soustavy.</p>
+                </li>
+    
+                <h4><li>Klíčové vlastnosti systému</li></h4>
+                    <p>Každý systém je definován několika základními atributy:</p>
+                    <ul>
+                        <li><strong>Elementy (prvky systému):</strong> Jednotlivé komponenty, které společně tvoří systém. Mohou to být fyzické 
+                            objekty (např. orgány v těle) nebo nehmotné entity, jako jsou informace či vztahy. Elementy vykazují 
+                            specifické chování a vlastnosti, které přispívají k chování systému jako celku.</li>
+                        <li><strong>Interakce a relace:</strong> Systém se chová jako celek díky vzájemným interakcím mezi jeho elementy. Tyto 
+                            interakce mohou být <strong>přímé</strong> (např. mechanické spojení mezi součástkami stroje) nebo <strong>nepřímé</strong> (např. 
+                            přenos informace mezi nervovými buňkami v mozku). Zásadní roli zde hrají <strong>feedback mechanismy</strong>
+                            (zpětná vazba), které umožňují systému reagovat na změny v okolí či uvnitř samotného systému.</li>
+                        <li><strong>Hranice systému:</strong> Každý systém má své hranice, které určují, co je součástí systému a co patří do jeho 
+                            okolí. Hranice mohou být <strong>fyzické</strong> (např. plášť motoru) nebo <strong>abstraktní</strong> (např. organizační hranice 
+                            firmy).</li>
+                        <li><strong>Prostředí (okolí systému):</strong> Systémy existují v kontextu svého prostředí, se kterým mohou (ale nemusí) 
+                            interagovat. Prostředí je soubor elementů, které nejsou součástí systému, ale mohou jej ovlivňovat.</li>
+                    </ul>
+    
+                <h4><li>Typologie systémů: Otevřené vs. uzavřené systémy</li></h4>
+
+                <div class="img-wrapper img-right">
+                    <picture>
+                        <source srcset="images/webp/uzavreny-system-ai.webp" type="image/webp" data-src="images/webp/uzavreny-system-ai.webp">
+                        <img src="images/png/uzavreny-system-ai.png" data-src="images/png/uzavreny-system-ai.png">
+                    </picture>
+                    <div class="info-box-short">
+                        <div class="icon-circle-short">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                    </div>
+                </div>
+
+                    <p>Jedním ze základních kritérií pro klasifikaci systémů je jejich schopnost interakce s okolím. Rozlišujeme proto 
+                        systémy na:</p>
+                    <ul>
+                        <li><strong>Otevřené systémy:</strong> Otevřený systém si vyměňuje energii, materiál či informace s okolním prostředím. 
+                            Tato výměna probíhá prostřednictvím tzv. vstupů a výstupů. Vstupy mohou zahrnovat energii, 
+                            suroviny, informace nebo jiné zdroje, zatímco výstupy představují produkty nebo odpady systému. 
+                            Příkladem otevřeného systému je lidský organismus, který přijímá potravu (vstup) a vylučuje odpadní 
+                            látky (výstup).</li>
+                        <li><strong>Uzavřené systémy:</strong> Na rozdíl od otevřených systémů se uzavřené systémy neúčastní interakce s 
+                            okolním prostředím, nebo tuto interakci minimalizují. V praxi jsou skutečně uzavřené systémy velmi 
+                            vzácné, jelikož většina systémů nějakým způsobem komunikuje s okolím. V laboratorních podmínkách 
+                            se však může uzavřený systém použít pro studium specifických procesů bez vlivu externích faktorů.</li>
+                    </ul>
+    
+                <h4><li>Struktura systému: Hierarchické uspořádání</li></h4>
+                    <p>Systémy často vykazují <dfn><strong>hierarchickou strukturu</strong></dfn>, což znamená, že systémy mohou být složeny z menších 
+                        <strong>subsystémů</strong>, které jsou samy o sobě systémy. Například v biologickém systému organismus obsahuje orgány, 
+                        které jsou samy systémy složené z buněk, a ty zase obsahují organely. Tato vnořená struktura umožňuje 
+                        popisovat složité systémy na různých úrovních podrobnosti. V hierarchických systémech je důležitým 
+                        konceptem <dfn><strong>dekompozice</strong></dfn> – možnost rozložit složitý systém na menší části, které lze analyzovat samostatně. 
+                        Tento přístup se využívá v mnoha oblastech, od návrhu technických systémů až po studium ekosystémů.</p>
+    
+                <h4><li>Dynamika systému a rovnováha</li></h4>
+                    <p>Jedním z nejdůležitějších aspektů systémů je jejich <strong>dynamické chování</strong>. Dynamika systému odkazuje na 
+                        způsob, jakým systém reaguje na změny ve svém prostředí nebo uvnitř sebe samého. Některé systémy vykazují 
+                        lineární chování, kdy je odpověď systému přímo úměrná velikosti podnětu, zatímco jiné systémy vykazují 
+                        nelineární chování, kdy malé změny v jednom prvku mohou mít dramatické dopady na celý systém.</p>
+                    <p>Klíčovou vlastností dynamiky systémů je stabilita a rovnováha. Systém je <strong>stabilní</strong>, pokud je schopen se vrátit 
+                        do svého původního stavu po narušení. Rovnováha může být statická (systém zůstává v neměnném stavu) nebo 
+                        dynamická (systém se neustále mění, ale zachovává určitý vzorec chování). Například ekologické systémy často 
+                        vykazují dynamickou rovnováhu, kde populace různých druhů kolísají, ale celková stabilita ekosystému zůstává 
+                        zachována.</p>
+    
+                <h4><li>Zpětná vazba v systému</li></h4>
+                    <p>Klíčovým mechanismem pro udržení rovnováhy a stabilizaci systému je zpětná vazba. Zpětná vazba může být:</p>
+                    <ul>
+                        <li><strong>Pozitivní zpětná vazba:</strong> Posiluje změny v systému a vede k růstu nebo akceleraci určitého procesu. 
+                            Například růst populace bez přítomnosti predátorů vede ke zvýšení porodnosti, což zvyšuje počet 
+                            obyvatel.</li>
+                        <li><strong>Negativní zpětná vazba:</strong> Naopak snižuje vliv změn a stabilizuje systém. Například termostat reguluje 
+                            teplotu místnosti tím, že zapne topení, když teplota klesne, a vypne jej, když teplota dosáhne 
+                            požadované úrovně.</li>
+                    </ul>
+    
+                <h4><li>Kybernetika a systémy řízení</li></h4>
+                    <p>Systémy, které jsou schopny automaticky regulovat své chování na základě zpětné vazby, spadají do oblasti 
+                        kybernetiky. <strong>Kybernetika</strong> je disciplína, která studuje procesy řízení a komunikace v systémech, a to jak v 
+                        technických, tak v biologických a sociálních systémech. Základním principem kybernetických systémů je 
+                        schopnost zpracovávat informace a používat je k dosažení cílů systému prostřednictvím 
+                        <dfn class="tooltip">autonomní regulace<span class="tooltiptext" aria-hidden="true">systém se sám rozhoduje <br> a upravuje své chování, <br> bez zásahu zvenčí</span></dfn>.</p>
+    
+                <h4><li>Aplikace teorie systémů</li></h4>
+
+                <div class="img-wrapper img-right">
+                    <picture>
+                        <source srcset="images/webp/obehova-soustava-ai.webp" type="image/webp" data-src="images/webp/obehova-soustava-ai.webp">
+                        <img src="images/png/obehova-soustava-ai.png" data-src="images/png/obehova-soustava-ai.png">
+                    </picture>    
+                    <div class="info-box-short">
+                        <div class="icon-circle-short">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                    </div>
+                </div>
+              
+                    <h5>Technické příklady:</h5>
+                        <ul>
+                            <li>Představme si počítačový systém. V počítači existuje hardware (fyzické komponenty jako 
+                                procesor, paměť, pevný disk) a software (programy a operační systém, který hardware ovládá). Tyto části spolu 
+                                musí spolupracovat, aby počítač fungoval. Když selže jedna složka (např. procesor), celý počítač přestane 
+                                fungovat, i když je pevný disk a paměť stále v pořádku. Stejně tak, když v lidském těle selže srdce nebo plíce, 
+                                celý organismus může přestat fungovat.</li>
+                            <li>Dopravní systém: zahrnuje vozidla, silnice, světelné signalizace, řidiče a pravidla silničního provozu. Tento 
+                                systém musí být dobře organizován, aby doprava byla bezpečná a plynulá. Každá složka (např. semafory) má 
+                                svou specifickou roli, ale všechny musí spolupracovat, aby systém jako celek fungoval efektivně.</li>
+                        </ul>
+                    <h5>Příklad z biologie:</h5>
+                        <ul>
+                            <li>Oběhový systém v těle je zodpovědný za transport krve, která nese kyslík a živiny do 
+                                buněk. Krev se pohybuje prostřednictvím srdce, které ji pumpuje do celého těla. Pokud dojde k poruše v 
+                                oběhovém systému (např. ucpání cév), kyslík a živiny se nedostanou do buněk, což může způsobit jejich 
+                                poškození nebo smrt. To je příklad toho, jak důležité jsou interakce mezi jednotlivými částmi systému.</li>
+                        </ul>
+                        <p>Biologické systémy fungují na stejném principu jako technické systémy – také se skládají z menších částí, které 
+                            musí spolupracovat, aby organismus nebo ekosystém fungoval jako celek.</p>
+                    <h5>Lidské tělo jako systém</h5>
+                            <p>Podobně jako v technickém systému má lidské tělo různé subsystémy, které vykonávají specifické funkce. 
+                                Například oběhový systém transportuje kyslík a živiny ke všem buňkám v těle. Trávicí systém zajišťuje přísun 
+                                těchto živin tím, že rozkládá potravu na jednodušší látky, které tělo může využít. Pokud jeden z těchto systémů 
+                                přestane fungovat, může být ohrožen celý organismus.</p>
+            </ol>
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal h2-520">
+                <h2>Projděte si kvíz a zjistěte, jak na tom jste:</h2>
+            </div>
+            <div class="h2-wrap h2-520 h2-2">
+                <h2>Projděte si kvíz a zjistěte, jak</h2>
+                <br>
+                <h2>na tom jste:</h2>
+            </div>
+            <div class="h2-wrap h2-520 h2-3">
+                <h2>Projděte si kvíz</h2>
+                <br>
+                <h2>a zjistěte, jak</h2>
+                <br>
+                <h2>na tom jste:</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <br>
+
+            <!-- Tlačítko pro zobrazení/skrytí otázek -->
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+            
+
+            <!-- Kontejner pro otázky -->
+            <div id="faq-container" class="hidden">
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku."> Co je systémový celek a jak vzniká?</div>
+                        <div class="answer">Systémový celek vzniká propojením jednotlivých prvků, které spolu interagují a vytvářejí nové vlastnosti – celek je více než součet částí.</div>
+                    </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co je to subsystém a jaký má vztah k celku?</div>
+                        <div class="answer">Subsystém je menší část většího systému, která má vlastní strukturu a funkci – více subsystémů dohromady tvoří celý systém.</div>
+                    </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč se někdy systém zhroutí i když každá jeho část funguje perfektně?</div>
+                        <div class="answer">Problém je v interakcích mezi částmi, ne v částech samotných - špatná komunikace může zničit i dokonalé komponenty.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak poznáme, že systém funguje efektivně?</div>
+                    <div class="answer">Efektivní systém dosahuje svých cílů s minimálními ztrátami energie, času a zdrojů, při zachování stability a schopnosti reagovat na změny.</div>
+                </div>
+                <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
+            </div>
+            <br>
+            <h2>Doporučená literatura</h2>
+            <div class="citace">
+                <ul>
+                    <li>PRUKNER, Vítězslav; NOVÁK, Jaromír.<em> Základy magamentu</em>. Online. Univerzita Palackého v Olomouci. ISBN 978-80-244-4182-5.
+                        Dostupné z: <a href="https://publi.cz/books/189/01.html" target="_blank">https://publi.cz/books/189/01.html</a>. [citováno 2025-05-09].</li>
+                </ul>
+            </div>
+            <div class="zarazka"></div>
+                           <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim">
+
+    </button>
+        </section>
+    </article>
+
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+    </footer>
+</body>
+
+</html>

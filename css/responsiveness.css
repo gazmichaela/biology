@@ -1,0 +1,1274 @@
+/* 
+Některé responzivní styly se náchází v:
+- questions.css (hover efekty pro desktop)
+- navigation-mobile.css (responzivní styly pro mobilní navigaci)
+*/
+
+/*
+OBSAH:
+
+1. Obecné
+- do 1175px
+- do 1023px
+- do 768px
+- do 567px
+- do 480px
+- do 320px
+- landscape (max-height: 500px)
+- hover efekty
+
+
+2. FaQ, Otázky
+- do 768px
+- do 567px
+- do 320px
+
+3. PDF
+- do 768px
+- do 567px
+- do 320px
+- landscape (max-height: 500px)
+
+4. Obrázky
+- do 1023px
+- do 768px
+- do 480px
+- do 360px
+
+5. Zalamování h2
+- do 520px
+- do 460px
+- do 425px
+- do 390px
+- do 370px
+- do 330px
+
+*/
+
+
+/* ===== 1. OBECNÉ ===== */
+
+@media screen and (max-width: 1175px) {
+    /* Zajistí, že se stránka neprolí horizontálně */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    header {
+        height: auto;
+        max-height: 150px;
+    }
+
+    header h1 {
+        transform: translateY(5px);
+    }
+
+    .h1-index {
+        max-height: 170px;
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    body {
+        font-size: 1.2em;
+    }
+    
+    header h1 {
+        font-size: 1.9em;
+    }
+
+    .h1-index {
+        max-height: 155px;
+    }
+
+    footer {
+        height: 250px;
+    }
+
+    footer p {
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+    
+    article {
+        margin-right: 50px;
+        margin-left: 25px;
+    }
+    
+    section {
+        margin-left: 15px;
+        padding: 15px 0px 40px 0px;
+    }
+    
+    article section h2 {
+        font-size: 1.3em;
+        margin-top: 80px;
+    }
+    
+    article section h3 {
+        font-size: 1.2em;
+        margin-top: 50px;
+    }
+    
+    .video-wrapper {
+        width: 85%;
+    }
+    
+    table {
+        width: 85%;
+        font-size: 0.9em;
+    }
+    
+    th, td {
+        padding: 6px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 1.1em;
+    }
+    
+    header {
+        max-height: 130px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+        transform: translateY(10px);
+    }
+
+    .h1-index {
+        max-height: 140px;
+    }
+    
+    header ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    header ul li {
+        margin: 8px 0;
+        font-size: 16px;
+    }
+
+    footer p {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    article {
+        margin-right: 25px;
+        margin-left: 10px;
+    }
+    
+    section {
+        margin-left: 10px;
+        padding: 10px 0px 30px 0px;
+    }
+    
+    article section p {
+        margin-left: 0.8em;
+    }
+    
+    article section li {
+        margin-left: 0.8em;
+    }
+    
+    article section h2 {
+        font-size: 1.2em;
+        margin-top: 60px;
+        margin-bottom: 0.7em;
+    }
+    
+    article section h3 {
+        font-size: 1.1em;
+        margin-top: 40px;
+        margin-bottom: 0.6em;
+    }
+    
+    article section h4 {
+        margin-top: 2em;
+        margin-left: 0.3em;
+    }
+    
+    article section h5 {
+        margin-left: 0.6em;
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 10px;
+        margin-top: 15px;
+        padding: 8px 16px;
+        font-size: 0.9em;
+        display: block;
+        width: fit-content;
+    }
+    
+    .video-wrapper {
+        width: 95%;
+    }
+    
+    table {
+        width: 95%;
+        font-size: 0.8em;
+        margin: 20px auto 30px 2.5%;
+    }
+    
+    th, td {
+        padding: 4px 2px;
+        font-size: 0.85em;
+    }
+    
+    footer {
+        padding: 30px 10px 0px 10px;
+        font-size: 0.8em;
+        height: 220px;
+        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    .cookies-mini-notice {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: 300px;
+        font-size: 0.75em;
+    }
+    
+    .dark-mode-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Mobile Portrait - do 567px */
+@media screen and (max-width: 567px) {
+    body {
+        font-size: 1em;
+    }
+    
+    header {
+        max-height: 100px;
+    }
+
+    header h1 {
+        font-size: 1.6em;
+        transform: translateY(2px);
+    }
+
+    .h1-long {
+        max-height: 130px;
+    }
+    
+    .h1-long h1 {
+        transform: translateY(14px);
+    }
+
+    .h1-index {
+        max-height: 140px;
+    }
+
+    header ul li {
+        margin: 6px 0;
+        font-size: 15px;
+    }
+
+   article {
+        margin-right: 20px;
+        margin-left: 5px;
+    }
+    
+    section {
+        margin-left: 5px;
+        padding: 8px 0px 25px 0px;
+    }
+    
+    article section p {
+        margin-left: 0.5em;
+        margin-bottom: 0.6em;
+    }
+
+    article section li {
+    margin-left: -0.25em;
+    margin-bottom: 0.3em;
+    }
+
+    article section li li {
+        margin-left: 0.2em;
+    }
+
+    article section li li li {
+        margin-left: 0.1em;
+    }
+    
+    article section h2 {
+        font-size: 1.4em;
+        margin-top: 50px;
+        margin-bottom: 0.6em;
+        padding: 0 0.1em;
+    }
+    
+    article section h3 {
+        font-size: 1.05em;
+        margin-top: 35px;
+        margin-bottom: 0.5em;
+        padding: 2px 3px;
+    }
+    
+    article section h4 {
+        font-size: 1em;
+        margin-top: 1.5em;
+        margin-left: 0.2em;
+    }
+    
+    article section h5 {
+        font-size: 0.95em;
+        margin-left: 0.4em;
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 5px;
+        margin-top: 12px;
+        padding: 7px 14px;
+        font-size: 0.85em;
+        border-radius: 15px;
+    }
+    
+    table {
+        width: 98%;
+        font-size: 0.7em;
+        margin: 15px auto 25px 1%;
+    }
+    
+    th, td {
+        padding: 3px 1px;
+        font-size: 0.8em;
+    }
+    
+    .tooltip {
+        white-space: normal;
+    }
+    
+ .tooltip .tooltiptext {
+    font-size: small;
+    white-space: normal;
+    max-width: 200px; /* výchozí pro mobil */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 110%;
+    z-index: 9999;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .tooltip .tooltiptext {
+        max-width: 300px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .tooltip .tooltiptext {
+        max-width: 400px;
+    }
+}
+
+/* Velké obrazovky */
+@media (min-width: 1440px) {
+    .tooltip .tooltiptext {
+        max-width: 500px;
+    }
+}
+    footer {
+        padding: 20px 8px 0px 8px;
+        font-size: 0.75em;
+        height: 220px;
+        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    .cookies-mini-notice {
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+        padding: 8px 12px;
+        max-width: 250px;
+    }
+    
+    .dark-mode-toggle {
+        bottom: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .sun-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .sun-icon .sun {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .sun-icon .ray {
+        width: 1px;
+        height: 3px;
+    }
+    
+    .moon-icon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    article section li {
+        margin-left: -0.25em;
+    }
+
+    article section li li {
+        margin-left: 0.2em;
+    }
+
+    article section li li li {
+        margin-left: 0.1em;
+    }
+
+    article section p {
+        margin-left: 0.2em;
+    }
+
+    .h1-long h1 {
+        transform: translateY(5px);
+    }
+
+    .cookies-mini-notice {
+        max-width: 220px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    body {
+        font-size: 0.9em;
+    }
+    
+    header {
+        max-height: 80px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+        transform: translateY(0px);
+    }
+
+    .h1-long {
+        height: 100px;
+    }
+
+    .h1-long h1 {
+        font-size: 1.4em;
+        transform: translateY(0px);
+    }
+
+
+    footer {
+        height: 250px;
+    }
+
+    footer p {
+        margin-left: 43px;
+        margin-right: 43px;
+    }
+    
+    article {
+        margin-right: 15px;
+        margin-left: 5px;
+    }
+    
+    section {
+        margin-left: 5px;
+    }
+    
+    article section p {
+        margin-left: 0em;
+    }
+
+    article section ol,
+    article section ul {
+        margin-left: 0em;
+        padding-left: 15px;
+    }
+
+    article section li {
+        margin-left: 1em;
+        padding: 0.2em;
+    }
+
+    article section li li {
+        margin-left: 0em;
+        padding: 0em;
+    }
+
+    article section li li li {
+        margin-left: 0em;
+    }
+
+    article section .button,
+    article section .button-light {
+        margin-left: 2px;
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    
+    table {
+        font-size: 0.65em;
+    }
+    
+    th, td {
+        padding: 2px 1px;
+    }
+    
+    .cookies-mini-notice {
+        padding: 6px 10px;
+        max-width: 160px;
+    }
+}
+
+/* Landscape orientace pro mobily */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    header {
+        position: static;
+    }
+    
+    header h1 {
+        
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+    
+    header ul {
+        padding: 5px 0;
+    }
+    
+    header ul li {
+        margin: 4px 10px;
+        font-size: 14px;
+    }
+    
+
+    
+    article section h2 {
+        margin-top: 30px;
+    }
+    
+    article section h3 {
+        margin-top: 25px;
+    }
+    
+    footer {
+      
+        padding: 15px 8px 0px 8px;
+    }
+}
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    article section .button:hover,
+    article section .button-light:hover {
+        outline: 1.5px solid black;
+        outline-offset: 0px;
+        z-index: 1;
+        font-weight: 800;
+    }
+    
+    .tooltip:hover .tooltiptext {
+        opacity: 1;
+        pointer-events: auto;
+        animation: fadeTooltext 0.3s;
+        visibility: visible;
+    }
+}
+
+
+
+/* ===== 2.  RESPONZIVNÍ STYLY PRO FAQ/OTÁZKY ===== */
+
+@media screen and (min-width: 768px) {
+    .question {
+        padding: 5px 7px;
+        font-size: 0.9em;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        line-height: 1.4;
+    }
+    
+    .answer {
+        padding: 5px 8px;
+        font-size: 0.85em;
+        line-height: 1.4;
+    }
+    
+    #toggle-questions-btn {
+        padding: 12px 18px;
+        font-size: 1em;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        margin-top: 25px;
+    }
+}
+
+
+@media screen and (max-width: 567px) {
+    .question {
+        font-size: 0.92em;
+        border-radius: 6px;
+        margin-bottom: 3px;
+        line-height: 1.5;
+        touch-action: manipulation; /* Lepší dotyková odezva */
+    }
+    
+    .answer {
+        padding: 5px 10px;
+        border-left-width: 4px;
+        font-size: 0.87em;
+        line-height: 1.5;
+        margin-bottom: 6px;
+        margin-top: 2px;
+    }
+    
+    #toggle-questions-btn {
+        font-size: 1.05em;
+        border-radius: 6px;
+        margin-top: 20px;
+        height: 5%;
+        touch-action: manipulation;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .question {
+        padding: 12px 8px;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    
+    .answer {
+        padding: 12px 8px;
+        font-size: 0.85em;
+        border-left-width: 3px;
+    }
+    
+    #toggle-questions-btn {
+        padding: 12px 16px;
+        font-size: 1em;
+        margin-bottom: 25px;
+        margin-top: 15px;
+    }
+}
+
+
+
+/* ===== 3.  RESPONZIVNÍ STYLY PRO PDF OVERLAY ===== */
+
+@media screen and (max-width: 768px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 95%;
+        height: 90%;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 40px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1009;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+    }
+    
+    .escape-info {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 6px;
+        font-size: 15px;
+        z-index: 1010;
+    }
+}
+
+
+@media screen and (max-width: 567px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 98%;
+        height: 95%;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 26px;
+        line-height: 45px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        z-index: 1009;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        border: 2px solid #f0f0f0;
+    }
+    
+    .escape-info {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        background-color: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 16px;
+        z-index: 1010;
+        text-align: center;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .pdf-viewer-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
+    
+    .pdf-close-button {
+        top: 5px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        line-height: 40px;
+    }
+    
+    .escape-info {
+        top: 10px;
+        left: 10px;
+        right: 60px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .pdf-iframe {
+        border-radius: 0;
+    }
+}
+
+
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .pdf-viewer-container {
+        width: 98%;
+        height: 98%;
+    }
+    
+    .pdf-close-button {
+        top: -8px;
+        right: -8px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+        line-height: 1.5px;
+    }
+    
+    .escape-info {
+        top: 8px;
+        left: 8px;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+
+/* ==== 4.  RESPONZIVITA PRO OBRÁZKY ==== */
+
+@media screen and (max-width: 1023px) {
+    .img-right {
+        width: 40%;
+        min-width: 280px;
+        max-width: 500px;
+        margin-left: 30px;
+        margin-top: 15px;
+    }
+    
+    .img-right-big {
+        width: 60%;
+        margin-left: 15px;
+    }
+    
+    .img-right-middle {
+        width: 50%;
+        max-width: 420px;
+        min-width: 380px;
+    }
+    
+    .img-right-top {
+        width: 40%;
+        min-width: 280px;
+        max-width: 500px;
+        margin-top: 60px;
+        margin-left: 12px;
+    }
+    
+    .img-left {
+        width: 50%;
+        margin-left: 3%;
+        margin-right: 15px;
+    }
+    
+    .img-bottom {
+        width: 95%;
+        margin-left: 3%;
+    }
+    
+    .img-next {
+        width: 90%;
+    }
+    
+    /* Info boxy */
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+        width: 310px;
+    }
+    
+    .info-box-medium:hover:not(.force-close),
+    .info-box-medium.active {
+        width: 210px;
+    }
+    
+    .info-box-medium-second:hover:not(.force-close),
+    .info-box-medium-second.active {
+        width: 250px;
+    }
+    
+    .info-box-left:hover:not(.force-close),
+    .info-box-left.active {
+        width: 295px;
+    }
+    
+    .info-box-long-left:hover:not(.force-close),
+    .info-box-long-left.active {
+        width: 230px;
+    }
+    
+    .info-box-medium-third:hover:not(.force-close),
+    .info-box-medium-third.active {
+        width: 270px;
+    }
+    
+    .info-box-long:hover:not(.force-close),
+    .info-box-long.active {
+        width: 310px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .img-right {
+        width: auto;
+        min-width: 200px;
+        max-width: 400px;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 10px;
+        float: none;
+    }
+    
+    .img-right-big {
+        width: 90%;
+        margin-left: 10px;
+        float: none;
+    }
+    
+    .img-right-middle {
+        width: 90%;
+        margin: 0.8%;
+        margin-left: 1.5%;
+        float: none;
+        max-width: 100%;
+    }
+    
+    .img-right-top {
+        width: 90%;
+        max-width: 640px;
+        margin-top: 5vh;
+        margin-left: calc(5% + 5px);
+        margin-right: 5%;
+        float: none;
+        margin-bottom: -1vh;
+    }
+    
+    .img-left {
+        width: auto;
+        min-width: 200px;
+        max-width: 400px;
+        margin-left: 2%;
+        margin-right: 10px;
+    }
+    
+    .img-bottom {
+        width: 95%;
+        margin-left: 2%;
+    }
+    
+    .img-next {
+        width: 100%;
+        margin-left: 1%;
+    }
+    
+    /* Info boxy - menší rozměry */
+    .info-box,
+    .info-box-short,
+    .info-box-medium-second,
+    .info-box-left,
+    .info-box-long-left,
+    .info-box-medium-third,
+    .info-box-short-third,
+    .info-box-short-fourth,
+    .info-box-long,
+    .info-box-short-second,
+    .info-box-medium {
+        font-size: 12px;
+        width: 22px;
+        height: 22px;
+    }
+    
+    .info-box::before,
+    .info-box-short::before,
+    .info-box-medium::before,
+    .info-box-medium-second::before,
+    .info-box-left::before,
+    .info-box-long-left::before,
+    .info-box-medium-third::before,
+    .info-box-short-third::before,
+    .info-box-short-fourth::before,
+    .info-box-long::before,
+    .info-box-short-second::before {
+        left: 3px;
+        top: 3px;
+        right: 3px;
+        bottom: 3px;
+        max-width: 14px;
+    }
+    
+    .info-box .icon-circle,
+    .info-box-short .icon-circle-short,
+    .info-box-medium .icon-circle-medium,
+    .info-box-medium-second .icon-circle-medium-second,
+    .info-box-left .icon-circle-left,
+    .info-box-long-left .icon-circle-long-left,
+    .info-box-medium-third .icon-circle-medium-third,
+    .info-box-short-third .icon-circle-short-third,
+    .info-box-short-fourth .icon-circle-short-fourth,
+    .info-box-long .icon-circle-long,
+    .info-box-short-second .icon-circle-short-second {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+        width: 265px;
+    }
+    
+    .info-box-short:hover:not(.force-close),
+    .info-box-short.active {
+        width: 120px;
+    }
+    
+    .info-box-medium:hover:not(.force-close),
+    .info-box-medium.active {
+        width: 200px;
+    }
+    
+    .info-box-medium-second:hover:not(.force-close),
+    .info-box-medium-second.active {
+        width: 240px;
+    }
+    
+    .info-box-left:hover:not(.force-close),
+    .info-box-left.active {
+        width: 290px;
+    }
+    
+    .info-box-long-left:hover:not(.force-close),
+    .info-box-long-left.active {
+        width: 200px;
+    }
+    
+    .info-box-medium-third:hover:not(.force-close),
+    .info-box-medium-third.active {
+        width: 250px;
+    }
+    
+    .info-box-short-third:hover:not(.force-close),
+    .info-box-short-third.active {
+        width: 110px;
+    }
+    
+    .info-box-short-fourth:hover:not(.force-close),
+    .info-box-short-fourth.active {
+        width: 133px;
+    }
+    
+    .info-box-long:hover:not(.force-close),
+    .info-box-long.active {
+        width: 290px;
+    }
+    
+    .info-box-short-second:hover:not(.force-close),
+    .info-box-short-second.active {
+        width: 110px;
+    }
+    
+    .info-box span,
+    .info-box-short span,
+    .info-box-medium span,
+    .info-box-medium-second span,
+    .info-box-left span,
+    .info-box-long-left span,
+    .info-box-medium-third span,
+    .info-box-short-third span,
+    .info-box-short-fourth span,
+    .info-box-long span,
+    .info-box-short-second span {
+        left: 22px;
+        margin-left: 8px;
+    }
+}
+
+/* Mobily - do 480px */
+@media screen and (max-width: 480px) {
+    .img-right,
+    .img-right-big,
+    .img-right-middle,
+    .img-right-top,
+    .img-left {
+        float: none;
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .img-right-top {
+        margin-top: 30px;
+    }
+    
+    .img-bottom {
+        width: 90%;
+        margin: 10px auto;
+        margin-left: auto;
+        display: block;
+    }
+    
+    .img-next {
+        width: 90%;
+        margin: 10px auto;
+        margin-left: auto;
+        display: block;
+    }
+}
+
+/* Velmi malé mobily - do 360px */
+@media screen and (max-width: 360px) {
+    .img-right,
+    .img-right-big,
+    .img-right-middle,
+    .img-right-top,
+    .img-left,
+    .img-bottom,
+    .img-next {
+        width: 95%;
+        margin: 8px auto;
+    }
+
+    .img-right-top {
+        margin-top: 30px;
+        margin-bottom: 0;
+    }
+}
+
+/* ===== 5.  ZALAMOVÁNÍ DLOUHÝCH NADPISŮ H2 - při určité šířce  ===== */
+article section .h2-3 {
+    visibility: hidden;
+    display: none;
+}
+
+@media screen and (max-width: 520px) {
+    article section .h2-wrap.h2-520 {
+        visibility: visible;
+        display: inline-block;
+    }
+
+    article section .h2-normal.h2-520 {
+        visibility: hidden;
+        display: none;
+    }
+
+    article section .h2-2 {
+        visibility: visible !important;
+        display: inline-block !important;
+    }
+
+    article section .h2-3 {
+        visibility: hidden !important;
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    article section .h2-wrap.h2-460 {
+        visibility: visible;
+        display: inline-block;
+    }
+
+    article section .h2-normal.h2-460 {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    article section .h2-wrap.h2-425 {
+        visibility: visible;
+        display: inline-block;
+    }
+
+    article section .h2-normal.h2-425 {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    article section .h2-wrap.h2-390 {
+        visibility: visible;
+        display: inline-block;
+    }
+
+    article section .h2-normal.h2-390 {
+        visibility: hidden;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    article section .h2-wrap.h2-370 {
+        visibility: visible;
+        display: inline-block;
+    }
+
+    article section .h2-normal.h2-370 {
+        visibility: hidden;
+        display: none;
+    }
+
+    article section .h2-3 {
+        visibility: visible !important;
+        display: inline-block !important;
+    }
+
+    article section .h2-2 {
+        visibility: hidden !important;
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    article section .h2-wrap {
+        visibility: visible;
+        display: inline-block;
+    }
+
+    article section .h2-normal {
+        visibility: hidden;
+        display: none;
+    }
+}

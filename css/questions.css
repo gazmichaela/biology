@@ -1,0 +1,97 @@
+/* Styly pro tlačítka mimo otázky v style.css */
+/* Hover efekty */
+
+.hidden {
+    display: none; /* Skrytý kontejner otázek (na začátku) */
+}
+
+.question {
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 0.85em;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+
+.answer {
+    padding: 10px;
+    background-color: #dcdcdc;
+    border-left: 3px solid #4CAF50;
+    display: none; /* Odpověď je skrytá */
+    font-size: 0.8em;
+    margin-bottom: 10px;
+    margin-top: -2px;
+    text-align: left;
+}
+
+/* Tlačítko pro zobrazení všech otázek */
+#toggle-questions-btn {
+    padding: 10px 15px;
+    font-size: 0.95em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #309ce5;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+
+
+.question:focus {
+    outline: none; /* Zabrání modrému rámečku kolem otázek */
+}
+
+.question.open {
+    background-color: #e9e9e9;
+    transition: background-color 0.3s ease;
+}
+
+/* Pro tmavý režim */
+body.dark-mode .question {
+    background-color: #333131;
+    border: 1px solid #505050;
+    color: #c8c1b5;
+}
+
+body.dark-mode .answer {
+    background-color: #2b2c2b;
+    color: #c8c1b5;
+    border-left-color: #4CAF50;
+}
+
+body.dark-mode #toggle-questions-btn {
+    background-color: #309ce5f1;
+    color: #e6e6e6;
+}
+
+body.dark-mode .question.open {
+    background-color: #404040;
+}
+
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    .question:hover {
+        background-color: #e8e8e8;
+    }
+    
+    body.dark-mode .question:hover {
+        background-color: #3a3a3a;
+    }
+    
+    #toggle-questions-btn:hover {
+        background-color: #2a8bc7;
+    }
+    
+    body.dark-mode #toggle-questions-btn:hover {
+        background-color: #2a8bc7f1;
+    }
+}
+

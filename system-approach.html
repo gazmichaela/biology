@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Systémový přístup</title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/questions.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <script src="js/FaQ.js" defer></script>
+    <!-- <script src="js/tooltip.js" defer></script> -->
+    <!--<script src="js/img-zoom.js" defer></script>-->
+    <!--<script src="js/pdf.js" defer></script>-->
+    <script src="js/source.js" defer></script>
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <!-- <link rel="preload" href="js/dropdowns.js" as="script">
+    <link rel="preload" href="js/active-menu.js" as="script"> -->
+    <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
+</head>
+
+<body>
+    <header aria-hidden="true">
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+            </picture>
+        </a>
+        <br>
+        <h1>Systémový přístup</h1>
+        <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul>
+            <a href="index.html" class="home-icon">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+    </header>
+    
+    <article>
+        <section>
+            <div class="img-wrapper img-right-top">
+                <picture>
+                    <source srcset="images/webp/systemovy-pristup-ai.webp" type="image/webp" data-src="images/webp/systemovy-pristup-ai.webp">
+                    <img src="images/png/systemovy-pristup-ai.png" data-src="images/png/systemovy-pristup-ai.png">
+                </picture>   
+                <div class="info-box-short">
+                    <div class="icon-circle-short">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                </div>
+            </div>           
+            <h2>Systémový přístup</h2>
+            <p>Systémový přístup je praktická metoda, která vychází ze systémového myšlení a pomáhá při navrhování a optimalizaci složitých systémů. Zaměřuje se na 
+                <dfn class="tooltip">interakce<span class="tooltiptext" aria-hidden="true">vzájemné působení, vliv <br> jednoho prvku na druhý</span></dfn>
+                mezi jednotlivými částmi a zkoumá se, jak spolupracují. Tento přístup je
+                <dfn class="tooltip">základní filozofií<span class="tooltiptext" aria-hidden="true">základní princip nebo způsob <br> přemýšlení, který ovlivňuje, <br> jak se daná věc řeší</span></dfn>, 
+                která stojí za navrhováním a 
+                <dfn class="tooltip">optimalizací<span class="tooltiptext" aria-hidden="true">vylepšení nebo úprava <br> tak, aby celý systém <br> fungoval co nejefektivněji</span></dfn>
+                složitých systémů.
+                Například při návrhu elektromobilu se inženýři nezaměřují pouze na jednotlivé komponenty, jako jsou elektromotor nebo baterie, ale 
+                na to, jak tyto části spolu fungují a jak jejich optimalizace přispěje k efektivitě celého vozu.</p>
+            <p>Systémová biologie používá matematiku, počítače a velké množství dat, aby mohla analyzovat, jak tyto části komunikují a ovlivňují se navzájem. </p>
+            <p>Postupy práce v systémové biologii:</p>
+            <ul>
+                <li>Sběr dat</li>
+                <li>Modelování</li>
+                <li>Simulace</li>
+                <li>Testování</li>
+            </ul>
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal h2-460">
+                <h2>Využití systémového přístupu v praxi</h2>
+            </div>
+            <div class="h2-wrap h2-460">
+                <h2>Využití systémového</h2>
+                <br>
+                <h2>přístupu v praxi</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <ul>
+                <li>
+                    Představte si řízení dopravy v rušném městě. Systémový přístup v tomto případě umožňuje
+                    <dfn class="tooltip">urbanistům<span class="tooltiptext" aria-hidden="true">odborníci, kteří plánují <br> a navrhují města a <br> jejich infrastrukturu</span></dfn>
+                    navrhovat řešení, která zohledňují nejen tok vozidel, ale také pohyb chodců, veřejnou dopravu, semafory a silniční infrastrukturu. Díky analýze těchto vzájemně
+                    propojených složek mohou odborníci vytvořit dopravní systém, který minimalizuje zácpy a zvyšuje celkovou
+                    <dfn class="tooltip">mobilitu<span class="tooltiptext" aria-hidden="true">schopnost lidí a <br> zboží pohybovat se <br> po městě rychle, <br> bezpečně a pohodlně</span></dfn>.
+                </li>
+                <li>
+                    Výrobní linka pro automobily je složitý systém, kde je každá část propojená s ostatními. Pokud se například zastaví montáž motorů kvůli technickému problému, může to zpomalit nebo zastavit
+                    celý proces. Pomocí systémového přístupu mohou vedoucí pracovníci analyzovat vzájemné vazby mezi částmi výrobního procesu a optimalizovat jejich spolupráci tak, aby celý systém
+                    fungoval efektivně a pružně reagoval na výpadky či změny.
+                </li>
+                <li>
+                    Při snaze zvýšit kvalitu výuky ve škole se může uplatnit systémový přístup. Vedení školy se nezaměřuje pouze na výkon jednotlivých učitelů, ale analyzuje celý školní systém: strukturu rozvrhu, způsob
+                    hodnocení, motivaci žáků, spolupráci s rodiči i technické zázemí. Teprve propojením těchto prvků a jejich vzájemnou optimalizací je možné dosáhnout trvalého zlepšení výsledků.
+                </li>
+                <li>
+                    Vědci, kteří se zabývají infekcemi, analyzují, jak bakterie komunikují a ovlivňují lidské buňky. Tato data jim pomáhají určit nejlepší místa, kam zasáhnout antibiotiky,
+                    aby zabránili šíření nemoci, a zároveň vyvíjejí způsoby, jak snížit vznik rezistence vůči lékům.
+                </li>
+            </ul>
+            <h2>Poznámka</h2>
+            <p>Systémové myšlení a systémový přístup spolu úzce souvisí. Systémové myšlení je spíše způsob uvažování, způsob, jak chápat svět a problémy.
+                Systémový přístup je konkrétní nástroj nebo metoda, kterou můžeme použít k praktickému řešení problémů vycházejícím ze systémového myšlení.</p>
+            <a href="system-thinking.html" class="button">Více o systémovém myšlení</a>
+            <div class="zarazka"></div>
+             <!-- Tlačítko pro zobrazení/skrytí otázek -->
+            <h2>Kvíz:</h2><br>
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+
+            <!-- Kontejner pro otázky -->
+            <div id="faq-container" class="hidden">
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak se uplatní systémový přístup při navrhování léčby nemocí?</div>
+                        <div class="answer">Léčba se neomezuje jen na nemocný orgán, ale zohledňuje i imunitní odpověď, psychický stav, životní styl a další faktory, které mohou ovlivnit uzdravení.</div>
+                    </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak systémový přístup pomáhá při navrhování nových technologií, jako jsou elektromobily?</div>
+                        <div class="answer">Při vývoji elektromobilů nesmíme myslet jen na motor a baterii. Systémový přístup zahrnuje infrastrukturu nabíjení, výrobu elektřiny, recyklaci baterií, změny v dopravních návycích lidí i ekonomické dopady na automobilový průmysl. Všechny tyto části musí fungovat dohromady.</div>
+                    </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký je rozdíl mezi lineárním a systémovým pohledem na problém?</div>
+                        <div class="answer">Lineární přístup hledá přímou příčinu a důsledek, zatímco systémový zkoumá více příčin, zpětné vazby, cykly a celkovou dynamiku problému.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak může systémový přístup pomoci při ochraně životního prostředí?</div>
+                    <div class="answer">Systémový přístup umožňuje zohlednit ekologické, ekonomické i sociální faktory a jejich vzájemné vlivy, což vede k udržitelným řešením environmentálních problémů.</div>
+                </div>
+                <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
+            </div>
+                           <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim">
+
+    </button>
+        </section>
+    </article>
+
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+    </footer>
+</body>
+
+</html>

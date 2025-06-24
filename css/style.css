@@ -1,0 +1,723 @@
+/* 
+Toto je výchozí CSS soubor se základními styly a styly neroztříděnými do vlastních souborů.
+Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé.
+Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
+Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css
+Některé styly mohou být v JS
+*/
+
+/* ===== 1. Variabilní fonty ===== */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
+  font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/Inter-Italic-VariableFont_opsz-wght.woff2') format('woff2');
+  font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ===== 2. Statické fallback řezy ===== */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
+  font-weight: 400; /* Váha pro "normal" */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/static/Inter_18pt-Bold.woff2') format('woff2');
+  font-weight: 700; /* Váha pro "bold" */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/static/Inter_18pt-Italic.woff2') format('woff2');
+  font-weight: 400; /* Váha pro "normal" */
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/static/Inter_18pt-BoldItalic.woff2') format('woff2');
+  font-weight: 700; /* Váha pro "bold" */
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/static/Inter_18pt-SemiBold.woff2') format('woff2');
+  font-weight: 600; /* Váha pro "semi-bold" (600) */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter/static/Inter_18pt-ExtraBold.woff2') format('woff2');
+  font-weight: 800; /* Váha pro "extra-bold" (800) */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+html {
+    background: #3f7093;
+}
+
+body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-size: 1.3em;
+    background-color: #f0f9f0;
+    min-width: 248px;
+    margin: 0;
+    color: #023f1e;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+ .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background: white;
+        }
+
+noscript {
+    font-size: 3em;
+    font-weight: 900;
+        background-color: #77afe0ee;
+}
+
+/* JavaScript helper class */
+.content-padding {
+    padding-top: 100px; 
+}
+
+body header {
+    background-color: #77afe0ee;
+    text-align: center;
+    padding: 1px 0;
+    color: white;
+    z-index: 1000;
+    position: sticky;
+}
+
+
+header p {
+    font-weight: 600;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    margin: 25px 14px 0px 14px;
+}
+
+header ul {
+    list-style: none;
+    margin-top: 1px;
+    display: flex;
+    justify-content: center;
+    padding: 1px 0;
+    position: relative;
+}
+
+header ul li {
+    display: inline;
+    margin: 0 15px;
+    color: #023f1e;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+}
+
+article {
+    flex: 1;
+    margin-right: 60px;
+    margin-left: 40px;
+    line-height: 1.5;
+}
+
+section {
+    margin-left: 20px;
+    padding: 20px 0px 50px 0px;
+    clear: both;
+    text-align: justify; 
+}
+
+article section p + ul,
+article section p + ol {
+    margin-top: -0.25em;
+}
+
+article section li {
+    margin-left: 1.2em;
+    line-height: 1.4;
+    margin-bottom: 0.4em;
+}
+
+article section li li {
+    margin-top: 0.1em;
+    margin-left: 0.5em;
+    line-height: 1.2;
+    margin-bottom: 0.1em;
+}
+
+article section li li li {
+    margin-top: 0.05em;
+    margin-left: 0.5em;
+    line-height: 1.1;
+    margin-bottom: 0.05em;
+}
+
+article section p {
+    margin-left: 1.2em;
+    margin-bottom: 0.75em;
+}
+
+article section h2 {
+    background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
+    padding: 0 0.15em;
+    font-size: 1.4em;
+    margin-top: 100px; /* Mezera */
+    display: inline-block; /* Zajistí podtržení pouze pod textem */
+    font-weight: 700;
+    margin-bottom: 0.9em;
+    text-align: left; 
+}
+
+article section .h2-wrap > h2 {
+    margin-bottom: 0em;
+}
+
+article section .h2-wrap h2 + br + h2,
+article section .h2-wrap h2 + br + h2 + br + h2 {
+    margin-top: 0.2em;
+}
+
+article section .h2-wrap {
+    visibility: hidden;
+    display: none;
+}
+
+article section h3 {
+    text-decoration: underline #00c5003d;
+    font-weight: 600;
+    padding: 2px 5px;
+    font-size: 1.3em;
+    margin-top: 60px;
+    margin-bottom: 0.8em;
+    text-align: left; 
+}
+
+
+
+article section h4 {
+    margin-top: 3em;
+    margin-bottom: 0.4em;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-left: 0.5em;
+    text-align: left; 
+}
+
+article section h5 {
+    margin-bottom: -10px;
+    font-size: 1em;
+    font-weight: 600;
+    font-style: italic;
+    margin-left: 1em;
+    text-align: left; 
+}
+
+article section h5 + ul,
+article section h5 + ol {
+    margin-top: 0.5em;
+}
+
+article section small {
+    font-size: 0.75em;
+    display: block;
+    margin-top: 1.5em;
+}
+
+article section .button,
+article section .button-light {
+    border-radius: 20px;
+    padding: 9px 20px;
+    margin-left: 30px;
+    margin-top: 20px;
+    display: inline-block;  
+    cursor: pointer;        
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    justify-content: center;
+    border: 1px solid black;
+    outline: 0px solid transparent; /* Příprava pro hover efekt */
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+
+article section .button {
+    background: #1c77e8;
+}
+
+
+
+article section .button-light {
+    background-color: #309ce5;
+}
+
+
+
+article section .button:hover,
+article section .button-light:hover {
+    outline: 1.5px solid black; /* Přidá druhé ohraničení při najetí myší */
+    outline-offset: 0px;
+    z-index: 1;
+    font-weight: 800;
+}
+
+footer {
+    box-sizing: border-box;
+    text-align: left;
+    height: 220px;
+    color: white;
+    background: #3f7093;
+    padding: 50px 0px 0px 10px;
+    /* margin-bottom: -1px !important; */
+    font-size: 14px;
+    margin-top: 30px;
+    clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%);
+}
+
+footer a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+footer p {
+text-align: center;
+margin-left: 50px;
+margin-right: 50px;
+}
+
+.sidemap,
+.sidemap a {
+    color: inherit;
+    text-align: left !important;
+}
+
+.no-a-style {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+.citace {
+    text-align: left;
+}
+
+.logo {
+    width: 175px;
+    height: auto;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    margin: 18px 0px 0px 25px;
+    opacity: 0;               /* Na začátku je obrázek neviditelný */
+    animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
+}
+@keyframes showImage {
+    0% {
+      opacity: 0;  /* Začátek animace (neviditelný) */
+    }
+    100% {
+      opacity: 1;  /* Konec animace (viditelný) */
+    }
+}
+
+.logo a {
+    display: inline-block;
+    width: fit-content; 
+    height: auto; 
+    position: relative;
+    text-decoration: none;
+    left: 15%; 
+    top: 15%; 
+}
+
+.logo img {
+    width: 100%; 
+    height: auto;
+    display: block;
+    position: absolute;
+    left: -15%; 
+    top: -15%; 
+    max-width: 100px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.zarazka {
+    clear: both;
+}
+
+/* COOKIES */
+/* Styl pro malé vyskakovací okno */
+.cookies-mini-notice {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    background: #FFFFFFF7;
+    box-shadow: 0 2px 8px #0000001A;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 0.70em;
+    max-width: 300px;
+    z-index: 1000;
+    border: 1px solid #e0e0e0;
+    display: none; /* Počáteční stav - skryto */
+}
+
+
+
+.cookies-mini-notice.show {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+.cookies-mini-notice p {
+    margin-bottom: 8px;
+    color: #444;
+}
+
+
+
+
+.cookies-mini-notice button {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 5px;
+}
+
+
+
+.cookies-mini-notice button:hover {
+    background-color: #e8e8e8;
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* VIDEO */
+.video-wrapper {
+    max-width: 1600px;
+    width: 75%;
+    /* margin: 0 auto; */  /* Lze přidat pro centrování, jinak zarovnání vlevo */
+}
+
+.responsive-video {
+    position: relative;
+    padding-bottom: 56.25%; /* Poměr stran 16:9 */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.responsive-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* TABULKA */
+table {
+    width: 70%;
+    max-width: 1800px;
+    border: 2px solid black;
+    border-collapse: collapse; /* Sloučení okrajů buněk */
+    margin: 30px auto 40px 5%;
+}
+
+
+/* Styl pro buňky tabulky */
+th, td {
+    padding: 4px;  /* Větší vnitřní okraje buněk */
+    text-align: center;
+    border: 1px solid black;
+    font-size: 1em;
+}
+
+
+th:first-child {
+    font-weight: normal;
+}
+
+td:first-child :not(.extra-bunka) {
+    font-weight: bold; /* Tučný text v první buňce */
+}
+
+
+/* VÝZNAM SLOV PRO NAJETÍ MYŠÍ */
+.tooltip {
+    position: relative;
+    cursor: help;
+    text-decoration: dotted underline;
+    white-space: nowrap;
+}
+
+.tooltip .tooltiptext {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 12px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s 0.6s ease;
+    font-size: 0.8em;
+    white-space: nowrap;
+    pointer-events: none;
+    text-decoration: none;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.3;
+    animation: visibilityTooltext 0s 1s forwards;
+}
+
+@keyframes visibilityTooltext {
+    to { visibility: hidden; }
+}
+
+
+
+.tooltip:hover .tooltiptext {
+    opacity: 1;
+    pointer-events: auto;
+    animation: fadeTooltext 0.3s;
+    visibility: visible;
+}
+
+@keyframes fadeTooltext {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+/* PŘI PROBLÉMECH ODKOMENTOVAT */
+
+/* Prioritní načítání menu */
+/*header {
+    will-change: transform; 
+}*/
+/*body {
+    will-change: transform; 
+}*/
+
+/*.button-container {
+    will-change: transform; 
+}*/
+
+/* Optimalizace pro obrazky v menu */
+/*header img,
+.logo,
+{
+    content-visibility: auto; 
+}*/
+
+
+
+
+
+
+
+
+/* Tlačítko tmavého režimu v tmavém režimu */
+
+
+/* Animace přechodu */
+.fade-transition {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade-transition.show {
+    opacity: 1;
+}
+
+    /* Ikona slunce - OPRAVENÁ VERZE */
+.sun-icon {
+    width: 19px;
+    height: 19px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun-icon .sun {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #fff 50%, #4a4a4a 50%); /* Půlka bílá, půlka tmavá */
+    border: 2px solid #4a4a4a; /* Tmavý okraj */
+    position: relative;
+    z-index: 2;
+}
+
+.sun-icon .ray {
+    position: absolute;
+    width: 1.5px;
+    height: 4px; /* Delší paprsky */
+    background-color: #4a4a4a; /* Tmavé paprsky */
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    z-index: 1;
+}
+/* Firefox specifické opravy */
+@-moz-document url-prefix() {
+    .sun {
+        margin: 0;
+        padding: 0;
+        
+    }
+    .ray {
+        margin: 0;
+        padding: 0;
+        transform-origin: center center;
+    }
+    .ray:nth-child(2) { transform: translate(-1px, -1px) rotate(0deg) translateY(-10px); }
+    .ray:nth-child(3) { transform: translate(-1px, -1px) rotate(45deg) translateY(-10px); }
+    .ray:nth-child(4) { transform: translate(-1px, -1px) rotate(90deg) translateY(-10px); }
+    .ray:nth-child(5) { transform: translate(-1px, -1px) rotate(135deg) translateY(-10px); }
+    .ray:nth-child(6) { transform: translate(-1px, -1px) rotate(180deg) translateY(-10px); }
+    .ray:nth-child(7) { transform: translate(-1px, -1px) rotate(225deg) translateY(-10px); }
+    .ray:nth-child(8) { transform: translate(-1px, -1px) rotate(270deg) translateY(-10px); }
+    .ray:nth-child(9) { transform: translate(-1px, -1px) rotate(315deg) translateY(-10px); }
+}
+
+/* Zajistí konzistentní zobrazení ve všech prohlížečích */
+.sun-icon * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+/* 8 paprsků kolem slunce - vzdálenější od středu */
+.sun-icon .ray:nth-child(2) { transform: translate(-50%, -50%) rotate(0deg) translateY(-14px); }
+.sun-icon .ray:nth-child(3) { transform: translate(-50%, -50%) rotate(45deg) translateY(-14px); }
+.sun-icon .ray:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg) translateY(-13px); }
+.sun-icon .ray:nth-child(5) { transform: translate(-50%, -50%) rotate(135deg) translateY(-14px); }
+.sun-icon .ray:nth-child(6) { transform: translate(-50%, -50%) rotate(180deg) translateY(-13px); }
+.sun-icon .ray:nth-child(7) { transform: translate(-50%, -50%) rotate(225deg) translateY(-14px); }
+.sun-icon .ray:nth-child(8) { transform: translate(-50%, -50%) rotate(270deg) translateY(-14px); }
+.sun-icon .ray:nth-child(9) { transform: translate(-50%, -50%) rotate(315deg) translateY(-14px); }
+
+/* Ikona měsíce - dva srpky jako na obrázku */
+.moon-icon {
+    width: 30px;
+    height: 30px;
+    background: #3a3a3a;
+    position: relative;
+    display: inline-block;
+    border-radius: 3px;
+}
+
+/* Větší vnější srpek */
+.moon-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+/* Menší vnitřní srpek */
+.moon-icon::after {
+    content: '';
+    position: absolute;
+    top: 48%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid white;
+    border-radius: 50%;
+    background: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+

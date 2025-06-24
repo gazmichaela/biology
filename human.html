@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Člověk</title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/questions.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <script src="js/FaQ.js" defer></script>
+    <!--<script src="js/tooltip.js" defer></script>-->
+    <!--<script src="js/img-zoom.js" defer></script>-->
+    <!--<script src="js/pdf.js" defer></script>-->
+    <script src="js/source.js" defer></script>
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <!-- <link rel="preload" href="js/dropdowns.js" as="script">
+    <link rel="preload" href="js/active-menu.js" as="script"> -->
+    <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
+    
+</head>
+
+<body>
+    <header aria-hidden="true">
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+            </picture>
+        </a>
+        <br>
+        <h1>Člověk</h1>
+        <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul>
+            <a href="index.html" class="home-icon">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+    </header>
+    
+    <article>
+        <section>
+            <div class="img-wrapper img-right-top">
+                <picture>
+                    <source srcset="images/webp/tkane.webp" type="image/webp" data-src="images/webp/tkane.webp">
+                    <img src="images/png/tkane.png" data-src="images/png/tkane.png">
+                </picture>
+                <div class="info-box-medium-third">
+                    <div class="icon-circle-medium-third">i</div>
+                    <span>Autor: <a href="https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/100/images/image-5ebae8a8d6026.png" target="_blank">Kamil Danak / CC BY-SA 4.0</a></span>
+                </div>
+            </div>
+            <h2>Tkáně</h2>
+            <p>Tělesné tkáně jsou soubory buněk, které mají podobnou nebo stejnou strukturu a plní určitou funkci. Tvoří je především
+                voda (asi dvě třetiny) a bílkoviny.
+                <br>Mezi základní typy tkání patří:</p>
+            <ol>
+                <li><strong>Epitelová tkáň</strong> – slouží k ochraně těla, jako je kůže či pokožka.</li>
+                <li><strong>Pojivová tkáň</strong> – zahrnuje několik podtypů:
+                    <ul>
+                        <li><strong>Vazivo</strong>, jež poskytuje tělu <dfn class="tooltip">soudržnou<span class="tooltiptext" aria-hidden="true">části těla<br>držící pohromadě</span></dfn> strukturu.</li>
+                        <li><strong>Chrupavka</strong> pokrývá kloubní části kostí a zajišťuje hladký pohyb kloubu
+                            v kostní jamce.</li>
+                        <li><strong>Kost</strong> je pevná, silná a silně mineralizovaná.</li>
+                    </ul>
+                </li>
+                <li><strong>Svalová tkáň</strong> – umožňuje pohyb.</li>
+                <li><strong>Nervová tkáň</strong> – je základem pro přenos nervových impulzů.</li>
+                <li><strong>Trofická tkáň</strong> – to jsou tekutiny jako krev a míza.</li>
+            </ol>
+            <h3>Epitelová tkáň</h3>
+            <p>Buňky jsou uspořádány ve vrstvách, mezi buňkami nejsou prakticky žádné mezibuněčné prostory. Epitel pokrývá jak tělní povrch, tak i <dfn class="tooltip">dutiny<span class="tooltiptext" aria-hidden="true">vnitřní prostory<br>v těle </span></dfn>.
+                Epitelovou tkáň najdeme na trávicí trubici, dýchacích cestách, močových cestách a i na pohrudniční a pobřišnicové dutině. Epitely nemají
+                vlastní cévní zásobení a jejich výživa se děje prolínáním z hloubky z tkání uložených pod epitelem.</p>
+            <p>Podle funkčního hlediska rozdělujeme na:</p>
+            <ol>
+                <li><strong>Epitel krycí</strong> – chrání hlouběji uložené tkáně před škodlivými mechanickými, chemickými a tepelnými vlivy.</li>
+                <li><strong>Epitel řasinkový</strong> – má krycí funkci, na řasinky se přichytávají částice, které jsou z těla odváděny.</li>
+                <li><strong>Epitel žlázový</strong> – vytváří žlázy, které produkují specifické látky.</li>
+                <li><strong>Epitel resorpční</strong> – resorpční buňky mají schopnost vstřebávat ze svého okolí látky. Nachází se v tenkém střevě.</li>
+                <li><strong>Epitel smyslový</strong> – jeho buňky reagují na podněty ze zevního a vnitřního prostředí.</li>
+                <li><strong>Epitel respirační</strong> – vystýlá plicní sklípky, ve kterých probíhá výměna dýchacích plynů.</li>
+            </ol>
+            <h3>Pojivová tkáň</h3>
+            <p>Tkáň pojivová je také označována jako tkáň podpůrná, protože jejím hlavním úkolem je poskytování opory měkkým částem těla. Buňky pojivové tkáně
+                jsou od sebe oddáleny a jejich <dfn class="tooltip">štěrbiny<span class="tooltiptext" aria-hidden="true">úzké mezery</span></dfn> jsou vyplněny mezibuněčnou hmotou. Tato tkáň je tvořena buňkami, mezibuněčnou hmotou a vlákny. Hmota
+                mezibuněčná je tvořena roztokem bílkovin.</p>
+            <ol style="list-style-type: upper-roman;">
+                <h4><li>Tkáň vazivová</li></h4>
+                <p>Vazivo je měkká a <dfn class="tooltip">poddajná<span class="tooltiptext" aria-hidden="true">přizpůsobivá, <br> ohebná</span></dfn> tkáň bohatá na vodu. Skládá se z buněk a mezibuněčné hmoty, ve které se nacházejí různá vláknitá struktury zajišťující pevnost a pružnost.</p>
+                <p>Tuto tkáň najdeme například v:</p>
+                <ul>
+                    <li>slezině,</li>
+                    <li>mízních uzlách,</li>
+                    <li>štěrbinách mezi orgány,</li>
+                    <li>žlutých vazech,</li>
+                    <li>pod kůží,</li>
+                    <li>u ledvinách,</li>
+                    <li>okolo oční koule.</li>
+                </ul>
+                <h4><li>Tkáň chrupavčitá</li></h4>
+                <p>Chrupavka je pevná, pružná pojivová tkáň. Je odolná vůči tlaku. Chrupavčitá tkáň je bezcévná. Je vyživována z přirostlé kosti
+                    a z ochrustavice. Schopnost regenerace chrupavky je velmi malá a zpravidla se již neobnoví.</p>
+                <p>Chrupavku najdeme:</p>
+                <ul>
+                    <li>na kloubních plochách kostí,</li>
+                    <li>v meziobratlových ploténkách i ploténkách kloubních,</li>
+                    <li>v ušních boltcích.</li>
+                </ul>
+                <h4><li>Kostní tkáň</li></h4>
+                <p>Kosti jsou klíčovou součástí lidské kostry a jejich vlastnosti se vyvíjely v průběhu historie v závislosti na
+                    nárocích na zatížení těla. Různé kosti mají odlišnou strukturu a pevnost podle toho, jak jsou zatěžovány. Například
+                    vnitřek dlohých kostí není plný, což zajišťuje její vetší odolnost.</p>
+                <p>Kostní tkáň je tvořena buňkami zvanými <strong>osteocyty</strong> a obsahuje dvě hlavní složky:</p>
+                <ul>
+                    <li><strong>Organická složka</strong> (&asymp; &frac13;): kosti dodávají <strong>pružnost</strong>, mezi nimiž je hlavní
+                        bílkovina <strong>osein</strong>.</li>
+                    <li><strong>Anorganická složka</strong> (&asymp; &frac23;) zajišťují <strong>pevnost</strong> kostí, přičemž dominantními
+                        sloučeninami jsou <strong>Ca<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub> (fosforečnan vápenatý)</strong> a <strong>CaCO<sub>3</sub> (uhličitan vápenatý)</strong>.</li>
+                </ul>   
+                <p>Se stářím kostní tkáň mění svou strukturu, kdy přibývá anorganická hmota, což může vést ke zvýšené lámavosti
+                    kostí. Živiny kostem dodávají cévy, které procházejí okostnicí a dále kostními tkáněmi.</p>
+                <h5>Vývoj a růst kostí</h5>
+                <p>Kosti se během vývoje vytvářejí z <strong>chrupavky</strong> nebo <strong>vazivového základu</strong>
+                    prostřednictvím procesu zvaného <strong>osifikace</strong> (neboli <strong>kostnatění</strong>), kdy osifikační jádra rozšiřují tvorbu kostní hmoty.
+                    Kosti rostou jak do šířky, tak do délky; do šířky díky okostici, do délky díky růstové chrupavce.</p>
+                <p>Kosti se spojují různými způsoby:</p>
+                <ul>
+                    <li><strong>Vazivem</strong>, což zajišťuje pevné spojení a pružnost, jak tomu je například u švů na lebce. Pružnost je důležitá pro správný vývoj
+                        lebky u dětí, protože se u nich zvětšují ploché kostu lebky (výplň mezi nimi je zajištěna vazivovými lupínky).</li>
+                    <li><strong>Chrupavkou</strong>, jímž je zajištěn pohyb mezi kostmi a probíhá minimalizace tření díky tekutině synovii (mazivo).</li>
+                    <li><strong>Srůstem</strong>, jak je tomu u pánevní kosti.</li>
+                    <li>Pohybovým spojením ve formě kloubu, kde <strong> hlavice jedné kosti zapadá do jamky druhé kosti</strong>.</li>
+                </ul>
+                <h5>Zajímavost:</h5>
+                <p>Struktura houbovité kosti inspirovala některé stavby v gotickém stylu. Gotické stavby využívají podobný princip struktury ve svých klenbách a podpůrných
+                    strukturách, čímž připomínají pletencovité struktury houbovité kosti.</p>
+            </ol>
+            <h3>Svalová tkáň</h3>
+            <p>Nejdůležitějším úkolem tkáně svalové je zajišťování pohybu. Ten je vykonán za pomocí svalových plotének, které mají schopnost se zkracovat. V plazmě svalových buněk se nachází svalová vlákna, <dfn><strong>myofibrily</strong></dfn>.
+                Podle upořádání myofibrilů rozeznáváme svalstvo hladké, příčně pruhované a srdeční svalovinu.</p>
+            <ol style="list-style-type: upper-roman;">
+                <h4><li>Tkáň svalová hladká</li></h4>
+                <p>Hladká svalová tkáň je tvořená jednojadernými svalovými buňkami, ve kterých rovnoběžně probíhají hladké myofibrily. Tato svalová tkáň nepodléhá naší vůli a je prakticky neunavitelná. Hladké svalstvo je řízeno nervy vegetativními.
+                    Nachází se ve stěně střevní a dýchacích cest, močovodů a močového měchýře, ve stěně cév, v děloze, ve vejcovodu a v kůži.</p>
+                <h4><li>Tkáň svalová příčně pruhovaná</li></h4>
+                <p>Příčně pruhovaná svalovina se skládá z mnohojaderných svalových buněk. Jádra jsou uložena při povrchu, uvnitř jsou pruhované myofibrily. Myofibrily se skládají z úseků světlejších a tmavších, <dfn class="tooltip">z aktinových a myozinových jednotek<span class="tooltiptext" aria-hidden="true">hlavní bílkoviny, které umožňují svalové <br> stahy tím, že se vzájemně posouvají</span></dfn>.
+                    Příčně pruhované svalstvo má díky myoglobinu červenou barvu. Tato tkáň podléhá naší vůli a velmi rychle se unaví. Je řízena nervy mozkomíšními. Příčně pruhovaná tkáň tvoří podklad kosterního svalstva, svalstva jazyku a hltanu.</p>
+                <h4><li>Srdeční svalovina</li></h4>
+                <p>Vyskytuje se pouze v srdeční stěně. Není naší vůlí ovládána a pracuje nepřetržitě. Činnost svaloviny je řízena <dfn class="tooltip">nervy vegetativními<span class="tooltiptext" aria-hidden="true">nervy autonomního nervového <br> systému, které řídí <br> automatické funkce těla<br> </span></dfn>, které ji buď zpomalují, nebo zrychlují.</p>
+            </ol>
+            <h3>Nervová tkáň</h3>
+            <p>Nervová tkáň osahuje vysoce specializované buňky, proto je funkčně velmi složitá. Nervové buňky mají hvězdicovitý tvar a skládají se z těla a výběžků. Tyto buňky označujeme jako neurony. Ve tkáni nervové je obrovský počet neuronů. Jednotlivé neurony vytváří podklad reflexní činnosti.</p>
+            <h3>Trofická tkáň</h3>
+            <p>Základem těchto tkání je tekutina, ve které plavou buňky. Typickým příkladem tělní tekutiny je krev. Mezi tělní těkutiny dále patří míza a tkáňový mok.</p>
+            <ol style="list-style-type: upper-roman;">
+                <h4><li>Krev</li></h4>
+                <p>Funkcí krve je udržování homeostázy, schopnost srážení, obranná a transportní, kdy přenáší živiny, teplo, hormony a dýchací plyny. Objem krve muže činí 5 až 6 l, ženy 4,5 l. Krev je červená, neprůhledná kapalina, složená z krevní plazmy a krevních tělísek. Krevní plazma obsahuje 91 % vody, 8 % organických látek 1 % anorganických
+                    látek, které udržují stálé pH. Krevní tělíska dělíme na červené krvinky, bílé krvinky a krevní destičky. Tyto tělíska vznikají v kostní dřeni.</p>
+                <ul>
+                    <li><strong>Červené krvinky</strong> (erytrocyty) obsahují krevní barvivo, hemoglobin, na který se váže kyslík a oxid uhličitý.</li>
+                    <li><strong>Bíle krvinky</strong> (leukocyty) se podílejí na obranných reakcích organismu a pomáhají zjistit zdravotní stav při odběrech krve.</li>
+                    <li><strong>Krevní destičky</strong> (trombocyty) se podíleji na zástavě krvácení.</li>
+                </ul>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Orgánové soustavy</h2>
+            <p>Lidské tělo je složeno z několika orgánových soustav, které spolupracují a zajišťují správné fungování celého organismu. Každá soustava se skládá z různých orgánů, které plní určitou specifickou funkci – od zajištění pohybu a dýchání až po trávení, vylučování nebo řízení tělesných procesů. Vzájemná souhra těchto soustav umožňuje udržení života,
+                rovnováhy a schopnosti reagovat na změny vnějšího i vnitřního prostředí.</p>
+            <ol style="list-style-type: upper-roman;">
+                <h4><li>Opěrná soustava</li></h4>
+                <div class="img-wrapper img-right">
+                    <picture>
+                        <source srcset="images/webp/kostra.webp" type="image/webp" data-src="images/webp/kostra.webp">
+                        <img src="images/png/kostra.png" data-src="images/png/kostrapng">
+                    </picture>    
+                    <div class="info-box-short">
+                        <div class="icon-circle-short">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                    </div>
+                </div>
+                <p>
+                    Základem opěrné soustavy je kostra, která tvoří pevnou oporu těla.
+                    <br>
+                    Je pasivním hybným aparátem a mimo jiné plní funkci ochrany jednotlivých orgánů před poškozením a to především pro mozek, srdce, plíce a jiné. Kromě kostí do soustavy patří taky vazy, které spojují kosti, šlachy, které spojují kosti, dále také svaly a chrupavky.
+                </p>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>zajišťuje oporu těla, předurčuje jeho tvar a velikost;</li>
+                    <li>slouží k ochraně orgánů a tkání;</li>
+                    <li>je důležitý pevný prvek pohybového systému;</li>
+                    <li>zabezpečuje <dfn class="tooltip">rezervoár<span class="tooltiptext" aria-hidden="true">zásobárnu</span></dfn> minerálních látek (Ca, P);</li>
+                    <li>zajišťuje tvorbu krve → kostní dřeň.</li>
+                </ul>
+                <h4><li>Svalová soustava</li></h4>
+                <p>
+                    Spolu s kostrou tvoří pohybovou soustavu. Kosterní svaly tvoří příčně pruhovaná svalová tkáň:
+                </p>
+                <ul>
+                    <li>upínající se na kosti,</li>
+                    <li>ovládající se naši vůlí,</li>
+                    <li>odpovídající spolu s kostmi a šlachami za všechny formy volného pohybu.</li>
+                </ul>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>pohyb člověka,</li>
+                    <li>udržení vzpřímené polohy,</li>
+                    <li>tvar těla,</li>
+                    <li><dfn class="tooltip">termoregulace<span class="tooltiptext" aria-hidden="true">schopnost organismu <br> udržet si vnitřní teplotu</span></dfn>,</li>
+                    <li>fungování oběhu krve.</li>
+                </ul>
+                <h4 id="obehovasoustava"><li>Oběhová soustava</li></h4>
+                <div class="img-wrapper img-right">
+                    <picture>
+                        <source srcset="images/webp/obehova-soustava-ai.webp" type="image/webp" data-src="images/webp/obehova-soustava-ai.webp">
+                        <img src="images/png/obehova-soustava-ai.png" data-src="images/png/obehova-soustava-ai.png">
+                    </picture>    
+                    <div class="info-box-short">
+                        <div class="icon-circle-short">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                    </div>
+                </div>
+                <p>
+                    Jednou z důležitých základních životních funkcí je látková přeměna – metabolismus. V lidském těle probíhají složité chemické reakce, pro které je důležité přijímání a vydávání látek a energie. Tyto produkty látkové přeměny jsou pak dále zpracovány, nebo z těla odstraňovány. 
+                    Přísun látek důležitých pro život zabezpečuje oběhová soustava neboli soustava cév. Uvnitř cév je buď krev, anebo míza. Pohyb krve zabezpečuje srdce, pohyb mízy zprostředkovává svalová kontrakce. Podle toho oběhovou soustavu dělíme na soustavu krevní nebo soustavu mízní.
+                </p>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>udržování stálosti vnitřního prostředí (homeostázy);</li>
+                    <li>zajišťovat oběh krve;</li>
+                    <li>regulace tělesné teploty;</li>
+                    <li>ochrana před škodlivinami.</li>
+                </ul>
+                <p>Krev v liském těle se skládá z tekuté plazmy a krevních buněk, mezi nimiž převažují červené krvinky zajišťující transport kyslíku v těle.
+                    Na jejich povrchu se nacházejí antigeny – molekuly, které hrají klíčovou roli v imunitním rozpoznávání.
+                    Součástí těchto antigenů jsou zmíněné oligosacharidy, jejichž složení určuje konkrétní krevní skupinu.</p>
+                <p>Například skupina A nese jiný koncový cukr než skupina B, zatímco skupina 0 obsahuje pouze základní strukturu bez specifického zakončení.
+                <br>
+                <br>
+                <a href="https://youtu.be/Nnqp_3HMlDU?feature=shared" target="_blank" class="button">Video o krevních skupinách &#8599;</a>
+                <h4><li>Dýchací soustava</li></h4>
+                <p>
+                    Dýchací soustava je orgánová soustava, která <strong>slouží k dýchání</strong>. Obstarává výměnu dýchacích plynů mezi zevním prostředím a organismem. Dýchání tak vytváří jeden z nejdůležitějších předpokladů pro udržování stálosti vnitřního prostředí (homeostáza).
+                    Při nádechu se do plic dostává se vzduchem kyslík, při výdechu se tělo zbavuje oxidu uhličitého a vodních par. Dýchání je složitý děj, který se odehrává v plících. Přenos dýchacích plynů krví je zajišťován krevním oběhem.
+                </p>
+                <h5>Dýchání členíme na:</h5>
+                <ol>
+                    <li><strong>Zevní dýchání</strong> – označované jako dýchání plicní. Je uskutečněno cestami dýchacími, plícemi a příslušnými svaly na hrudním koši. Projevem zevního dýchání je střídání nádechu a výdechu. Dochází v něm k přenos dýchacích plynů mezi atmosférou a krví. Přenos dýchacích plynů krví je zajišťován krevním oběhem.</li>
+                    <li><strong>Vnitřní dýchání</strong> – označované jako tkáňové. Dochází k výměně plynů mezi krví a tkáněmi, kyslík je zpracováván v buňkách.</li>
+                </ol>
+                <h4><li>Trávicí soustava</li></h4>
+                <p>
+                    Pro zajištění základních životních funkcí, k obnově a výstavbě tkání, k pohybu potřebuje člověk energii. Aby tuto energii člověk získal, přijímá potravu. Látky obsažené v potravě dodávají tělu potřebné živiny, minerální látky, vitamíny a další nezbytně nutné látky.
+                </p>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>přijmout potravu,</li>
+                    <li>mechanicky ji rozmělnit,</li>
+                    <li>chemicky ji zpracovat do podoby tekuté tráveniny,</li>
+                    <li>samotné trávení.</li>
+                </ul>
+                <p>
+                    Trávení probíhá pomocí trávicích šťáv. Celý tento proces je pak zodpovědný za rozložení živin tráveniny na složky schopné vstřebávání a nevyužité složky součásti potravy vyloučit z těla v podobě stolice. Energie pro organismus se touto cestou získává zejména ze tří základních elementů: sacharidy, tuky, bílkoviny.
+                </p>
+                <h4><li>Vylučovací soustava</li></h4>
+                <p>
+                    Ve všech buňkách probíhá nepřetržitě látková přeměna, nezbytná pro činnost lidského organismu. V průběhu metabolismu vznikají látky, které organismus nepotřebuje, nebo jsou pro něj přímo škodlivé. Odstraňování těchto škodlivých a přebytečných látek je nezbytné pro správné fungování organismu. Pokud by
+                    nedocházelo k jejich odstraňování, přebytečné látky mohou zásadně změnit životní podmínky buněk a mohlo by dojít k vážnému poškození organismu.
+                </p>
+                <p>
+                    Při závažné poruše činnosti ledvin člověk umírá během několika dnů. Organismus se zbavuje zplodin vyloučením neboli exkrecí. K exkretům řadíme např. močovinu, soli, kyselinu močovou, kreatin aj. Na vylučování látek z těla se podílí dýchací soustava, trávicí soustava i kůže. Nejdůležitější roli při
+                    odplavování škodlivin z těla zaujímá vylučovací systém.
+                </p>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>Ledviny vykonávají řadu důležitých funkcí. Hrají nezastupitelnou roli v udržování stálosti vnitřního prostředí (homeostáza). K ní přispívají pohotovými změnami v množství složení odpadního produktu – moči.</li>
+                    <li>Jednou z hlavních funkcí je funkce vylučovací. Ledviny očišťují krev od odpadních látek, které se v ní hromadí. Ledviny z těla vylučují přebytek vody a solí, draslíku, dále různé cizorodé látky, jako jsou jedy, těžké kovy a léky. Prostřednictvím moči se z těla odvádějí odpadní produkty látkové přeměny probíhající ve všech tkáních lidského organismu</li>
+                    <li>Dále se ledviny podílí na regulaci tkáňových tekutin.</li>
+                </ul>
+                <h4><li>Kožní soustava a termoregulace</li></h4>
+                <p>
+                    Kůže je největší plošný orgán pokrývající celý povrch těla. Tvoří ochranný kryt těla, který odděluje vnitřní prostředí organismu od prostředí zevního. Kůže je odolná proti mechanickému působení, jako je tlak, náraz, tření apod.
+                </p>
+                <p>
+                    Nejtenčí je kůže na očních víčkách, nejsilnější na dlaních, zádech a chodidlech. Novorozenec má kůži velmi tenkou. Kůže zdravého mladého
+                    a dospělého jedince má svěží vzhled, je pevná, pružná a tažná. Ve stáří se její pružnost zmenšuje a to má za následek vznik vrásek.
+                </p>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>ochranná,</li>
+                    <li>termoregulační,</li>
+                    <li>smyslovou (vnímáme tlak, tah, bolest, teplo...),</li>
+                    <li>zásobní,</li>
+                    <li>vylučovací,</li>
+                    <li>resorpční...</li>
+                </ul>
+                <h4><li>Endokrinní soustava</li></h4>
+                <p>
+                    Endokrinní soustava zabezpečuje látkové řízení organismu. Tato soustava se také označuje jako soustava <dfn class="tooltip">žláz s vnitřní sekrecí<span class="tooltiptext" aria-hidden="true">žlázy, které nemají vývod, <br> ale vylučují své látky přímo do krve</span></dfn>.
+                    Tyto žlázy nemají vývody, ale mají podobnou <dfn class="tooltip">morfologickou stavbu<span class="tooltiptext" aria-hidden="true">stavba a tvar tkáně <br> nebo orgánu (jak vypadá <br> pod mikroskopem)</span></dfn>. Jejich tkáň má však drobné odchylky, které se projeví na produkci různých výměšků, tj. hormonů-inkretů.
+                </p>
+                <h4><li>Nervová soustava</li></h4>
+                <p>
+                    Nervová soustava představuje nejsložitější a nejdokonalejší soustavu lidského těla. Přijímá obrovské množství informací a podnětů z okolního a vnitřního prostředí. Informace pak zpracovává a odvádí k jednotlivým orgánům nebo buňkám. Na informace
+                    přijímané z vnějšího prostředí a z organizmu zajišťuje adekvátní odpověď. Tímto procesem dokonale řídí a reguluje veškerou činnost našeho těla.
+                </p>
+                <h5>Funkce:</h5>
+                <ul>
+                    <li>řídí činnost většiny orgánů v těle,</li>
+                    <li>kontroluje organismus:
+                        <ul>
+                            <li>vnímá okolí,</li>
+                            <li>získává informace o stavu uvnitř těla;</li>
+                        </ul>
+                    </li>
+                    <li>vyvolává reakce na podněty přijaté,</li>
+                    <li>produkuje některé hormony,</li>
+                    <li>vyšší nervová činnost – myšlení, představivost (fantazie), řeč, paměť.</li>
+                </ul>
+                <h4><li>Smyslová soustava</li></h4>
+                <p>
+                    Pro náš organismus je nesmírně důležité, aby byl neustále informován o všem, co se v jeho okolí, i jeho blízkosti odehrává. Za tímto účelem jsou vytvořeny smyslové orgány, jejichž prostřednictvím přijímáme, zachycujeme, zpracováváme a rozeznáváme nejrůznější podněty ze zevního i vnitřního prostředí. Jedná se např. o podněty tepelné, světelné, bolestivé, hmatové a jiné.
+                    Protože na tělo působí velké množství podnětů, jsou vytvořeny specializované receptory (čidla) pro vnímání pouze jednoho druhu podnětu.
+                </p>
+                <p>Smysl je vjem vzniklý činností smyslových buněk. Člověk má 5 základních smyslů: zrak, sluch, čich, chuť a hmat.</p>
+                <h4><li>Pohlavní soustava</li></h4>
+                <p>
+                    Jednou z nejdůležitějších vlastností všech živých organismů je schopnost rozmnožovat se. Rozmnožování umožňuje rozmnožovací soustava, nebo také pohlavní či reprodukční soustava. Zajišťuje vznik nového jedince a současně vytváří podmínky pro zabezpečení další existence svého druhu. Prostřednictvím ženských a mužských pohlavních buněk je zajišťován přenos genetických informací.
+                    Vývoj této soustavy je úzce spjat s vývojem močové soustavy, obě soustavy totiž vznikají ze společného základu
+                </p>
+                <p>
+                    Rozmnožovací soustava je tvořena pohlavními žlázami a přídatnými pohlavními orgány, pohlavními cestami. Pohlavní žlázy jsou zodpovědné za produkci pohlavních buněk a pohlavních hormonů. Díky mužským (spermie) a ženským (vajíčka) pohlavním buňkám dochází prostřednictvím pohlavního spojení (koitus) k oplození a vzniku nového jedince.
+                </p>
+            </ol>
+
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal h2-520">
+                <h2>Srovnání jednotlivých orgánových soustav</h2>
+            </div>
+            <div class="h2-wrap h2-520">
+                <h2>Srovnání jednotlivých</h2>
+                <br>
+                <h2>orgánových soustav</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <h2></h2>
+            <table>
+                <tr>
+                    <th><strong>Soustava</strong></th>
+                    <th>Hlavní funkce</th>
+                    <th>Orgány/struktury</th>
+                    <th>Klíčové propojení s ostatními soustavami</th>
+                    <th>Příklady onemocnění a poruch</th>
+                </tr>
+                <tr>
+                    <td>Opěrná</td>
+                    <td>Opora, pohyb, ochrana</td>
+                    <td>Kosti (lebka, páteř, hrudník, pánev, končetiny), klouby, chrupavky</td>
+                    <td>Svalová, oběhová, nervová</td>
+                    <td>Zlomeniny kostí, vyhřezlá ploténka, osteoporóza</td>
+                </tr>
+                <tr>
+                    <td>Svalová</td>
+                    <td>Pohyb těla, tvorba tepla</td>
+                    <td>Svaly</td>
+                    <td>Nervová, opěrná, oběhová</td>
+                    <td>Svalové křeče, natržení svalu, zánět šlach</td>
+                </tr>
+                <tr>
+                    <td>Oběhová</td>
+                    <td>Transport živin, plynů a hormonů</td>
+                    <td>Srdce, krev, cévy (tepny, žíly, vlásečnice), mízní systém</td>
+                    <td>Dýchací, trávicí, vylučovací, endokrinní</td>
+                    <td>Vysoký krevní tlak, srdeční infarkt, křečové žíly</td>
+                </tr>
+                <tr>
+                    <td>Dýchací</td>
+                    <td>Výměna kyslíku a oxidu uhličitého</td>
+                    <td>Nosní dutina, nosohltan, hrtan, plíce, průdušnice, průdušky, průdušinky, plicní sklípky, plíce, bránice</td>
+                    <td>Oběhová, nervová, svalová</td>
+                    <td>Astma, zápal plic, zánět průdušek</td>
+                </tr>
+                <tr>
+                    <td>Trávicí</td>
+                    <td>Zpracování potravy a vstřebávání živin</td>
+                    <td>Ústní dutina, hltan, jícen, žaludek, tenké střevo, tlusté střevo, konečník, játra, žlučník, slinivka břišní</td>
+                    <td>Oběhová, nervová, endokrinní, vylučovací</td>
+                    <td>Žaludeční vředy, průjem, zánět slepého střeva</td>
+                </tr>
+                <tr>
+                    <td>Vylučovací</td>
+                    <td>Odstraňování odpadních látek</td>
+                    <td>Ledviny, močovody, močový měchýř, močová trubice</td>
+                    <td>Oběhová, endokrinní, pohlavní</td>
+                    <td>Infekce močových cest, ledvinové kameny, inkontinence (únik moči)</td>
+                </tr>
+                <tr>
+                    <td>Kožní (vč. termoregulace)</td>
+                    <td>Ochrana těla, udržení homeostázy</td>
+                    <td>Kůže, potní žlázy, mazové žlázy, chlupy, nehty, receptory teploty a bolesti</td>
+                    <td>Nervová, oběhová</td>
+                    <td>Akné, popáleniny, plísně na kůži</td>
+                </tr>
+                <tr>
+                    <td>Endokrinní</td>
+                    <td>Řízení těla pomocí hormonů</td>
+                    <td>Hypotalamus, hypofýza, epifýza, štítná žláza, příštítná tělíska, brzlík, slinivka břišní, nadledviny, vaječníky, varlata</td>
+                    <td>Nervová, oběhová a ostatní</td>
+                    <td>Cukrovka, porucha štítné žlázy, metabolický syndrom</td>
+                </tr>
+                <tr>
+                    <td>Nervová</td>
+                    <td>Řízení činností těla, zpracování podnětů</td>
+                    <td>Mozek, mícha, periferní nervy, autonomní nervový systém</td>
+                    <td>Smyslová, endokrinní, svalová, ostatní</td>
+                    <td>Parkinsonova choroba, epilepsie, mrtvice</td>
+                </tr>
+                <tr>
+                    <td>Smyslová</td>
+                    <td>Vnímání prostředí a podnětů</td>
+                    <td>Oči, uši, nos, jazyk, kožní receptory</td>
+                    <td>Nervová, kožní, svalová</td>
+                    <td>Šedý zákal, zánět středního ucha, snížený čich nebo sluch</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">Pohlavní </td>
+                    <td rowspan="2">Rozmnožování</td>
+                    <td><strong>Muž:</strong> varlata, nadvarlata, chámovody, semenné váčky, prostata, penis</td>
+                    <td rowspan="2">Endokrinní, vylučovací, nervová, oběhová</td>
+                    <td rowspan="2">Neplodnost, rakovina varlat nebo děložního čípku, záněty</td>
+                </tr>
+                <tr>
+                    <td class="extra-bunka"><strong>Žena:</strong> vaječníky, vejcovody, děloha, pochva, zevní pohlavní orgány</td>
+                </tr>
+            </table>
+
+            <div class="zarazka"></div>
+
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal">
+                <h2>Ověřte si své vědomosti:</h2>
+            </div>
+            <div class="h2-wrap">
+                <h2>Ověřte si své</h2>
+                <br>
+                <h2>vědomosti:</h2>
+                <br>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <!-- Tlačítko pro zobrazení/skrytí otázek -->
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"  title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+
+            <!-- Kontejner pro otázky -->
+            <div id="faq-container" class="hidden">
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jakým způsobem se podílí kůže na vylučování?</div>
+                        <div class="answer">Kůže vylučuje odpadní látky, jako je voda, soli a močovina, prostřednictvím potních žláz – tento proces se nazývá perspirace a je součástí termoregulace.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co znamená zdraví v kontextu propojení všech částí lidského těla?</div>
+                        <div class="answer">Zdraví v systémovém pojetí znamená harmonickou spolupráci všech tělesných subsystémů a dynamickou rovnováhu.</div>
+                </div>
+                  <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč tělo udržuje některé procesy zcela automaticky, zatímco jiné vyžadují vědomé řízení?</div>
+                        <div class="answer">Automatizace kritických funkcí zajišťuje jejich spolehlivost, zatímco vědomé řízení umožňuje flexibilní reakce na změny prostředí.</div>
+                </div>
+                  <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak dýchací soustava spolupracuje s oběhovou při výměně plynů?</div>
+                        <div class="answer">V plicních sklípcích přechází kyslík do kapilár a oxid uhličitý opačným směrem – krev ho přivádí z buněk a odvádí zpět do plic k výdechu.</div>
+                </div>
+                  <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak souvisí dýchací, oběhová a svalová soustava při sportu?</div>
+                        <div class="answer">Dýchací soustava nasává kyslík, oběhová ho rozvádí a svalová využívá pro kontrakce – jejich spolupráce je klíčová pro výkon a udržení homeostázy během zátěže.</div>
+                </div>
+                  <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak reaguje tělo na stres díky nervové a endokrinní soustavě?</div>
+                        <div class="answer">Mozek zaznamená stres, aktivuje hypotalamus, který stimuluje nadledviny k uvolnění adrenalinu a kortizolu – ty zvyšují srdeční tep, tlak a pohotovost organismu.</div>
+                </div>
+                <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
+            </div>
+            <br>
+            <h2>Doporučená literatura</h2>
+            <div class="citace">
+                <ul>
+                    <li>GIMUNOVÁ, Marta. Základy anatomie pro využití ve sportu. Online. Brno: Masarykova univerzita, 2021. ISBN 978-80-280-0043-1. Dostupné z: <a href="https://is.muni.cz/do/rect/el/estud/fsps/2020podzim/anatomie_sport/web/pages/02_stavba_tkani.html" target="_blank">https://is.muni.cz/do/rect/el/estud/fsps/2020podzim/anatomie_sport/web/pages/02_stavba_tkani.html</a>. [cit. 2025-05-25].</li>
+                </ul>
+                <p>Na této stránce byly použity texty z:</p>
+                <ul>
+                    <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/biologie-cloveka" target="_blank">https://eluc.ikap.cz/lekce/biologie-cloveka</a>. [citováno 2025-05-09].</li>
+                </ul>
+            </div>
+            <div class="zarazka"></div>
+            <!-- Tlačítko tmavého režimu -->
+            <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
+        </section>
+    </article>
+
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+    </footer>
+    
+</body>
+
+</html>
+ 

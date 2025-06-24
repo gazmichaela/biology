@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Zásady používání cookies</title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/img.css"> -->
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <!-- <script src="js/tooltip.js" defer></script> -->
+    <!--<script src="js/FaQ.js" defer></script>-->
+    <!--<script src="js/img-zoom.js" defer></script>-->
+    <!--<script src="js/pdf.js" defer></script>-->
+    <!--<script src="js/source.js" defer></script>-->
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <!-- <link rel="preload" href="js/dropdowns.js" as="script">
+    <link rel="preload" href="js/active-menu.js" as="script"> -->
+    <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
+</head>
+
+<body>
+    <header aria-hidden="true" class="h1-long">
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+            </picture>
+        </a>
+        <br>
+        <h1>Zásady používání cookies</h1>
+        <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul>
+            <a href="index.html" class="home-icon">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+    </header>
+    
+    <article>
+        <section>
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal h2-390">
+                <h2>Informace o používání cookies</h2>
+            </div>
+            <div class="h2-wrap h2-390">
+                <h2>Informace o používání</h2>
+                <br>
+                <h2>cookies</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <p>Na webu používáme soubory cookies pouze k zajištění správného fungování našich stránek. Níže se dozvíte, jaké druhy cookies používáme, k jakým účelům a jak je můžete spravovat.</p>
+            <h2>Co jsou cookies?</h2>
+            <p>Cookies jsou malé textové soubory, které se ukládají ve vašem zařízení při návštěvě webových stránek. Tyto soubory umožňují webu rozpoznat vaše zařízení a zapamatovat si určité informace, například vaše preference nebo předvolby.</p>
+            
+            
+            <!-- Nadpis h2 -->
+            <div class="h2-normal">
+                <h2>Jaké cookies používáme?</h2>
+            </div>
+            <div class="h2-wrap">
+                <h2>Jaké cookies</h2>
+                <br>
+                <h2>používáme?</h2>
+                <br>
+                <br>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <br>
+
+            <strong>1. Technické a funkční cookies</strong>
+            <p>Tyto cookies jsou nezbytné pro správné fungování našich webových stránek. Bez jejich použití by nebylo možné zajistit provoz základních funkcionalit, jako je například přehrávání vložených videí. Slouží k zachování technické funkčnosti a stability webu. </p>
+            <strong>2. Vložený obsah třetích stran (Youtube)</strong>
+            <p>Na našich stránkách se nachází vložené videoobsahy z platformy Youtube. Tyto prvky používají vlastní cookies společnosti Youtube, které jsou nezbytné pro jejich správné fungování a zároveň zajišťují optimalizoaný uživatelský zážitek při přehrání. Tyto cookies jsou spravovány přímo poskytovatelem služby, a proto k nim nemáme přístup ani kontrolu nad daty, která mohou být jejich prostřednictvím shromažďována. Doporučujeme se seznámit s pravidly používání cookies přímo na stránkách Youtube.</p>
+            
+            
+            <!-- Nadpis h2 -->
+            <div class="h2-normal h2-425">
+                <h2>Jak spravovat soubory cookies?</h2>
+            </div>
+            <div class="h2-wrap h2-425">
+                <h2>Jak spravovat soubory</h2>
+                <br>
+                <h2>cookies?</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <p>Při první návštěvě našich stránek se vám zobrazí  oznámení o používání cookies. Soubory cookies můžete kdykoli zcela zakázat prostřednictvím nastavení svého prohlížeče. Upozorňujeme však, že zakázáním cookies může dojít k omezení funkcionality našich stránek.</p>
+            <p>Pro více informací o tom, jak spravovat cookies v jednotlivých prohlížečích, navštivte níže uvedené odkazy:</p>
+            <li><a href="https://support.google.com/chrome/answer/95647?hl=cs" target="_blank" >Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/cs/kb/vymazani-cookies-dat-stranek" target="_blank" >Mozilla Firefox</a></li>
+            <li><a href="https://support.microsoft.com/cs-cz/windows/spr%C3%A1va-soubor%C5%AF-cookie-v-prohl%C3%AD%C5%BEe%C4%8Di-microsoft-edge-zobrazen%C3%AD-povolen%C3%AD-blokov%C3%A1n%C3%AD-odstran%C4%9Bn%C3%AD-a-pou%C5%BEit%C3%AD-168dab11-0753-043d-7c16-ede5947fc64d#:~:text=P%C5%99ejd%C4%9Bte%20do%20%C4%8D%C3%A1sti%20Vymazat%20%C3%BAdaje,webu%20a%20pak%20vyberte%20Vymazat." target="_blank" >Microsoft Edge</a></li>
+            <li><a href="https://support.apple.com/cs-cz/guide/safari/sfri11471/mac" target="_blank" >Safari</a></li>
+            <h2>Kontakt</h2>
+            <p>Pokud máte jakékoliv dotazy ohledně používání cookies, můžete nás kontaktovat na e-mailu: <strong><a href="mailto:gazova.michaela@purkynka.cz" class="no-a-style">gazova.michaela@purkynka.cz</a> </strong> | <strong><a href="mailto:friedl.daniel@purkynka.cz" class="no-a-style">friedl.daniel@purkynka.cz</a></strong></p>
+            <p>Tento dokument byl naposledy aktualizován <strong>11. 5. 2025</strong>.</p>
+
+            <!-- Tlačítko tmavého režimu -->
+            <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
+        </section>
+    </article>
+
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+    </footer>
+</body>
+
+</html>

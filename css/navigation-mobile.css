@@ -1,0 +1,486 @@
+/* 
+Navigace aj. pro responzivní design a pro mobilní zařízení
+Pro sticky header se nacházejí styly v sticky-header.js
+
+OBSAH:
+- domeček
+- burger
+- mobilní navigace obecně
+- mobilní navigace:
+    - do 1175px
+    - do 1023px
+    - do 768px
+    - do 480px
+*/
+
+
+/* DOMEČEK */
+.mobile-home-icon {
+    width: auto;
+    max-width: none;
+    margin: 20px 15px 10px;
+    padding: 15px;
+    background-color: #4a90e2;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.mobile-home-icon img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+
+/* BURGER MENU TLAČÍTKO */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 1000;
+    width: 17px;
+    height: 17px;
+    justify-content: space-between;
+     touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #025227;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* OVERLAY PRO ZAVŘENÍ MENU KLIKNUTÍM MIMO */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    touch-action: none !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+       touch-action: none !important;
+}
+
+
+/* MOBILNÍ NAVIGACE */
+
+.mobile-nav-container {
+    position: fixed;
+    background-color: #f0f9f0;
+    z-index: 1002;
+    overflow-y: auto;
+    padding-top: 80px;
+    transition: right 0.3s ease-in-out;
+    visibility: hidden;
+    transform: translateZ(0);
+    will-change: right;
+    touch-action: pan-y;
+}
+
+.mobile-nav-container.mobile-menu-active {
+    right: 0 !important;
+    visibility: visible !important;
+       touch-action: pan-y !important;
+}
+
+html.menu-open,
+html.menu-open body {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    touch-action: none !important;
+    -webkit-overflow-scrolling: auto !important;
+}
+
+.mobile-nav-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    gap: 5px;
+  
+}
+
+#mobileNav, #sticky-mobileNav {
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* pro smooth scroll na iOS */
+    scrollbar-width: thin; /* pro Firefox */
+}
+
+/* Stylování scrollbaru pro Webkit browsery */
+#mobileNav::-webkit-scrollbar, 
+#sticky-mobileNav::-webkit-scrollbar {
+    width: 4px;
+}
+
+#mobileNav::-webkit-scrollbar-track, 
+#sticky-mobileNav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#mobileNav::-webkit-scrollbar-thumb, 
+#sticky-mobileNav::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+}
+
+/* ZAJIŠTĚNÍ SPRÁVNÉHO CHOVÁNÍ PRO VŠECHNY PRVKY V MENU */
+.mobile-nav-list,
+.mobile-nav-button {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+}
+
+/* Mobilní položky seznamu - upraveno jako seznam */
+.mobile-nav-button {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 12px 15px;
+    border: none;
+    background: none;
+    color: #025227;
+    text-decoration: none;
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    display: block;
+    box-sizing: border-box;
+    border-bottom: 1px solid #b6b6b6;
+    line-height: 1;
+    
+}
+
+.mobile-nav-button-big {
+    border-bottom: 1px solid grey;
+    margin-bottom: clamp(10px, 5%, 40px); /* nikdy méně než 10px, ideálně 5%, ale max 40px */
+}
+
+.mobile-nav-button-mid {
+    border-bottom: 1px solid rgb(151, 151, 151);
+    margin-bottom: 3%;
+}
+
+.mobile-nav-button-two {
+    margin-left: 20px;
+}
+
+.mobile-nav-button-three {
+    margin-left: 40px;
+}
+
+.mobile-nav-button:hover {
+    background-color: #e8f5e8;
+    color: #034a33;
+}
+
+
+/* RESPONZIVNÍ NAVIGACE */
+@media screen and (max-width: 1175px) {
+
+    .logo {
+        width: 150px; 
+        margin: 15px 0px 0px 20px;
+    }
+
+    /* Zobrazí burger menu */
+    .burger-menu {
+        display: flex;
+    }
+
+    /* Zajistí, že mobilní menu je při načítání stránky definitivně skryté */
+    .button-container {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+        overflow-x: hidden;
+    }
+    
+    .button-container,
+    .mobile-nav-container {
+        /* Zajistí plný prostor pro scrollování */
+        max-height: 100vh;
+        height: 100vh;
+        min-width: 230px;
+        max-width: 400px;
+        box-sizing: border-box;
+        top: 0;
+        right: -50vw !important; /* menu se vysunuje zprava a má šířku 50vw */
+        width: 60vw;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        background-color: #f0f9f0;
+        z-index: 1002;
+        overflow-y: auto;
+        padding-top: 80px;
+        transition: right 0.3s ease-in-out;
+        visibility: hidden;
+        transform: translateZ(0);
+        will-change: right;
+        touch-action: pan-y;
+    }
+    
+    .no-scroll {
+        overflow: hidden !important;
+        height: 100vh !important;
+}
+
+    /* Zobrazí jen když je skutečně aktivní */
+    .button-container.mobile-menu-active {
+        right: 0 !important;
+        visibility: visible !important;
+        touch-action: pan-y !important;
+    }
+    
+    header ul {
+        visibility: hidden;
+    }
+
+    /* Zabrání scrollování stránky když je menu otevřené */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        touch-action: none !important;
+        -webkit-overflow-scrolling: auto !important;
+        overscroll-behavior: none !important;
+        /* Dodatečné vlastnosti pro iOS */
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+    }
+    
+    /* Zajistí stabilitu při načítání stránky */
+    .button-container:not(.mobile-menu-active) {
+        visibility: hidden;
+    }
+    
+    .button-container.mobile-menu-active {
+        visibility: visible;
+    }
+
+    /* KŘÍŽEK PRO ZAVŘENÍ MENU */
+    .menu-close-button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        height: 30px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1004;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+
+    .menu-close-button::before,
+    .menu-close-button::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 3px;
+        background-color: #025227;
+        border-radius: 1px;
+    }
+
+    .menu-close-button::before {
+        transform: rotate(45deg);
+    }
+
+    .menu-close-button::after {
+        transform: rotate(-45deg);
+    }
+    
+}
+
+@media screen and (max-width: 1023px) {
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    
+    .burger-menu {
+        display: flex;
+    }
+    
+    .desktop-nav {
+        display: none;
+    }
+
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
+        margin-bottom: 10px;
+        float: none;
+    }
+    
+    .logo a {
+        position: static;
+    }
+}
+
+
+@media screen and (max-width: 567px) {
+    .logo {
+        width: 130px;
+        margin: 10px 0px 0px 15px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .logo {
+        width: 100px;
+        margin: 8px 0px 0px 10px;
+    }
+}
+
+/* Pro menší telefony */
+@media screen and (max-width: 480px) {
+    .burger-menu {
+        right: 15px;
+        top: 12px;
+    }
+
+    .button-container.mobile-menu-active {
+        right: 0 !important;
+    }
+
+}
+
+
+
+.mobile-expand-header,
+.mobile-expand-content {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+}
+
+
+/* Mobilní rozbalovací sekce */
+.mobile-expandable {
+    width: 100%;
+    margin: 0;
+}
+
+.mobile-expand-header {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 12px 15px;
+    background: none;
+    color: #025227;
+    text-decoration: none;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-expand-header:hover {
+    background-color: #e8f5e8;
+    color: #034a33;
+
+}
+
+.mobile-expand-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.mobile-expand-header.expanded .mobile-expand-arrow {
+    transform: rotate(180deg);
+}
+
+.mobile-expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: transparent;
+}
+
+.mobile-expand-content.expanded {
+    max-height: 500px;
+}
+
+.mobile-sub-expand-header {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 10px 30px;
+    background: none;
+    color: #666;
+    border-radius: 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-sub-expand-header:hover {
+    background-color: #f5f5f5;
+    color: #025227;
+}
+
+.mobile-sub-expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.mobile-sub-expand-content.expanded {
+    max-height: 300px;
+}

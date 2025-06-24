@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title> Systémové myšlení</title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/questions.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <script src="js/FaQ.js" defer></script>
+    <script src="js/img-zoom.js" defer></script>
+    <!-- <script src="js/tooltip.js" defer></script> -->
+    <!--<script src="js/pdf.js" defer></script>-->
+    <script src="js/source.js" defer></script>
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <!-- <link rel="preload" href="js/dropdowns.js" as="script">
+    <link rel="preload" href="js/active-menu.js" as="script"> -->
+    <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
+</head>
+
+<body>
+    <header aria-hidden="true">
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+            </picture>
+        </a>
+        <br>
+        <h1>Systémové myšlení</h1>
+        <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul>
+            <a href="index.html" class="home-icon">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+    </header>
+    
+    <article>
+        <section>
+            <div class="img-wrapper img-right-top">
+                <picture>
+                    <source srcset="images/webp/systemove-mysleni-ai.webp" type="image/webp" data-src="images/webp/systemove-mysleni-ai.webp">
+                    <img src="images/png/systemove-mysleni-ai.png" data-src="images/png/systemove-mysleni-ai.png">
+                </picture> 
+                <div class="info-box-short">
+                    <div class="icon-circle-short">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                </div>
+            </div>             
+            <h2>Systémové myšlení</h2>
+            <p>Systémové myšlení je způsob uvažování, který se zaměřuje na pochopení, jak jednotlivé části nějakého
+                systému spolupracují a jak jsou propojené. Místo toho, abychom se soustředili jen na jednotlivé
+                prvky nebo události, snažíme se vidět větší celek – tedy celý systém. Tento způsob myšlení nám pomáhá
+                lépe porozumět složitým problémům, identifikovat jejich příčiny a najít efektivní řešení. Příklady systémů,
+                které lze zkoumat pomocí systémového myšlení, zahrnují lidské tělo, ekosystémy, výrobní linky nebo třeba počítače.</p>
+
+            <!-- Nadpis h2 -->
+            <div class="h2-normal h2-460">
+                <h2>Využití systémového myšlení v praxi</h2>
+            </div>
+            <div class="h2-wrap h2-460">
+                <h2>Využití systémového</h2>
+                <br>
+                <h2>myšlení v praxi</h2>
+            </div>
+            <!-- Konec nadpisu h2 -->
+
+            <ul>
+                <li>
+                    Ve zdravotnictví se při snaze zabránit opakovaným hospitalizacím pacientů uplatňuje systémové myšlení. Poskytovatelé
+                    zdravotní péče se nezaměřují pouze na individuální péči o pacienty, ale zohledňují širší souvislosti. To zahrnuje
+                    vzdělávání pacientů, podporu po propuštění, komunikaci mezi zdravotníky a přístup k následné péči.
+                </li>
+                <li>
+                    Dalším příkladem použití systémového myšlení je u automobilu: automobil je složitý systém, který se skládá
+                    z mnoha částí, jako je motor, brzdy, převodovka či palivový systém. Systémové myšlení nám říká, že když se porouchá
+                    jedna část, může to ovlivnit celý automobil. Například problém s motorem může způsobit, že auto nebude 
+                    správně fungovat, i když všechny ostatní části jsou v pořádku.
+                </li>
+                <li>
+                    I v ekosystému lze využít systémové myšlení. Představte si les jako systém. Stromy, zvířata, voda, půda a vzduch jsou propojené. Pokud zmizí
+                    například jeden druh zvířete, může to způsobit změny v potravním řetězci, což ovlivní i další druhy, a tím celý
+                    ekosystém. Systémové myšlení nám umožňuje pochopit, jak jsou tyto složky závislé na sobě navzájem.
+                </li>
+                <li>
+                    I skupinový školní projekt můžeme chápat jako systém. Každý člen týmu má určitou roli, a pokud
+                    někdo nesplní svou část práce, ovlivní to výsledek celého týmu. Úspěch projektu závisí na tom, jak efektivně
+                    všichni spolupracují.
+                </li>
+            </ul>
+            <div class="img-wrapper img-bottom">
+                <picture>
+                    <source srcset="images/webp/skolni-projekt.webp" type="image/webp" data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
+                    <img src="images/png/skolni-projekt.png" class="zoomable" data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
+                </picture>
+                <div class="info-box-long-left">
+                    <div class="icon-circle-long-left">i</div>
+                    <span>&copy; Daniel Friedl, 2025. CC BY-NC-SA</a></span>
+                </div>
+            </div>
+            <div class="zarazka"></div>
+            <h2>Otestujte své znalosti:</h2><br>
+            <!-- Tlačítko pro zobrazení/skrytí otázek -->
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"  title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+  
+            <!-- Kontejner pro otázky -->
+            <div id="faq-container" class="hidden">
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč je důležité brát v úvahu celé propojení systémů, místo soustředění se pouze na jednotlivé komponenty?</div>
+                        <div class="answer">Zaměření se pouze na komponenty je jako snažit se pochopit auto zkoumáním samotného motoru, aniž bychom braliv úvahu převodovku, kola, řízení nebo palivový systém.
+                        <br> Systémové myšlení je nezbytně nutné použít pro pochopení toho, jak auto funguje.</div>
+                </div>
+  
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co by se stalo, kdybychom zapomněli na propojení mezi částmi systému při řešení velkých problémů, jako je například zdraví populace?</div>
+                        <div class="answer">Ignorování propojení při řešení zdraví populace by vedlo k drahým, neefektivním a nespravedlivým řešením, která by léčila jen příznaky
+                        a často by vytvářela nové problémy.</div>
+                </div>
+  
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaké výhody přináší systémové myšlení ve zdravotnictví?</div>
+                        <div class="answer">Systémové myšlení ve zdravotnictví zlepšuje péči a efektivitu tím, že se zaměřuje na vzájemné propojení všech jeho částí – například
+                        zásadního propojení mezi fyzickým a psychickým stavem pacienta – a zaměřuje se na řešení příčin, ne jen příznaků.</div>
+                </div>
+  
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Kde všude lze využít systémové myšlení?</div>
+                        <div class="answer">Systémové myšlení nachází uplatnění v mnoha oblastech, jako například v <strong>medicíně</strong> (personalizovaná léčba, pochopení komplexních onemocnení),
+                        <strong>biotechnologiích</strong> (metabolické inženýrství, syntetická biologie), <strong>ekologii</strong> (modelování ekosystémů), <strong>zemědělství</strong> (optimalizace výnosů), <strong>farmakologii</strong> (vývoj léčiv),
+                        <strong>informatice</strong> (bioinformatika, umělá inteligence) či <strong>ekonomii</strong> (modelování komplexních trhů).</div>
+                </div>
+                <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
+            </div>
+            <br>
+            <h2>Doporučená literatura</h2>
+            <div class="citace">
+                <ul>
+                    <li>NG, Jane (2025).<em> Co je systémové myšlení? | Snadný průvodce odemknutím nových perspektiv v roce
+                        2025.</em> Online. AhaSlides. Aktualizováno 3.1.2025. Dostupné z: <a href="https://ahaslides.com/cs/blog/what-is-systems-thinking/" target="_blank">https://ahaslides.com/cs/blog/what-is-systems-thinking/</a>. [citováno 2025-05-09].</li>
+                </ul>
+            </div>
+            <div class="zarazka"></div>
+                           <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim">
+
+    </button>
+        </section>
+    </article>
+
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+    </footer>
+</body>
+
+</html>

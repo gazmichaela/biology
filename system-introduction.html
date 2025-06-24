@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Úvod</title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/pdf.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <!--<script src="js/tooltip.js" defer></script>-->
+    <!--<script src="js/FaQ.js" defer></script>-->
+    <!--<script src="js/img-zoom.js" defer></script>-->
+    <script src="js/pdf.js" defer></script>
+    <script src="js/source.js" defer></script>
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <!-- <link rel="preload" href="js/dropdowns.js" as="script">
+    <link rel="preload" href="js/active-menu.js" as="script"> -->
+    <link rel="icon" type="image/png" href="favicon/web_logo_DNA.png">
+</head>
+
+<body>
+    <header aria-hidden="true">
+        <a href="https://www.purkynka.cz/" target="_blank">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+            </picture>
+        </a>
+        <br>
+        <h1>Úvod</h1>
+        <br>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul>
+            <a href="index.html" class="home-icon">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered">Úvod</a>
+                        <span class="sub-dropdown-toggle">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html">Systémový přístup</a>
+                            <a href="system-thinking.html">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second">
+                    <a href="life-properties.html">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="maine-button">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="maine-button">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+    </header>
+    
+    <article>
+        <section>
+            <h2>Systémová biologie</h2>
+            <p>Systémová biologie je vědní obor, který se zabývá zkoumáním 
+                <dfn class="tooltip">živých soustav<span class="tooltiptext" aria-hidden="true">organizmy nebo jejich části, <br> které mají životní funkce <br> (buňky, orgány, celé organismy...)</span></dfn>
+                jako 
+                <dfn class="tooltip">komplexních<span class="tooltiptext" aria-hidden="true">celek složený z několika <br> vzájemně propojených částí</span></dfn>
+                systémů, ne jen jednotlivé části izolovaně. Využívá poznatky z teorie systémů, biologie, genetiky, informatiky a dalších disciplín, aby odhalila 
+                <dfn class="tooltip">vztahy a interakce<span class="tooltiptext" aria-hidden="true">spojení a vzájemné působení</span></dfn>
+                mezi různými biologickými složkami a procesy.</p>
+            <p>Cílem je 
+                <dfn class="tooltip">analyzovat<span class="tooltiptext" aria-hidden="true">podrobně zkoumat něco, <br> rozdělit celek na části</span></dfn>
+                a 
+                <dfn class="tooltip">modelovat<span class="tooltiptext" aria-hidden="true">vytvořit zjednodušený „obraz“ <br> nebo výpočetní model toho, <br> jak nějaký složitý proces probíhá</span></dfn>,
+                jak jednotlivé složky živých organismů vzájemně interagují a ovlivňují se v rámci celého systému. Tím získáváme
+                hlubší porozumění
+                <dfn class="tooltip">biologickým pochodům<span class="tooltiptext" aria-hidden="true">procesy, které probíhají v živých <br> organismech, např. trávení, <br> dýchání, růst, oprava poškození</span></dfn>
+                 v jejich celistvosti a otevírají se nové možnosti aplikace například v medicíně, vývoji léčiv,
+                <dfn class="tooltip">biotechnologiích<span class="tooltiptext" aria-hidden="true">obor, který využívá <br> živé organismy <br> nebo jejich části <br> k výrobě produktů</span></dfn>
+                 nebo ochraně životního prostředí.</p>
+            <div class="img-wrapper img-right">
+                <picture>
+                    <source srcset="images/webp/zaklad-system-ai.webp" type="image/webp" data-src="images/webp/zaklad-system-ai.webp">
+                    <img src="images/png/zaklad-system-ai.png" data-src="images/png/zaklad-system-ai.png">
+                </picture>
+                <div class="info-box-short">
+                    <div class="icon-circle-short">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                </div>
+            </div> 
+            <p>Tento přístup má výrazné přesahy do dalších oborů – principy systémové biologie, které se zaměřují na komplexní interakce v systémech, nacházejí
+                inspiraci v přírodě a uplatnění například při navrhování technických či informačních systémů.
+                Příklady <strong>přesahů v systémové biologii</strong> najdete v příloze níže.</p>
+           <a class="button-light" id="showPresahPdfBtn">Otevřít zde (pdf)</a>
+
+<!-- Překryvná vrstva pro PDF -->
+<div class="pdf-overlay" id="presahPdfOverlay">
+    <div class="pdf-viewer-container">
+        <div class="pdf-close-button" id="presahPdfCloseBtn">&times;</div>
+        <iframe class="pdf-iframe" id="presahPdfFrame"></iframe>
+    </div>
+</div>
+            <br>
+            <a href="docs/presah.pdf" class="button" target="_blank">Otevřít na nové kartě (pdf) &#8599;</a>             
+            <br>
+            <h2>Systémové myšlení</h2>
+            <p> Co obnáší systémové myšlení? </p>
+            <a href="system-thinking.html" class="button">Zjistit</a>
+            <br>
+            <h2>Systémový přístup</h2>
+            <p>Při práci v systémové biologii se často využivá i systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
+            <a href="system-approach.html" class="button">Více informací zde</a>
+            <div class="zarazka"></div>
+                           <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim">
+
+    </button>
+        </section>
+    </article>
+    
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+    </footer>
+</body>
+
+</html>
