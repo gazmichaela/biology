@@ -118,7 +118,7 @@ noscript {
 
 /* JavaScript helper class */
 .content-padding {
-    padding-top: 100px; /* Adjust based on your header height */
+    padding-top: 100px; 
 }
 
 body header {
