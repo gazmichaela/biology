@@ -366,14 +366,21 @@ html.menu-open body {
 
 @media screen and (max-width: 567px) {
     .logo {
-        width: 130px;
+        width: 120px;
         margin: 10px 0px 0px 15px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .logo {
+        width: 115px;
+        margin: 8px 0px 0px 10px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .logo {
-        width: 100px;
+        width: 93px;
         margin: 8px 0px 0px 10px;
     }
 }

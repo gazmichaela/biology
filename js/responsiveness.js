@@ -1,4 +1,4 @@
-//-----------RESPONSIVENESS FUNCIONALITY--------------//
+//-----------RESPONSIVENESS FUNCIONALITY-------------//
 
 // Získání elementů - hlavní header
 const burgerMenu = document.getElementById('burgerMenu');
@@ -27,7 +27,6 @@ function openMenu(isSticky = true) {
                 body.classList.add('sticky-menu-open');
                 stickyMobileNav.classList.add('mobile-menu-active', 'active');
                 stickyMenuOverlay.classList.add('active');
-                console.log('Sticky menu opened');
             } else {
                 console.error('Sticky mobile navigation elements not found');
             }
@@ -38,7 +37,6 @@ function openMenu(isSticky = true) {
                 body.classList.add('main-menu-open');
                 mobileNav.classList.add('mobile-menu-active');
                 menuOverlay.classList.add('active');
-                console.log('Main menu opened');
             }
         }
     }, 50);
@@ -55,7 +53,6 @@ function closeMenu(isSticky = true) {
             stickyMobileNav.classList.remove('mobile-menu-active', 'active');
             stickyMenuOverlay.classList.remove('active');
             body.classList.remove('sticky-menu-open');
-            console.log('Sticky menu closed');
         }
     } else {
         // Pro hlavní header
@@ -63,7 +60,6 @@ function closeMenu(isSticky = true) {
             mobileNav.classList.remove('mobile-menu-active');
             menuOverlay.classList.remove('active');
             body.classList.remove('main-menu-open');
-            console.log('Main menu closed');
         }
     }
 }
@@ -146,7 +142,6 @@ function initializeStickyBurgerMenu() {
     }
     
     if (!stickyBurgerMenu) {
-        console.log('Burger menu not found in sticky header');
         return;
     }
     
@@ -174,7 +169,6 @@ function initializeStickyBurgerMenu() {
         e.preventDefault();
         e.stopPropagation();
         
-        console.log('Sticky burger menu clicked');
         
         // Nejprve zavřeme všechny dropdowny
         if (window.clearAllDropdownStates) {
@@ -213,7 +207,6 @@ function initializeStickyBurgerMenu() {
         initializeStickyExpandableMenus(stickyMobileNav);
     }, 100);
     
-    console.log('Sticky burger menu initialized successfully');
 }
 // funkce pro inicializaci rozbalovacích menu ve sticky verzi
 function initializeStickyExpandableMenus(stickyMobileNav) {
@@ -221,8 +214,6 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
         console.error('Sticky mobile nav not found for expandable menus');
         return;
     }
-    
-    console.log('Initializing sticky expandable menus...');
     
     // Funkce pro aktualizaci šipky
     function updateStickyArrow(header, isExpanded) {
@@ -242,7 +233,6 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
     
     // Funkce pro toggle expandable menu ve sticky verzi
     function toggleStickyExpandableMenu(header, targetId) {
-        console.log('Toggling sticky expandable menu:', targetId);
         
         // Najdeme target element - zkusíme více způsobů
         let content = null;
@@ -282,11 +272,9 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
         
         if (!content) {
             console.error('Content element not found for target:', targetId);
-            console.log('Available elements in sticky nav:', stickyMobileNav.querySelectorAll('*[id], *[class*="expand"]'));
             return;
         }
         
-        console.log('Found target content:', content);
         
         const isCurrentlyExpanded = content.classList.contains('expanded');
         const isMainMenu = header.classList.contains('mobile-expand-header');
@@ -297,7 +285,6 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
             content.classList.remove('expanded');
             header.classList.remove('expanded');
             updateStickyArrow(header, false);
-            console.log('Closed sticky menu:', targetId);
         } else {
             // Otevíráme menu
             if (isMainMenu) {
@@ -361,13 +348,11 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
             content.classList.add('expanded');
             header.classList.add('expanded');
             updateStickyArrow(header, true);
-            console.log('Opened sticky menu:', targetId);
         }
     }
     
     // Najdeme všechny expandable headers ve sticky navigaci
     const expandHeaders = stickyMobileNav.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
-    console.log(`Found ${expandHeaders.length} sticky expandable headers`);
     
     expandHeaders.forEach((header, index) => {
         // Odebereme staré event listenery klonováním elementu
@@ -383,20 +368,16 @@ function initializeStickyExpandableMenus(stickyMobileNav) {
             console.warn(`Header ${index} missing data-target attribute`);
             return;
         }
-        
-        console.log(`Adding click listener to sticky header ${index} with target:`, targetId);
-        
+          
         // Přidáme event listener
         newHeader.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            console.log('Sticky expandable header clicked:', targetId);
             toggleStickyExpandableMenu(this, targetId);
         });
     });
     
-    console.log('Sticky expandable menus initialization completed');
 }
 
 // Funkce pro rozbalovací menu POUZE v hlavním headeru - OPRAVENÁ VERZE
@@ -525,7 +506,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
 
     // Pokud sticky header už existuje, inicializujeme hned
     if (document.querySelector('.sticky-header')) {
@@ -539,12 +519,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 mutation.addedNodes.forEach(function(node) {
                     if (node.nodeType === 1) { // Element node
                         if (node.classList && node.classList.contains('sticky-header')) {
-                            console.log('Sticky header detected, initializing burger menu...');
                             setTimeout(initializeStickyBurgerMenu, 100);
                         }
                         // Zkusíme najít sticky header i uvnitř přidaného elementu
                         if (node.querySelector && node.querySelector('.sticky-header')) {
-                            console.log('Sticky header found inside added element, initializing...');
                             setTimeout(initializeStickyBurgerMenu, 100);
                         }
                     }
@@ -599,62 +577,8 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-
-
-function debugStickyMenu() {
-    console.log('=== STICKY MENU DEBUG ===');
-    
-    const stickyHeader = document.querySelector('.sticky-header');
-    const stickyMobileNav = document.getElementById('sticky-mobileNav');
-    
-    console.log('Sticky header found:', !!stickyHeader);
-    console.log('Sticky mobile nav found:', !!stickyMobileNav);
-    
-    if (!stickyMobileNav) {
-        console.error('Sticky mobile nav not found!');
-        return;
-    }
-    
-    // Najdeme všechny expandable headers
-    const headers = stickyMobileNav.querySelectorAll('.mobile-expand-header, .mobile-sub-expand-header');
-    console.log('Found expandable headers:', headers.length);
-    
-    headers.forEach((header, index) => {
-        const targetId = header.getAttribute('data-target');
-        console.log(`Header ${index}:`);
-        console.log('  - Text:', header.textContent.trim());
-        console.log('  - Target ID:', targetId);
-        console.log('  - Classes:', header.className);
-        
-        if (targetId) {
-            const targetElement = document.getElementById(targetId) || 
-                                document.getElementById('sticky-' + targetId) ||
-                                stickyMobileNav.querySelector(`#${targetId}, #sticky-${targetId}`);
-            console.log('  - Target element found:', !!targetElement);
-            if (targetElement) {
-                console.log('  - Target element ID:', targetElement.id);
-                console.log('  - Target element classes:', targetElement.className);
-            }
-        }
-    });
-    
-    // Najdeme všechny expandable contents
-    const contents = stickyMobileNav.querySelectorAll('.mobile-expand-content, .mobile-sub-expand-content');
-    console.log('Found expandable contents:', contents.length);
-    
-    contents.forEach((content, index) => {
-        console.log(`Content ${index}:`);
-        console.log('  - ID:', content.id);
-        console.log('  - Classes:', content.className);
-        console.log('  - Is expanded:', content.classList.contains('expanded'));
-    });
-    
-    console.log('=== END DEBUG ===');
-}
-
 // funkce pro manuální reinicializaci sticky menu (pro debugging)
 function reinitializeStickyMenu() {
-    console.log('Manually reinitializing sticky menu...');
     const stickyMobileNav = document.getElementById('sticky-mobileNav');
     if (stickyMobileNav) {
         initializeStickyExpandableMenus(stickyMobileNav);
@@ -669,5 +593,4 @@ window.closeMenu = closeMenu;
 window.closeAllMenus = closeAllMenus;
 window.initializeStickyBurgerMenu = initializeStickyBurgerMenu;
 window.initializeStickyExpandableMenus = initializeStickyExpandableMenus;
-window.debugStickyMenu = debugStickyMenu;
 window.reinitializeStickyMenu = reinitializeStickyMenu;

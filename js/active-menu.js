@@ -1,5 +1,5 @@
  // ----- ACTIVE MENU ITEM FUNCTIONALITY -----//
-    
+ 
  // Získáme všechny hlavní tlačítka a odkazy v podmenu
     const mainButtons = document.querySelectorAll('.main-button, .maine-button');
     const dropdownLinks = document.querySelectorAll('.dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a');
@@ -41,6 +41,5 @@
     const introLink = document.querySelector('.dropdown-content a[href="system-introduction.html"]');
     if (introLink && window.location.pathname.includes('system-introduction.html')) {
         introLink.classList.add('active');
-       
     }
 

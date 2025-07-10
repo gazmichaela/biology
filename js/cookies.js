@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
     
-    // Přidat posluchač události na tlačítko
+    // Posluchač události na tlačítko
     const acceptButton = document.getElementById('acceptCookies');
     if (acceptButton) {
         acceptButton.addEventListener('click', function() {

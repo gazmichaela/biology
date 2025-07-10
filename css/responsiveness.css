@@ -250,10 +250,23 @@ OBSAH:
         width: 45px;
         height: 45px;
     }
+       .tooltip {
+        white-space: normal;
+    }
+    
+ .tooltip .tooltiptext {
+    font-size: small;
+    white-space: normal;
+    max-width: 300px; /* výchozí pro mobil */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 110%;
+    z-index: 9999;
+}
 }
 
 /* Mobile Portrait - do 567px */
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 568px) {
     body {
         font-size: 1em;
     }
@@ -369,13 +382,6 @@ OBSAH:
     transform: translateX(-50%);
     bottom: 110%;
     z-index: 9999;
-}
-
-/* Tablet */
-@media (min-width: 768px) {
-    .tooltip .tooltiptext {
-        max-width: 300px;
-    }
 }
 
 /* Desktop */

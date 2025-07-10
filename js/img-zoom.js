@@ -1,4 +1,5 @@
 //--------IMAGES FUNCTIONALITY----------//
+
 document.addEventListener('DOMContentLoaded', function() {
     // Vytvoření modálního okna a všech jeho komponent
     var modal = document.createElement('div');
@@ -40,21 +41,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Kontejner pro zdroje - umístěný na pravé straně
-var sourceContainer = document.createElement('div');
-sourceContainer.className = 'source-container';
-sourceContainer.style.position = 'absolute';
-sourceContainer.style.top = '90%'; // Vertikální centrování
-sourceContainer.style.transform = 'translateY(-90%)'; // Vycentrování podle výšky
-sourceContainer.style.right = '20px'; // Odsazení zprava
-sourceContainer.style.backgroundColor = 'transparent'; // Bez pozadí
-sourceContainer.style.color = '#fff';
-sourceContainer.style.padding = '10px';
-sourceContainer.style.width = '150px'; // Pevná šířka prostoru pro zdroje
-sourceContainer.style.fontSize = window.innerWidth < 768 ? '12px' : '14px';
-sourceContainer.style.zIndex = '9999';
-sourceContainer.style.transition = 'opacity 0.1s ease';
-sourceContainer.style.opacity = '1';
-sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
+    var sourceContainer = document.createElement('div');
+    sourceContainer.className = 'source-container';
+    sourceContainer.style.position = 'absolute';
+    sourceContainer.style.top = '90%'; // Vertikální centrování
+    sourceContainer.style.transform = 'translateY(-90%)'; // Vycentrování podle výšky
+    sourceContainer.style.right = '20px'; // Odsazení zprava
+    sourceContainer.style.backgroundColor = 'transparent'; // Bez pozadí
+    sourceContainer.style.color = '#fff';
+    sourceContainer.style.padding = '10px';
+    sourceContainer.style.width = '150px'; // Pevná šířka prostoru pro zdroje
+    sourceContainer.style.fontSize = window.innerWidth < 768 ? '12px' : '14px';
+    sourceContainer.style.zIndex = '9999';
+    sourceContainer.style.transition = 'opacity 0.1s ease';
+    sourceContainer.style.opacity = '1';
+    sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
     
     var modalImg = document.createElement('img');
     modalImg.className = 'modal-content';
@@ -133,10 +134,8 @@ sourceContainer.style.textAlign = 'left'; // Text zarovnaný vlevo
     var imgNaturalWidth = 0;
     var imgNaturalHeight = 0;
     
-    
     // Detekce mobilního zařízení
     var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    console.log("Je mobilní zařízení:", isMobile);
     
     // Přidání event listenerů na obrázky s třídou 'zoomable'
     var images = document.querySelectorAll('img.zoomable');
@@ -171,18 +170,18 @@ img.addEventListener('touchend', function(event) {
         
         // Nastavení textu se zdrojem
      // Nastavení textu se zdrojem
-sourceContainer.innerHTML = sourceText || '';
+    sourceContainer.innerHTML = sourceText || '';
 
-// Resetování hodnot při otevření
-resetZoom();
+    // Resetování hodnot při otevření
+    resetZoom();
 
-// Zobrazení/skrytí kontejneru se zdrojem - skrýt na mobilu, zobrazit na desktopu  
-// Zobrazení/skrytí kontejneru se zdrojem podle velikosti obrazovky a textu
-if (window.innerWidth < 1175) {
-    sourceContainer.style.display = 'none';
-} else {
-    sourceContainer.style.display = sourceText ? 'block' : 'none';
-}
+    // Zobrazení/skrytí kontejneru se zdrojem - skrýt na mobilu, zobrazit na desktopu  
+    // Zobrazení/skrytí kontejneru se zdrojem podle velikosti obrazovky a textu
+    if (window.innerWidth < 1175) {
+     sourceContainer.style.display = 'none';
+    } else {
+     sourceContainer.style.display = sourceText ? 'block' : 'none';
+    }
         // Počkat na načtení obrázku a poté zjistit jeho rozměry
         modalImg.onload = function() {
             // Zjištění přesné velikosti obrázku
@@ -192,22 +191,22 @@ if (window.innerWidth < 1175) {
             // Nastavení specifického zvětšení pro konkrétní obrázky
             if (imgNaturalWidth === 5780 && imgNaturalHeight === 3987) {
                 zoomFactor = 0.5;
-                console.log("Myšlenková mapa: nastaven zoom factor", zoomFactor);
+                console.log("Mind map: set zoom factor", zoomFactor);
            } else if (imgNaturalWidth === 2200 && imgNaturalHeight === 1772) {
                 zoomFactor = 0.7;
-                console.log("Ž: nastaven zoom factor", zoomFactor);
+                console.log("Animal cell: set zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 2052 && imgNaturalHeight === 1508) {
                 zoomFactor = 0.8;
-                console.log("R: nastaven zoom factor", zoomFactor);
+                console.log("Plant cell: set zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 505 && imgNaturalHeight === 448) {
                 zoomFactor = 2.0;
-                console.log("Virus: nastaven zoom factor", zoomFactor);
+                console.log("Virus: set zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 679 && imgNaturalHeight === 416) {
                 zoomFactor = 2.0;
-                console.log("Buňka-popis: nastaven zoom factor", zoomFactor);
+                console.log("Cell-description: set zoom factor", zoomFactor);
             } else if (imgNaturalWidth === 1076 && imgNaturalHeight === 1064) {
                 zoomFactor = 0.8;
-                console.log("Buňka hub: nastaven zoom factor", zoomFactor);
+                console.log("Fungal cell: set zoom factor", zoomFactor);
             } else {
                 // Pro všechny ostatní obrázky nastavíme zvětšení podle velikosti
                 if (imgNaturalWidth > 3000) {
@@ -221,7 +220,7 @@ if (window.innerWidth < 1175) {
                 } else {
                     zoomFactor = 1.8;
                 }
-                console.log("Standardní obrázek: nastaven zoom factor", zoomFactor);
+                console.log("Standard image: set zoom factor", zoomFactor);
             }
             
             // Zajištění, že modalImg je správně inicializován
@@ -231,8 +230,6 @@ if (window.innerWidth < 1175) {
         // Zabránit scrollování stránky v pozadí
         document.body.style.overflow = 'hidden';
     }
-    
-    
     
     // Resetování funkce pro zoom
     function resetZoom() {
@@ -252,24 +249,14 @@ if (window.innerWidth < 1175) {
         
         // Zobrazíme zdroje při resetování zoomu
       // Zobrazíme zdroje při resetování zoomu pouze na desktopu
-toggleSourceVisibility(!isMobile);
-        console.log("Reset zoom: isZoomed =", isZoomed);
+      toggleSourceVisibility(!isMobile);
     }
 
     // VYLEPŠENÁ funkce pro zvětšení v místě kliknutí/dotyku
-    function zoomAtPoint(pointX, pointY) {
-        // Zaznamenáme přesnou pozici kliknutí v kontextu okna
-        console.log("Kliknutí na souřadnice:", { pointX, pointY });
-        
+    function zoomAtPoint(pointX, pointY) {  
         // Získáme aktuální rozměry a pozici obrázku
         const rect = modalImg.getBoundingClientRect();
-        console.log("Původní rozměry obrázku:", { 
-            width: rect.width, 
-            height: rect.height,
-            left: rect.left,
-            top: rect.top
-        });
-        
+ 
         // Zjistíme rozměry obrázku pro identifikaci
         const imgWidth = modalImg.naturalWidth;
         const imgHeight = modalImg.naturalHeight;
@@ -277,12 +264,10 @@ toggleSourceVisibility(!isMobile);
         // Vypočítáme relativní pozici kliknutí v rámci obrázku
         const relX = (pointX - rect.left) / rect.width;
         const relY = (pointY - rect.top) / rect.height;    
-        console.log("Relativní pozice kliknutí v obrázku:", { relX, relY });
         
         // Určíme střed obrazovky pro centrování
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
-        console.log("Střed obrazovky:", { centerX, centerY });
 
         // Použijeme zoomFactor z nastavení
         currentScale = zoomFactor;
@@ -324,14 +309,6 @@ toggleSourceVisibility(!isMobile);
             korekceFaktorY = 0.58;
         }
         
-        console.log("Použité korekční faktory:", {
-            korekceFaktorX, 
-            korekceFaktorY,
-            fixniKorekceX,
-            fixniKorekceY,
-            scale: currentScale
-        });
-        
         // Vypnutí omezení velikosti před transformací
         modalImg.style.maxWidth = 'none';
         modalImg.style.maxHeight = 'none';
@@ -341,9 +318,9 @@ toggleSourceVisibility(!isMobile);
         
         // Skryjeme zdroje při zoomu
      // Skryjeme zdroje při zoomu pouze pokud nejsme na mobilu (na mobilu jsou už tak skryté)
-if (!isMobile) {
-    toggleSourceVisibility(false);
-}
+    if (!isMobile) {
+       toggleSourceVisibility(false);
+    }
         
         // Použijeme promisy pro správné načasování operací
         return new Promise(resolve => {
@@ -371,16 +348,7 @@ if (!isMobile) {
                     // Aplikujeme korekční faktory - VYLEPŠENO pro stabilnější chování
                     translateX = (baseTranslateX * korekceFaktorX) + fixniKorekceX;
                     translateY = (baseTranslateY * korekceFaktorY) + fixniKorekceY;
-                    
-                    console.log("Vypočtené posuny:", {
-                        baseTranslateX,
-                        baseTranslateY,
-                        translationWithCorrections: {
-                            translateX,
-                            translateY
-                        }
-                    });
-                    
+
                     // Uložíme výchozí pozice pro drag
                     initialTranslateX = translateX;
                     initialTranslateY = translateY;
@@ -397,16 +365,6 @@ if (!isMobile) {
                         // Vypočítáme finální pozici kliknutého bodu
                         const finalPointX = finalRect.left + (relX * finalRect.width);
                         const finalPointY = finalRect.top + (relY * finalRect.height);
-                        
-                        // Zobrazíme výsledek
-                        console.log("Finální pozice bodu:", {
-                            finalPointX,
-                            finalPointY,
-                            centerX,
-                            centerY,
-                            odchylkaX: centerX - finalPointX,
-                            odchylkaY: centerY - finalPointY
-                        });
                         
                         resolve();
                     });
@@ -443,13 +401,7 @@ if (!isMobile) {
             
             // Aplikujeme transformaci
             element.style.transform = `translate(${translateX}px, ${translateY}px)`;
-            
-            console.log("Element centrován:", {
-                translateX,
-                translateY,
-                windowCenter: { x: centerX, y: centerY },
-                elementCenter: { x: elementCenterX, y: elementCenterY }
-            });
+          
         });
     }
 
@@ -457,10 +409,10 @@ if (!isMobile) {
     function centerPlantCell() {
         const cellElement = modalImg || document.querySelector('.modal-content img') || document.getElementById('rostlinna-bunka');
         
-        if (cellElement) {
+       if (cellElement) {
             centerElementExactly(cellElement);
         } else {
-            console.error("Element rostlinné buňky nebyl nalezen!");
+            console.error("Plant cell element not found!");
         }
     }
     
@@ -475,11 +427,9 @@ if (!isMobile) {
             // Použijeme zvětšení v místě kliknutí/dotyku
             zoomAtPoint(x, y);
             
-            console.log("Zvětšeno: isZoomed =", isZoomed, ", scale =", currentScale);
         } else {
             // Zmenšení obrázku
             resetZoom();
-            console.log("Zmenšeno: isZoomed =", isZoomed);
         }
     }
     
@@ -495,7 +445,6 @@ if (!isMobile) {
                 // Použijeme jednotnou funkci pro zvětšení v místě kliknutí
                 zoomAtPoint(e.clientX, e.clientY);
                 
-                console.log("Zvětšeno kliknutím: isZoomed =", isZoomed, ", scale =", currentScale);
             } else {
                 // Zmenšení obrázku
                 resetZoom();
@@ -568,9 +517,6 @@ if (!isMobile) {
         }
     }, { passive: false });
     
-   
-    
-  
     modalImg.addEventListener('mousedown', function(e) {
         if (isZoomed) {
             isDragging = true;
@@ -586,7 +532,6 @@ if (!isMobile) {
         }
     });
     
-   
     document.addEventListener('mousemove', function(e) {
         if (isDragging && isZoomed) {
             // Vypočítáme delta pohybu od posledního pohybu
@@ -597,7 +542,6 @@ if (!isMobile) {
             lastX = e.clientX;
             lastY = e.clientY;
             
-           
             translateX += deltaX;
             translateY += deltaY;
             
@@ -629,7 +573,6 @@ if (!isMobile) {
             // Získáme poslední pozici dotyku
             var touch = e.changedTouches[0];
             
-          
         handleZoomToggle(touch.clientX, touch.clientY);
         e.preventDefault();
         }
@@ -650,7 +593,6 @@ if (!isMobile) {
         }
     });
     
-   
     document.addEventListener('mousemove', function(e) {
         if (isDragging && isZoomed) {
             // Vypočítáme delta pohybu od posledního pohybu
@@ -725,7 +667,6 @@ if (!isMobile) {
         });
     }
     
-    
     // Zavřít modal při kliknutí na křížek
     closeBtnContainer.addEventListener('click', function(e) {
         closeModal();
@@ -739,7 +680,6 @@ if (!isMobile) {
         e.stopPropagation();
         e.preventDefault();
     });
-    
     
     // Zavřít modal při kliknutí na pozadí
     modal.addEventListener('click', function(e) {
@@ -771,8 +711,8 @@ if (!isMobile) {
     }, { passive: false });
 
 
-// Responzivní úpravy
-function updateResponsiveLayout() {
+   // Responzivní úpravy
+   function updateResponsiveLayout() {
     if (window.innerWidth < 1175) {
         // Při malých obrazovkách
         sourceContainer.style.fontSize = '12px';
@@ -800,7 +740,6 @@ function updateResponsiveLayout() {
         sourceContainer.style.display = sourceContainer.innerHTML ? 'block' : 'none';
     }
 }
-
 
 window.addEventListener('resize', updateResponsiveLayout);
 });

@@ -336,6 +336,37 @@ margin-left: 50px;
 margin-right: 50px;
 }
 
+.reset-preferences-btn {
+    cursor: pointer;
+    text-decoration: underline;
+    color: white;
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.reset-preferences-btn:hover {
+    color: white;
+}
+
+.reset-preferences-btn:focus {
+    outline: none;
+}
+
+body.dark-mode .reset-preferences-btn {
+    color: white !important;
+}
+
+body.dark-mode .reset-preferences-btn:hover {
+    color: white !important;
+}
+
 .sidemap,
 .sidemap a {
     color: inherit;
@@ -563,34 +594,6 @@ td:first-child :not(.extra-bunka) {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
-
-/* PŘI PROBLÉMECH ODKOMENTOVAT */
-
-/* Prioritní načítání menu */
-/*header {
-    will-change: transform; 
-}*/
-/*body {
-    will-change: transform; 
-}*/
-
-/*.button-container {
-    will-change: transform; 
-}*/
-
-/* Optimalizace pro obrazky v menu */
-/*header img,
-.logo,
-{
-    content-visibility: auto; 
-}*/
-
-
-
-
-
-
 
 
 /* Tlačítko tmavého režimu v tmavém režimu */

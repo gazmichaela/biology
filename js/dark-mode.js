@@ -8,29 +8,22 @@
     let isDarkMode = false;
     let hasUserPreference = false;
     
-    try {
-        const storedPreference = localStorage.getItem('darkMode');
-        if (storedPreference !== null) {
-            // Uživatel už má uloženou preferenci
-            isDarkMode = storedPreference === 'true';
-            hasUserPreference = true;
-        }
-    } catch (e) {
-        // localStorage není dostupný
-        console.warn('localStorage není dostupný:', e);
-    }
+// Použijeme novou funkci pro čtení preference
+const storedPreference = getDarkModePreference();
+if (storedPreference !== null) {
+    isDarkMode = storedPreference;
+    hasUserPreference = true;
+}
     
     // Pokud uživatel nemá uloženou preferenci, použij systémovou
     if (!hasUserPreference) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             isDarkMode = true;
-            console.log('Aplikace systémové preference: tmavý režim');
         } else {
             isDarkMode = false;
-            console.log('Aplikace systémové preference: světlý režim');
         }
     } else {
-        console.log('Aplikace uživatelské preference:', isDarkMode ? 'tmavý režim' : 'světlý režim');
+         // Používáme uloženou preferenci uživatele
     }
     
     // Uložení informace o tom, zda byla použita systémová preference
@@ -84,7 +77,6 @@
             `}
         }
         
-       
         html.dark-mode .dark-mode-toggle,
         body.dark-mode .dark-mode-toggle,
         .dark-mode .dark-mode-toggle {
@@ -92,27 +84,26 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
         }
        
-@media (max-width: 768px) {
-    .dark-mode-toggle {
-        width: 40px !important;
-        height: 40px !important;
-        bottom: 15px !important;
-        right: 15px !important;
-        font-size: 1.2rem !important;
-    }
-}
+        @media (max-width: 768px) {
+            .dark-mode-toggle {
+                width: 40px !important;
+                height: 40px !important;
+                bottom: 15px !important;
+                right: 15px !important;
+                font-size: 1.2rem !important;
+            }
+        }
 
-@media (max-width: 480px) {
-    .dark-mode-toggle {
-        width: 35px !important;
-        height: 35px !important;
-        bottom: 10px !important;
-        right: 10px !important;
-        font-size: 1rem !important;
-    }
-}
-   
-     
+        @media (max-width: 480px) {
+            .dark-mode-toggle {
+                width: 35px !important;
+                height: 35px !important;
+                bottom: 10px !important;
+                right: 10px !important;
+                font-size: 1rem !important;
+            }
+        }
+    
         html.ready, body.ready {
             visibility: visible !important;
             opacity: 1 !important;
@@ -141,7 +132,7 @@
         document.documentElement.className += ' dark-mode';
     }
     
-    // OKAMŽITÉ vytvoření tlačítka s odpovídající ikonou
+    // Vytvoření tlačítka s odpovídající ikonou
     window.createToggleButtonEarly = function() {
         const existingButton = document.getElementById('darkModeToggle');
         if (existingButton) return; // Již existuje
@@ -150,8 +141,8 @@
         button.id = 'darkModeToggle';
         button.className = 'dark-mode-toggle';
         
-        // Přidání tooltip pro lepší UX
-        button.title = isDarkMode ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
+        // Tooltip 
+        button.title = isDarkMode ? 'Switch to light mode' : 'Switch to dark mode';
         
         // Nastavení správného stylu okamžitě podle režimu
         if (isDarkMode) {
@@ -185,7 +176,6 @@
         body {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
-        
    
         body.dark-mode {
             background-color: #222222 !important;
@@ -221,7 +211,6 @@
             color: skyblue;
         }
         
-       
         body.dark-mode article section .citace a:visited {
             color: cornflowerblue;
         }
@@ -268,8 +257,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-
-        
         body.dark-mode .sidebar-title {
             color: #64b5f6;
             border-bottom-color: #64b5f6;
@@ -313,6 +300,65 @@
 })();
 
 // 3. Listener pro změny systémových preferencí
+// Funkce pro čtení z cookies
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+// Funkce pro čtení dark mode preference s fallbackem
+function getDarkModePreference() {
+    try {
+        // Nejdříve zkusíme localStorage
+        const localStorageValue = localStorage.getItem('darkMode');
+        if (localStorageValue !== null) {
+            return localStorageValue === 'true';
+        }
+    } catch (e) {
+        console.warn('localStorage not available');
+    }
+    
+    // Pokud localStorage není dostupný nebo nemá hodnotu, zkusíme cookies
+    const cookieValue = getCookie('darkMode');
+    if (cookieValue !== null) {
+        return cookieValue === 'true';
+    }
+    
+    // Pokud nemáme žádnou uloženou preferenci, vrátíme null
+    return null;
+}
+// Funkce pro detekci anonymního režimu
+function isIncognitoMode() {
+    try {
+        // Zkusíme zapsat do localStorage
+        localStorage.setItem('test', 'test');
+        localStorage.removeItem('test');
+        return false; // Normální režim
+    } catch (e) {
+        return true; // Anonymní režim
+    }
+}
+
+// Funkce pro uložení dark mode preference
+function saveDarkModePreference(isDark) {
+    // Kontrola anonymního režimu
+    if (isIncognitoMode()) {
+        return; // Neukládáme v anonymním režimu
+    }
+    
+    // Normální režim - ukládáme
+    try {
+        localStorage.setItem('darkMode', isDark);
+    } catch (e) {
+        console.warn('Failed to save to localStorage');
+    }
+    
+    // Vždy uložíme i do cookies jako zálohu
+    document.cookie = `darkMode=${isDark};path=/;max-age=31536000`;
+}
+
 (function() {
     if (window.matchMedia) {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -326,8 +372,6 @@
                 const currentlyDark = body.classList.contains('dark-mode');
                 
                 if (shouldBeDark !== currentlyDark) {
-                    console.log('Změna systémové preference na:', shouldBeDark ? 'tmavý režim' : 'světlý režim');
-                    
                     // Aplikuj změnu
                     if (shouldBeDark) {
                         body.classList.add('dark-mode');
@@ -341,7 +385,7 @@
                     const toggle = document.getElementById('darkModeToggle');
                     if (toggle) {
                         toggle.innerHTML = shouldBeDark ? createMoonIcon() : createSunIcon();
-                        toggle.title = shouldBeDark ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
+                        toggle.title = shouldBeDark ? 'Switch to light mode' : 'Switch to dark mode';
                     }
                 }
             }
@@ -357,13 +401,48 @@
     }
 })();
 
+// Funkce pro reset na systémové preference
+function resetToSystemPreferences() {
+    // Smazání uložené preference
+    try {
+        localStorage.removeItem('darkMode');
+    } catch (e) {
+        console.warn('Failed to remove from localStorage');
+    }
+    
+    // Smazání z cookies
+    document.cookie = 'darkMode=;path=/;max-age=0';
+    
+    // Označení, že používáme systémové preference
+    window.isUsingSystemPreference = true;
+    
+    // Aplikace systémové preference
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const body = document.body;
+    
+    if (prefersDark) {
+        body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
+        document.documentElement.classList.remove('dark-mode');
+    }
+    
+    // Aktualizace ikony tlačítka
+    const toggle = document.getElementById('darkModeToggle');
+    if (toggle) {
+        toggle.innerHTML = prefersDark ? createMoonIcon() : createSunIcon();
+        toggle.title = prefersDark ? 'Switch to light mode' : 'Switch to dark mode';
+    }
+    
+}
 // 4. Funkce pro zobrazení stránky
 function showPage() {
     // Odstranění anti-flicker CSS a zobrazení stránky
     document.documentElement.classList.add('ready');
     document.body.classList.add('ready');
     
-    // Volitelně - odstranění anti-flicker stylů po krátké době
+    // Odstranění anti-flicker stylů po krátké době
     setTimeout(() => {
         const antiFlickerStyle = document.getElementById('anti-flicker-css');
         if (antiFlickerStyle) {
@@ -395,23 +474,25 @@ function initializeEarly() {
         isDarkMode = true;
     }
     
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-        document.documentElement.classList.add('dark-mode');
-    }
-    
-    // Vytvoření tlačítka co nejdříve
-    if (window.createToggleButtonEarly) {
-        window.createToggleButtonEarly();
-    }
-    
-    // Zobrazení stránky
-    showPage();
+        // Nastavíme globální proměnnou pro systémové preference
+    window.isUsingSystemPreference = !hasUserPreference;
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode');
+        }
+        
+        // Vytvoření tlačítka co nejdříve
+        if (window.createToggleButtonEarly) {
+            window.createToggleButtonEarly();
+        }
+        
+        // Zobrazení stránky
+        showPage();
 }
 
 // 6. Spuštění inicializace - vícenásobná detekce pro zajištění rychlého spuštění
 if (document.readyState === 'loading') {
-    // DOM se ještě načítá
+    // DOM se načítá
     document.addEventListener('DOMContentLoaded', initializeEarly);
 } else {
     // DOM je už načten
@@ -471,7 +552,7 @@ function startPositionMonitoring() {
     }
     
     positionMonitoringInterval = setInterval(() => {
-        // Zde můžete přidat logiku pro sledování pozice myši nebo menu
+
     }, 100);
 }
 
@@ -493,7 +574,6 @@ function startInactivityTimer() {
         if (isClickOpened) {
             isClickOpened = false;
             stopPositionMonitoring();
-            console.log('Menu zavřeno kvůli neaktivitě');
         }
     }, 5000);
 }
@@ -543,19 +623,14 @@ function initializeDarkMode() {
                 document.documentElement.classList.remove('dark-mode');
             }
             
-            // Uložení preference - tímto se uživatel "odpojí" od systémových preferencí
-            try {
-                localStorage.setItem('darkMode', isDark);
-                document.cookie = `darkMode=${isDark};path=/;max-age=31536000`;
-                // Označení, že uživatel má vlastní preferenci
-                window.isUsingSystemPreference = false;
-                console.log('Uložena uživatelská preference:', isDark ? 'tmavý režim' : 'světlý režim');
-            } catch (e) {
-                console.warn('Nepodařilo se uložit preferenci tmavého režimu');
-            }
+             // Uložení preference pomocí nové funkce
+                saveDarkModePreference(isDark);
+
+            // Označení, že uživatel má vlastní preferenci
+            window.isUsingSystemPreference = false;
             
             // Aktualizace tooltip
-            darkModeToggle.title = isDark ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
+            darkModeToggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
             
             // Animace ikony
             const currentIcon = darkModeToggle.querySelector('.sun-icon, svg');
@@ -581,34 +656,42 @@ function initializeDarkMode() {
                     }
                 }, 150);
             }
+            
         });
-    }
-}
-
-// Odpočítávání
-function updateCountdown() {
-    const countdownElement = document.getElementById('countdown');
-    if (!countdownElement) return;
-    
-    const now = new Date().getTime();
-    const launchTime = new Date('2025-05-28T01:15:00').getTime();
-    const timeLeft = launchTime - now;
-    
-    if (timeLeft > 0) {
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
         
-        countdownElement.textContent = 
-            String(days).padStart(2, '0') + ':' +
-            String(hours).padStart(2, '0') + ':' +
-            String(minutes).padStart(2, '0') + ':' +
-            String(seconds).padStart(2, '0');
-    } else {
-        countdownElement.textContent = 'SPUŠTĚNO!';
     }
+  // Event listener pro reset systémových preferencí
+const resetButton = document.getElementById('resetSystemPreferences');
+if (resetButton) {
+    resetButton.addEventListener('click', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Kontrola, zda je tlačítko skryté nebo viditelné
+        if (darkModeToggle && darkModeToggle.style.display === 'none') {
+            // Tlačítko je skryté -> zobrazit ho a změnit text
+            darkModeToggle.style.display = 'flex';
+            resetButton.textContent = ' Preferovat světlý/tmavý režim prohlížeče';
+            
+            // Označení, že uživatel má vlastní preferenci
+            window.isUsingSystemPreference = false;
+            
+        } else {
+            // Tlačítko je viditelné -> skrýt ho a resetovat
+            resetToSystemPreferences();
+            
+            if (darkModeToggle) {
+                darkModeToggle.style.display = 'none';
+            }
+            
+            // Okamžitá změna textu
+            resetButton.textContent = 'Přepnout ručně světlý/tmav';
+        }
+    });
 }
+}  
+
+
+
 
 // Plynulé scrollování
 function initializeSmoothScroll() {
@@ -645,10 +728,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeDarkMode();
     initializeSmoothScroll();
     
-    if (document.getElementById('countdown')) {
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    }
 });
 
 // Animace při načtení stránky

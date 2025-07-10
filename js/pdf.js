@@ -1,4 +1,5 @@
 //-------PDF FUNCIONALITY--------//
+
 document.addEventListener('DOMContentLoaded', function() {
     // Univerzální funkce pro inicializaci PDF vieweru
     function initPdfViewer(config) {
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const pdfFrame = document.getElementById(frameId);
         
         if (!pdfOverlay || !pdfCloseBtn || !pdfFrame) {
-            console.error(`Některé z potřebných elementů pro ${viewerName} PDF prohlížeč nebyly nalezeny`);
+            console.error(`Some of the required elements for ${viewerName} PDF viewer were not found`);
             return;
         }
         
@@ -144,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 platform: platform
             };
             
-            console.log('Detekce zařízení:', result);
             return result;
         }
         
@@ -155,21 +155,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Pro iOS zařízení (iPhone, iPad) - obvykle mají problémy s PDF v iframe
                 if (mobileInfo.isIOS) {
-                    console.log('iOS detekován - PDF v iframe obvykle nefunguje');
                     resolve(false);
                     return;
                 }
                 
                 // Pro mobilní zařízení s velmi malou obrazovkou
                 if (mobileInfo.isVerySmallScreen) {
-                    console.log('Velmi malá obrazovka - doporučujeme fallback');
                     resolve(false);
                     return;
                 }
                 
                 // Pro všechna mobilní/tablet zařízení zkusíme důkladnější test
                 if (mobileInfo.isMobileOrTablet) {
-                    console.log('Mobilní/tablet zařízení - testuji PDF podporu důkladně');
                     
                     // Zkusíme více způsobů detekce
                     let testsPassed = 0;
@@ -192,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             // Pokud prošel alespoň jeden test, považujeme PDF za podporované
                             const isSupported = testsPassed > 0;
-                            console.log(`PDF podpora test dokončen: ${testsPassed}/${totalTests} testů prošlo, výsledek: ${isSupported}`);
                             resolve(isSupported);
                         }
                     };
@@ -200,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const test1Timeout = setTimeout(() => {
                         if (!test1Resolved) {
                             test1Resolved = true;
-                            console.log('PDF test 1 timeout');
                             finishTest();
                         }
                     }, 1000);
@@ -209,7 +204,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (!test1Resolved) {
                             test1Resolved = true;
                             clearTimeout(test1Timeout);
-                            console.log('PDF test 1 úspěšný');
                             testsPassed++;
                             finishTest();
                         }
@@ -219,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (!test1Resolved) {
                             test1Resolved = true;
                             clearTimeout(test1Timeout);
-                            console.log('PDF test 1 neúspěšný');
                             finishTest();
                         }
                     };
@@ -232,23 +225,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             const mimeSupported = navigator.mimeTypes && 
                                                  navigator.mimeTypes['application/pdf'] && 
                                                  navigator.mimeTypes['application/pdf'].enabledPlugin;
-                            
+
                             if (mimeSupported) {
-                                console.log('PDF test 2 úspěšný - MIME typ podporován');
                                 testsPassed++;
                             } else {
-                                console.log('PDF test 2 neúspěšný - MIME typ nepodporován');
                             }
                         } catch (e) {
-                            console.log('PDF test 2 chyba:', e);
+                            console.warn('PDF test 2 error:', e);
                         }
-                        
+
                         finishTest();
                     }, 200);
                     
                 } else {
                     // Desktop - obvykle podporuje PDF
-                    console.log('Desktop zařízení - PDF obvykle podporováno');
                     resolve(true);
                 }
             });
@@ -275,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             loadingDiv.innerHTML = `
                 <div style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #007bff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px;"></div>
-                <h3 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">Načítám PDF...</h3>
+                <h4 style="margin: 0 0 10px 0; color: #333; font-size: 16px;">Načítám PDF...</h4>
                 <p style="margin: 0; color: #666; font-size: 14px;">Pokud se PDF nenačte, zobrazí se alternativní možnosti</p>
                 <style>
                     @keyframes spin {
@@ -323,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
             else if (mobileInfo.isMobile) deviceType = 'mobilní telefon';
             
             fallbackDiv.innerHTML = `
-                <h3 style="margin: 0 0 15px 0; color: #333; font-size: 18px;">
+                <h3 style="margin: 0 0 15px 0; color: #333; font-size: 18px; text-align: center;">
                     PDF viewer
                 </h3>
                 <p style="margin: 0 0 20px 0; font-size: 15px; color: #555; line-height: 1.4;">
@@ -354,7 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     ` : ''}
                 </div>
                 
-              
             `;
             
             return fallbackDiv;
@@ -405,7 +394,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Funkce pro retry načtení PDF
         window[`${frameId}_retryLoad`] = function() {
             pdfLoadAttempts++;
-            console.log(`Pokus o načtení PDF #${pdfLoadAttempts}`);
             
             if (pdfLoadAttempts <= maxLoadAttempts) {
                 // Přidáme cache buster
@@ -415,14 +403,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Zobrazíme loading indikátor
                 showLoadingIndicator();
             } else {
-                console.log('Maximální počet pokusů dosažen, zobrazuji fallback');
                 showFallbackOptions();
             }
         };
         
         // funkce pro retry z fallback dialogu
         window[`${frameId}_retryFromFallback`] = function() {
-            console.log(`Retry z fallback dialogu - pokus #${pdfLoadAttempts + 1}`);
             
             // Skryjeme fallback dialog
             hideFallbackOptions();
@@ -443,7 +429,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Nastavíme timeout pro loading
             loadingTimeout = setTimeout(() => {
                 hideLoadingIndicator();
-                console.log(`Loading timeout po ${pdfLoadAttempts}. pokusu`);
                 
                 // Po timeoutu zobrazíme fallback
                 showFallbackOptions();
@@ -474,7 +459,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Zobrazení fallback možností
         function showFallbackOptions() {
-            console.log(`Zobrazuji fallback po ${pdfLoadAttempts} pokusech`);
             
             hideLoadingIndicator();
             hideFallbackOptions(); // Odebereme starý fallback pokud existuje
@@ -494,7 +478,6 @@ document.addEventListener('DOMContentLoaded', function() {
             fallbackShown = false;
             pdfLoadAttempts = 0;
             
-            console.log(`Otevírám ${viewerName} PDF viewer`, mobileInfo);
             
             pdfOverlay.style.display = 'block';
             isPdfOpen = true;
@@ -511,11 +494,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Pro mobilní a tablet zařízení zkontrolujeme podporu PDF
             if (isMobile) {
                 const pdfSupported = await checkPdfSupport();
-                console.log('PDF podpora na mobilním/tablet zařízení:', pdfSupported);
                 
                 if (!pdfSupported) {
                     // Zobrazíme fallback po loading období
-                    console.log('PDF nepodporováno - zobrazuji fallback možnosti');
                     setTimeout(() => {
                         showFallbackOptions();
                     }, 1500); // Delší čekání aby bylo vidět loading
@@ -532,14 +513,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Nastavíme handlers pro načtení
             const loadHandler = () => {
-                console.log(`${viewerName} PDF načteno úspěšně`);
                 hideLoadingIndicator();
                 pdfFrame.removeEventListener('load', loadHandler);
                 pdfFrame.removeEventListener('error', errorHandler);
             };
             
             const errorHandler = () => {
-                console.log(`Chyba při načítání ${viewerName} PDF - pokus ${pdfLoadAttempts}`);
                 pdfFrame.removeEventListener('load', loadHandler);
                 pdfFrame.removeEventListener('error', errorHandler);
                 
@@ -569,7 +548,6 @@ document.addEventListener('DOMContentLoaded', function() {
             fallbackShown = false;
             pdfLoadAttempts = 0;
             
-            console.log(`${viewerName} PDF zavřeno`);
         }
         
         // Touch a gesture podpora
@@ -637,7 +615,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        console.log(`${viewerName} PDF viewer inicializován s vylepšenou detekcí mobilních zařízení`);
     }
     
     // Inicializace všech PDF viewerů
@@ -673,7 +650,9 @@ document.addEventListener('DOMContentLoaded', function() {
         initPdfViewer(config);
     });
 });
-//-------PDF FUNCIONALITY ORIGIN OF LIFE--------//
+
+// -------PDF FUNCIONALITY ORIGIN OF LIFE------- //
+
 // Počkáme na načtení stránky
 document.addEventListener('DOMContentLoaded', function() {
     // Získáme reference na elementy
@@ -691,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Kontrola existence potřebných elementů
     if (!pdfOverlay || !pdfCloseBtn || !pdfFrame) {
-        console.error('Některé z potřebných elementů pro PDF prohlížeč nebyly nalezeny');
+        console.error('Some of the required elements for PDF viewer were not found');
         return;
     }
     
@@ -736,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         } catch (error) {
-            console.log('Fallback: Používám alternativní metodu pro ovládání PDF');
+            console.warn('Fallback: Using alternative method for PDF control');
         }
     }
     
@@ -759,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             } catch (error) {
-                console.log('Focus management fallback');
+                console.warn('Focus management fallback');
             }
         }, 200);
     }
@@ -775,7 +754,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // DŮLEŽITÉ: Při otevření PDF NEMÁ automaticky focus
         pdfHasFocus = false;
         
-        console.log('PDF otevřeno - šipky ovládají pozadí stránky. Klikněte do PDF pro ovládání PDF.');
     }
     
     // Funkce pro zavření PDF
@@ -786,7 +764,6 @@ document.addEventListener('DOMContentLoaded', function() {
         isPdfOpen = false;
         pdfHasFocus = false;
         
-        console.log('PDF zavřeno - normální ovládání stránky obnoveno.');
     }
     
     // Hlavní funkce pro obsluhu kláves
@@ -829,7 +806,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Pošleme klávesu do PDF
             simulateKeyInPdf(keyCode, key);
             
-            console.log('Klávesa přesměrována do PDF:', key);
         }
     }
     
@@ -848,7 +824,6 @@ document.addEventListener('DOMContentLoaded', function() {
     pdfFrame.addEventListener('click', function(e) {
         pdfHasFocus = true;
         setFocusOnPdf();
-        console.log('PDF má nyní focus - šipky ovládají PDF');
         e.stopPropagation();
     });
     
@@ -857,7 +832,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pokud klikneme mimo PDF iframe, ale stále uvnitř overlay
         if (e.target !== pdfFrame && !pdfFrame.contains(e.target)) {
             pdfHasFocus = false;
-            console.log('Focus odebrán z PDF - šipky opět ovládají pozadí stránky');
         }
     });
     
@@ -865,7 +839,6 @@ document.addEventListener('DOMContentLoaded', function() {
     pdfFrame.addEventListener('load', function() {
         if (isPdfOpen) {
             // Při načtení PDF stále nemá automaticky focus
-            console.log('PDF načteno - čeká na kliknutí pro aktivaci ovládání');
         }
     });
     
@@ -893,7 +866,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (type === 'beforeunload') {
                 // Ignorujeme beforeunload listenery když je PDF otevřené
                 if (isPdfOpen) {
-                    console.log('Blokován beforeunload listener kvůli otevřenému PDF');
                     return;
                 }
             }
@@ -914,12 +886,10 @@ document.addEventListener('DOMContentLoaded', function() {
         disableBeforeUnloadWarning();
     };
     
-    
-    console.log('PDF viewer pro Origin of Life inicializován s inteligentním focus managementem a potlačením beforeunload varování');
 });
 
+// -------PDF FUNCIONALITY PRESAH------- //
 
-//-------PDF FUNCIONALITY PRESAH--------//
 // Počkáme na načtení stránky
 document.addEventListener('DOMContentLoaded', function() {
     // Získáme reference na elementy
@@ -937,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Kontrola existence potřebných elementů
     if (!pdfOverlay || !pdfCloseBtn || !pdfFrame) {
-        console.error('Některé z potřebných elementů pro PDF prohlížeč nebyly nalezeny');
+        console.error('Some of the required elements for PDF viewer were not found');
         return;
     }
     
@@ -982,7 +952,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         } catch (error) {
-            console.log('Fallback: Používám alternativní metodu pro ovládání PDF');
+            console.warn('Fallback: Using alternative method for PDF control');
         }
     }
     
@@ -1005,7 +975,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             } catch (error) {
-                console.log('Focus management fallback');
+                console.warn('Focus management fallback');
             }
         }, 200);
     }
@@ -1016,7 +986,6 @@ document.addEventListener('DOMContentLoaded', function() {
         pdfOverlay.style.display = 'block';
         isPdfOpen = true;
         pdfHasFocus = false;
-        console.log('PDF otevřeno - šipky ovládají pozadí stránky. Klikněte do PDF pro ovládání PDF.');
     }
     
     // Funkce pro zavření PDF
@@ -1027,7 +996,6 @@ document.addEventListener('DOMContentLoaded', function() {
         isPdfOpen = false;
         pdfHasFocus = false;
         
-        console.log('PDF zavřeno - normální ovládání stránky obnoveno.');
     }
     
     // Hlavní funkce pro obsluhu kláves
@@ -1070,7 +1038,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Pošleme klávesu do PDF
             simulateKeyInPdf(keyCode, key);
             
-            console.log('Klávesa přesměrována do PDF:', key);
         }
     }
     
@@ -1089,7 +1056,6 @@ document.addEventListener('DOMContentLoaded', function() {
     pdfFrame.addEventListener('click', function(e) {
         pdfHasFocus = true;
         setFocusOnPdf();
-        console.log('PDF má nyní focus - šipky ovládají PDF');
         e.stopPropagation();
     });
     
@@ -1098,7 +1064,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pokud klikneme mimo PDF iframe, ale stále uvnitř overlay
         if (e.target !== pdfFrame && !pdfFrame.contains(e.target)) {
             pdfHasFocus = false;
-            console.log('Focus odebrán z PDF - šipky opět ovládají pozadí stránky');
         }
     });
     
@@ -1106,7 +1071,6 @@ document.addEventListener('DOMContentLoaded', function() {
     pdfFrame.addEventListener('load', function() {
         if (isPdfOpen) {
             // Při načtení PDF stále nemá automaticky focus
-            console.log('PDF načteno - čeká na kliknutí pro aktivaci ovládání');
         }
     });
     
@@ -1134,7 +1098,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (type === 'beforeunload') {
                 // Ignorujeme beforeunload listenery když je PDF otevřené
                 if (isPdfOpen) {
-                    console.log('Blokován beforeunload listener kvůli otevřenému PDF');
                     return;
                 }
             }
@@ -1155,5 +1118,4 @@ document.addEventListener('DOMContentLoaded', function() {
         disableBeforeUnloadWarning();
     };
     
-    console.log('PDF viewer pro Presah inicializován s inteligentním focus managementem a potlačením beforeunload varování');
 });

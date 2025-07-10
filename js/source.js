@@ -1,5 +1,6 @@
 
-//----RESOURCE FUNCIONALITY-----//
+//----RESOURCE FUNCIONALITY----//
+
 document.addEventListener('DOMContentLoaded', function() {
   const infoVariants = [
     'info-box', 'info-box-short', 'info-box-medium', 'info-box-medium-second', 
@@ -283,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
       target = target.parentElement;
     }
     
-   
     if (touchedInfoBoxLink) {
       return;
     }

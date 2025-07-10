@@ -1,4 +1,5 @@
     // ----- FAQ FUNCTIONALITY -----//
+    
     const faqItems = document.querySelectorAll(".faq");
     if (faqItems.length > 0) {
         faqItems.forEach(faq => {
@@ -8,7 +9,8 @@
         });
     }
     
-    // ----- FAQ CONTAINER TOGGLE -----
+    // ----- FAQ CONTAINER TOGGLE ----- //
+
     const toggleQuestionsBtn = document.getElementById('toggle-questions-btn');
     const faqContainer = document.getElementById('faq-container');
     
