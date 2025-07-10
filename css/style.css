@@ -91,24 +91,24 @@ html, body {
     max-width: 100%;
 }
 
- .dark-mode-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            background: white;
-        }
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    background: white;
+}
 
 noscript {
     font-size: 3em;
@@ -241,7 +241,6 @@ article section h3 {
 }
 
 
-
 article section h4 {
     margin-top: 3em;
     margin-bottom: 0.4em;
@@ -290,19 +289,13 @@ article section .button-light {
     position: relative;
 }
 
-
-
 article section .button {
     background: #1c77e8;
 }
 
-
-
 article section .button-light {
     background-color: #309ce5;
 }
-
-
 
 article section .button:hover,
 article section .button-light:hover {
@@ -315,7 +308,7 @@ article section .button-light:hover {
 footer {
     box-sizing: border-box;
     text-align: left;
-    height: 220px;
+    height: 280px;
     color: white;
     background: #3f7093;
     padding: 50px 0px 0px 10px;
@@ -325,20 +318,29 @@ footer {
     clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%);
 }
 
+footer hr {
+    border: none;
+    border-top: 1px solid #5396c5;
+    margin: 20px auto;
+    max-width: 60rem;
+    width: 90%;
+}
+
 footer a {
-    text-decoration: underline;
+    text-decoration:  underline;
     color: inherit;
+
 }
 
 footer p {
-text-align: center;
-margin-left: 50px;
-margin-right: 50px;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .reset-preferences-btn {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration:  underline;
     color: white;
     display: block;
     text-align: center;
@@ -349,6 +351,7 @@ margin-right: 50px;
     user-select: none;
     outline: none;
     -webkit-tap-highlight-color: transparent;
+
 }
 
 .reset-preferences-btn:hover {

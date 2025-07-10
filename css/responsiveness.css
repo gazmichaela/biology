@@ -8,10 +8,11 @@ Některé responzivní styly se náchází v:
 OBSAH:
 
 1. Obecné
+- nad 2000px
 - do 1175px
 - do 1023px
 - do 768px
-- do 567px
+- do 568px
 - do 480px
 - do 320px
 - landscape (max-height: 500px)
@@ -20,12 +21,12 @@ OBSAH:
 
 2. FaQ, Otázky
 - do 768px
-- do 567px
+- do 568px
 - do 320px
 
 3. PDF
 - do 768px
-- do 567px
+- do 568px
 - do 320px
 - landscape (max-height: 500px)
 
@@ -47,6 +48,14 @@ OBSAH:
 
 
 /* ===== 1. OBECNÉ ===== */
+
+@media screen and (min-width: 2000px) {
+    .button-container {
+        margin-right: 2vw;
+        margin-left: 2vw;
+    }
+}
+
 
 @media screen and (max-width: 1175px) {
     /* Zajistí, že se stránka neprolí horizontálně */
@@ -84,7 +93,7 @@ OBSAH:
     }
 
     footer {
-        height: 250px;
+        height: 310px;
     }
 
     footer p {
@@ -153,6 +162,13 @@ OBSAH:
     header ul li {
         margin: 8px 0;
         font-size: 16px;
+    }
+
+    footer {
+        padding: 30px 10px 0px 10px;
+        font-size: 0.8em;
+        height: 290px;
+        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
     }
 
     footer p {
@@ -229,13 +245,6 @@ OBSAH:
         font-size: 0.85em;
     }
     
-    footer {
-        padding: 30px 10px 0px 10px;
-        font-size: 0.8em;
-        height: 220px;
-        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
-    }
-    
     .cookies-mini-notice {
         bottom: 10px;
         left: 10px;
@@ -265,7 +274,7 @@ OBSAH:
 }
 }
 
-/* Mobile Portrait - do 567px */
+/* Mobile Portrait - do 568px */
 @media screen and (max-width: 568px) {
     body {
         font-size: 1em;
@@ -374,33 +383,20 @@ OBSAH:
         white-space: normal;
     }
     
- .tooltip .tooltiptext {
-    font-size: small;
-    white-space: normal;
-    max-width: 200px; /* výchozí pro mobil */
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 110%;
-    z-index: 9999;
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
     .tooltip .tooltiptext {
-        max-width: 400px;
+        font-size: small;
+        white-space: normal;
+        max-width: 200px; /* výchozí pro mobil */
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 110%;
+        z-index: 9999;
     }
-}
 
-/* Velké obrazovky */
-@media (min-width: 1440px) {
-    .tooltip .tooltiptext {
-        max-width: 500px;
-    }
-}
     footer {
         padding: 20px 8px 0px 8px;
         font-size: 0.75em;
-        height: 220px;
+        height: 270px;
         clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
     
@@ -494,7 +490,7 @@ OBSAH:
 
 
     footer {
-        height: 250px;
+        height: 280px;
     }
 
     footer p {
@@ -640,7 +636,7 @@ OBSAH:
 }
 
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 568px) {
     .question {
         font-size: 0.92em;
         border-radius: 6px;
@@ -752,7 +748,7 @@ OBSAH:
 }
 
 
-@media screen and (max-width: 567px) {
+@media screen and (max-width: 568px) {
     .pdf-overlay {
         display: none;
         position: fixed;

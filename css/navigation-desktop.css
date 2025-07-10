@@ -1,4 +1,5 @@
-/* Navigaci při šířce > 1175px */
+/* Navigaci při šířce x; 2000px ≥ x ≥ 1175px */
+/* Responzivní styly v responsiveness.css (nad 2000px) a v navigation-mobile.css (pod 1175px) */
 
 /* DOMEČEK */
 .home-icon {
@@ -24,8 +25,8 @@
 .button-container {
     display: flex;
     align-items: center;
-    margin-right: 1.43vmax;
-    margin-left: 1.43vmax;
+    margin-right: 1.43vw;
+    margin-left: 1.43vw;
     white-space: nowrap; /* Text se v tlačítkách nebude zalamovat při změnšení okna*/
 }
 
@@ -150,7 +151,7 @@
     z-index: 1000;
     width: 150px;
     margin-top: 3px;
-    font-size: medium;
+    font-size: 16px; /* Pro zachování stejného písma při různých nastavení prohlížeče => navigace je centrovaná */
 }
 
 .dropdown-content.show,

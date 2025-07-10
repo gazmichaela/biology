@@ -684,7 +684,7 @@ if (resetButton) {
             }
             
             // Okamžitá změna textu
-            resetButton.textContent = 'Přepnout ručně světlý/tmav';
+            resetButton.textContent = 'Přepnout ručně světlý/tmavý režim prohlížeče';
         }
     });
 }

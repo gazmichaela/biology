@@ -71,7 +71,7 @@ function insertStickyHeaderStyles() {
 .sticky-header .button-container {
     display: flex;
     align-items: center;
-     margin: 0 1.43vmax;
+    margin: 0 1.43vw;
 
     white-space: nowrap;
     margin-top: 1px;
@@ -382,6 +382,14 @@ function insertStickyHeaderStyles() {
 }
 
 /* Responsivní zobrazení pro sticky header */
+
+@media screen and (min-width: 2000px) {
+    .sticky-header .button-container {
+        margin-right: 2vw;
+        margin-left: 2vw;
+    }
+}
+
 @media screen and (max-width: 1175px) { /* Použij stejný breakpoint jako v normálním headeru */
     .sticky-header .burger-menu {
         display: flex; /* Použij flex místo block pro konzistenci */
