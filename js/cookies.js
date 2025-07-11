@@ -1,5 +1,3 @@
-//---------COOKIES FUNCIONALITY--------------//
-
 document.addEventListener('DOMContentLoaded', function() {
     // Kontrola, zda již bylo oznámení potvrzeno
     if(!localStorage.getItem('cookiesAccepted')) {

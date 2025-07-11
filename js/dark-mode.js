@@ -1,38 +1,43 @@
 //-----------DARK MODE FUNCIONALITY-------------//
 
-// 1. OKAMŽITÉ nastavení před načtením čehokoli jiného
 (function() {
     'use strict';
     
-    // Kontrola localStorage před vytvořením CSS
     let isDarkMode = false;
     let hasUserPreference = false;
     
-// Použijeme novou funkci pro čtení preference
-const storedPreference = getDarkModePreference();
-if (storedPreference !== null) {
-    isDarkMode = storedPreference;
-    hasUserPreference = true;
-}
+    const storedPreference = getDarkModePreference();
+    if (storedPreference !== null) {
+        isDarkMode = storedPreference;
+        hasUserPreference = true;
+    }
     
-    // Pokud uživatel nemá uloženou preferenci, použij systémovou
+    let isToggleVisible = true;
+    try {
+        const storedVisibility = localStorage.getItem('darkModeToggleVisible');
+        if (storedVisibility !== null) {
+            isToggleVisible = storedVisibility === 'true';
+        }
+    } catch (e) {
+        // Fallback na cookies
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; darkModeToggleVisible=`);
+        if (parts.length === 2) {
+            isToggleVisible = parts.pop().split(';').shift() === 'true';
+        }
+    }
     if (!hasUserPreference) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             isDarkMode = true;
         } else {
             isDarkMode = false;
         }
-    } else {
-         // Používáme uloženou preferenci uživatele
     }
-    
-    // Uložení informace o tom, zda byla použita systémová preference
+
     window.isUsingSystemPreference = !hasUserPreference;
     
-    // Vytvoření kritického CSS jako string pro okamžité vložení
     const criticalCSS = `
     
-        /* Základní styly pro okamžité aplikování */
         ${isDarkMode ?`
             html.dark-mode {
                 background-color: #222222 !important;
@@ -62,12 +67,16 @@ if (storedPreference !== null) {
             border-radius: 8px !important;
             border: none !important;
             cursor: pointer !important;
-            display: flex !important;
+            display: ${isToggleVisible ? 'flex' : 'none'} !important;
             align-items: center !important;
             justify-content: center !important;
             font-size: 1.5rem !important;
             z-index: 1000 !important;
             transition: none !important;
+             
+            .dark-mode-toggle.hidden {
+            display: none !important;
+        }
             ${isDarkMode ? `
                 background: black !important;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
@@ -111,38 +120,33 @@ if (storedPreference !== null) {
         }
     `;
     
-    // Vložení CSS okamžitě do hlavičky
     const style = document.createElement('style');
     style.type = 'text/css';
     style.id = 'anti-flicker-css';
     
     if (style.styleSheet) {
-        // IE support
         style.styleSheet.cssText = criticalCSS;
     } else {
         style.appendChild(document.createTextNode(criticalCSS));
     }
     
-    // Vložení do head (nebo vytvoření head pokud neexistuje)
     const head = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
     head.insertBefore(style, head.firstChild);
     
-    // Nastavení tříd na html element okamžitě
     if (isDarkMode) {
         document.documentElement.className += ' dark-mode';
     }
     
-    // Vytvoření tlačítka s odpovídající ikonou
     window.createToggleButtonEarly = function() {
         const existingButton = document.getElementById('darkModeToggle');
-        if (existingButton) return; // Již existuje
+        if (existingButton) return; 
         
         const button = document.createElement('button');
         button.id = 'darkModeToggle';
         button.className = 'dark-mode-toggle';
         
-        // Tooltip 
         button.title = isDarkMode ? 'Switch to light mode' : 'Switch to dark mode';
+        
         
         // Nastavení správného stylu okamžitě podle režimu
         if (isDarkMode) {
@@ -155,21 +159,28 @@ if (storedPreference !== null) {
             button.innerHTML = createSunIcon();
         }
         
+       // Kontrola viditelnosti tlačítka a nastavení třídy
+        const isVisible = getToggleVisibilityState();
+        if (!isVisible) {
+            button.classList.add('hidden');
+        }
+
         // Vložení tlačítka okamžitě do body (pokud existuje) nebo do documentElement
         const container = document.body || document.documentElement;
         container.appendChild(button);
         
-        // Přidání transition až po malé chvíli
+        // Přidání přecodů po inicializaci (prevence nežádoucích animací)
         setTimeout(() => {
             button.classList.add('loaded');
         }, 100);
         
+
         return button;
     };
     
 })();
 
-// 2. Načtení hlavních stylů pro tmavý režim
+// Hlavní CSS styly pro tmavý režim 
 (function() {
     const mainDarkModeCSS = `
         /* Přechody */
@@ -285,7 +296,6 @@ if (storedPreference !== null) {
             color: #e6e6e6;
         }
         
-        /* ODSTRANĚNÍ základního stylu tlačítka - už je v kritickém CSS */
         /* Tmavý režim pro tlačítko - musí být zde s !important */
         body.dark-mode .dark-mode-toggle {
             background: black !important;
@@ -299,13 +309,23 @@ if (storedPreference !== null) {
     document.head.appendChild(mainStyle);
 })();
 
-// 3. Listener pro změny systémových preferencí
-// Funkce pro čtení z cookies
+// Sledování změn systémových preferencí
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
+    try {
+        if (!document.cookie) return null;
+        
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        
+        if (parts.length === 2) {
+            const cookieValue = parts.pop().split(';').shift();
+            return decodeURIComponent(cookieValue);
+        }
+        return null;
+    } catch (error) {
+        console.warn(`Error reading cookie '${name}':`, error);
+        return null;
+    }
 }
 
 // Funkce pro čtení dark mode preference s fallbackem
@@ -335,28 +355,106 @@ function isIncognitoMode() {
         // Zkusíme zapsat do localStorage
         localStorage.setItem('test', 'test');
         localStorage.removeItem('test');
-        return false; // Normální režim
+        return false;
     } catch (e) {
-        return true; // Anonymní režim
+        return true;
     }
 }
 
-// Funkce pro uložení dark mode preference
 function saveDarkModePreference(isDark) {
-    // Kontrola anonymního režimu
     if (isIncognitoMode()) {
-        return; // Neukládáme v anonymním režimu
+        return;
     }
     
-    // Normální režim - ukládáme
     try {
         localStorage.setItem('darkMode', isDark);
     } catch (e) {
         console.warn('Failed to save to localStorage');
     }
     
-    // Vždy uložíme i do cookies jako zálohu
-    document.cookie = `darkMode=${isDark};path=/;max-age=31536000`;
+    try {
+        document.cookie = `darkMode=${encodeURIComponent(isDark)};path=/;max-age=31536000`;
+    } catch (error) {
+        console.error('Error saving darkMode cookie:', error);
+    }
+}
+
+function saveToggleVisibilityState(isVisible) {
+    if (isIncognitoMode()) {
+        return;
+    }
+    
+    try {
+        localStorage.setItem('darkModeToggleVisible', isVisible);
+    } catch (e) {
+        console.warn('Failed to save toggle visibility to localStorage');
+    }
+    
+    try {
+        document.cookie = `darkModeToggleVisible=${encodeURIComponent(isVisible)};path=/;max-age=31536000`;
+    } catch (error) {
+        console.error('Error saving darkModeToggleVisible cookie:', error);
+    }
+}
+
+// Funkce pro načtení stavu viditelnosti tlačítka
+function getToggleVisibilityState() {
+    try {
+        const localStorageValue = localStorage.getItem('darkModeToggleVisible');
+
+        if (localStorageValue !== null) {
+            return localStorageValue === 'true';
+        }
+    } catch (e) {
+        console.warn('localStorage not available');
+    }
+    
+    // Fallback na cookies
+    const cookieValue = getCookie('darkModeToggleVisible');
+    if (cookieValue !== null) {
+        return cookieValue === 'true';
+    }
+    
+    // Výchozí stav - tlačítko je viditelné
+    return true;
+}
+
+// Funkce pro uložení stavu textu tlačítka
+function saveButtonTextState(text) {
+    if (isIncognitoMode()) {
+        return;
+    }
+    
+    try {
+        localStorage.setItem('resetButtonText', text);
+    } catch (e) {
+        console.warn('Failed to save button text to localStorage');
+    }
+    
+    try {
+        document.cookie = `resetButtonText=${encodeURIComponent(text)};path=/;max-age=31536000`;
+    } catch (error) {
+        console.error('Error saving resetButtonText cookie:', error);
+    }
+}
+
+// Funkce pro načtení stavu textu tlačítka
+function getButtonTextState() {
+    try {
+        const localStorageValue = localStorage.getItem('resetButtonText');
+        if (localStorageValue !== null) {
+            return localStorageValue;
+        }
+    } catch (e) {
+        console.warn('localStorage not available');
+    }
+    
+    const cookieValue = getCookie('resetButtonText');
+    if (cookieValue !== null) {
+        return decodeURIComponent(cookieValue);
+    }
+    
+    return 'Preferovat světlý/tmavý režim prohlížeče';
 }
 
 (function() {
@@ -391,14 +489,14 @@ function saveDarkModePreference(isDark) {
             }
         }
         
-        // Přidání listeneru pro změny
-        if (mediaQuery.addEventListener) {
-            mediaQuery.addEventListener('change', handleSystemPreferenceChange);
-        } else {
-            // Fallback pro starší prohlížeče
-            mediaQuery.addListener(handleSystemPreferenceChange);
-        }
+    // Přidání listeneru pro změny
+    if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleSystemPreferenceChange);
+    } else {
+        // Fallback pro starší prohlížeče
+        mediaQuery.addListener(handleSystemPreferenceChange);
     }
+ }
 })();
 
 // Funkce pro reset na systémové preference
@@ -411,7 +509,11 @@ function resetToSystemPreferences() {
     }
     
     // Smazání z cookies
+    try {
     document.cookie = 'darkMode=;path=/;max-age=0';
+    } catch (error) {
+        console.error('Error deleting darkMode cookie:', error);
+    }
     
     // Označení, že používáme systémové preference
     window.isUsingSystemPreference = true;
@@ -434,9 +536,14 @@ function resetToSystemPreferences() {
         toggle.innerHTML = prefersDark ? createMoonIcon() : createSunIcon();
         toggle.title = prefersDark ? 'Switch to light mode' : 'Switch to dark mode';
     }
-    
+
+      // Uložení stavu, že tlačítko je skryté
+    saveToggleVisibilityState(false);
+    // Uložení stavu textu tlačítka
+    saveButtonTextState('Přepnout ručně světlý/tmavý režim prohlížeče');
 }
-// 4. Funkce pro zobrazení stránky
+
+// Zobraení stránky a cleanup anti-flicker CSS
 function showPage() {
     // Odstranění anti-flicker CSS a zobrazení stránky
     document.documentElement.classList.add('ready');
@@ -451,7 +558,7 @@ function showPage() {
     }, 200);
 }
 
-// 5. Hlavní inicializace - spustí se co nejdříve
+// Raná inicializace dark mode funkcionalit
 function initializeEarly() {
     // Kontrola a aplikace tmavého režimu
     let isDarkMode = false;
@@ -464,7 +571,6 @@ function initializeEarly() {
             hasUserPreference = true;
         }
     } catch (e) {
-        // Fallback
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             isDarkMode = true;
         }
@@ -490,7 +596,7 @@ function initializeEarly() {
         showPage();
 }
 
-// 6. Spuštění inicializace - vícenásobná detekce pro zajištění rychlého spuštění
+// Spuštění s fallback pro různé stavy DOM
 if (document.readyState === 'loading') {
     // DOM se načítá
     document.addEventListener('DOMContentLoaded', initializeEarly);
@@ -501,12 +607,10 @@ if (document.readyState === 'loading') {
 
 // Další listener pro případ, že by první nevypálil
 document.addEventListener('DOMContentLoaded', function() {
-    // Double-check pro zobrazení
     if (!document.documentElement.classList.contains('ready')) {
         showPage();
     }
-    
-    // Double-check pro tlačítko
+
     if (!document.getElementById('darkModeToggle') && window.createToggleButtonEarly) {
         window.createToggleButtonEarly();
     }
@@ -597,6 +701,12 @@ function initializeDarkMode() {
     
     if (!darkModeToggle) return;
 
+    // Nastavení viditelnosti podle uloženého stavu
+    const isVisible = getToggleVisibilityState();
+    if (!isVisible) {
+        darkModeToggle.style.display = 'none';
+    }
+
     const body = document.body;
 
     // Nastavení ikony podle aktuálního stavu (pokud ještě není nastavena)
@@ -660,20 +770,25 @@ function initializeDarkMode() {
         });
         
     }
-  // Event listener pro reset systémových preferencí
-const resetButton = document.getElementById('resetSystemPreferences');
-if (resetButton) {
-    resetButton.addEventListener('click', () => {
-        const darkModeToggle = document.getElementById('darkModeToggle');
+    const resetButton = document.getElementById('resetSystemPreferences');
+        if (resetButton) {
+            // Načtení uloženého textu
+        const savedText = getButtonTextState();
+        resetButton.textContent = savedText;
+            resetButton.addEventListener('click', () => {
+                const darkModeToggle = document.getElementById('darkModeToggle');
         
         // Kontrola, zda je tlačítko skryté nebo viditelné
         if (darkModeToggle && darkModeToggle.style.display === 'none') {
             // Tlačítko je skryté -> zobrazit ho a změnit text
             darkModeToggle.style.display = 'flex';
             resetButton.textContent = ' Preferovat světlý/tmavý režim prohlížeče';
-            
+            saveButtonTextState(' Preferovat světlý/tmavý režim prohlížeče');
             // Označení, že uživatel má vlastní preferenci
             window.isUsingSystemPreference = false;
+            
+            // Uložení stavu, že tlačítko je viditelné
+            saveToggleVisibilityState(true);
             
         } else {
             // Tlačítko je viditelné -> skrýt ho a resetovat
@@ -685,13 +800,14 @@ if (resetButton) {
             
             // Okamžitá změna textu
             resetButton.textContent = 'Přepnout ručně světlý/tmavý režim prohlížeče';
+            saveButtonTextState('Přepnout ručně světlý/tmavý režim prohlížeče');
+            
+            // Uložení stavu, že tlačítko je skryté
+            saveToggleVisibilityState(false);
         }
     });
 }
 }  
-
-
-
 
 // Plynulé scrollování
 function initializeSmoothScroll() {

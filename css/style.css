@@ -339,6 +339,10 @@ footer p {
 }
 
 .reset-preferences-btn {
+    width: fit-content !important;
+    margin: 0 auto !important;
+}
+.reset-preferences-btn {
     cursor: pointer;
     text-decoration:  underline;
     color: white;
