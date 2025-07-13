@@ -113,7 +113,7 @@ html, body {
 noscript {
     font-size: 3em;
     font-weight: 900;
-        background-color: #77afe0ee;
+    background-color: #77afe0ee;
 }
 
 /* JavaScript helper class */
@@ -162,17 +162,17 @@ header ul li {
 }
 
 article {
-    flex: 1;
-    margin-right: 60px;
-    margin-left: 40px;
-    line-height: 1.5;
+    max-width: 2000px;
+    margin: auto; /* Při širokých obrazovkách s kombinací max-width: bude zarovnáno na střed */
 }
 
 section {
-    margin-left: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
     padding: 20px 0px 50px 0px;
     clear: both;
-    text-align: justify; 
+    text-align: justify;
+    line-height: 1.5;
 }
 
 article section p + ul,

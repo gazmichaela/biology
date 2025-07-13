@@ -101,13 +101,9 @@ OBSAH:
         margin-right: 70px;
     }
     
-    article {
-        margin-right: 50px;
-        margin-left: 25px;
-    }
-    
     section {
-        margin-left: 15px;
+        margin-left: 50px;
+        margin-right: 50px;
         padding: 15px 0px 40px 0px;
     }
     
@@ -180,14 +176,10 @@ OBSAH:
         flex-direction: column;
         align-items: flex-start;
     }
-
-    article {
-        margin-right: 25px;
-        margin-left: 10px;
-    }
     
     section {
-        margin-left: 10px;
+        margin-left: 25px;
+        margin-right: 25px;
         padding: 10px 0px 30px 0px;
     }
     
@@ -305,14 +297,10 @@ OBSAH:
         margin: 6px 0;
         font-size: 15px;
     }
-
-   article {
-        margin-right: 20px;
-        margin-left: 5px;
-    }
     
     section {
-        margin-left: 5px;
+        margin-left: 20px;
+        margin-right: 20px;
         padding: 8px 0px 25px 0px;
     }
     
@@ -498,13 +486,9 @@ OBSAH:
         margin-right: 43px;
     }
     
-    article {
-        margin-right: 15px;
-        margin-left: 5px;
-    }
-    
     section {
-        margin-left: 5px;
+        margin-left: 15px;
+        margin-right: 15px;
     }
     
     article section p {

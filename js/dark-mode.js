@@ -526,7 +526,7 @@ function resetToSystemPreferences() {
       // Uložení stavu, že tlačítko je skryté
     saveToggleVisibilityState(false);
     // Aktualizace button text state
-    saveButtonTextState('Přepnout ručně světlý/tmavý režim prohlížeče');
+    saveButtonTextState('Přepínat ručně světlý/tmavý režim prohlížeče');
 }
 
 function showPage() {
@@ -769,8 +769,8 @@ function initializeDarkMode() {
             }
             
             // Okamžitá změna textu
-            resetButton.textContent = 'Přepnout ručně světlý/tmavý režim prohlížeče';
-            saveButtonTextState('Přepnout ručně světlý/tmavý režim prohlížeče');
+            resetButton.textContent = 'Přepínat ručně světlý/tmavý režim prohlížeče';
+            saveButtonTextState('Přepínat ručně světlý/tmavý režim prohlížeče');
             
             // Uložení stavu, že tlačítko je skryté
             saveToggleVisibilityState(false);
