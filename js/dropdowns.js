@@ -1,14 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Inicializace dropdown menu
     initializeDropdownMenus();
 
     function initializeDropdownMenus() {
-        // Globální sledování pozice myši
+
         let mouseX = parseInt(localStorage.getItem('mouseX')) || 0;
         let mouseY = parseInt(localStorage.getItem('mouseY')) || 0;
         let throttleTimer;
         
-        // Najdeme dropdown prvky - proměnné budou obnoveny později
         let dropdownToggle = document.getElementById('dropdown-toggle');
         let dropdownContent = document.getElementById('dropdown-content');
         let dropdownToggle2 = document.getElementById('dropdown-toggle2');
@@ -16,55 +14,46 @@ document.addEventListener("DOMContentLoaded", function() {
         let subDropdownToggle = document.getElementById('sub-dropdown-toggle');
         let subDropdownContent = document.getElementById('sub-dropdown-content');
         
-        // Proměnné pro sledování stavu kliknutí
+        // Stav kliknutí
         let isClickOpened = localStorage.getItem('isFirstMenuOpen') === 'true';
         let isClickOpened2 = localStorage.getItem('isSecondMenuOpen') === 'true';
         let isClickOpenedSub = localStorage.getItem('isSubMenuOpen') === 'true';
         
-        // Indikátory připravenosti jednotlivých dropdownů
         let firstDropdownReady = false;
         let secondDropdownReady = false;
         let subDropdownReady = false;
         
-        // Pomocná proměnná pro sledování, zda byl stav menu již obnoven
+        // Obnova stavu menu
         let menuStateRestored = false;
         
-        // Okamžitě zkontrolujeme, zda jsou dropdown prvky k dispozici
+        // Kontrola dropdown prvků
         checkForDropdownElements();
         
-        // Provádí se ihned, nečeká se na obrázky
+        // Rychlá obnova
         let fastRefreshTimer = setTimeout(function() {
             if (!menuStateRestored) {
                 checkMousePositionAndRestoreMenu();
             }
-        }, 50); // Velmi krátký timeout pro co nejrychlejší reakci
-        
-        // Bezpečnostní časovač pro případ, že by selhalo načítání
+        }, 50); 
+        // Bezpečnostní časovač
         let safetyTimeout = setTimeout(function() {
             if (!menuStateRestored) {
                 restoreMenuStateOnLoad();
             }
         }, 1000);
         
-        // Funkce pro kontrolu pozice myši a obnovy menu
         function checkMousePositionAndRestoreMenu() {
-            // Zkontrolujeme, zda jsou dropdown prvky k dispozici
             checkForDropdownElements();
-            
-            // Pokud už byl stav menu obnoven, nečiníme nic
+
             if (menuStateRestored) return;
             
-            // Obnovit stav menu podle pozice myši, ale pouze pokud jsme měli
-            // myš nad tlačítkem před refreshem
             const isMouseOverFirstToggle = localStorage.getItem('isMouseOverFirstToggle') === 'true';
             const isMouseOverSecondToggle = localStorage.getItem('isMouseOverSecondToggle') === 'true';
             
-            // Ihned zkontrolujeme aktuální pozici myši a porovnáme s uloženými souřadnicemi
             if (dropdownToggle && firstDropdownReady) {
                 const toggleRect = dropdownToggle.getBoundingClientRect();
                 const isNowOverFirstToggle = isPointInRect(mouseX, mouseY, toggleRect);
                 
-                // Pokud byla myš nad prvním tlačítkem před refreshem nebo je nad ním i nyní
                 if ((isMouseOverFirstToggle || isNowOverFirstToggle) && !isClickOpened2 && !isClickOpenedSub) {
                     showMenu();
                     if (isMouseOverFirstToggle) {
@@ -78,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const toggleRect2 = dropdownToggle2.getBoundingClientRect();
                 const isNowOverSecondToggle = isPointInRect(mouseX, mouseY, toggleRect2);
                 
-                // Pokud byla myš nad druhým tlačítkem před refreshem nebo je nad ním i nyní
                 if ((isMouseOverSecondToggle || isNowOverSecondToggle) && !isClickOpened && !isClickOpenedSub) {
                     showMenu2();
                     if (isMouseOverSecondToggle) {
@@ -88,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             
-            // Pokud bylo menu otevřeno kliknutím, obnovíme tento stav
             if (isClickOpened && dropdownContent && firstDropdownReady) {
                 showMenu();
             }
@@ -101,13 +88,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 showMenuSub();
             }
             
-            // Označíme, že menu bylo obnoveno
             menuStateRestored = true;
         }
         
-        // Funkce pro kontrolu, zda jsou dropdown prvky k dispozici
         function checkForDropdownElements() {
-            // Kontrola prvního dropdownu
             if (!firstDropdownReady) {
                 dropdownToggle = document.getElementById('dropdown-toggle');
                 dropdownContent = document.getElementById('dropdown-content');
@@ -118,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             
-            // Kontrola druhého dropdownu
             if (!secondDropdownReady) {
                 dropdownToggle2 = document.getElementById('dropdown-toggle2');
                 dropdownContent2 = document.getElementById('dropdown-content2');
@@ -129,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             
-            // Kontrola sub-dropdownu
             if (!subDropdownReady) {
                 subDropdownToggle = document.getElementById('sub-dropdown-toggle');
                 subDropdownContent = document.getElementById('sub-dropdown-content');
@@ -141,39 +123,29 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         
-        // Při načtení stránky zkontrolujeme, zda máme obnovit menu podle localStorage
         function restoreMenuStateOnLoad() {
-            // Pokud už byl stav obnoven, nepokračujeme
             if (menuStateRestored) return;
             
-            // Zkontrolujeme, zda jsou dropdown prvky k dispozici
             checkForDropdownElements();
             
-            // Obnovit stav menu podle pozice myši
             checkMousePositionAndRestoreMenu();
             
-            // Označíme, že menu bylo obnoveno
             menuStateRestored = true;
         }
 
-        // Funkce pro zajištění, že dropdown elementy jsou načteny a připraveny
         function ensureDropdownElementsReady(callback) {
-            // Zkontrolujeme, zda jsou dropdown prvky k dispozici
             checkForDropdownElements();
             
-            // Pokud jsou všechny ready, voláme callback
             if (firstDropdownReady && secondDropdownReady && subDropdownReady) {
                 callback();
                 return;
             }
             
-            // Pokud ještě nejsou ready, počkáme a zkusíme to znovu
             setTimeout(function() {
                 ensureDropdownElementsReady(callback);
             }, 50);
         }
         
-        // Funkce pro vyčištění stavu menu v localStorage při navigaci
         function clearMenuStateOnNavigation() {
             localStorage.removeItem('isFirstMenuOpen');
             localStorage.removeItem('isSecondMenuOpen');
@@ -182,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.removeItem('isMouseOverSecondToggle');
         }
 
-        // Implementace throttling pro mousemove událost
+        // Omezuje volání mousemove
         function throttleMouseMove(callback, delay) {
             return function(e) {
                 if (!throttleTimer) {
@@ -194,25 +166,20 @@ document.addEventListener("DOMContentLoaded", function() {
             };
         }
         
-        // Optimalizovaný event listener pro mousemove
         document.addEventListener("mousemove", throttleMouseMove(function(e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Uložíme aktuální pozici myši do localStorage
             localStorage.setItem('mouseX', mouseX);
             localStorage.setItem('mouseY', mouseY);
             
-            // Zkontrolujeme, zda jsou dropdown prvky k dispozici
             checkForDropdownElements();
             
-            // Kontrola myši nad dropdown tlačítky
             if (firstDropdownReady && dropdownToggle && isElementVisible(dropdownToggle)) {
                 const toggleRect = dropdownToggle.getBoundingClientRect();
                 const isOverFirstToggle = isPointInRect(mouseX, mouseY, toggleRect);
                 localStorage.setItem('isMouseOverFirstToggle', isOverFirstToggle ? 'true' : 'false');
                 
-                // Pokud máme myš nad tlačítkem a menu není otevřené kliknutím
                 if (isOverFirstToggle && !isClickOpened && !isClickOpened2 && !isClickOpenedSub) {
                     showMenu();
                 }
@@ -223,32 +190,27 @@ document.addEventListener("DOMContentLoaded", function() {
                 const isOverSecondToggle = isPointInRect(mouseX, mouseY, toggleRect2);
                 localStorage.setItem('isMouseOverSecondToggle', isOverSecondToggle ? 'true' : 'false');
                 
-                // Pokud máme myš nad druhým tlačítkem a menu není otevřené kliknutím
                 if (isOverSecondToggle && !isClickOpened && !isClickOpened2 && !isClickOpenedSub) {
                     showMenu2();
                 }
             }
-        }, 30)); // Rychlejší throttling pro lepší odezvu
+        }, 30)); // 30ms throttle
         
-        // Pomocná funkce pro kontrolu, zda je bod v obdélníku
+        // Kontrola pozice myši v obdélníku
         function isPointInRect(x, y, rect) {
             return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
         }
         
-        // Pomocná funkce pro kontrolu, zda je element viditelný
         function isElementVisible(el) {
             return el && el.offsetParent !== null;
         }
 
-        // Optimalizované funkce pro zobrazení a skrytí menu
         function showMenu() {
             if (!dropdownContent || !firstDropdownReady) return;
             
-            // Použijeme requestAnimationFrame pro plynulejší animace
             requestAnimationFrame(function() {
                 dropdownContent.style.display = "block";
                 
-                // Použijeme další frame pro nastavení opacity (optimalizace reflow)
                 requestAnimationFrame(function() {
                     dropdownContent.style.opacity = "1";
                     localStorage.setItem('isFirstMenuOpen', 'true');
@@ -261,13 +223,11 @@ document.addEventListener("DOMContentLoaded", function() {
             
             dropdownContent.style.opacity = "0";
             
-            // Používáme neanimované skrytí pro rychlejší reakci
             setTimeout(function() {
-                // Kontrolujeme, zda mezitím nedošlo k zobrazení menu
                 if (dropdownContent && dropdownContent.style.opacity === "0") {
                     dropdownContent.style.display = "none";
                 }
-            }, 100); // Rychlejší čas pro skrytí
+            }, 100);
             
             localStorage.setItem('isFirstMenuOpen', 'false');
         }
@@ -326,7 +286,6 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem('isSubMenuOpen', 'false');
         }
 
-        // Optimalizovaná funkce pro zavření všech menu
         function closeAllMenus() {
             hideMenu();
             hideMenu2();
@@ -336,34 +295,28 @@ document.addEventListener("DOMContentLoaded", function() {
             isClickOpenedSub = false;
         }
 
-        // Funkce pro zavření všech menu kromě specifikovaného
         function closeAllMenusExcept(exceptMenuId) {
-            // Zavření prvního menu, pokud není výjimka
             if (exceptMenuId !== 'first-menu' && dropdownContent && dropdownContent.style.opacity === "1") {
                 hideMenu();
                 isClickOpened = false;
             }
             
-            // Zavření druhého menu, pokud není výjimka
             if (exceptMenuId !== 'second-menu' && dropdownContent2 && dropdownContent2.style.opacity === "1") {
                 hideMenu2();
                 isClickOpened2 = false;
             }
             
-            // Zavření podmenu, pokud není výjimka
             if (exceptMenuId !== 'sub-menu' && subDropdownContent && subDropdownContent.style.opacity === "1") {
                 hideMenuSub();
                 isClickOpenedSub = false;
             }
         }
 
-        // Přidání event listenerů - s kontrolou připravenosti prvního dropdownu
         function setupFirstDropdownListeners() {
             if (!firstDropdownReady || !dropdownToggle || !dropdownContent) {
-                return; // Tato funkce bude volána znovu při checkForDropdownElements
+                return;
             }
             
-            // Přidáme event listenery pouze jednou
             if (dropdownToggle.hasAttribute('data-event-listeners-added')) {
                 return;
             }
@@ -391,6 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
             dropdownContent.addEventListener("mouseleave", function(e) {
                 if (!isClickOpened) {
                     const rect = dropdownContent.getBoundingClientRect();
+                    // Kontrola myši uvnitř menu při mouseleave
                     const isMouseInsideMenu = (
                         mouseX >= rect.left && mouseX <= rect.right &&
                         mouseY >= rect.top && mouseY <= rect.bottom
@@ -403,13 +357,11 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // Přidání event listenerů - s kontrolou připravenosti druhého dropdownu
         function setupSecondDropdownListeners() {
             if (!secondDropdownReady || !dropdownToggle2 || !dropdownContent2) {
-                return; // Tato funkce bude volána znovu při checkForDropdownElements
+                return;
             }
             
-            // Přidáme event listenery pouze jednou
             if (dropdownToggle2.hasAttribute('data-event-listeners-added')) {
                 return;
             }
@@ -449,13 +401,11 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // Přidání event listenerů - s kontrolou připravenosti sub-dropdownu
         function setupSubDropdownListeners() {
             if (!subDropdownReady || !subDropdownToggle || !subDropdownContent) {
-                return; // Tato funkce bude volána znovu při checkForDropdownElements
+                return;
             }
             
-            // Přidáme event listenery pouze jednou
             if (subDropdownToggle.hasAttribute('data-event-listeners-added')) {
                 return;
             }
@@ -475,9 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // Event listener pro kliknutí mimo menu - zavře všechny menu
         document.addEventListener("click", function(e) {
-            // Rychlá kontrola, zda bylo kliknuto mimo menu
             const target = e.target;
             
             if (target.tagName === 'A' || target.closest('a')) {
@@ -485,8 +433,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 closeAllMenus();
                 return; 
             }
-            
-            // Poté zkontrolujeme, zda kliknutí bylo mimo menu a tlačítka
             const isOutsideMenus = !(
                 (dropdownToggle && dropdownToggle.contains(target)) ||
                 (dropdownContent && dropdownContent.contains(target)) ||
@@ -501,31 +447,24 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }, { passive: true });
         
-        // Event listener pro opuštění stránky - NE při navigaci
         window.addEventListener('beforeunload', function(e) {
-            // Při zavření stránky zachováme stav myši, ale zrušíme otevřená menu kliknutím
             localStorage.setItem('isFirstMenuOpen', 'false');
             localStorage.setItem('isSecondMenuOpen', 'false');
             localStorage.setItem('isSubMenuOpen', 'false');
         });
         
-        // Event listener pro obnovení stránky (F5, Ctrl+R)
         window.addEventListener('beforeunload', function(e) {
-            // Nastavíme příznak, že jde o refresh, nikoliv navigaci
             localStorage.setItem('isRefreshing', 'true');
             
-            // Nastavíme timeout, který za 500ms smaže příznak refreshe
             setTimeout(function() {
                 localStorage.removeItem('isRefreshing');
             }, 500);
         });
         
-        // Přidáme event listenery na odkazy v navigaci - vytváříme jen jednou
         if (!document.body.hasAttribute('data-link-listeners-added')) {
             document.body.setAttribute('data-link-listeners-added', 'true');
             document.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function(e) {
-                    // Pokud neklikáme na odkaz, který by obnovil stránku (href="#" nebo href="")
                     if (link.getAttribute('href') !== '#' && link.getAttribute('href') !== '') {
                         clearMenuStateOnNavigation();
                     }
@@ -533,14 +472,11 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
         
-        //Zlepšený kód pro obnovu stavu menu při refreshi
         function setupAggressiveRefreshHandling() {
-            // Kontrolujeme, zda jde o refresh stránky
             const isRefresh = localStorage.getItem('isRefreshing') === 'true';
             localStorage.removeItem('isRefreshing');
             
             if (isRefresh) {
-                // Nastavíme sérii časovačů, které budou zkoušet obnovit stav menu
                 const refreshTimers = [10, 30, 50, 100, 200, 300, 500, 1000];
                 
                 refreshTimers.forEach(function(time) {
@@ -553,13 +489,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
             
-            // Zjistíme počet obrázků na stránce
             const images = document.querySelectorAll('img');
             const totalImages = images.length;
-            
-            // Pokud je na stránce hodně obrázků, budeme agresivněji obnovovat stav menu
+            // Agresivní obnova pro stránky s hodně obrázky
             if (totalImages > 20) {
-                // Paralelní kontrola pro případ, že by došlo k pomalému načítání
                 const additionalTimers = [50, 150, 300, 600, 1000, 1500, 2000];
                 
                 additionalTimers.forEach(function(time) {
@@ -571,7 +504,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     }, time);
                 });
                 
-                // Pro stránky s hodně obrázky také budeme pravidelně kontrolovat pozici myši a stav menu
                 let checkCount = 0;
                 const maxChecks = 10;
                 const checkInterval = setInterval(function() {
@@ -589,32 +521,25 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         
-        // Spustíme  zpracování obnovy při refreshi
         setupAggressiveRefreshHandling();
         
-        // Přidáme reakci na načtení všech zdrojů (obrázky, CSS, skripty)
         window.addEventListener('load', function() {
             clearTimeout(safetyTimeout);
             
-            // Naposledy zkontrolujeme, zda byl stav menu obnoven
             if (!menuStateRestored) {
                 checkForDropdownElements();
                 restoreMenuStateOnLoad();
             }
         });
         
-        // Reakce na změnu velikosti okna
         window.addEventListener('resize', throttleMouseMove(function() {
-            // Zkontrolujeme, zda byla okna změněna a aktualizujeme stav menu
             checkForDropdownElements();
             
-            // Aktualizujeme stav menu podle nové pozice tlačítek
             if (firstDropdownReady && dropdownToggle && isElementVisible(dropdownToggle)) {
                 const toggleRect = dropdownToggle.getBoundingClientRect();
                 const isOverFirstToggle = isPointInRect(mouseX, mouseY, toggleRect);
                 localStorage.setItem('isMouseOverFirstToggle', isOverFirstToggle ? 'true' : 'false');
                 
-                // Aktualizujeme zobrazení menu podle nové pozice myši
                 if (isOverFirstToggle && !isClickOpened2 && !isClickOpenedSub) {
                     if (!isClickOpened) {
                         showMenu();
@@ -629,7 +554,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const isOverSecondToggle = isPointInRect(mouseX, mouseY, toggleRect2);
                 localStorage.setItem('isMouseOverSecondToggle', isOverSecondToggle ? 'true' : 'false');
                 
-                // Aktualizujeme zobrazení menu podle nové pozice myši
                 if (isOverSecondToggle && !isClickOpened && !isClickOpenedSub) {
                     if (!isClickOpened2) {
                         showMenu2();
@@ -640,9 +564,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }, 100), { passive: true });
         
-        // Bezpečnostní kód pro MutationObserver - detekce změn v DOM
         const observer = new MutationObserver(function(mutations) {
-            // Kontrolujeme, zda byly přidány nebo změněny dropdown prvky
             let needsCheck = false;
             
             for (let mutation of mutations) {
@@ -655,7 +577,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (needsCheck) {
                 checkForDropdownElements();
                 
-                // Pokud máme uloženou pozici myši nad některým tlačítkem, obnovíme stav menu
                 const isMouseOverFirstToggle = localStorage.getItem('isMouseOverFirstToggle') === 'true';
                 const isMouseOverSecondToggle = localStorage.getItem('isMouseOverSecondToggle') === 'true';
                 
@@ -665,10 +586,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
         
-        // Spustíme MutationObserver
         observer.observe(document.body, { childList: true, subtree: true });
-        
-        // Pokud selže všechno ostatní, zkusíme ještě jednou obnovit stav menu
+        // Fallback pro starší prohlížeče
         if ('requestIdleCallback' in window) {
             requestIdleCallback(function() {
                 if (!menuStateRestored) {
@@ -677,7 +596,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }, { timeout: 2000 });
         } else {
-            // Fallback pro prohlížeče, které nepodporují requestIdleCallback
             setTimeout(function() {
                 if (!menuStateRestored) {
                     checkForDropdownElements();
@@ -687,7 +605,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
-
 
 // ----- DROPDOWN MENU FUNCTIONALITY (PRVNÍ MENU) ----- //
 

@@ -1,5 +1,3 @@
-//-----------DARK MODE FUNCIONALITY-------------//
-
 (function() {
     'use strict';
     
@@ -35,7 +33,7 @@
     }
 
     window.isUsingSystemPreference = !hasUserPreference;
-    
+    // anti-flicker css vložené před zobrazením 
     const criticalCSS = `
     
         ${isDarkMode ?`
@@ -148,7 +146,6 @@
         button.title = isDarkMode ? 'Switch to light mode' : 'Switch to dark mode';
         
         
-        // Nastavení správného stylu okamžitě podle režimu
         if (isDarkMode) {
             button.style.background = 'black';
             button.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
@@ -159,17 +156,14 @@
             button.innerHTML = createSunIcon();
         }
         
-       // Kontrola viditelnosti tlačítka a nastavení třídy
         const isVisible = getToggleVisibilityState();
         if (!isVisible) {
             button.classList.add('hidden');
         }
 
-        // Vložení tlačítka okamžitě do body (pokud existuje) nebo do documentElement
         const container = document.body || document.documentElement;
         container.appendChild(button);
-        
-        // Přidání přecodů po inicializaci (prevence nežádoucích animací)
+
         setTimeout(() => {
             button.classList.add('loaded');
         }, 100);
@@ -180,10 +174,8 @@
     
 })();
 
-// Hlavní CSS styly pro tmavý režim 
 (function() {
     const mainDarkModeCSS = `
-        /* Přechody */
         body {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
@@ -296,7 +288,6 @@
             color: #e6e6e6;
         }
         
-        /* Tmavý režim pro tlačítko - musí být zde s !important */
         body.dark-mode .dark-mode-toggle {
             background: black !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
@@ -309,7 +300,6 @@
     document.head.appendChild(mainStyle);
 })();
 
-// Sledování změn systémových preferencí
 function getCookie(name) {
     try {
         if (!document.cookie) return null;
@@ -328,7 +318,6 @@ function getCookie(name) {
     }
 }
 
-// Funkce pro čtení dark mode preference s fallbackem
 function getDarkModePreference() {
     try {
         // Nejdříve zkusíme localStorage
@@ -349,7 +338,8 @@ function getDarkModePreference() {
     // Pokud nemáme žádnou uloženou preferenci, vrátíme null
     return null;
 }
-// Funkce pro detekci anonymního režimu
+
+// Incognito mode test
 function isIncognitoMode() {
     try {
         // Zkusíme zapsat do localStorage
@@ -397,7 +387,6 @@ function saveToggleVisibilityState(isVisible) {
     }
 }
 
-// Funkce pro načtení stavu viditelnosti tlačítka
 function getToggleVisibilityState() {
     try {
         const localStorageValue = localStorage.getItem('darkModeToggleVisible');
@@ -419,7 +408,6 @@ function getToggleVisibilityState() {
     return true;
 }
 
-// Funkce pro uložení stavu textu tlačítka
 function saveButtonTextState(text) {
     if (isIncognitoMode()) {
         return;
@@ -438,7 +426,6 @@ function saveButtonTextState(text) {
     }
 }
 
-// Funkce pro načtení stavu textu tlačítka
 function getButtonTextState() {
     try {
         const localStorageValue = localStorage.getItem('resetButtonText');
@@ -461,7 +448,7 @@ function getButtonTextState() {
     if (window.matchMedia) {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         
-        // Funkce pro reakci na změnu systémových preferencí
+        // Handler pro změny OS color scheme
         function handleSystemPreferenceChange(e) {
             // Pouze reaguj na změnu, pokud uživatel nemá vlastní preferenci
             if (window.isUsingSystemPreference) {
@@ -489,7 +476,7 @@ function getButtonTextState() {
             }
         }
         
-    // Přidání listeneru pro změny
+    // Registrace media query listener
     if (mediaQuery.addEventListener) {
         mediaQuery.addEventListener('change', handleSystemPreferenceChange);
     } else {
@@ -499,26 +486,25 @@ function getButtonTextState() {
  }
 })();
 
-// Funkce pro reset na systémové preference
+// Reset na system default
 function resetToSystemPreferences() {
-    // Smazání uložené preference
+    // Vymazání preference z localStorage
     try {
         localStorage.removeItem('darkMode');
     } catch (e) {
         console.warn('Failed to remove from localStorage');
     }
-    
-    // Smazání z cookies
+    // Vymazání preference z cookies
     try {
     document.cookie = 'darkMode=;path=/;max-age=0';
     } catch (error) {
         console.error('Error deleting darkMode cookie:', error);
     }
     
-    // Označení, že používáme systémové preference
+    // Nastavení system preference flag
     window.isUsingSystemPreference = true;
     
-    // Aplikace systémové preference
+    // Aplikace OS color scheme
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const body = document.body;
     
@@ -530,7 +516,7 @@ function resetToSystemPreferences() {
         document.documentElement.classList.remove('dark-mode');
     }
     
-    // Aktualizace ikony tlačítka
+    // Aktualizace toggle icon state
     const toggle = document.getElementById('darkModeToggle');
     if (toggle) {
         toggle.innerHTML = prefersDark ? createMoonIcon() : createSunIcon();
@@ -539,17 +525,16 @@ function resetToSystemPreferences() {
 
       // Uložení stavu, že tlačítko je skryté
     saveToggleVisibilityState(false);
-    // Uložení stavu textu tlačítka
+    // Aktualizace button text state
     saveButtonTextState('Přepnout ručně světlý/tmavý režim prohlížeče');
 }
 
-// Zobraení stránky a cleanup anti-flicker CSS
 function showPage() {
     // Odstranění anti-flicker CSS a zobrazení stránky
     document.documentElement.classList.add('ready');
     document.body.classList.add('ready');
     
-    // Odstranění anti-flicker stylů po krátké době
+    // Cleanup anti-flicker stylů po transition
     setTimeout(() => {
         const antiFlickerStyle = document.getElementById('anti-flicker-css');
         if (antiFlickerStyle) {
@@ -558,9 +543,8 @@ function showPage() {
     }, 200);
 }
 
-// Raná inicializace dark mode funkcionalit
 function initializeEarly() {
-    // Kontrola a aplikace tmavého režimu
+    // Inicializace dark mode state
     let isDarkMode = false;
     let hasUserPreference = false;
     
@@ -580,32 +564,28 @@ function initializeEarly() {
         isDarkMode = true;
     }
     
-        // Nastavíme globální proměnnou pro systémové preference
+    // Nastavení globálního system preference flag
     window.isUsingSystemPreference = !hasUserPreference;
         if (isDarkMode) {
             document.body.classList.add('dark-mode');
             document.documentElement.classList.add('dark-mode');
         }
-        
-        // Vytvoření tlačítka co nejdříve
+        // Vytvoření toggle button v early init
         if (window.createToggleButtonEarly) {
             window.createToggleButtonEarly();
         }
-        
-        // Zobrazení stránky
+        // Zobrazení page content
         showPage();
 }
 
-// Spuštění s fallback pro různé stavy DOM
 if (document.readyState === 'loading') {
     // DOM se načítá
     document.addEventListener('DOMContentLoaded', initializeEarly);
 } else {
-    // DOM je už načten
+    // DOM je již načten
     initializeEarly();
 }
 
-// Další listener pro případ, že by první nevypálil
 document.addEventListener('DOMContentLoaded', function() {
     if (!document.documentElement.classList.contains('ready')) {
         showPage();
@@ -616,7 +596,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Funkce pro vytvoření ikony slunce
 function createSunIcon() {
     return `
         <div class="sun-icon">
@@ -633,7 +612,6 @@ function createSunIcon() {
     `;
 }
 
-// Funkce pro vytvoření ikony měsíce
 function createMoonIcon() {
     return `
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -642,25 +620,21 @@ function createMoonIcon() {
     `;
 }
 
-//-------DARK MODE FUNCTIONALITY---------//
-
-// Inicializace proměnných
 let isClickOpened = false;
 let positionMonitoringInterval = null;
 let inactivityTimer = null;
 
-// Funkce pro monitorování pozice (kontinuální sledování)
+// monitoring pozice - používá se pro UI logic
 function startPositionMonitoring() {
     if (positionMonitoringInterval) {
         clearInterval(positionMonitoringInterval);
     }
     
     positionMonitoringInterval = setInterval(() => {
-
+    // prázdný - logika je v jiných handlerech
     }, 100);
 }
 
-// Funkce pro zastavení monitorování pozice
 function stopPositionMonitoring() {
     if (positionMonitoringInterval) {
         clearInterval(positionMonitoringInterval);
@@ -668,7 +642,6 @@ function stopPositionMonitoring() {
     }
 }
 
-// Funkce pro spuštění časovače neaktivity
 function startInactivityTimer() {
     if (inactivityTimer) {
         clearTimeout(inactivityTimer);
@@ -682,7 +655,6 @@ function startInactivityTimer() {
     }, 5000);
 }
 
-// Funkce pro zastavení časovače neaktivity
 function stopInactivityTimer() {
     if (inactivityTimer) {
         clearTimeout(inactivityTimer);
@@ -690,11 +662,10 @@ function stopInactivityTimer() {
     }
 }
 
-// Inicializace tmavého režimu při načtení DOM
 function initializeDarkMode() {
     let darkModeToggle = document.getElementById('darkModeToggle');
     
-    // Pokud tlačítko neexistuje, vytvoříme ho
+    // Vytvoření toggle pokud chybí
     if (!darkModeToggle && window.createToggleButtonEarly) {
         darkModeToggle = window.createToggleButtonEarly();
     }
@@ -718,7 +689,7 @@ function initializeDarkMode() {
         }
     }
 
-    // Přepínač tmavého režimu - pouze pokud již není event listener nastaven
+    // Přidání event listener pokud již není attached
     if (!darkModeToggle.hasAttribute('data-listener-added')) {
         darkModeToggle.setAttribute('data-listener-added', 'true');
         
@@ -726,17 +697,16 @@ function initializeDarkMode() {
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
             
-            // Aplikace na html element také
+            // Aplikace na html element pro konzistenci
             if (isDark) {
                 document.documentElement.classList.add('dark-mode');
             } else {
                 document.documentElement.classList.remove('dark-mode');
             }
-            
-             // Uložení preference pomocí nové funkce
+                // Uložení user preference
                 saveDarkModePreference(isDark);
 
-            // Označení, že uživatel má vlastní preferenci
+            // Označení jako user-defined preference
             window.isUsingSystemPreference = false;
             
             // Aktualizace tooltip
@@ -772,26 +742,26 @@ function initializeDarkMode() {
     }
     const resetButton = document.getElementById('resetSystemPreferences');
         if (resetButton) {
-            // Načtení uloženého textu
+        // Načtení saved button text
         const savedText = getButtonTextState();
         resetButton.textContent = savedText;
             resetButton.addEventListener('click', () => {
                 const darkModeToggle = document.getElementById('darkModeToggle');
         
-        // Kontrola, zda je tlačítko skryté nebo viditelné
+        // Kontrola toggle visibility state
         if (darkModeToggle && darkModeToggle.style.display === 'none') {
-            // Tlačítko je skryté -> zobrazit ho a změnit text
+            // Zobrazení toggle a aktualizace text
             darkModeToggle.style.display = 'flex';
             resetButton.textContent = ' Preferovat světlý/tmavý režim prohlížeče';
             saveButtonTextState(' Preferovat světlý/tmavý režim prohlížeče');
-            // Označení, že uživatel má vlastní preferenci
+            // Označení jako user-defined preference
             window.isUsingSystemPreference = false;
             
-            // Uložení stavu, že tlačítko je viditelné
+            // Uložení toggle visibility state
             saveToggleVisibilityState(true);
             
         } else {
-            // Tlačítko je viditelné -> skrýt ho a resetovat
+            // Skrytí toggle a reset na system
             resetToSystemPreferences();
             
             if (darkModeToggle) {
@@ -809,7 +779,6 @@ function initializeDarkMode() {
 }
 }  
 
-// Plynulé scrollování
 function initializeSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -824,7 +793,6 @@ function initializeSmoothScroll() {
     });
 }
 
-// Animace při načtení stránky
 function initializeLoadAnimations() {
     document.querySelectorAll('.main-article, .sidebar-section, .article-card').forEach((element, index) => {
         if (element) {
@@ -839,14 +807,12 @@ function initializeLoadAnimations() {
     });
 }
 
-// Hlavní inicializace při načtení DOM
 document.addEventListener('DOMContentLoaded', function() {
     initializeDarkMode();
     initializeSmoothScroll();
     
 });
 
-// Animace při načtení stránky
 window.addEventListener('load', function() {
     initializeLoadAnimations();
     

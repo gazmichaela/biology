@@ -84,7 +84,7 @@ function insertStickyHeaderStyles() {
 }
 
 .sticky-header .main-button,
-.sticky-header .maine-button {
+.sticky-header .main-button-second {
     background-color: #f0f9f0;
     color: #025227;
     font-weight: bold;
@@ -101,7 +101,7 @@ function insertStickyHeaderStyles() {
     height: 18.5px;
 }
 
-.sticky-header .maine-button {
+.sticky-header .main-button-second {
     border-radius: 20px;
 }
 .sticky-mobile-nav {
@@ -160,7 +160,7 @@ function insertStickyHeaderStyles() {
 }
 
 .sticky-header .main-button:hover,
-.sticky-header .maine-button:hover,
+.sticky-header .main-button-second:hover,
 .sticky-header .dropdown-toggle:hover,
 .sticky-header .dropdown-toggle-second:hover {
     background-color: #309ce5;
@@ -291,7 +291,7 @@ function insertStickyHeaderStyles() {
 }
 
 .sticky-header .main-button.active,
-.sticky-header .maine-button.active,
+.sticky-header .main-button-second.active,
 .sticky-header .dropdown-content a.active,
 .sticky-header .dropdown-content-second a.active {
     background-color: #1c77e8;

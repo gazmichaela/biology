@@ -42,7 +42,7 @@
 }
 
 .main-button,
-.maine-button,
+.main-button-second,
 .dropdown-toggle,
 .dropdown-toggle-second {
     background-color: #f0f9f0;
@@ -65,7 +65,7 @@
     height: 19px;
 }
 
-.maine-button {
+.main-button-second {
     border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px;
     height: 19px;
@@ -105,7 +105,7 @@
 
 
 .main-button:hover,
-.maine-button:hover,
+.main-button-second:hover,
 .dropdown-toggle:hover,
 .dropdown-toggle-second:hover {
     background-color: #309ce5;
@@ -231,7 +231,7 @@
 
 /* ==AKTIVNÍ POLOŽKY== */
 .main-button.active,
-.maine-button.active,
+.main-button-second.active,
 .dropdown-content a.active,
 .dropdown-content-second a.active {
     background-color: #1c77e8;

@@ -1,7 +1,6 @@
-    const mainButtons = document.querySelectorAll('.main-button, .maine-button');
+   const mainButtons = document.querySelectorAll('.main-button, .main-button-second');
     const dropdownLinks = document.querySelectorAll('.dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a');
-    
-    // Nastavení aktivního tlačítka při kliknutí
+
     function setActiveButton(clickedButton) {
         dropdownLinks.forEach(link => link.classList.remove('active'));
         if (clickedButton.closest('.dropdown-content') || 
@@ -20,8 +19,7 @@
         });
     });
     
-    // Aktivní stav podle aktuální URL
-    const menuLinks = document.querySelectorAll('.main-button, .maine-button, .dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a');
+    const menuLinks = document.querySelectorAll('.main-button, .main-button-second, .dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a');
     menuLinks.forEach(link => {
         if (link.href === window.location.href) {
             link.classList.add('active');
