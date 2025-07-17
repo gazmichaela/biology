@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs-cz">
+<html lang="cs">
  
 <head>
     <meta charset="UTF-8">
@@ -26,6 +26,7 @@
     <link rel="apple-touch-icon" sizes="120x120" href="favicon/web-logo-120x120-apple-touch.png"><!-- Pro staré iOS pro přidání na domovskou obrazovku (nezávisle na PWA) -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/web-logo-180x180-apple-touch.png"><!-- Pro iOS pro přidání na domovskou obrazovku (nezávisle na PWA) -->
 </head>
+
 <body>
     <header aria-hidden="true" class="h1-long">
         <a href="https://www.purkynka.cz/" target="_blank">
@@ -116,12 +117,12 @@
                             <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
                         <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
          
-                <!-- Základy živých soustav -->
+                    <!-- Základy živých soustav -->
                     <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
                         <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
                         <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
            
-                <!-- Buňka, člověk -->
+                    <!-- Buňka, člověk -->
                     <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
                     <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                 </div>
@@ -129,7 +130,10 @@
         </nav>
         <!-- konec navigace pro šířku pod 1175px -->
 
-        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+        <noscript>
+            <h2>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</h2>
+            <p>Je nám líto, ale bez JavaScriptu stránka nemůže fungovat správně.</p>
+        </noscript>
     </header>
 
     <article>
@@ -144,32 +148,20 @@
                     <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
                 </div>
             </div>             
-            <h2>Systémové myšlení</h2>
-            <p> Co obnáší systémové myšlení? </p>
-            <a href="system-thinking.html" class="button">Zjistit</a>
-            <br>
             <h2>Systémový přístup</h2>
-            <p>Při práci v systémové biologii se často využivá i systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
+            <p>Při práci v systémové biologii se často využivá systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
             <a href="system-approach.html" class="button">Více informací zde</a>
             <br>
+            <h2>Systémové myšlení</h2>
+            <p>Často souvisí se systémovým přístupem. Co obnáší systémové myšlení?</p>
+            <a href="system-thinking.html" class="button">Zjistit</a>
             <br>
             <h2>Teorie systému</h2>
             <p>Co to je v obecné rovině systém? Jaké jsou jeho vlastnosti? Odpovědi na tyto otázky naleznete v sekci Teorie systémů.</p>
             <a href="system-theory.html" class="button">Teorie systémů</a>
             <div class="zarazka"></div>
-                           <!-- Tlačítko tmavého režimu -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim">
-
-    </button>
         </section>
     </article>
-
-    <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
-        <br>
-        <button id="acceptCookies">Rozumím</button>
-    </div>
 
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
@@ -180,6 +172,17 @@
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
         <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
     </footer>
+
+    <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
 </body>
 

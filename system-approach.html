@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs-cz">
+<html lang="cs">
    
 <head>
     <meta charset="UTF-8">
@@ -119,12 +119,12 @@
                             <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
                         <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
          
-                <!-- Základy živých soustav -->
+                    <!-- Základy živých soustav -->
                     <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
                         <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
                         <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
            
-                <!-- Buňka, člověk -->
+                    <!-- Buňka, člověk -->
                     <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
                     <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                 </div>
@@ -132,7 +132,10 @@
         </nav>
         <!-- konec navigace pro šířku pod 1175px -->
 
-        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+        <noscript>
+            <h2>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</h2>
+            <p>Je nám líto, ale bez JavaScriptu stránka nemůže fungovat správně.</p>
+        </noscript>
     </header>
     
     <article>
@@ -204,6 +207,7 @@
                 Systémový přístup je konkrétní nástroj nebo metoda, kterou můžeme použít k praktickému řešení problémů vycházejícím ze systémového myšlení.</p>
             <a href="system-thinking.html" class="button">Více o systémovém myšlení</a>
             <div class="zarazka"></div>
+
              <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <h2>Kvíz:</h2><br>
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
@@ -212,38 +216,29 @@
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak se uplatní systémový přístup při navrhování léčby nemocí?</div>
-                        <div class="answer">Léčba se neomezuje jen na nemocný orgán, ale zohledňuje i imunitní odpověď, psychický stav, životní styl a další faktory, které mohou ovlivnit uzdravení.</div>
-                    </div>
+                    <div class="answer">Léčba se neomezuje jen na nemocný orgán, ale zohledňuje i imunitní odpověď, psychický stav, životní styl a další faktory, které mohou ovlivnit uzdravení.</div>
+                </div>
 
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak systémový přístup pomáhá při navrhování nových technologií, jako jsou elektromobily?</div>
-                        <div class="answer">Při vývoji elektromobilů nesmíme myslet jen na motor a baterii. Systémový přístup zahrnuje infrastrukturu nabíjení, výrobu elektřiny, recyklaci baterií, změny v dopravních návycích lidí i ekonomické dopady na automobilový průmysl. Všechny tyto části musí fungovat dohromady.</div>
-                    </div>
+                    <div class="answer">Při vývoji elektromobilů nesmíme myslet jen na motor a baterii. Systémový přístup zahrnuje infrastrukturu nabíjení, výrobu elektřiny, recyklaci baterií, změny v dopravních návycích lidí i ekonomické dopady na automobilový průmysl. Všechny tyto části musí fungovat dohromady.</div>
+                </div>
 
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký je rozdíl mezi lineárním a systémovým pohledem na problém?</div>
-                        <div class="answer">Lineární přístup hledá přímou příčinu a důsledek, zatímco systémový zkoumá více příčin, zpětné vazby, cykly a celkovou dynamiku problému.</div>
+                    <div class="answer">Lineární přístup hledá přímou příčinu a důsledek, zatímco systémový zkoumá více příčin, zpětné vazby, cykly a celkovou dynamiku problému.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak může systémový přístup pomoci při ochraně životního prostředí?</div>
                     <div class="answer">Systémový přístup umožňuje zohlednit ekologické, ekonomické i sociální faktory a jejich vzájemné vlivy, což vede k udržitelným řešením environmentálních problémů.</div>
                 </div>
+                
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
-                           <!-- Tlačítko tmavého režimu -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim">
-
-    </button>
+            <div class="zarazka"></div>
         </section>
     </article>
-
-    <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
-        <br>
-        <button id="acceptCookies">Rozumím</button>
-    </div>
 
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
@@ -254,6 +249,17 @@
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
         <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
     </footer>
+
+    <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
 </body>
 

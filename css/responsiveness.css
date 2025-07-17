@@ -1,54 +1,53 @@
-/* 
-Některé responzivní styly se náchází v:
-- questions.css (hover efekty pro desktop)
-- navigation-mobile.css (responzivní styly pro mobilní navigaci)
+/* RESPONZIVNÍ STYLY
+    Některé responzivní styly se náchází v:
+        - navigation-mobile.css (responzivní styly pro mobilní navigaci),
+        - questions.css (hover efekty pro desktop – responzivita podle typu vstupního zařízení).
 */
 
 /*
 OBSAH:
+ 1. Obecné
+    - nad 2000px
+    - nad 4000px
+    - do 1175px
+    - do 1023px
+    - do 768px
+    - do 568px
+    - do 480px
+    - do 320px
+    - landscape (max-height: 500px)
+    - hover efekty (responzivita podle typu vstupního zařízení)
 
-1. Obecné
-- nad 2000px
-- do 1175px
-- do 1023px
-- do 768px
-- do 568px
-- do 480px
-- do 320px
-- landscape (max-height: 500px)
-- hover efekty
 
+ 2. FaQ, Otázky
+    - do 768px
+    - do 568px
+    - do 320px
 
-2. FaQ, Otázky
-- do 768px
-- do 568px
-- do 320px
+ 3. PDF
+    - do 768px
+    - do 568px
+    - do 320px
+    - landscape (max-height: 500px)
 
-3. PDF
-- do 768px
-- do 568px
-- do 320px
-- landscape (max-height: 500px)
+ 4. Obrázky
+    - do 1023px
+    - do 768px
+    - do 480px
+    - do 360px
 
-4. Obrázky
-- do 1023px
-- do 768px
-- do 480px
-- do 360px
-
-5. Zalamování h2
-- do 520px
-- do 460px
-- do 425px
-- do 390px
-- do 370px
-- do 330px
-
+ 5. Zalamování dlouhých nadpisů h2 (při určené šířce)
+    - do 520px
+    - do 460px
+    - do 425px
+    - do 390px
+    - do 370px
+    - do 330px
 */
 
 
-/* ===== 1. OBECNÉ ===== */
 
+/* ===== 1. OBECNÉ ===== */
 @media screen and (min-width: 2000px) {
     .button-container {
         margin-right: 2vw;
@@ -57,9 +56,18 @@ OBSAH:
 }
 
 
+@media screen and (min-width: 4000px) {
+    .button-container {
+        margin-right: min(2vw, 85px); /* Mezera max 85px */
+        margin-left: min(2vw, 85px); /* Mezera max 85px */
+    }
+}
+
+
 @media screen and (max-width: 1175px) {
     /* Zajistí, že se stránka neprolí horizontálně */
-    html, body {
+    html,
+    body {
         overflow-x: hidden;
         max-width: 100vw;
     }
@@ -75,6 +83,11 @@ OBSAH:
 
     .h1-index {
         max-height: 170px;
+    }
+
+    .logo {
+        width: 150px; 
+        margin: 15px 0px 0px 20px;
     }
 }
 
@@ -92,16 +105,12 @@ OBSAH:
         max-height: 155px;
     }
 
-    footer {
-        height: 310px;
-    }
-
-    footer p {
-        margin-left: 70px;
-        margin-right: 70px;
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
     }
     
-    section {
+    article section {
         margin-left: 50px;
         margin-right: 50px;
         padding: 15px 0px 40px 0px;
@@ -122,12 +131,21 @@ OBSAH:
     }
     
     table {
-        width: 85%;
-        font-size: 0.9em;
+        width: 90%;
     }
     
-    th, td {
+    table th,
+    table td {
         padding: 6px;
+    }
+
+    footer {
+        height: 310px;
+    }
+
+    footer p {
+        margin-left: 70px;
+        margin-right: 70px;
     }
 }
 
@@ -160,31 +178,15 @@ OBSAH:
         font-size: 16px;
     }
 
-    footer {
-        padding: 30px 10px 0px 10px;
-        font-size: 0.8em;
-        height: 290px;
-        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
-    }
-
-    footer p {
-        margin-left: 50px;
-        margin-right: 50px;
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
     }
     
-    .container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    section {
+    article section {
         margin-left: 25px;
         margin-right: 25px;
         padding: 10px 0px 30px 0px;
-    }
-    
-    article section p {
-        margin-left: 0.8em;
     }
     
     article section li {
@@ -205,11 +207,10 @@ OBSAH:
     
     article section h4 {
         margin-top: 2em;
-        margin-left: 0.3em;
     }
-    
-    article section h5 {
-        margin-left: 0.6em;
+
+    article section ol {
+        padding-left: 40px !important; /* Je nutné 40px pro správné centrování obrázků v seznamech */
     }
     
     article section .button,
@@ -228,13 +229,13 @@ OBSAH:
     
     table {
         width: 95%;
-        font-size: 0.8em;
+        font-size: 0.9em;
         margin: 20px auto 30px 2.5%;
     }
     
-    th, td {
+    table th,
+    table td {
         padding: 4px 2px;
-        font-size: 0.85em;
     }
     
     .cookies-mini-notice {
@@ -251,22 +252,34 @@ OBSAH:
         width: 45px;
         height: 45px;
     }
-       .tooltip {
+    .tooltip {
         white-space: normal;
     }
     
- .tooltip .tooltiptext {
+    .tooltip .tooltiptext {
     font-size: small;
     white-space: normal;
-    max-width: 300px; /* výchozí pro mobil */
+    max-width: 300px;
     left: 50%;
     transform: translateX(-50%);
     bottom: 110%;
     z-index: 9999;
-}
+    }
+
+    footer {
+        padding: 30px 10px 0px 10px;
+        font-size: 0.8em;
+        height: 290px;
+        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
+    }
+
+    footer p {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
 }
 
-/* Mobile Portrait - do 568px */
+
 @media screen and (max-width: 568px) {
     body {
         font-size: 1em;
@@ -297,15 +310,19 @@ OBSAH:
         margin: 6px 0;
         font-size: 15px;
     }
+
+    .logo {
+        width: 115px;
+        margin: 10px 0px 0px 15px;
+    }
     
-    section {
+    article section {
         margin-left: 20px;
         margin-right: 20px;
         padding: 8px 0px 25px 0px;
     }
     
     article section p {
-        margin-left: 0.5em;
         margin-bottom: 0.6em;
     }
 
@@ -339,12 +356,10 @@ OBSAH:
     article section h4 {
         font-size: 1em;
         margin-top: 1.5em;
-        margin-left: 0.2em;
     }
     
     article section h5 {
         font-size: 0.95em;
-        margin-left: 0.4em;
     }
     
     article section .button,
@@ -357,14 +372,13 @@ OBSAH:
     }
     
     table {
-        width: 98%;
-        font-size: 0.7em;
+        font-size: 0.8em;
         margin: 15px auto 25px 1%;
     }
     
-    th, td {
+    table th,
+    table td {
         padding: 3px 1px;
-        font-size: 0.8em;
     }
     
     .tooltip {
@@ -374,18 +388,11 @@ OBSAH:
     .tooltip .tooltiptext {
         font-size: small;
         white-space: normal;
-        max-width: 200px; /* výchozí pro mobil */
+        max-width: 200px;
         left: 50%;
         transform: translateX(-50%);
         bottom: 110%;
         z-index: 9999;
-    }
-
-    footer {
-        padding: 20px 8px 0px 8px;
-        font-size: 0.75em;
-        height: 270px;
-        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
     
     .cookies-mini-notice {
@@ -418,10 +425,12 @@ OBSAH:
         width: 1px;
         height: 3px;
     }
-    
-    .moon-icon {
-        width: 25px;
-        height: 25px;
+
+    footer {
+        padding: 20px 8px 0px 8px;
+        font-size: 0.75em;
+        height: 300px;
+        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
 }
 
@@ -437,10 +446,6 @@ OBSAH:
 
     article section li li li {
         margin-left: 0.1em;
-    }
-
-    article section p {
-        margin-left: 0.2em;
     }
 
     .h1-long h1 {
@@ -476,23 +481,14 @@ OBSAH:
         transform: translateY(0px);
     }
 
-
-    footer {
-        height: 280px;
-    }
-
-    footer p {
-        margin-left: 43px;
-        margin-right: 43px;
+    .logo {
+        width: 93px;
+        margin: 8px 0px 0px 10px;
     }
     
-    section {
+    article section {
         margin-left: 15px;
         margin-right: 15px;
-    }
-    
-    article section p {
-        margin-left: 0em;
     }
 
     article section ol,
@@ -522,19 +518,21 @@ OBSAH:
         font-size: 0.8em;
     }
     
-    table {
-        font-size: 0.65em;
-    }
-    
-    th, td {
-        padding: 2px 1px;
-    }
-    
     .cookies-mini-notice {
         padding: 6px 10px;
         max-width: 160px;
     }
+
+    footer {
+        height: 280px;
+    }
+
+    footer p {
+        margin-left: 43px;
+        margin-right: 43px;
+    }
 }
+
 
 /* Landscape orientace pro mobily */
 @media screen and (max-height: 500px) and (orientation: landscape) {
@@ -543,7 +541,6 @@ OBSAH:
     }
     
     header h1 {
-        
         margin-top: 8px;
         margin-bottom: 5px;
     }
@@ -556,9 +553,7 @@ OBSAH:
         margin: 4px 10px;
         font-size: 14px;
     }
-    
 
-    
     article section h2 {
         margin-top: 30px;
     }
@@ -568,10 +563,10 @@ OBSAH:
     }
     
     footer {
-      
         padding: 15px 8px 0px 8px;
     }
 }
+
 
 /* Hover efekty pouze pro desktop */
 @media (hover: hover) and (pointer: fine) {
@@ -593,9 +588,8 @@ OBSAH:
 
 
 
-/* ===== 2.  RESPONZIVNÍ STYLY PRO FAQ/OTÁZKY ===== */
-
-@media screen and (min-width: 768px) {
+/* ===== 2. FAQ/OTÁZKY ===== */
+@media screen and (max-width: 768px) {
     .question {
         padding: 5px 7px;
         font-size: 0.9em;
@@ -671,8 +665,7 @@ OBSAH:
 
 
 
-/* ===== 3.  RESPONZIVNÍ STYLY PRO PDF OVERLAY ===== */
-
+/* ===== 3. PDF ===== */
 @media screen and (max-width: 768px) {
     .pdf-overlay {
         display: none;
@@ -716,18 +709,6 @@ OBSAH:
         align-items: center;
         justify-content: center;
         touch-action: manipulation;
-    }
-    
-    .escape-info {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 10px 15px;
-        border-radius: 6px;
-        font-size: 15px;
-        z-index: 1010;
     }
 }
 
@@ -777,20 +758,6 @@ OBSAH:
         touch-action: manipulation;
         border: 2px solid #f0f0f0;
     }
-    
-    .escape-info {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        right: 20px;
-        background-color: rgba(0, 0, 0, 0.85);
-        color: white;
-        padding: 12px 16px;
-        border-radius: 6px;
-        font-size: 16px;
-        z-index: 1010;
-        text-align: center;
-    }
 }
 
 
@@ -813,14 +780,6 @@ OBSAH:
         line-height: 40px;
     }
     
-    .escape-info {
-        top: 10px;
-        left: 10px;
-        right: 60px;
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-    
     .pdf-iframe {
         border-radius: 0;
     }
@@ -841,18 +800,11 @@ OBSAH:
         font-size: 20px;
         line-height: 1.5px;
     }
-    
-    .escape-info {
-        top: 8px;
-        left: 8px;
-        padding: 6px 10px;
-        font-size: 12px;
-    }
 }
 
 
-/* ==== 4.  RESPONZIVITA PRO OBRÁZKY ==== */
 
+/* ==== 4. OBRÁZKY ==== */
 @media screen and (max-width: 1023px) {
     .img-right {
         width: 40%;
@@ -935,14 +887,35 @@ OBSAH:
 
 
 @media screen and (max-width: 768px) {
+    .img-list {
+        display: flex;
+        justify-content: center;
+        padding-left: 40px;
+        padding-right: 40px;
+        box-sizing: border-box;
+        margin-left: -40px;
+    }
+
+    .img-list img {
+        max-width: 100%;
+        height: auto;
+    }
+
     .img-right {
-        width: auto;
+        width: 100%;
         min-width: 200px;
-        max-width: 400px;
-        margin-left: 10%;
-        margin-right: 10%;
+        max-width: 100vw;
+        margin-left: auto;
+        margin-right: auto;
         margin-top: 10px;
         float: none;
+    }
+
+    .img-list .img-right {
+        float: none;
+        width: 100%;
+        max-width: none;
+        margin: 0;
     }
     
     .img-right-big {
@@ -952,19 +925,19 @@ OBSAH:
     }
     
     .img-right-middle {
-        width: 90%;
-        margin: 0.8%;
-        margin-left: 1.5%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
         float: none;
-        max-width: 100%;
+        display: block;
     }
     
     .img-right-top {
-        width: 90%;
-        max-width: 640px;
+        width: 100%;
+        max-width: 100vw;
         margin-top: 5vh;
-        margin-left: calc(5% + 5px);
-        margin-right: 5%;
+        margin-left: auto;
+        margin-right: auto;
         float: none;
         margin-bottom: -1vh;
     }
@@ -978,16 +951,18 @@ OBSAH:
     }
     
     .img-bottom {
-        width: 95%;
-        margin-left: 2%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .img-next {
         width: 100%;
-        margin-left: 1%;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    /* Info boxy - menší rozměry */
+    /* Info boxy -> menší rozměry */
     .info-box,
     .info-box-short,
     .info-box-medium-second,
@@ -1044,17 +1019,17 @@ OBSAH:
     
     .info-box-short:hover:not(.force-close),
     .info-box-short.active {
-        width: 120px;
+        width: 123px;
     }
     
     .info-box-medium:hover:not(.force-close),
     .info-box-medium.active {
-        width: 200px;
+        width: 192px;
     }
     
     .info-box-medium-second:hover:not(.force-close),
     .info-box-medium-second.active {
-        width: 240px;
+        width: 230px;
     }
     
     .info-box-left:hover:not(.force-close),
@@ -1064,7 +1039,7 @@ OBSAH:
     
     .info-box-long-left:hover:not(.force-close),
     .info-box-long-left.active {
-        width: 200px;
+        width: 250px;
     }
     
     .info-box-medium-third:hover:not(.force-close),
@@ -1108,7 +1083,7 @@ OBSAH:
     }
 }
 
-/* Mobily - do 480px */
+
 @media screen and (max-width: 480px) {
     .img-right,
     .img-right-big,
@@ -1142,7 +1117,7 @@ OBSAH:
     }
 }
 
-/* Velmi malé mobily - do 360px */
+
 @media screen and (max-width: 360px) {
     .img-right,
     .img-right-big,
@@ -1161,7 +1136,9 @@ OBSAH:
     }
 }
 
-/* ===== 5.  ZALAMOVÁNÍ DLOUHÝCH NADPISŮ H2 - při určité šířce  ===== */
+
+
+/* ===== 5. ZALAMOVÁNÍ DLOUHÝCH NADPISŮ H2 ===== */
 article section .h2-3 {
     visibility: hidden;
     display: none;

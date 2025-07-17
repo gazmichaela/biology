@@ -1,12 +1,46 @@
-/* 
-Toto je výchozí CSS soubor se základními styly a styly neroztříděnými do vlastních souborů.
-Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé.
-Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
-Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css
-Některé styly mohou být v JS
+/* ZÁKLADNÍ STYLY
+    Toto je výchozí CSS soubor se základními styly a styly neroztříděnými do vlastních souborů.
+    Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé.
+    Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
+    Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css.
+    Některé styly mohou být v JS.
 */
 
-/* ===== 1. Variabilní fonty ===== */
+/*
+OBSAH:
+ 1. Fonty
+    - variabilní
+    - statické
+
+ 2. Základní styly
+    - html, body...
+    - header
+    - article, section, text, nadpisy...
+    - footer
+    - základní třídy
+
+ 3. Logo (Purkyňka vlevo nahoře v headeru)
+
+ 4. Cookies (vyskakovací okno)
+
+ 5. Videa
+
+ 6. Tabulky
+
+ 7. Význam slov při najetí myší
+
+ 8. Tmavý režim
+    - tlačítko pro přepínání světlého/tmavého režimu
+    - ikona slunce
+    - přepínání chování změny tmavého/světlého režimu ve footeru
+    - pozn.: Styly během tmavého režimu se nacházejí v dark-mode.js
+*/
+
+
+
+/* ==== 1. FONTY ==== */
+
+/* Variabilní fonty */
 @font-face {
   font-family: 'Inter';
   src: url('../fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
@@ -23,7 +57,7 @@ Některé styly mohou být v JS
   font-display: swap;
 }
 
-/* ===== 2. Statické fallback řezy ===== */
+/* Statické fallback řezy */
 @font-face {
   font-family: 'Inter';
   src: url('../fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
@@ -73,6 +107,8 @@ Některé styly mohou být v JS
 }
 
 
+
+/* ==== 2. ZÁKLADNÍ STYLY ==== */
 html {
     background: #3f7093;
 }
@@ -86,39 +122,10 @@ body {
     color: #023f1e;
 }
 
-html, body {
+html,
+body {
     overflow-x: hidden;
-    max-width: 100%;
-}
-
-.dark-mode-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    z-index: 10001;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    background: white;
-}
-
-noscript {
-    font-size: 3em;
-    font-weight: 900;
-    background-color: #77afe0ee;
-}
-
-/* JavaScript helper class */
-.content-padding {
-    padding-top: 100px; 
+    max-width: 100%; /* Respektuje scrollbar a nezpůsobuje přetečení jako 100vw */
 }
 
 body header {
@@ -129,7 +136,6 @@ body header {
     z-index: 1000;
     position: sticky;
 }
-
 
 header p {
     font-weight: 600;
@@ -142,23 +148,16 @@ header h1 {
     margin: 25px 14px 0px 14px;
 }
 
-header ul {
-    list-style: none;
-    margin-top: 1px;
-    display: flex;
-    justify-content: center;
-    padding: 1px 0;
-    position: relative;
+noscript h2 {
+    font-size: 3em;
+    font-weight: 900;
+    background-color: #77afe0ee;
 }
 
-header ul li {
-    display: inline;
-    margin: 0 15px;
-    color: #023f1e;
-    text-decoration: none;
-    font-size: 18px;
-    text-align: center;
-    position: relative;
+noscript p {
+    font-size: 1em;
+    font-weight: 700;
+    background-color: #77afe0ee;
 }
 
 article {
@@ -181,39 +180,39 @@ article section p + ol {
 }
 
 article section li {
-    margin-left: 1.2em;
+    /* margin-left: 1.2em; */
     line-height: 1.4;
     margin-bottom: 0.4em;
 }
 
 article section li li {
     margin-top: 0.1em;
-    margin-left: 0.5em;
+    /* margin-left: 0.5em; */
     line-height: 1.2;
     margin-bottom: 0.1em;
 }
 
 article section li li li {
     margin-top: 0.05em;
-    margin-left: 0.5em;
+    /* margin-left: 0.5em; */
     line-height: 1.1;
     margin-bottom: 0.05em;
 }
 
 article section p {
-    margin-left: 1.2em;
     margin-bottom: 0.75em;
 }
 
 article section h2 {
-    background: linear-gradient(to top, #00c5003d 10%, transparent 60%);
+    background: linear-gradient(to top, #00c5003d 10%, transparent 60%); /* Tlusté podtržení */
     padding: 0 0.15em;
     font-size: 1.4em;
     margin-top: 100px; /* Mezera */
     display: inline-block; /* Zajistí podtržení pouze pod textem */
     font-weight: 700;
     margin-bottom: 0.9em;
-    text-align: left; 
+    text-align: left;
+    margin-left: 0;
 }
 
 article section .h2-wrap > h2 {
@@ -225,6 +224,7 @@ article section .h2-wrap h2 + br + h2 + br + h2 {
     margin-top: 0.2em;
 }
 
+/* Zobrazí se při určené šířce a h2-normal se schová */
 article section .h2-wrap {
     visibility: hidden;
     display: none;
@@ -233,21 +233,26 @@ article section .h2-wrap {
 article section h3 {
     text-decoration: underline #00c5003d;
     font-weight: 600;
-    padding: 2px 5px;
     font-size: 1.3em;
     margin-top: 60px;
     margin-bottom: 0.8em;
-    text-align: left; 
+    text-align: left;
 }
 
-
 article section h4 {
-    margin-top: 3em;
+    margin-top: 2.5em;
     margin-bottom: 0.4em;
     font-size: 1.1em;
     font-weight: 600;
-    margin-left: 0.5em;
-    text-align: left; 
+    text-align: left;
+}
+
+article section h2 > h4 {
+    margin-top: 0;
+}
+
+.h4-small {
+    margin-top: 2em;
 }
 
 article section h5 {
@@ -255,7 +260,6 @@ article section h5 {
     font-size: 1em;
     font-weight: 600;
     font-style: italic;
-    margin-left: 1em;
     text-align: left; 
 }
 
@@ -308,14 +312,13 @@ article section .button-light:hover {
 footer {
     box-sizing: border-box;
     text-align: left;
-    height: 280px;
+    height: 300px;
     color: white;
     background: #3f7093;
     padding: 50px 0px 0px 10px;
-    /* margin-bottom: -1px !important; */
     font-size: 14px;
     margin-top: 30px;
-    clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%);
+    clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%); /* Šikmý footer */
 }
 
 footer hr {
@@ -329,49 +332,12 @@ footer hr {
 footer a {
     text-decoration:  underline;
     color: inherit;
-
 }
 
 footer p {
     text-align: center;
     margin-left: 50px;
     margin-right: 50px;
-}
-
-.reset-preferences-btn {
-    width: fit-content !important;
-    margin: 0 auto !important;
-}
-.reset-preferences-btn {
-    cursor: pointer;
-    text-decoration:  underline;
-    color: white;
-    display: block;
-    text-align: center;
-    margin: 10px 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-
-}
-
-.reset-preferences-btn:hover {
-    color: white;
-}
-
-.reset-preferences-btn:focus {
-    outline: none;
-}
-
-body.dark-mode .reset-preferences-btn {
-    color: white !important;
-}
-
-body.dark-mode .reset-preferences-btn:hover {
-    color: white !important;
 }
 
 .sidemap,
@@ -385,7 +351,9 @@ body.dark-mode .reset-preferences-btn:hover {
     text-decoration: none;
 }
 
-
+.font-weight-normal {
+    font-weight: normal !important;
+}
 
 .hidden {
     display: none;
@@ -395,6 +363,13 @@ body.dark-mode .reset-preferences-btn:hover {
     text-align: left;
 }
 
+.zarazka {
+    clear: both;
+}
+
+
+
+/* ==== 3. LOGO ==== */
 .logo {
     width: 175px;
     height: auto;
@@ -406,6 +381,7 @@ body.dark-mode .reset-preferences-btn:hover {
     margin: 18px 0px 0px 25px;
     opacity: 0;               /* Na začátku je obrázek neviditelný */
     animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
+    float: none;
 }
 @keyframes showImage {
     0% {
@@ -426,27 +402,11 @@ body.dark-mode .reset-preferences-btn:hover {
     top: 15%; 
 }
 
-.logo img {
-    width: 100%; 
-    height: auto;
-    display: block;
-    position: absolute;
-    left: -15%; 
-    top: -15%; 
-    max-width: 100px;
-}
 
-.container {
-    display: flex;
-    align-items: center;
-}
 
-.zarazka {
-    clear: both;
-}
+/* ==== 4. COOKIES OKNO ==== */
 
-/* COOKIES */
-/* Styl pro malé vyskakovací okno */
+/* Styl pro vyskakovací okno */
 .cookies-mini-notice {
     position: fixed;
     bottom: 15px;
@@ -462,11 +422,13 @@ body.dark-mode .reset-preferences-btn:hover {
     display: none; /* Počáteční stav - skryto */
 }
 
-
-
 .cookies-mini-notice.show {
     display: block;
     animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .cookies-mini-notice p {
@@ -474,9 +436,7 @@ body.dark-mode .reset-preferences-btn:hover {
     color: #444;
 }
 
-
-
-
+/* Styl pro tlačítko "Rozumím" v cookies oknu */
 .cookies-mini-notice button {
     background-color: #f5f5f5;
     border: 1px solid #ddd;
@@ -488,24 +448,16 @@ body.dark-mode .reset-preferences-btn:hover {
     margin-right: 5px;
 }
 
-
-
 .cookies-mini-notice button:hover {
     background-color: #e8e8e8;
 }
 
 
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* VIDEO */
+/* ==== 5. VIDEA ==== */
 .video-wrapper {
     max-width: 1600px;
     width: 75%;
-    /* margin: 0 auto; */  /* Lze přidat pro centrování, jinak zarovnání vlevo */
 }
 
 .responsive-video {
@@ -525,40 +477,65 @@ body.dark-mode .reset-preferences-btn:hover {
     border: 0;
 }
 
-/* TABULKA */
+
+
+/* ==== 6. TABULKY ==== */
 table {
     width: 70%;
     max-width: 1800px;
     border: 2px solid black;
     border-collapse: collapse; /* Sloučení okrajů buněk */
     margin: 30px auto 40px 5%;
-}
-
-
-/* Styl pro buňky tabulky */
-th, td {
-    padding: 4px;  /* Větší vnitřní okraje buněk */
-    text-align: center;
-    border: 1px solid black;
     font-size: 1em;
+    min-width: 600px;
+}
+
+/* Pro čtečky, neviditelné */
+table caption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+thead {
+    text-align: center;
+}
+
+tbody {
+    text-align: left;
+}
+
+table th,
+table td {
+    padding: 8px; /* Okraje od buněk */
+    border: 1px solid black;
+}
+
+table td:first-child {
+    font-weight: bold;
+    text-align: center;
+}
+
+.table-wrapper {
+    overflow-x: auto; /* Horizontální posuv */
+    -webkit-overflow-scrolling: touch;  /* Plynulé posouvání na iOS */
 }
 
 
-th:first-child {
-    font-weight: normal;
-}
 
-td:first-child :not(.extra-bunka) {
-    font-weight: bold; /* Tučný text v první buňce */
-}
-
-
-/* VÝZNAM SLOV PRO NAJETÍ MYŠÍ */
+/* ==== 7. VÝZNAM SLOV PŘI NAJETÍ MYŠÍ ==== */
 .tooltip {
     position: relative;
     cursor: help;
     text-decoration: dotted underline;
     white-space: nowrap;
+    hyphens: none;
 }
 
 .tooltip .tooltiptext {
@@ -583,12 +560,9 @@ td:first-child :not(.extra-bunka) {
     line-height: 1.3;
     animation: visibilityTooltext 0s 1s forwards;
 }
-
 @keyframes visibilityTooltext {
     to { visibility: hidden; }
 }
-
-
 
 .tooltip:hover .tooltiptext {
     opacity: 1;
@@ -596,36 +570,73 @@ td:first-child :not(.extra-bunka) {
     animation: fadeTooltext 0.3s;
     visibility: visible;
 }
-
 @keyframes fadeTooltext {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 
-/* Tlačítko tmavého režimu v tmavém režimu */
 
+/* ==== 8. TMAVÝ REŽIM ==== */
 
-/* Animace přechodu */
-.fade-transition {
-    opacity: 0;
-    transition: opacity 0.3s ease;
+/* Tlačítko ve světlém režimu */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    background: white;
 }
 
-.fade-transition.show {
-    opacity: 1;
+/* Přepínání chování změny tmavého/světlého režimu ve footeru */
+.reset-preferences-btn {
+    cursor: pointer;
+    text-decoration: underline;
+    color: white;
+    display: block;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    width: fit-content !important;
+    margin: 0 auto !important;
 }
 
-    /* Ikona slunce - OPRAVENÁ VERZE */
+.reset-preferences-btn:focus {
+    outline: none;
+}
+
+
+/* --- Ikona slunce --- */
 .sun-icon {
-    width: 19px;
-    height: 19px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* Zajistí konzistentní zobrazení ve všech prohlížečích */
+.sun-icon * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased; /* V prohlížečích založených na WebKitu/Blinku na MacOS */
+    -moz-osx-font-smoothing: grayscale; /* Firefox na MacOS */
+}
+
+/* Slunce (kolečko bez paprsků) */
 .sun-icon .sun {
     width: 15px;
     height: 15px;
@@ -636,49 +647,19 @@ td:first-child :not(.extra-bunka) {
     z-index: 2;
 }
 
+/* Paprsky */
 .sun-icon .ray {
     position: absolute;
     width: 1.5px;
-    height: 4px; /* Delší paprsky */
-    background-color: #4a4a4a; /* Tmavé paprsky */
+    height: 4px;
+    background-color: #4a4a4a;
     top: 50%;
     left: 50%;
     transform-origin: center;
     z-index: 1;
 }
-/* Firefox specifické opravy */
-@-moz-document url-prefix() {
-    .sun {
-        margin: 0;
-        padding: 0;
-        
-    }
-    .ray {
-        margin: 0;
-        padding: 0;
-        transform-origin: center center;
-    }
-    .ray:nth-child(2) { transform: translate(-1px, -1px) rotate(0deg) translateY(-10px); }
-    .ray:nth-child(3) { transform: translate(-1px, -1px) rotate(45deg) translateY(-10px); }
-    .ray:nth-child(4) { transform: translate(-1px, -1px) rotate(90deg) translateY(-10px); }
-    .ray:nth-child(5) { transform: translate(-1px, -1px) rotate(135deg) translateY(-10px); }
-    .ray:nth-child(6) { transform: translate(-1px, -1px) rotate(180deg) translateY(-10px); }
-    .ray:nth-child(7) { transform: translate(-1px, -1px) rotate(225deg) translateY(-10px); }
-    .ray:nth-child(8) { transform: translate(-1px, -1px) rotate(270deg) translateY(-10px); }
-    .ray:nth-child(9) { transform: translate(-1px, -1px) rotate(315deg) translateY(-10px); }
-}
 
-/* Zajistí konzistentní zobrazení ve všech prohlížečích */
-.sun-icon * {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-
-
-
-/* 8 paprsků kolem slunce - vzdálenější od středu */
+/* 8 paprsků kolem slunce */
 .sun-icon .ray:nth-child(2) { transform: translate(-50%, -50%) rotate(0deg) translateY(-14px); }
 .sun-icon .ray:nth-child(3) { transform: translate(-50%, -50%) rotate(45deg) translateY(-14px); }
 .sun-icon .ray:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg) translateY(-13px); }
@@ -687,47 +668,3 @@ td:first-child :not(.extra-bunka) {
 .sun-icon .ray:nth-child(7) { transform: translate(-50%, -50%) rotate(225deg) translateY(-14px); }
 .sun-icon .ray:nth-child(8) { transform: translate(-50%, -50%) rotate(270deg) translateY(-14px); }
 .sun-icon .ray:nth-child(9) { transform: translate(-50%, -50%) rotate(315deg) translateY(-14px); }
-
-/* Ikona měsíce - dva srpky jako na obrázku */
-.moon-icon {
-    width: 30px;
-    height: 30px;
-    background: #3a3a3a;
-    position: relative;
-    display: inline-block;
-    border-radius: 3px;
-}
-
-/* Větší vnější srpek */
-.moon-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    border: 2px solid white;
-    border-radius: 50%;
-    background: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-}
-
-/* Menší vnitřní srpek */
-.moon-icon::after {
-    content: '';
-    position: absolute;
-    top: 48%;
-    left: 48%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    border: 1.5px solid white;
-    border-radius: 50%;
-    background: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-}
-
-

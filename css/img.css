@@ -1,7 +1,24 @@
-/* Obrázky v navigaci se nacházejí v navigation.css; Logo v style.css */
-/* Pokud není v article obrázek, tenhle CSS se nemusí dávat jako link v HTML */
-/* Responzivita v responsiveness.css */
+/* STYLY PRO OBRÁZKY
+    Obrázky v navigaci se nacházejí v navigation.css; Logo v style.css.
+    Responzivita obrázků v responsiveness.css.
+    Pokud není v article obrázek, tenhle CSS se nemusí dávat jako link v HTML.
+*/
 
+/*
+OBSAH:
+ 1. Obrázky (img)
+
+ 2. Zdroje v obrázcích
+    - odkazy
+    - styly pro obalový kontejner obrázku
+    - styly pro zdroj v obrázku: nerozbalené
+    - styly pro zdroj v obrázku: rozbalené => hover a aktivní stav
+        - velikost jednotlivých rozbalených druhů zdrojů
+*/
+
+
+
+/* ==== 1. OBRÁZKY ==== */
 img {
     max-width: 100%;
     height: auto;
@@ -65,8 +82,29 @@ img {
 }
 
 
-/* PRO ZOBRAZENÍ ZROJE V OBRÁZKU */
-/* Styl pro obalový kontejner obrázku */
+
+/* ==== 2. ZDROJE V OBRÁZCÍCH ==== */
+
+/* Odkazy */
+.img-wrapper .info-box a,
+.img-wrapper .info-box-short a,
+.img-wrapper .info-box-medium a,
+.img-wrapper .info-box-medium-second a,
+.img-wrapper .info-box-left a,
+.img-wrapper .info-box-long-left a,
+.img-wrapper .info-box-medium-third a,
+.img-wrapper .info-box-short-third a,
+.img-wrapper .info-box-short-fourth a,
+.img-wrapper .info-box-long a,
+.img-wrapper .info-box-short-second a {
+    color: skyblue;
+    font-weight: inherit;
+    font-size: inherit;
+    text-decoration: underline;
+}
+
+
+/* --- Styly pro obalový kontejner obrázku --- */
 .img-wrapper {
     position: relative;
     display: inline-block;
@@ -77,11 +115,12 @@ img {
     width: 100%;
 }
 
-/* === Styly pro zdroj v obrázku === */
 
-/* ŠEDÉ KOLEČKO */
+/* --- Styly pro zdroj v obrázku: nerozbalené --- */
+/* Šedé kolečko (pozadí nerozbaleného zdroje) */
 .info-box,
 .info-box-short,
+.info-box-medium,
 .info-box-medium-second,
 .info-box-left,
 .info-box-long-left,
@@ -107,9 +146,10 @@ img {
     white-space: nowrap;
     left: 10px;
     bottom: 10px;
+    transform: none; /* Reset jakýchkoliv transformací */
 }
 
-/* PÍSMENO "i" */
+/* Písmeno "i" */
 .info-box .icon-circle,
 .info-box-short .icon-circle-short,
 .info-box-medium .icon-circle-medium,
@@ -133,7 +173,7 @@ img {
     transition: color 0.3s ease;
 }
 
-/* BÍLÉ KOLEČKO */
+/* Bílé kolečko */
 .info-box::before,
 .info-box-short::before,
 .info-box-medium::before,
@@ -159,7 +199,7 @@ img {
 }
 
 
-/* === Styly pro hover i aktivní stav === */
+/* --- Styly pro zdroj v obrázku: rozbalené => hover a aktivní stav --- */
 .info-box:hover:not(.force-close),
 .info-box.active {
     width: 300px; /* Délka, na kterou se box rozšíří*/
@@ -217,12 +257,22 @@ img {
     color: #333;
 }
     
-.info-box span {
-    opacity: 0; /* Neviditelné ve výchozím stavu */
+.info-box span,
+.info-box-short span,
+.info-box-medium span,
+.info-box-medium-second span,
+.info-box-left span,
+.info-box-long-left span,
+.info-box-medium-third span,
+.info-box-short-third span,
+.info-box-short-fourth span,
+.info-box-long span,
+.info-box-short-second span {
+    opacity: 0;
     transition: opacity 0.3s ease;
     margin-left: 10px;
     position: absolute;
-    left: 24px;
+    left: 21px;
 }
     
 .info-box:hover:not(.force-close) span,
@@ -247,10 +297,10 @@ img {
 .info-box-long.active span,
 .info-box-short-second:hover:not(.force-close) span,
 .info-box-short-second.active span {
-    opacity: 1;/* Zobrazení textu při aktivaci/hoveru */
+    opacity: 1; /* Zobrazení textu při aktivaci/hoveru */
 }
     
-/* Force close třída má přednost před hover */
+/* Třída force-close má přednost před hover */
 .info-box.force-close,
 .info-box-short.force-close,
 .info-box-medium.force-close,
@@ -262,198 +312,66 @@ img {
 .info-box-short-fourth.force-close,
 .info-box-long.force-close,
 .info-box-short-second.force-close {
-    width: 24px;/* Zajišťuje, že box zůstane malý i při hoveru */
-}
-
-/* Odkazy */
-.img-wrapper .info-box a,
-.img-wrapper .info-box-short a,
-.img-wrapper .info-box-medium a,
-.img-wrapper .info-box-medium-second a,
-.img-wrapper .info-box-left a,
-.img-wrapper .info-box-long-left a,
-.img-wrapper .info-box-medium-third a,
-.img-wrapper .info-box-short-third a,
-.img-wrapper .info-box-short-fourth a,
-.img-wrapper .info-box-long a,
-.img-wrapper .info-box-short-second a {
-    color: skyblue;
-    font-weight: inherit;
-    font-size: inherit;
-    text-decoration: underline;
+    width: 24px; /* Zajišťuje, že box zůstane malý i při hoveru */
 }
 
 
-
-/* SHORT */
+/* - Velikost jednotlivých rozbalených druhů zdrojů - */
+/* Short-second*/
+.info-box-short-second:hover:not(.force-close),
+.info-box-short-second.active {
+    width: 125px;
+}
+/* Short */
 .info-box-short:hover:not(.force-close),
 .info-box-short.active {
     width: 135px;
 }
-    
-.info-box-short span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
+
+/* Short-third */
+.info-box-short-third:hover:not(.force-close),
+.info-box-short-third.active {
+    width: 138px;
 }
 
-
-/* MEDIUM */
-.info-box-medium {
-    position: absolute;
-    display: inline-flex;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 13px;
-    font-weight: bold;
-    justify-content: center;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    cursor: pointer;
-    white-space: nowrap;
-    left: 2%; /* Procentuální pozice místo pixelů */
-    bottom: 5%; /* Procentuální pozice místo pixelů */
-    z-index: 10;
-    transform: none; /* Reset jakýchkoliv transformací */
+/* Short-fourth */
+.info-box-short-fourth:hover:not(.force-close),
+.info-box-short-fourth.active {
+    width: 144px;
 }
 
+/* Medium */
 .info-box-medium:hover:not(.force-close),
 .info-box-medium.active {
     width: 210px;
 }
 
-.info-box-medium span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
-}
-
-
-/* MEDIUM-SECOND */
+/* Medium-second */
 .info-box-medium-second:hover:not(.force-close),
 .info-box-medium-second.active {
     width: 247px;
 }
 
-.info-box-medium-second span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-
-
-
-/* LEFT */
-.info-box-left:hover:not(.force-close),
-.info-box-left.active {
-    width: 300px;
-}
-    
-.info-box-left span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 18px;
-}
-
-
-
-/* LONG-LEFT */
+/* Long-left */
 .info-box-long-left:hover:not(.force-close),
 .info-box-long-left.active {
     width: 270px;
 }
 
-.info-box-long-left span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 18px;
-}
-
-/* MEDIUM-THIRD */
+/* Medium-third */
 .info-box-medium-third:hover:not(.force-close),
 .info-box-medium-third.active {
     width: 270px;
 }
 
-.info-box-medium-third span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
+/* Left */
+.info-box-left:hover:not(.force-close),
+.info-box-left.active {
+    width: 300px;
 }
 
-
-/* SHORT-THIRD */
-.info-box-short-third:hover:not(.force-close),
-.info-box-short-third.active {
-    width: 138px;
-}
-    
-.info-box-short-third span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-
-
-
-/* SHORT-FOURTH */
-.info-box-short-fourth:hover:not(.force-close),
-.info-box-short-fourth.active {
-    width: 144px;
-}
-    
-.info-box-short-fourth span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-    
-
-/* LONG */
+/* Long */
 .info-box-long:hover:not(.force-close),
 .info-box-long.active {
     width: 311px;
-}
-
-.info-box-long span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 20px;
-}
-
-
-/* SHORT-SECOND */
-.info-box-short-second:hover:not(.force-close),
-.info-box-short-second.active {
-    width: 125px;
-}
-
-.info-box-short-second span {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-left: 10px;
-    position: absolute;
-    left: 21px;
 }

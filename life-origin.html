@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs-cz">
+<html lang="cs">
 
 <head>
     <meta charset="UTF-8">
@@ -132,7 +132,10 @@
         </nav>
         <!-- konec navigace pro šířku pod 1175px -->
 
-        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+        <noscript>
+            <h2>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</h2>
+            <p>Je nám líto, ale bez JavaScriptu stránka nemůže fungovat správně.</p>
+        </noscript>
     </header>
     
     <article>
@@ -200,18 +203,8 @@
             <br>
             <a href="docs/darwin.pdf" target="_blank" class="button">Otevřít na nové kartě (pdf) &#8599;</a>
             <div class="zarazka"></div>
-
-            <!-- Tlačítko tmavého režimu -->
-            <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
         </section>
     </article>
-    
-    <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
-        <br>
-        <button id="acceptCookies">Rozumím</button>
-    </div>
 
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
@@ -222,6 +215,17 @@
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
         <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
     </footer>
+
+    <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
 </body>
 

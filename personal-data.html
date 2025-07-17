@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs-cz">
+<html lang="cs">
  
 <head>
     <meta charset="UTF-8">
@@ -128,7 +128,10 @@
         </nav>
         <!-- konec navigace pro šířku pod 1175px -->
 
-        <noscript>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</noscript>
+        <noscript>
+            <h2>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</h2>
+            <p>Je nám líto, ale bez JavaScriptu stránka nemůže fungovat správně.</p>
+        </noscript>
     </header>
     
     <article>
@@ -163,12 +166,17 @@
             </div>
             <!-- Konec nadpisu h2 -->
 
-            <br>
-
-            <strong>1. Technické a funkční cookies</strong>
-            <p>Tyto cookies jsou nezbytné pro správné fungování našich webových stránek. Bez jejich použití by nebylo možné zajistit provoz základních funkcionalit, jako je například přehrávání vložených videí. Slouží k zachování technické funkčnosti a stability webu. </p>
-            <strong>2. Vložený obsah třetích stran (Youtube)</strong>
-            <p>Na našich stránkách se nachází vložené videoobsahy z platformy Youtube. Tyto prvky používají vlastní cookies společnosti Youtube, které jsou nezbytné pro jejich správné fungování a zároveň zajišťují optimalizoaný uživatelský zážitek při přehrání. Tyto cookies jsou spravovány přímo poskytovatelem služby, a proto k nim nemáme přístup ani kontrolu nad daty, která mohou být jejich prostřednictvím shromažďována. Doporučujeme se seznámit s pravidly používání cookies přímo na stránkách Youtube.</p>
+            <p>Na našich stránkách najdete tyto dvě hlavní typy cookies:</p>
+            <ol>
+                <li><h4 class="h4-small">Technické a funkční cookies</h4></li>
+                <p>Tyto cookies jsou nezbytné pro správné fungování našich webových stránek. Bez jejich použití by nebylo možné zajistit provoz základních funkcionalit, jako je
+                    například přehrávání vložených videí. Slouží k zachování technické funkčnosti a stability webu. </p>
+                <li><h4>Vložený obsah třetích stran (Youtube)</h4></li>
+                <p>Na našich stránkách se nachází vložené videoobsahy z platformy Youtube. Tyto prvky používají vlastní cookies společnosti Youtube, které jsou nezbytné pro jejich
+                    správné fungování a zároveň zajišťují optimalizoaný uživatelský zážitek při přehrání. Tyto cookies jsou spravovány přímo poskytovatelem služby, a proto k nim
+                    nemáme přístup ani kontrolu nad daty, která mohou být jejich prostřednictvím shromažďována. Doporučujeme se seznámit s pravidly používání cookies přímo na stránkách Youtube.</p>
+            </ol>
+            
             
             
             <!-- Nadpis h2 -->
@@ -191,18 +199,9 @@
             <h2>Kontakt</h2>
             <p>Pokud máte jakékoliv dotazy ohledně používání cookies, můžete nás kontaktovat na e-mailu: <strong><a href="mailto:gazova.michaela@purkynka.cz" class="no-a-style">gazova.michaela@purkynka.cz</a> </strong> | <strong><a href="mailto:friedl.daniel@purkynka.cz" class="no-a-style">friedl.daniel@purkynka.cz</a></strong></p>
             <p>Tento dokument byl naposledy aktualizován <strong>11. 5. 2025</strong>.</p>
-
-            <!-- Tlačítko tmavého režimu -->
-            <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
+            <div class="zarazka"></div>
         </section>
     </article>
-
-    <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
-        <br>
-        <button id="acceptCookies">Rozumím</button>
-    </div>
 
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
@@ -213,6 +212,17 @@
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
         <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
     </footer>
+
+    <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <a href="personal-data.html">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
 </body>
 

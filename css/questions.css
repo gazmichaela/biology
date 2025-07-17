@@ -1,10 +1,21 @@
-/* Styly pro tlačítka mimo otázky v style.css */
-/* Hover efekty */
+/* OTÁZKY
+    Styly pro tlačítka, která nejsou pro otázky, jsou v style.css.
+    Responzivita v responsiveness.css.
+    Pokud nejsou na stránce otázky, tenhle CSS se nemusí dávat jako link v HTML.
+*/
 
-.hidden {
-    display: none; /* Skrytý kontejner otázek (na začátku) */
-}
+/*
+OBSAH:
+ 1. Otázky, odpovědi, tlačítka
 
+ 2. Při tmavém režimu
+
+ 3. Hover efekty (pouze pro desktop)
+*/
+
+
+
+/* ==== 1. OTÁZKY, ODPOVĚDI, TLAČÍTKA ==== */
 .question {
     background-color: #f1f1f1;
     padding: 10px;
@@ -16,6 +27,14 @@
     text-align: left;
 }
 
+.question:focus {
+    outline: none; /* Zabrání modrému rámečku kolem otázek */
+}
+
+.question.open {
+    background-color: #e9e9e9;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
 
 .answer {
     padding: 10px;
@@ -26,6 +45,7 @@
     margin-bottom: 10px;
     margin-top: -2px;
     text-align: left;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 /* Tlačítko pro zobrazení všech otázek */
@@ -44,16 +64,7 @@
 
 
 
-.question:focus {
-    outline: none; /* Zabrání modrému rámečku kolem otázek */
-}
-
-.question.open {
-    background-color: #e9e9e9;
-    transition: background-color 0.3s ease;
-}
-
-/* Pro tmavý režim */
+/* ==== 2. PŘI TMAVÉM REŽIMU ==== */
 body.dark-mode .question {
     background-color: #333131;
     border: 1px solid #505050;
@@ -76,7 +87,8 @@ body.dark-mode .question.open {
 }
 
 
-/* Hover efekty pouze pro desktop */
+
+/* ==== 3. HOVER EFEKTY ==== */
 @media (hover: hover) and (pointer: fine) {
     .question:hover {
         background-color: #e8e8e8;
@@ -94,4 +106,3 @@ body.dark-mode .question.open {
         background-color: #2a8bc7f1;
     }
 }
-

@@ -710,7 +710,7 @@ function initializeDarkMode() {
             window.isUsingSystemPreference = false;
             
             // Aktualizace tooltip
-            darkModeToggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+            darkModeToggle.title = isDark ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
             
             // Animace ikony
             const currentIcon = darkModeToggle.querySelector('.sun-icon, svg');
