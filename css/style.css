@@ -523,7 +523,7 @@ table td:first-child {
 }
 
 .table-wrapper {
-    overflow-x: auto; /* Horizontální posuv */
+    overflow-x: auto; /* Horizontální posun */
     -webkit-overflow-scrolling: touch;  /* Plynulé posouvání na iOS */
 }
 
@@ -574,6 +574,8 @@ table td:first-child {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+
 
 
 

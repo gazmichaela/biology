@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     if(!localStorage.getItem('cookiesAccepted')) {
-        // čekání než se stránka zobrazí
+        // Delay zobrazení cookie lišty
         setTimeout(function() {
             const cookiesNotice = document.getElementById('cookiesMiniNotice');
             if (cookiesNotice) {

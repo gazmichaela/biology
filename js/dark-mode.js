@@ -33,7 +33,7 @@
     }
 
     window.isUsingSystemPreference = !hasUserPreference;
-    // anti-flicker css vložené před zobrazením 
+    // Anti-flicker css vložené před zobrazením 
     const criticalCSS = `
     
         ${isDarkMode ?`
@@ -71,7 +71,8 @@
             font-size: 1.5rem !important;
             z-index: 1000 !important;
             transition: none !important;
-             
+        
+        
             .dark-mode-toggle.hidden {
             display: none !important;
         }
@@ -143,7 +144,7 @@
         button.id = 'darkModeToggle';
         button.className = 'dark-mode-toggle';
         
-        button.title = isDarkMode ? 'Switch to light mode' : 'Switch to dark mode';
+        button.title = isDarkMode ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
         
         
         if (isDarkMode) {
@@ -620,18 +621,23 @@ function createMoonIcon() {
     `;
 }
 
-let isClickOpened = false;
+/*let isClickOpened = false;
 let positionMonitoringInterval = null;
 let inactivityTimer = null;
 
-// monitoring pozice - používá se pro UI logic
-function startPositionMonitoring() {
+/*function startPositionMonitoring(){
+    
+}*/
+/*function startPositionMonitoring(callback = null) {
     if (positionMonitoringInterval) {
-        clearInterval(positionMonitoringInterval);
+       clearInterval(positionMonitoringInterval);
     }
     
-    positionMonitoringInterval = setInterval(() => {
-    // prázdný - logika je v jiných handlerech
+   positionMonitoringInterval = setInterval(() => {
+        // Callback pattern - zavolá předanou funkci 
+        if (callback && typeof callback === 'function') {
+            callback();
+        }
     }, 100);
 }
 
@@ -660,8 +666,8 @@ function stopInactivityTimer() {
         clearTimeout(inactivityTimer);
         inactivityTimer = null;
     }
-}
-
+}*/
+//--------------------------------------------------
 function initializeDarkMode() {
     let darkModeToggle = document.getElementById('darkModeToggle');
     
@@ -816,7 +822,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     initializeLoadAnimations();
     
-    setTimeout(function() {
+   /* setTimeout(function() {
         if (!isClickOpened) {
             try {
                 localStorage.removeItem('isFirstMenuOpen');
@@ -825,5 +831,5 @@ window.addEventListener('load', function() {
                 
             }
         }
-    }, 5000);
+    }, 5000);*/
 });

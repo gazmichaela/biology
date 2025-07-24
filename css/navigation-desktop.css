@@ -211,12 +211,13 @@ header ul .home-icon:hover img {
     border-radius: 5px;
     padding: 5px;
     min-width: 150px;
-    margin-left: 4.5%;
+    margin-left: 7px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0s 0.3s; /* Plynulý přechod pro opacity, a zpožděný přechod pro visibility */
+    transition: opacity 0.3s ease, visibility 0s 0.3s; /* Plynulý přechod pro opacity a zpožděný přechod pro visibility */
     z-index: 1000;
 }
+
 
 .sub-dropdown-content.show {
     opacity: 1; /* Stane se plně viditelným */
