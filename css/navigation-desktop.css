@@ -127,12 +127,13 @@ header ul .home-icon:hover img {
     content: '';
     position: absolute;
     top: -14.5px; /* Rozšíření aktivní oblasti nahoru */
-    right: -16px;  /* Zúžení aktivní oblasti zprava */
+    right: -17px;  /* Zúžení aktivní oblasti zprava */
     bottom: -9.5px; /* Rozšíření aktivní oblasti dolů */
     left: -4.8px;   /* Zúžení aktivní oblasti zleva */
     z-index: 1;
     border-top-right-radius: 5px; 
 }
+
 
 .main-button:hover,
 .main-button-second:hover,

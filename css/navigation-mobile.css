@@ -197,6 +197,19 @@ html.menu-open body {
     color: #034a33;
 }
 
+/* Aktivní položky */
+.mobile-expandable .mobile-nav-button.active,
+.mobile-nav-button.mobile-nav-button-big.active,
+.mobile-nav-button.mobile-nav-button-mid.active,
+.mobile-nav-button.mobile-nav-button-two.active,
+.mobile-nav-button.mobile-nav-button-three.active,
+.mobile-nav-button.active {
+    font-weight: 900 !important;
+    color: #012d16  !important;
+    background-color: rgba(186, 218, 85, 0.1) !important;
+    border-left: 4px solid #012d16  !important;
+}
+
 
 
 /* ==== 3. RESPONZIVITA MOBILNÍ NAVIGACE ==== */
