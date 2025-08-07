@@ -1,3 +1,24 @@
+/**
+ * CookieManager - Správa souhlasů cookie
+ * 
+ * Spravuje zobrazování cookie notifikací s detekcí anonymního režimu
+ a fallback mechanismem pro různé typy úložišť. 
+ * 
+ * Klíčové funkce:  
+ * • Detekce incognito/private mode s okamžitou reakcí
+ * • Cascading storage: localStorage → sessionStorage → cookies
+ * • Synchronizace změn mezi okny a taby
+ * • Konfigurovatelný timing a zobrazení
+ * • Fallback mechanismy pro prohlížeče s omezeními
+ * • Kompletní lifecycle management
+ * 
+ * @author Michaela Gažová
+ * @version 2.2.0
+ * @license MIT
+ */
+
+
+
 class CookieManager {
     constructor(options = {}) {
         this.config = {
@@ -18,7 +39,6 @@ class CookieManager {
         this.isInitialized = false;
         this.state = { lastPrivateMode: null, lastSyncValue: null };
 
-        // Bind methods
         this.handleAcceptClick = this.handleAcceptClick.bind(this);
         this.checkPrivateMode = this.checkPrivateMode.bind(this);
         this.forcedSync = this.forcedSync.bind(this);
@@ -60,6 +80,7 @@ class CookieManager {
         }
     }
 
+    // Test incognito režimu 
     isPrivateMode() {
         try { 
             localStorage.setItem('__test__', '1'); 
@@ -70,6 +91,7 @@ class CookieManager {
         }
     }
 
+    // Fallback localStorage → sessionStorage → cookies
     storageOp(op, val) {
         const ts = Date.now().toString();
         const { storageKey, syncKey } = this.config;
@@ -78,9 +100,9 @@ class CookieManager {
             () => localStorage,
             () => sessionStorage,
             () => ({
+                // Fallback na cookies
                 setItem: (k, v) => {
-                    // Set cookie with 1 year expiration
-                    const maxAge = 365 * 24 * 60 * 60; // 1 year in seconds
+                    const maxAge = 365 * 24 * 60 * 60; // Rok v sekundách
                     document.cookie = `${k}=${encodeURIComponent(v)}; max-age=${maxAge}; path=/; SameSite=Lax; Secure=${location.protocol === 'https:'}`;
                 },
                 getItem: k => {
@@ -96,8 +118,7 @@ class CookieManager {
                     return null;
                 },
                 removeItem: k => {
-                    // Properly remove cookie by setting max-age=0
-                    document.cookie = `${k}=; max-age=0; path=/; SameSite=Lax`;
+                    document.cookie = `${k}=; max-age=0; path=/; SameSite=Lax`; 
                 }
             })
         ];
@@ -114,19 +135,18 @@ class CookieManager {
                 
                 if (op === 'set') { 
                     storage.setItem(storageKey, 'true'); 
-                    storage.setItem(syncKey, ts); 
+                    storage.setItem(syncKey, ts); // Synchronizace změn mezi okny/taby
                     success = true;
-                    break; // Stop after first successful storage
+                    break;
                 }
                 
                 if (op === 'remove') { 
                     storage.removeItem(storageKey); 
                     storage.setItem(syncKey, ts); 
                     success = true;
-                    break; // Stop after first successful removal
+                    break;
                 }
             } catch (error) {
-                // Continue to next storage option
             }
         }
 
@@ -139,6 +159,7 @@ class CookieManager {
                 newValue: op === 'set' ? 'true' : null, 
                 url: location.href 
             });
+            // Manuální spuštění storage eventu
             window.dispatchEvent(storageEvent);
         }
     }
@@ -216,6 +237,7 @@ class CookieManager {
         this.log('Monitoring started');
     }
 
+    // Fallback kontrola stavu z více úložišť
     forcedSync() {
         const { syncKey } = this.config;
         
@@ -236,11 +258,11 @@ class CookieManager {
                 
                 if (syncValue && syncValue !== this.state.lastSyncValue) {
                     this.state.lastSyncValue = syncValue;
+                    // Krátké zpoždění pro synchronizaci
                     setTimeout(() => this.updateNoticeState(), 50);
                     return;
                 }
             } catch (error) {
-                // Silent fail
             }
         }
     }
@@ -268,7 +290,6 @@ class CookieManager {
         window.addEventListener('focus', this.handleWindowFocus);
         document.addEventListener('visibilitychange', focusHandler);
 
-        // Store unbind function
         this.unbindEvents = () => {
             acceptButton?.removeEventListener('click', this.handleAcceptClick);
             window.removeEventListener('storage', storageHandler);
@@ -290,7 +311,6 @@ class CookieManager {
         this.log('Events bound');
     }
 
-    // Public API methods
     show() { 
         this.showNotice(); 
     }
@@ -347,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
         enableLogging: false 
     });
     
-    // Global helper functions
     Object.assign(window, {
         showCookieNotice: () => cookieManager?.show(),
         hideCookieNotice: () => cookieManager?.hide(),
@@ -355,7 +374,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Module exports
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CookieManager;
 }

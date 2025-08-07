@@ -2,13 +2,13 @@
  * NavigationManager - Systém pro správu navigace
  * 
  * Automaticky spravuje aktivní stavy navigačních prvků s podporou
- responzivního designu a inteligentního párování URL s odkazy.
+ responzivního designu a párování URL s odkazy.
  * 
  * Klíčové funkce:
  * • Automatická detekce aktivní stránky podle URL
  * • Responzivní přepínání mezi desktop/mobilní navigací
  * • Optimalizované resize handling s debouncing
- * • Flexibilní konfigurace a správa životního cyklu
+ * • Flexibilní konfigurace a lifecycle management
  * • Podpora dropdown struktur a přístupnosti
  * 
  * @author Michaela Gažová
