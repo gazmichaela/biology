@@ -1,4 +1,4 @@
-//--------IMAGES FUNCTIONALITY----------//
+//--------IMAGES FUNCTIONALITY----------// ne this metoda
 
 document.addEventListener('DOMContentLoaded', function() {
     // Vytvoření modálního okna a všech jeho komponent

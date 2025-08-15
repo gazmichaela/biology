@@ -1,4 +1,4 @@
-//---------STICKY HEADER FUNCTIONALITY-------------//
+//---------STICKY HEADER FUNCTIONALITY-------------// ne this metoda
 
 // Globální sledování timeoutů pro každý dropdown
 window.dropdownTimeouts = window.dropdownTimeouts || {};

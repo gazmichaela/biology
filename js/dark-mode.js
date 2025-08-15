@@ -1,4 +1,4 @@
-(function() {
+(function() { // this metoda
     'use strict';
     
     let isDarkMode = false;

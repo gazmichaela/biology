@@ -1,4 +1,4 @@
-//-----------RESPONSIVENESS FUNCIONALITY-------------//
+//-----------RESPONSIVENESS FUNCIONALITY-------------// // ne this metoda
 
 // Získání elementů - hlavní header
 const burgerMenu = document.getElementById('burgerMenu');

@@ -1,6 +1,5 @@
 
-//----RESOURCE FUNCIONALITY----//
-
+//----RESOURCE FUNCIONALITY----// this metoda 
 document.addEventListener('DOMContentLoaded', function() {
   const infoVariants = [
     'info-box', 'info-box-short', 'info-box-medium', 'info-box-medium-second', 
