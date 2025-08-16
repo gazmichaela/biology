@@ -28,11 +28,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true" class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header class="h1-long">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -40,8 +40,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -143,20 +143,29 @@
                     <source srcset="images/webp/system-mysl-ai.webp" type="image/webp">
                     <img src="images/png/system-mysl-ai.png">
                 </picture> 
-                <div class="info-box-short">
-                    <div class="icon-circle-short">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
                 </div>
-            </div>             
-            <h2>Systémový přístup</h2>
+            </div>
+
+            <div class="h2">
+                <h2>Systémový přístup</h2>
+            </div>
             <p>Při práci v systémové biologii se často využivá systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
             <a href="system-approach.html" class="button">Více informací zde</a>
             <br>
-            <h2>Systémové myšlení</h2>
+
+            <div class="h2">
+                <h2>Systémové myšlení</h2>
+            </div>
             <p>Často souvisí se systémovým přístupem. Co obnáší systémové myšlení?</p>
             <a href="system-thinking.html" class="button">Zjistit</a>
             <br>
-            <h2>Teorie systému</h2>
+
+            <div class="h2">
+                <h2>Teorie systému</h2>
+            </div>
             <p>Co to je v obecné rovině systém? Jaké jsou jeho vlastnosti? Odpovědi na tyto otázky naleznete v sekci Teorie systémů.</p>
             <a href="system-theory.html" class="button">Teorie systémů</a>
             <div class="zarazka"></div>
@@ -175,7 +184,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

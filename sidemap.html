@@ -26,11 +26,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header>
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -38,8 +38,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -136,7 +136,9 @@
     
     <article>
         <section class="sidemap">
-            <h2>Mapa webu</h2>
+            <div class="h2">
+                <h2>Mapa webu</h2>
+            </div>
             <ul>
                 <li><a href="index.html">Hlavní stránka</li></a>
                 <li><a href="system.html">Základy systémového myšlení, systém</a>
@@ -178,7 +180,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

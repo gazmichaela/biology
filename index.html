@@ -28,11 +28,11 @@
 </head>
 
 <body class="index-page">
-    <header aria-hidden="true" class="h1-index">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header class="h1-index">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -40,7 +40,7 @@
         <p>Studium komplexních biologických systémů a jejich interakcí</p>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
+        <ul role="navigation">
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
@@ -136,31 +136,26 @@
                     <source srcset="images/webp/hlavni-stranka-ai.webp" type="image/webp" data-src="images/webp/hlavni-stranka-ai.webp">
                     <img src="images/png/hlavni-stranka-ai.png" data-src="images/png/hlavni-stranka-ai.png">
                 </picture>
-                <div class="info-box-short">
-                    <div class="icon-circle-short">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
                 </div>
             </div>
-            <h2>Co to vlastně je?</h2>  
-            <p>Vědní obor, který se zabývá tím,
+            <div class="h2">
+                <h2>Co to vlastně je?</h2></div>  
+            <p>
+                Vědní obor, který se zabývá tím,
                 jak různé části živých organismů (například buňky, geny nebo proteiny) spolupracují,
-                aby udržely život a správně fungovaly.</p>
+                aby udržely život a správně fungovaly.
+            </p>
 
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-425">
+            <div class="h2">
                 <h2>A čím se liší od „normální“ biologie?</h2>
             </div>
-            <div class="h2-wrap h2-425">
-                <h2>A čím se liší od</h2>
-                <br>
-                <h2>„normální“ biologie?</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-             
-            <p>Na rozdíl od klasické biologie,
-                 která často zkoumá jednotlivé části organismů odděleně,
-                 se systémová biologie snaží pochopit,
-                 jak se tyto části propojují a vytvářejí složitější celek.</p>
+            <p>
+                Na rozdíl od klasické biologie, která často zkoumá jednotlivé části organismů odděleně,
+                se systémová biologie snaží pochopit, jak se tyto části propojují a vytvářejí složitější celek.
+            </p>
             <div class="zarazka"></div>
         </section>
     </article>
@@ -177,7 +172,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

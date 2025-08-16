@@ -35,14 +35,6 @@ OBSAH:
     - do 768px
     - do 480px
     - do 360px
-
- 5. Zalamování dlouhých nadpisů h2 (při určené šířce)
-    - do 520px
-    - do 460px
-    - do 425px
-    - do 390px
-    - do 370px
-    - do 330px
 */
 
 
@@ -139,6 +131,10 @@ OBSAH:
         padding: 6px;
     }
 
+    .cookies-mini-notice {
+        max-width: 390px;
+    }
+
     footer {
         height: 310px;
     }
@@ -194,7 +190,7 @@ OBSAH:
     }
     
     article section h2 {
-        font-size: 1.2em;
+        font-size: 1.4em;
         margin-top: 60px;
         margin-bottom: 0.7em;
     }
@@ -210,7 +206,7 @@ OBSAH:
     }
 
     article section ol {
-        padding-left: 40px !important; /* Je nutné 40px pro správné centrování obrázků v seznamech */
+        padding-left: 40px !important; /* Je nutné 40px pro správné centrování obrázků v seznamech, pro změnu upravit i .img-list */
     }
     
     article section .button,
@@ -235,35 +231,29 @@ OBSAH:
     
     table th,
     table td {
-        padding: 4px 2px;
+        padding: 4px;
     }
     
     .cookies-mini-notice {
         bottom: 10px;
         left: 10px;
-        right: 10px;
-        max-width: 300px;
-        font-size: 0.75em;
+        max-width: 330px;
+        font-size: 0.9em;
+        padding: 12px 20px;
     }
     
-    .dark-mode-toggle {
-        bottom: 15px;
-        right: 15px;
-        width: 45px;
-        height: 45px;
-    }
     .tooltip {
         white-space: normal;
     }
     
     .tooltip .tooltiptext {
-    font-size: small;
-    white-space: normal;
-    max-width: 300px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 110%;
-    z-index: 9999;
+        font-size: small;
+        white-space: normal;
+        max-width: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 110%;
+        z-index: 9999;
     }
 
     footer {
@@ -327,8 +317,8 @@ OBSAH:
     }
 
     article section li {
-    margin-left: -0.25em;
-    margin-bottom: 0.3em;
+        margin-left: -0.25em;
+        margin-bottom: 0.3em;
     }
 
     article section li li {
@@ -397,34 +387,15 @@ OBSAH:
     
     .cookies-mini-notice {
         bottom: 8px;
-        left: 8px;
-        right: 8px;
-        padding: 8px 12px;
-        max-width: 250px;
+        padding: 6px 16px;
+        max-width: 240px;
+
     }
-    
-    .dark-mode-toggle {
-        bottom: 12px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-    }
-    
-    .sun-icon {
-        width: 16px;
-        height: 16px;
-    }
-    
-    .sun-icon .sun {
-        width: 12px;
-        height: 12px;
-    }
-    
-    .sun-icon .ray {
-        width: 1px;
-        height: 3px;
-    }
+
+    .cookies-mini-notice button {
+        padding: 6px 12px;
+        border-radius: 6px;
+}
 
     footer {
         padding: 20px 8px 0px 8px;
@@ -519,7 +490,7 @@ OBSAH:
     }
     
     .cookies-mini-notice {
-        padding: 6px 10px;
+        padding: 9px 15px;
         max-width: 160px;
     }
 
@@ -847,42 +818,6 @@ OBSAH:
     .img-next {
         width: 90%;
     }
-    
-    /* Info boxy */
-    .info-box:hover:not(.force-close),
-    .info-box.active {
-        width: 310px;
-    }
-    
-    .info-box-medium:hover:not(.force-close),
-    .info-box-medium.active {
-        width: 210px;
-    }
-    
-    .info-box-medium-second:hover:not(.force-close),
-    .info-box-medium-second.active {
-        width: 250px;
-    }
-    
-    .info-box-left:hover:not(.force-close),
-    .info-box-left.active {
-        width: 295px;
-    }
-    
-    .info-box-long-left:hover:not(.force-close),
-    .info-box-long-left.active {
-        width: 230px;
-    }
-    
-    .info-box-medium-third:hover:not(.force-close),
-    .info-box-medium-third.active {
-        width: 270px;
-    }
-    
-    .info-box-long:hover:not(.force-close),
-    .info-box-long.active {
-        width: 310px;
-    }
 }
 
 
@@ -935,11 +870,8 @@ OBSAH:
     .img-right-top {
         width: 100%;
         max-width: 100vw;
-        margin-top: 5vh;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 4vw auto -70px auto;
         float: none;
-        margin-bottom: -1vh;
     }
     
     .img-left {
@@ -962,34 +894,14 @@ OBSAH:
         margin-right: auto;
     }
     
-    /* Info boxy -> menší rozměry */
-    .info-box,
-    .info-box-short,
-    .info-box-medium-second,
-    .info-box-left,
-    .info-box-long-left,
-    .info-box-medium-third,
-    .info-box-short-third,
-    .info-box-short-fourth,
-    .info-box-long,
-    .info-box-short-second,
-    .info-box-medium {
+    /* Info boxy */
+    .info-box {
         font-size: 12px;
         width: 22px;
         height: 22px;
     }
     
-    .info-box::before,
-    .info-box-short::before,
-    .info-box-medium::before,
-    .info-box-medium-second::before,
-    .info-box-left::before,
-    .info-box-long-left::before,
-    .info-box-medium-third::before,
-    .info-box-short-third::before,
-    .info-box-short-fourth::before,
-    .info-box-long::before,
-    .info-box-short-second::before {
+    .info-box::before{
         left: 3px;
         top: 3px;
         right: 3px;
@@ -997,87 +909,12 @@ OBSAH:
         max-width: 14px;
     }
     
-    .info-box .icon-circle,
-    .info-box-short .icon-circle-short,
-    .info-box-medium .icon-circle-medium,
-    .info-box-medium-second .icon-circle-medium-second,
-    .info-box-left .icon-circle-left,
-    .info-box-long-left .icon-circle-long-left,
-    .info-box-medium-third .icon-circle-medium-third,
-    .info-box-short-third .icon-circle-short-third,
-    .info-box-short-fourth .icon-circle-short-fourth,
-    .info-box-long .icon-circle-long,
-    .info-box-short-second .icon-circle-short-second {
+    .info-box .icon-circle {
         width: 22px;
         height: 22px;
     }
-    
-    .info-box:hover:not(.force-close),
-    .info-box.active {
-        width: 265px;
-    }
-    
-    .info-box-short:hover:not(.force-close),
-    .info-box-short.active {
-        width: 123px;
-    }
-    
-    .info-box-medium:hover:not(.force-close),
-    .info-box-medium.active {
-        width: 192px;
-    }
-    
-    .info-box-medium-second:hover:not(.force-close),
-    .info-box-medium-second.active {
-        width: 230px;
-    }
-    
-    .info-box-left:hover:not(.force-close),
-    .info-box-left.active {
-        width: 290px;
-    }
-    
-    .info-box-long-left:hover:not(.force-close),
-    .info-box-long-left.active {
-        width: 250px;
-    }
-    
-    .info-box-medium-third:hover:not(.force-close),
-    .info-box-medium-third.active {
-        width: 250px;
-    }
-    
-    .info-box-short-third:hover:not(.force-close),
-    .info-box-short-third.active {
-        width: 110px;
-    }
-    
-    .info-box-short-fourth:hover:not(.force-close),
-    .info-box-short-fourth.active {
-        width: 133px;
-    }
-    
-    .info-box-long:hover:not(.force-close),
-    .info-box-long.active {
-        width: 290px;
-    }
-    
-    .info-box-short-second:hover:not(.force-close),
-    .info-box-short-second.active {
-        width: 110px;
-    }
-    
-    .info-box span,
-    .info-box-short span,
-    .info-box-medium span,
-    .info-box-medium-second span,
-    .info-box-left span,
-    .info-box-long-left span,
-    .info-box-medium-third span,
-    .info-box-short-third span,
-    .info-box-short-fourth span,
-    .info-box-long span,
-    .info-box-short-second span {
+
+    .info-box span {
         left: 22px;
         margin-left: 8px;
     }
@@ -1088,7 +925,6 @@ OBSAH:
     .img-right,
     .img-right-big,
     .img-right-middle,
-    .img-right-top,
     .img-left {
         float: none;
         width: 90%;
@@ -1099,7 +935,8 @@ OBSAH:
     }
     
     .img-right-top {
-        margin-top: 30px;
+        margin-top: 5vw;
+        margin-bottom: -80px;
     }
     
     .img-bottom {
@@ -1122,7 +959,6 @@ OBSAH:
     .img-right,
     .img-right-big,
     .img-right-middle,
-    .img-right-top,
     .img-left,
     .img-bottom,
     .img-next {
@@ -1131,107 +967,7 @@ OBSAH:
     }
 
     .img-right-top {
-        margin-top: 30px;
-        margin-bottom: 0;
-    }
-}
-
-
-
-/* ===== 5. ZALAMOVÁNÍ DLOUHÝCH NADPISŮ H2 ===== */
-article section .h2-3 {
-    visibility: hidden;
-    display: none;
-}
-
-@media screen and (max-width: 520px) {
-    article section .h2-wrap.h2-520 {
-        visibility: visible;
-        display: inline-block;
-    }
-
-    article section .h2-normal.h2-520 {
-        visibility: hidden;
-        display: none;
-    }
-
-    article section .h2-2 {
-        visibility: visible !important;
-        display: inline-block !important;
-    }
-
-    article section .h2-3 {
-        visibility: hidden !important;
-        display: none !important;
-    }
-}
-
-@media screen and (max-width: 460px) {
-    article section .h2-wrap.h2-460 {
-        visibility: visible;
-        display: inline-block;
-    }
-
-    article section .h2-normal.h2-460 {
-        visibility: hidden;
-        display: none;
-    }
-}
-
-@media screen and (max-width: 425px) {
-    article section .h2-wrap.h2-425 {
-        visibility: visible;
-        display: inline-block;
-    }
-
-    article section .h2-normal.h2-425 {
-        visibility: hidden;
-        display: none;
-    }
-}
-
-@media screen and (max-width: 390px) {
-    article section .h2-wrap.h2-390 {
-        visibility: visible;
-        display: inline-block;
-    }
-
-    article section .h2-normal.h2-390 {
-        visibility: hidden;
-        display: none;
-    }
-}
-
-@media screen and (max-width: 370px) {
-    article section .h2-wrap.h2-370 {
-        visibility: visible;
-        display: inline-block;
-    }
-
-    article section .h2-normal.h2-370 {
-        visibility: hidden;
-        display: none;
-    }
-
-    article section .h2-3 {
-        visibility: visible !important;
-        display: inline-block !important;
-    }
-
-    article section .h2-2 {
-        visibility: hidden !important;
-        display: none !important;
-    }
-}
-
-@media screen and (max-width: 330px) {
-    article section .h2-wrap {
-        visibility: visible;
-        display: inline-block;
-    }
-
-    article section .h2-normal {
-        visibility: hidden;
-        display: none;
+        min-width: 200px;
+        margin-bottom: -90px;
     }
 }

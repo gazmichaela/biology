@@ -30,11 +30,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header>
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -42,8 +42,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -145,23 +145,15 @@
                     <source srcset="images/webp/vznik-zivota-ai.webp" type="image/webp" data-src="images/webp/vznik-zivota-ai.webp">
                     <img src="images/png/vznik-zivota-ai.png" data-src="images/png/vznik-zivota-ai.png">
                 </picture>   
-                <div class="info-box-short-fourth">
-                    <div class="icon-circle-short-fourth">i</div>
-                    <span>Zdroj: <a href="https://chatgpt.com" target="_blank">ChatGPT</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://chatgpt.com" target="_blank" tabindex="-1">ChatGPT</a></span>
                 </div>
             </div>
             
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-390">
+            <div class="h2">
                 <h2>Teorie o vzniku života na Zemi</h2>
             </div>
-            <div class="h2-wrap h2-390">
-                <h2>Teorie o vzniku života</h2>
-                <br>
-                <h2>na Zemi</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <br>
             <p>Existuje hned několik teoríí o vzniku Života na Zemi. Vznikl život v oceánech, pomocí síly Boží, nebo se sem dostal z vesmíru? Kompletní přehled možných teorií je v přiloženém pdf souboru.</p>
             <a class="button-light" id="showOriginPdfBtn">Otevřít zde (pdf)</a>
@@ -177,17 +169,9 @@
             <a href="pdf/origin_of_life.pdf" target="_blank" class="button">Otevřít na nové kartě (pdf) &#8599;</a>
             <br>
 
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-460">
+            <div class="h2">
                 <h2>Vývoj života na Zemi: Darwinismus</h2>
             </div>
-            <div class="h2-wrap h2-460">
-                <h2>Vývoj života na Zemi:</h2>
-                <br>
-                <h2>Darwinismus</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <p>Darwin radikálně změnil naše chápání vzniku života, když představil myšlenku evoluce a společného předka lidí a zvířat. Tato teorie však v době svého představení vyvolala značné
                 kontroverze, neboť šla proti tradičním biblickým představám o stvoření světa. Více o Darwinismu se můžete dozvědět níže v přiloženém pdf souboru.</p>
 
@@ -218,7 +202,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

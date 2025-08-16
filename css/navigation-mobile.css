@@ -113,7 +113,7 @@ html.menu-open body {
 .mobile-nav-list {
     display: flex;
     flex-direction: column;
-    padding: 0 15px;
+    padding: 0 25px;
     gap: 5px;
   
 }
@@ -298,7 +298,6 @@ html.menu-open body {
     .menu-close-button::after {
         transform: rotate(-45deg);
     }
-    
 }
 
 

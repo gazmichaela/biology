@@ -30,11 +30,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true" class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header class="h1-long">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -42,8 +42,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -140,18 +140,9 @@
 
     <article>
         <section>
-
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-425">
+            <div class="h2">
                 <h2>Chemické základy živých soustav</h2>
             </div>
-            <div class="h2-wrap h2-425">
-                <h2>Chemické základy</h2>
-                <br>
-                <h2>živých soustav</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <p>Živé soustavy, jako jsou buňky rostlin, živočichů, hub a bakterií, představují složité systémy, jejichž fungování je
                 neoddělitelně spjato s chemickými procesy. Tyto procesy jsou založeny na chemických prvcích a sloučeninách,
                 které tvoří struktury organismů a umožňují jejich metabolismus.</p>
@@ -160,9 +151,9 @@
                     <source srcset="images/webp/vlastnosti-zivych-soustav-ai.webp" type="image/webp" data-src="images/webp/vlastnosti-zivych-soustav-ai.webp">
                     <img src="images/png/vlastnosti-zivych-soustav-ai.png" data-src="images/png/vlastnosti-zivych-soustav-ai.png">
                 </picture>
-                <div class="info-box-short">
-                    <div class="icon-circle-short">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
                 </div>
             </div>  
             <p>Chemické základy života zahrnují biogenní prvky, které dělíme na dvě skupiny.</p>
@@ -251,17 +242,9 @@
         </section>
 
         <section>
-            <!-- Nadpis h2 -->
-            <div class="h2-normal">
+            <div class="h2">
                 <h2>Vlastnosti živých soustav</h2>
             </div>
-            <div class="h2-wrap">
-                <h2>Vlastnosti živých</h2>
-                <br>
-                <h2>soustav</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <p>Živé soustavy se liší od neživých tím, že <strong>vykazují určité základní vlastnosti</strong>. Tyto vlastnosti společně tvoří složitý systém,
                 ve kterém jednotlivé procesy spolupracují na zachování života.</p>
             <ol>
@@ -282,9 +265,9 @@
                             <source srcset="images/webp/metabolismus-ai.webp" type="image/webp" data-src="images/webp/metabolismus-ai.webp">
                             <img src="images/png/metabolismus-ai.png" data-src="images/png/metabolismus-ai.png">
                         </picture>     
-                        <div class="info-box-short">
-                            <div class="icon-circle-short">i</div>
-                            <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img">DeepAI</a></span>
+                        <div class="info-box" aria-hidden="true">
+                            <div class="icon-circle">i</div>
+                            <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" tabindex="-1">DeepAI</a></span>
                         </div>
                     </div>
                 </div>       
@@ -343,17 +326,9 @@
                     </ul>
             </ol>
 
-            <!-- Nadpis h2 -->
-            <div class="h2-normal">
+            <div class="h2">
                 <h2>Prověřte si své znalosti:</h2>
             </div>
-            <div class="h2-wrap">
-                <h2>Prověřte si své</h2>
-                <br>
-                <h2>znalosti</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <br>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
@@ -385,7 +360,9 @@
             </div>
         </section>
         <section>
-            <h2>Pro zajímavost</h2>
+            <div class="h2">
+                <h2>Pro zajímavost</h2>
+            </div>
             <p>*Krevní skupiny se liší právě podle typu <strong>oligosacharidu</strong>, který je součástí antigenů na povrchu červených krvinek.</p>
             <p>Podrobnosti najdete zde:</p>
             <a href="human.html#obehovasoustava" class="button">Člověk</a>
@@ -405,7 +382,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

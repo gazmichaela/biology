@@ -128,6 +128,11 @@ body {
     max-width: 100%; /* Respektuje scrollbar a nezpůsobuje přetečení jako 100vw */
 }
 
+/* Zajistí všem tlačítkům, že se použije výchozí font a nebude to přepsáno user agentem */
+body button {
+    font-family: inherit;
+}
+
 body header {
     background-color: #77afe0ee;
     text-align: center;
@@ -207,27 +212,16 @@ article section h2 {
     background: linear-gradient(to top, #00c5003d 10%, transparent 60%); /* Tlusté podtržení */
     padding: 0 0.15em;
     font-size: 1.4em;
-    margin-top: 100px; /* Mezera */
-    display: inline-block; /* Zajistí podtržení pouze pod textem */
+    display: inline; /* Zajistí podtržení pouze pod textem */
     font-weight: 700;
-    margin-bottom: 0.9em;
     text-align: left;
+    box-decoration-break: clone;
+}
+
+article section .h2 {
     margin-left: 0;
-}
-
-article section .h2-wrap > h2 {
-    margin-bottom: 0em;
-}
-
-article section .h2-wrap h2 + br + h2,
-article section .h2-wrap h2 + br + h2 + br + h2 {
-    margin-top: 0.2em;
-}
-
-/* Zobrazí se při určené šířce a h2-normal se schová */
-article section .h2-wrap {
-    visibility: hidden;
-    display: none;
+    margin-top: 100px; /* Mezera */
+    margin-bottom: 0.9em;
 }
 
 article section h3 {
@@ -409,15 +403,16 @@ footer p {
 /* Styl pro vyskakovací okno */
 .cookies-mini-notice {
     position: fixed;
-    bottom: 15px;
-    left: 15px;
+    bottom: 25px;
+    left: 25px;
+    margin-right: 100px;
     background: #FFFFFFF7;
     box-shadow: 0 2px 8px #0000001A;
     border-radius: 4px;
-    padding: 10px 15px;
-    font-size: 0.70em;
-    max-width: 300px;
-    z-index: 999;
+    padding: 15px 25px;
+    font-size: 0.9em;
+    max-width: 420px;
+    z-index: 1000;
     border: 1px solid #e0e0e0;
     display: none; /* Počáteční stav - skryto */
 }
@@ -438,18 +433,20 @@ footer p {
 
 /* Styl pro tlačítko "Rozumím" v cookies oknu */
 .cookies-mini-notice button {
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    padding: 4px 10px;
-    border-radius: 3px;
-    font-size: 0.8em;
+    background-color: #388E3C;
+    color: white;
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.9em;
     cursor: pointer;
     transition: background-color 0.2s;
-    margin-right: 5px;
+    margin: 0 10px 5px 10px;
+    border: 1px solid black;
 }
 
 .cookies-mini-notice button:hover {
-    background-color: #e8e8e8;
+    background-color: #317C35;
 }
 
 

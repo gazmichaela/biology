@@ -32,11 +32,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true" class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header class="h1-long">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -44,8 +44,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -142,27 +142,18 @@
 
     <article>
         <section>
-
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-370">
+            <div class="h2">
                 <h2>Nebuněčné organismy – viry</h2>
             </div>
-            <div class="h2-wrap h2-370">
-                <h2>Nebuněčné</h2>
-                <br>
-                <h2>organismy – viry</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
-            <div class="zarazka"></div>
+            <div class="zafrazka"></div>
             <div class="img-wrapper img-right-middle">
                 <picture>
                     <source srcset="images/webp/virus-stavba.webp" type="image/webp" data-scr="images/webp/virus-stavba.webp" data-source="Obrázek stažený z velkaencyklopedie.estranky.cz">
                     <img src="images/png/virus-stavba.png" data-scr="images/png/virus-stavba.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z velkaencyklopedie.estranky.cz">
                 </picture>
-                <div class="info-box-medium">
-                    <div class="icon-circle-medium">i</div>
-                    <span>Zdroj: <a href="https://velkaencyklopedie.estranky.cz/img/original/476/stavba-viru.png" target="_blank">Velkaencyklopedie</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://velkaencyklopedie.estranky.cz/img/original/476/stavba-viru.png" target="_blank" tabindex="-1">Velkaencyklopedie</a></span>
                 </div>
             </div>
             <p>Viry jsou považovány za <strong>nebuněčné organismy</strong>, protože neobsahují buněčnou strukturu a nedokážou samostatně vykonávat životní funkce.</p>
@@ -186,7 +177,9 @@
             <p>Zajímavé je i to, že některé viry mají složitou stavbu – například viry, které napadají bakterie (<dfn><strong>tzv. bakteriofágy</strong></dfn>),
                 mají velmi složitý tvar.</p>
             
-            <h2>Buněčné organismy</h2>
+            <div class="h2">
+                <h2>Buněčné organismy</h2>
+            </div>
             <h3>Buněčná teorie a role buněk i virů v živých organismech</h3>
             <p><strong>Podle buněčné teorie</strong> je buňka základní stavební a funkční jednotkou každého živého organismu, 
                 protože právě buňky zajišťují všechny základní životní procesy a představují nejmenší jednotku života schopnou 
@@ -197,14 +190,14 @@
                 množství buněk, jež spolu vzájemně spolupracují, specializují se na různé úkoly a společně tvoří složitě organizovaný celek.</p>
             <p>Přestože se organismy mohou výrazně lišit svou podobou i složitostí, všechny jejich buňky mají velmi podobné 
                 chemické složení, protože obsahují stejné základní stavební látky, jako jsou bílkoviny, lipidy, sacharidy a nukleové kyseliny.</p>
-            <div class="img-wrapper img-right-middle">
+            <div class="img-wrapper img-right-big">
                 <picture>
                     <source srcset="images/webp/bunka-popis.webp" type="image/webp" data-src="images/webp/bunka-popis.webp" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
                     <img src="images/png/bunka-popis.png" data-src="images/png/bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
                 </picture>   
-                <div class="info-box-medium-second">
-                    <div class="icon-circle-medium-second">i</div>
-                    <span>Zdroj: <a href="https://braydens5555.wordpress.com/wp-content/uploads/2012/10/plant-cell11.jpg?w=300" target="_blank">Swack's Shack</a>, upraveno</span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://braydens5555.wordpress.com/wp-content/uploads/2012/10/plant-cell11.jpg?w=300" target="_blank" tabindex="-1">Swack's Shack</a>, upraveno</span>
                 </div>
                 </div>
             <p>V buňkách probíhají obdobné chemické reakce, které umožňují uvolňování a přeměnu energie, tvorbu nových látek 
@@ -382,7 +375,10 @@
                 </table>
             </div>
             <div class="zarazka"></div>
-            <h2>Rostlinná buňka</h2>
+
+            <div class="h2">
+                <h2>Rostlinná buňka</h2>
+            </div>
             <p>Rostlinné buňky jsou základní stavební a funkční jednotou všech rostlin a také hnědých řas.</p>
             <br>
             <div class="img-wrapper img-next">
@@ -390,9 +386,9 @@
                     <source srcset="images/webp/rostlinna-bunka-popis.webp" type="image/webp" data-src="images/webp/rostlinna-bunka-popis.webp" data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
                     <img src="images/png/rostlinna-bunka-popis.png" data-src="images/png/rostlinna-bunka-popis.png" loading="lazy" class="zoomable" data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
                 </picture>
-                <div class="info-box">
+                <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
-                    <span>Zdroj: <a href="https://commons.wikimedia.org/w/index.php?curid=1372612" target="_blank">Wikimedia Commons, volné dílo</a></span>
+                    <span>Zdroj: <a href="https://commons.wikimedia.org/w/index.php?curid=1372612" target="_blank" tabindex="-1">Wikimedia Commons, volné dílo</a></span>
                 </div>
             </div>
             <div class="img-wrapper img-next">
@@ -400,13 +396,16 @@
                     <source srcset="images/webp/mapa-rostlinna-bunka.webp" type="image/webp" data-src="images/webp/mapa-rostlinna-bunka.webp" data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                     <img src="images/png/mapa-rostlinna-bunka.png" data-src="images/png/mapa-rostlinna-bunka.png" loading="lazy" class="zoomable" data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                 </picture>  
-                <div class="info-box-left">
-                    <div class="icon-circle-left">i</div>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
                     <span>&copy; Michaela Gažová, 2025. CC BY-NC-SA</span>
                 </div>
             </div>            
             <div class="zarazka"></div>
-            <h2>Živočišná buňka</h2>
+
+            <div class="h2">
+                <h2>Živočišná buňka</h2>
+            </div>
             <p>Struktura živočišné a rostlinné buňky je v zásadě stejná. Živočišná buňka se liší v tom, že nemá buněčnou stěnu, takže její povrch tvoří pouze cytoplazmatická membrána, která obsahuje navíc cholesterol, ovlivňující propustnost. Také jim chybí plastidy.</p>
             <br>
             <div class="img-wrapper img-next">
@@ -414,9 +413,9 @@
                     <source srcset="images/webp/zivocisna-bunka-popis.webp" type="image/webp" data-src="images/webp/zivocisna-bunka-popis.webp" data-source="Obrázek stažený z bze.kvalitne.cz, dostupné z archivu">
                     <img src="images/png/zivocisna-bunka-popis.png" data-src="images/png/zivocisna-bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z bze.kvalitne.cz, dostupné z archivu">
                 </picture>
-                <div class="info-box-long">
-                    <div class="icon-circle-long">i</div>
-                    <span>Zdroj: <a href="https://web.archive.org/web/20210121145854if_/http://bze.kvalitne.cz/images/schemata/animalcell.jpg" target="_blank">bze.kvalitne.cz, dostupné z archivu</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://web.archive.org/web/20210121145854if_/http://bze.kvalitne.cz/images/schemata/animalcell.jpg" target="_blank" tabindex="-1">bze.kvalitne.cz, dostupné z archivu</a></span>
                 </div>
             </div>
             <div class="img-wrapper img-next">
@@ -424,13 +423,16 @@
                     <source srcset="images/webp/mapa-zivocisna-bunka.webp" type="image/webp" data-src="images/webp/mapa-zivocisna-bunka.webp" data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                     <img src="images/png/mapa-zivocisna-bunka.png" data-src="images/png/mapa-zivocisna-bunka.png" loading="lazy" class="zoomable" data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                 </picture>  
-                <div class="info-box-left">
-                    <div class="icon-circle-left">i</div>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
                     <span>&copy; Michaela Gažová, 2025. CC BY-NC-SA</span>
                 </div>
             </div>            
             <div class="zarazka"></div>
-            <h2>Buňka hub</h2>
+
+            <div class="h2">
+                <h2>Buňka hub</h2>
+            </div>
             <p>Buňka hub se z hlediska stavby v zásadě shoduje s rostlinnou. Rozdíly jsou následující: buněčná stěna je z polysacharidu chtinu, nejsou přítomny plastidy.
                 Zásobními látkami jsou jako v živočišné buňce glykogen a lipidy. Buňky hub jsou <dfn class="tooltip">heterotrofní<span class="tooltiptext" aria-hidden="true">nejsou schopni sami si <br> vytvářet organické látky <br> z anorganických, takže je <br> musí získávat z jiných organismů<br> </span></dfn>.</p>
             <br>
@@ -439,27 +441,17 @@
                     <source srcset="images/webp/bunka-hub-popis.webp" type="image/webp" data-src="images/webp/bunka-hub-popis.webp" data-source="Obrázek stažený z eluc.ikap.cz (autor neuveden)">
                     <img src="images/png/bunka-hub-popis.png" data-src="images/png/bunka-hub-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z eluc.ikap.cz (autor neuveden)">
                 </picture>       
-                <div class="info-box-short-second">
-                    <div class="icon-circle-short-second">i</div>
-                    <span>Zdroj: <a href="https://eluc.ikap.cz/storage/uploads/images/22468/content_bunka_hub.jpg" target="_blank">ELUC</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://eluc.ikap.cz/storage/uploads/images/22468/content_bunka_hub.jpg" target="_blank" tabindex="-1">ELUC</a></span>
                 </div>
             </div>       
             <div class="zarazka"></div>
             
             <!-- Video -->
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-370">
+            <div class="h2">
                 <h2>Doporučujeme se podívat na:</h2>
             </div>
-            <div class="h2-wrap h2-370">
-                <h2>Doporučujeme se</h2>
-                <br>
-                <h2>podívat na:</h2>
-                <br>
-                <br>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <br>
             <div class="video-wrapper">
                 <div class="responsive-video">
@@ -474,17 +466,9 @@
             </div>
             <br>
 
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-460">
+            <div class="h2">
                 <h2>Jak dobře rozumíte tomuto tématu?</h2>
             </div>
-            <div class="h2-wrap h2-460">
-                <h2>Jak dobře rozumíte</h2>
-                <br>
-                <h2>tomuto tématu?</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <br>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
@@ -516,7 +500,10 @@
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
             <br>
-            <h2>Doporučená literatura</h2>
+
+            <div class="h2">
+                <h2>Doporučená literatura</h2>
+            </div>
             <div class="citace">
                 <ul>
                     <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/bunecna-biologie" target="_blank">https://eluc.ikap.cz/lekce/bunecna-biologie</a>. [citováno 2025-05-09].</li>
@@ -540,7 +527,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

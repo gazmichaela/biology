@@ -2,16 +2,7 @@
 //----RESOURCE FUNCIONALITY----// this metoda 
 document.addEventListener('DOMContentLoaded', function() {
   const infoVariants = [
-    'info-box', 'info-box-short', 'info-box-medium', 'info-box-medium-second', 
-    'info-box-medium-third', 'info-box-left', 'info-box-long', 'info-box-short-second', 
-    'info-box-short-third', 'info-box-short-fourth', 'info-box-long-left',
-    'info-icon', 'info-icon-short', 'info-icon-medium', 'info-icon-medium-second', 
-    'info-icon-medium-third', 'info-icon-left', 'info-icon-long', 'info-icon-short-second', 
-    'info-icon-short-third', 'info-icon-short-fourth', 'info-icon-long-left',
-    'info-icon-circle', 'info-icon-circle-short', 'info-icon-circle-medium', 
-    'info-icon-circle-medium-second', 'info-icon-circle-medium-third', 'info-icon-circle-left', 
-    'info-icon-circle-long', 'info-icon-circle-short-second', 'info-icon-circle-short-third', 
-    'info-icon-circle-short-fourth', 'info-icon-circle-long-left'
+    'info-box', 'info-icon'
   ];
   
   const selector = infoVariants.join(', .');
@@ -20,16 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const style = document.createElement('style');
   style.textContent = `
-    .info-box, .info-box-short, .info-box-medium, .info-box-medium-second, 
-    .info-box-medium-third, .info-box-left, .info-box-long, .info-box-short-second, 
-    .info-box-short-third, .info-box-short-fourth, .info-box-long-left,
-    .info-icon, .info-icon-short, .info-icon-medium, .info-icon-medium-second, 
-    .info-icon-medium-third, .info-icon-left, .info-icon-long, .info-icon-short-second, 
-    .info-icon-short-third, .info-icon-short-fourth, .info-icon-long-left,
-    .info-icon-circle, .info-icon-circle-short, .info-icon-circle-medium, 
-    .info-icon-circle-medium-second, .info-icon-circle-medium-third, .info-icon-circle-left, 
-    .info-icon-circle-long, .info-icon-circle-short-second, .info-icon-circle-short-third, 
-    .info-icon-circle-short-fourth, .info-icon-circle-long-left {
+    .info-box,
+    .info-icon {
       user-select: none;
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -40,12 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /* Zajištění, že odkazy v info-boxech budou vždy klikatelné */
-    .info-box a, .info-box-short a, .info-box-medium a, .info-box-medium-second a, 
-    .info-box-medium-third a, .info-box-left a, .info-box-long a, .info-box-short-second a, 
-    .info-box-short-third a, .info-box-short-fourth a, .info-box-long-left a,
-    .info-box [href], .info-box-short [href], .info-box-medium [href], .info-box-medium-second [href], 
-    .info-box-medium-third [href], .info-box-left [href], .info-box-long [href], .info-box-short-second [href], 
-    .info-box-short-third [href], .info-box-short-fourth [href], .info-box-long-left [href] {
+    .info-box a,
+    .info-box [href] {
       cursor: pointer !important;
       position: relative !important;
       z-index: 100 !important;
@@ -53,28 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     /* Zdůrazněný kurzor pro odkazy při hoveru */
-    .info-box.hover-active a:hover, .info-box-short.hover-active a:hover, 
-    .info-box-medium.hover-active a:hover, .info-box-medium-second.hover-active a:hover,
-    .info-box-medium-third.hover-active a:hover, .info-box-left.hover-active a:hover, 
-    .info-box-long.hover-active a:hover, .info-box-short-second.hover-active a:hover,
-    .info-box-short-third.hover-active a:hover, .info-box-short-fourth.hover-active a:hover, 
-    .info-box-long-left.hover-active a:hover,
-    .info-box.active a:hover, .info-box-short.active a:hover, .info-box-medium.active a:hover,
-    .info-box-medium-second.active a:hover, .info-box-medium-third.active a:hover,
-    .info-box-left.active a:hover, .info-box-long.active a:hover, 
-    .info-box-short-second.active a:hover, .info-box-short-third.active a:hover, 
-    .info-box-short-fourth.active a:hover, .info-box-long-left.active a:hover {
+    .info-box.hover-active a:hover,
+    .info-box.active a:hover {
       text-decoration: underline !important;
     }
     
     /* Info-box ikony musí mít nižší z-index než odkazy */
-    .info-icon, .info-icon-short, .info-icon-medium, .info-icon-medium-second, 
-    .info-icon-medium-third, .info-icon-left, .info-icon-long, .info-icon-short-second, 
-    .info-icon-short-third, .info-icon-short-fourth, .info-icon-long-left,
-    .info-icon-circle, .info-icon-circle-short, .info-icon-circle-medium, 
-    .info-icon-circle-medium-second, .info-icon-circle-medium-third, .info-icon-circle-left, 
-    .info-icon-circle-long, .info-icon-circle-short-second, .info-icon-circle-short-third, 
-    .info-icon-circle-short-fourth, .info-icon-circle-long-left {
+    .info-icon {
       z-index: 90 !important;
     }
   `;

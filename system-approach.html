@@ -31,11 +31,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header>
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -43,8 +43,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -146,12 +146,15 @@
                     <source srcset="images/webp/systemovy-pristup-ai.webp" type="image/webp" data-src="images/webp/systemovy-pristup-ai.webp">
                     <img src="images/png/systemovy-pristup-ai.png" data-src="images/png/systemovy-pristup-ai.png">
                 </picture>   
-                <div class="info-box-short">
-                    <div class="icon-circle-short">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
                 </div>
-            </div>           
-            <h2>Systémový přístup</h2>
+            </div>
+
+            <div class="h2">
+                <h2>Systémový přístup</h2>
+            </div>
             <p>Systémový přístup je praktická metoda, která vychází ze systémového myšlení a pomáhá při navrhování a optimalizaci složitých systémů. Zaměřuje se na 
                 <dfn class="tooltip">interakce<span class="tooltiptext" aria-hidden="true">vzájemné působení, vliv <br> jednoho prvku na druhý</span></dfn>
                 mezi jednotlivými částmi a zkoumá se, jak spolupracují. Tento přístup je
@@ -170,18 +173,10 @@
                 <li>Testování</li>
             </ul>
 
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-460">
+            <div class="h2">
                 <h2>Využití systémového přístupu v praxi</h2>
             </div>
-            <div class="h2-wrap h2-460">
-                <h2>Využití systémového</h2>
-                <br>
-                <h2>přístupu v praxi</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
-            <ul>
+             <ul>
                 <li>
                     Představte si řízení dopravy v rušném městě. Systémový přístup v tomto případě umožňuje
                     <dfn class="tooltip">urbanistům<span class="tooltiptext" aria-hidden="true">odborníci, kteří plánují <br> a navrhují města a <br> jejich infrastrukturu</span></dfn>
@@ -203,14 +198,21 @@
                     aby zabránili šíření nemoci, a zároveň vyvíjejí způsoby, jak snížit vznik rezistence vůči lékům.
                 </li>
             </ul>
-            <h2>Poznámka</h2>
+
+            <div class="h2">
+                <h2>Poznámka</h2>
+            </div>
             <p>Systémové myšlení a systémový přístup spolu úzce souvisí. Systémové myšlení je spíše způsob uvažování, způsob, jak chápat svět a problémy.
                 Systémový přístup je konkrétní nástroj nebo metoda, kterou můžeme použít k praktickému řešení problémů vycházejícím ze systémového myšlení.</p>
             <a href="system-thinking.html" class="button">Více o systémovém myšlení</a>
             <div class="zarazka"></div>
 
-             <!-- Tlačítko pro zobrazení/skrytí otázek -->
-            <h2>Kvíz:</h2><br>
+            <div class="h2">
+                <h2>Kvíz:</h2>
+            </div>
+            <br>
+
+            <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
@@ -253,7 +255,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>

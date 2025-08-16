@@ -13,7 +13,6 @@ OBSAH:
     - styly pro obalový kontejner obrázku
     - styly pro zdroj v obrázku: nerozbalené
     - styly pro zdroj v obrázku: rozbalené => hover a aktivní stav
-        - velikost jednotlivých rozbalených druhů zdrojů
 */
 
 
@@ -86,17 +85,7 @@ img {
 /* ==== 2. ZDROJE V OBRÁZCÍCH ==== */
 
 /* Odkazy */
-.img-wrapper .info-box a,
-.img-wrapper .info-box-short a,
-.img-wrapper .info-box-medium a,
-.img-wrapper .info-box-medium-second a,
-.img-wrapper .info-box-left a,
-.img-wrapper .info-box-long-left a,
-.img-wrapper .info-box-medium-third a,
-.img-wrapper .info-box-short-third a,
-.img-wrapper .info-box-short-fourth a,
-.img-wrapper .info-box-long a,
-.img-wrapper .info-box-short-second a {
+.img-wrapper .info-box a {
     color: skyblue;
     font-weight: inherit;
     font-size: inherit;
@@ -118,17 +107,7 @@ img {
 
 /* --- Styly pro zdroj v obrázku: nerozbalené --- */
 /* Šedé kolečko (pozadí nerozbaleného zdroje) */
-.info-box,
-.info-box-short,
-.info-box-medium,
-.info-box-medium-second,
-.info-box-left,
-.info-box-long-left,
-.info-box-medium-third,
-.info-box-short-third,
-.info-box-short-fourth,
-.info-box-long,
-.info-box-short-second {
+.info-box {
     position: absolute; /* Absolutní pozicování pro přesné umístění */
     display: inline-flex; /* Flexbox pro zarovnání obsahu – na řádku */
     align-items: center; /* Vertikální zarovnání */
@@ -140,27 +119,18 @@ img {
     height: 24px;
     font-size: 13px;
     font-weight: bold;
-    transition: width 0.3s ease;
+    transition: max-width 0.5s ease, padding 0.5s ease;
     overflow: hidden; /* Skrytí přečnívajícího obsahu */
     cursor: pointer; /* Kurzor ruky při najetí */
     white-space: nowrap;
     left: 10px;
     bottom: 10px;
     transform: none; /* Reset jakýchkoliv transformací */
+    max-width: 24px; /* Důležité pro animaci */
 }
 
 /* Písmeno "i" */
-.info-box .icon-circle,
-.info-box-short .icon-circle-short,
-.info-box-medium .icon-circle-medium,
-.info-box-medium-second .icon-circle-medium-second,
-.info-box-left .icon-circle-left,
-.info-box-long-left .icon-circle-long-left,
-.info-box-medium-third .icon-circle-medium-third,
-.info-box-short-third .icon-circle-short-third,
-.info-box-short-fourth .icon-circle-short-fourth,
-.info-box-long .icon-circle-long,
-.info-box-short-second .icon-circle-short-second {
+.info-box .icon-circle {
     position: absolute;
     left: 0;
     top: 0;
@@ -174,17 +144,7 @@ img {
 }
 
 /* Bílé kolečko */
-.info-box::before,
-.info-box-short::before,
-.info-box-medium::before,
-.info-box-medium-second::before,
-.info-box-left::before,
-.info-box-long-left::before,
-.info-box-medium-third::before,
-.info-box-short-third::before,
-.info-box-short-fourth::before,
-.info-box-long::before,
-.info-box-short-second::before {
+.info-box::before {
     content: ""; /* Pseudo-prvek – vytváří dekorativní prvek */
     position: absolute; /* Pozicování uvnitř info-boxu */
     left: 4px;
@@ -202,176 +162,35 @@ img {
 /* --- Styly pro zdroj v obrázku: rozbalené => hover a aktivní stav --- */
 .info-box:hover:not(.force-close),
 .info-box.active {
-    width: 300px; /* Délka, na kterou se box rozšíří*/
+    width: auto;
+    max-width: 100%;
 }
 
 /* Vyplnění kruhu na hover/aktivní stav */
 .info-box:hover:not(.force-close)::before,
-.info-box.active::before,
-.info-box-short:hover:not(.force-close)::before,
-.info-box-short.active::before,
-.info-box-medium:hover:not(.force-close)::before,
-.info-box-medium.active::before,
-.info-box-medium-second:hover:not(.force-close)::before,
-.info-box-medium-second.active::before,
-.info-box-left:hover:not(.force-close)::before,
-.info-box-left.active::before,
-.info-box-long-left:hover:not(.force-close)::before,
-.info-box-long-left.active::before,
-.info-box-medium-third:hover:not(.force-close)::before,
-.info-box-medium-third.active::before,
-.info-box-short-third:hover:not(.force-close)::before,
-.info-box-short-third.active::before,
-.info-box-short-fourth:hover:not(.force-close)::before,
-.info-box-short-fourth.active::before,
-.info-box-long:hover:not(.force-close)::before,
-.info-box-long.active::before,
-.info-box-short-second:hover:not(.force-close)::before,
-.info-box-short-second.active::before {
+.info-box.active::before {
     background-color: white;
 }
 
 /* Změna barvy ikony při aktivaci/hoveru */
 .info-box:hover:not(.force-close) .icon-circle,
-.info-box.active .icon-circle,
-.info-box-short:hover:not(.force-close) .icon-circle-short,
-.info-box-short.active .icon-circle-short,
-.info-box-medium:hover:not(.force-close) .icon-circle-medium,
-.info-box-medium.active .icon-circle-medium,
-.info-box-medium-second:hover:not(.force-close) .icon-circle-medium-second,
-.info-box-medium-second.active .icon-circle-medium-second,
-.info-box-left:hover:not(.force-close) .icon-circle-left,
-.info-box-left.active .icon-circle-left,
-.info-box-long-left:hover:not(.force-close) .icon-circle-long-left,
-.info-box-long-left.active .icon-circle-long-left,
-.info-box-medium-third:hover:not(.force-close) .icon-circle-medium-third,
-.info-box-medium-third.active .icon-circle-medium-third,
-.info-box-short-third:hover:not(.force-close) .icon-circle-short-third,
-.info-box-short-third.active .icon-circle-short-third,
-.info-box-short-fourth:hover:not(.force-close) .icon-circle-short-fourth,
-.info-box-short-fourth.active .icon-circle-short-fourth,
-.info-box-long:hover:not(.force-close) .icon-circle-long,
-.info-box-long.active .icon-circle-long,
-.info-box-short-second:hover:not(.force-close) .icon-circle-short-second,
-.info-box-short-second.active .icon-circle-short-second {
+.info-box.active .icon-circle {
     color: #333;
 }
     
-.info-box span,
-.info-box-short span,
-.info-box-medium span,
-.info-box-medium-second span,
-.info-box-left span,
-.info-box-long-left span,
-.info-box-medium-third span,
-.info-box-short-third span,
-.info-box-short-fourth span,
-.info-box-long span,
-.info-box-short-second span {
+.info-box span {
     opacity: 0;
-    transition: opacity 0.3s ease;
     margin-left: 10px;
-    position: absolute;
-    left: 21px;
+    position: static;
+    padding: 0 15px 0 22px;
 }
     
 .info-box:hover:not(.force-close) span,
-.info-box.active span,
-.info-box-short:hover:not(.force-close) span,
-.info-box-short.active span,
-.info-box-medium:hover:not(.force-close) span,
-.info-box-medium.active span,
-.info-box-medium-second:hover:not(.force-close) span,
-.info-box-medium-second.active span,
-.info-box-left:hover:not(.force-close) span,
-.info-box-left.active span,
-.info-box-long-left:hover:not(.force-close) span,
-.info-box-long-left.active span,
-.info-box-medium-third:hover:not(.force-close) span,
-.info-box-medium-third.active span,
-.info-box-short-third:hover:not(.force-close) span,
-.info-box-short-third.active span,
-.info-box-short-fourth:hover:not(.force-close) span,
-.info-box-short-fourth.active span,
-.info-box-long:hover:not(.force-close) span,
-.info-box-long.active span,
-.info-box-short-second:hover:not(.force-close) span,
-.info-box-short-second.active span {
+.info-box.active span {
     opacity: 1; /* Zobrazení textu při aktivaci/hoveru */
 }
     
 /* Třída force-close má přednost před hover */
-.info-box.force-close,
-.info-box-short.force-close,
-.info-box-medium.force-close,
-.info-box-medium-second.force-close,
-.info-box-left.force-close,
-.info-box-long-left.force-close,
-.info-box-medium-third.force-close,
-.info-box-short-third.force-close,
-.info-box-short-fourth.force-close,
-.info-box-long.force-close,
-.info-box-short-second.force-close {
+.info-box.force-close {
     width: 24px; /* Zajišťuje, že box zůstane malý i při hoveru */
-}
-
-
-/* - Velikost jednotlivých rozbalených druhů zdrojů - */
-/* Short-second*/
-.info-box-short-second:hover:not(.force-close),
-.info-box-short-second.active {
-    width: 125px;
-}
-/* Short */
-.info-box-short:hover:not(.force-close),
-.info-box-short.active {
-    width: 135px;
-}
-
-/* Short-third */
-.info-box-short-third:hover:not(.force-close),
-.info-box-short-third.active {
-    width: 138px;
-}
-
-/* Short-fourth */
-.info-box-short-fourth:hover:not(.force-close),
-.info-box-short-fourth.active {
-    width: 144px;
-}
-
-/* Medium */
-.info-box-medium:hover:not(.force-close),
-.info-box-medium.active {
-    width: 210px;
-}
-
-/* Medium-second */
-.info-box-medium-second:hover:not(.force-close),
-.info-box-medium-second.active {
-    width: 247px;
-}
-
-/* Long-left */
-.info-box-long-left:hover:not(.force-close),
-.info-box-long-left.active {
-    width: 270px;
-}
-
-/* Medium-third */
-.info-box-medium-third:hover:not(.force-close),
-.info-box-medium-third.active {
-    width: 270px;
-}
-
-/* Left */
-.info-box-left:hover:not(.force-close),
-.info-box-left.active {
-    width: 300px;
-}
-
-/* Long */
-.info-box-long:hover:not(.force-close),
-.info-box-long.active {
-    width: 311px;
 }

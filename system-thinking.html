@@ -32,11 +32,11 @@
 </head>
 
 <body>
-    <header aria-hidden="true">
-        <a href="https://www.purkynka.cz/" target="_blank">
+    <header>
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
         <br>
@@ -44,8 +44,8 @@
         <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul>
-            <a href="index.html" class="home-icon">
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
                 <picture>
                     <source srcset="images/webp/home.webp" type="image/webp">
                     <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
@@ -147,29 +147,24 @@
                     <source srcset="images/webp/systemove-mysleni-ai.webp" type="image/webp" data-src="images/webp/systemove-mysleni-ai.webp">
                     <img src="images/png/systemove-mysleni-ai.png" data-src="images/png/systemove-mysleni-ai.png">
                 </picture> 
-                <div class="info-box-short">
-                    <div class="icon-circle-short">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank">DeepAI</a></span>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
                 </div>
-            </div>             
-            <h2>Systémové myšlení</h2>
+            </div>
+
+            <div class="h2">
+                <h2>Systémové myšlení</h2>
+            </div>
             <p>Systémové myšlení je způsob uvažování, který se zaměřuje na pochopení, jak jednotlivé části nějakého
                 systému spolupracují a jak jsou propojené. Místo toho, abychom se soustředili jen na jednotlivé
                 prvky nebo události, snažíme se vidět větší celek – tedy celý systém. Tento způsob myšlení nám pomáhá
                 lépe porozumět složitým problémům, identifikovat jejich příčiny a najít efektivní řešení. Příklady systémů,
                 které lze zkoumat pomocí systémového myšlení, zahrnují lidské tělo, ekosystémy, výrobní linky nebo třeba počítače.</p>
 
-            <!-- Nadpis h2 -->
-            <div class="h2-normal h2-460">
+            <div class="h2">
                 <h2>Využití systémového myšlení v praxi</h2>
             </div>
-            <div class="h2-wrap h2-460">
-                <h2>Využití systémového</h2>
-                <br>
-                <h2>myšlení v praxi</h2>
-            </div>
-            <!-- Konec nadpisu h2 -->
-
             <ul>
                   <li>
                     Ve zdravotnictví se při snaze zabránit opakovaným hospitalizacím pacientů uplatňuje systémové myšlení. Poskytovatelé
@@ -199,13 +194,18 @@
                     <source srcset="images/webp/skolni-projekt.webp" type="image/webp" data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
                     <img src="images/png/skolni-projekt.png" class="zoomable" data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
                 </picture>
-                <div class="info-box-long-left">
-                    <div class="icon-circle-long-left">i</div>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
                     <span>&copy; Daniel Friedl, 2025. CC BY-NC-SA</a></span>
                 </div>
             </div>
             <div class="zarazka"></div>
-            <h2>Otestujte své znalosti:</h2><br>
+
+            <div class="h2">
+                <h2>Otestujte své znalosti:</h2>
+            </div>
+            <br>
+
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"  title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
   
@@ -239,7 +239,10 @@
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
             <br>
-            <h2>Doporučená literatura</h2>
+
+            <div class="h2">
+               <h2>Doporučená literatura</h2> 
+            </div>
             <div class="citace">
                 <ul>
                     <li>NG, Jane (2025).<em> Co je systémové myšlení? | Snadný průvodce odemknutím nových perspektiv v roce
@@ -262,7 +265,7 @@
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
-        <p>Tento web používá pouze nezbytné cookies pro zajištění její správné funkčnosti.</p>
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
         <a href="personal-data.html">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
