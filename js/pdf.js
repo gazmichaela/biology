@@ -1,3 +1,70 @@
+(function () {
+  class PdfViewerManager {
+    constructor(config, options = {}) {
+      if (!config) throw new Error("PDF viewer configuration is required");
+      
+      this.config = {
+        showBtnId: config.showBtnId,
+        overlayId: config.overlayId,
+        closeBtnId: config.closeBtnId,
+        frameId: config.frameId,
+        pdfPath: config.pdfPath,
+        viewerName: config.viewerName || "PDF Viewer",
+        loadingTimeoutDuration: options.loadingTimeoutDuration || 4000,
+        maxLoadAttempts: options.maxLoadAttempts || 2,
+        enableLogging: options.enableLogging || false,
+        enableTouch: options.enableTouch !== false,
+        enableKeyboard: options.enableKeyboard !== false
+      };
+
+      this.state = {
+        isPdfOpen: false,
+        pdfHasFocus: false,
+        isMobile: false,
+        fallbackShown: false,
+        pdfLoadAttempts: 0,
+        isInitialized: false,
+      };
+
+      this.elements = {};
+      this.timeouts = { loading: null };
+      this.touchData = { startY: 0, startX: 0, moved: false };
+
+
+      this.handleKeydown = this.handleKeydown.bind(this);
+      this.handleTouchStart = this.handleTouchStart.bind(this);
+      this.handleTouchMove = this.handleTouchMove.bind(this);
+      this.handleTouchEnd = this.handleTouchEnd.bind(this);
+      this.handleResize = this.handleResize.bind(this);
+      this.openPdfViewer = this.openPdfViewer.bind(this);
+      this.closePdfViewer = this.closePdfViewer.bind(this);
+      this.handleOverlayClick = this.handleOverlayClick.bind(this);
+
+      this.init();
+    }
+
+    init() {
+      try {
+        this._cacheElements();
+        this._validateElements();
+        this._createGlobalRetryFunctions();
+        this.bindEvents();
+        this.state.isInitialized = true;
+        this.log(`PDF viewer "${this.config.viewerName}" initialized`);
+      } catch (error) {
+        console.error(`PDF viewer "${this.config.viewerName}" initialization failed:`, error);
+      }  
+    }
+
+    _cacheElements() {
+      this.elements = {
+        showBtn: document.getElementById(this.)
+      }  
+    }
+  }  
+})
+
+
 
 // this metoda
 /*document.addEventListener('DOMContentLoaded', function() {
