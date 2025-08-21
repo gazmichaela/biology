@@ -1,12 +1,5 @@
-class PdfViewerManager {
-    constructor(config, option = {}) {
-        if (!config) {
-            throw new Error('PDF viewer configuration is required');
-        }
-    }
-}
 
-
+// this metoda
 /*document.addEventListener('DOMContentLoaded', function() {
     // Univerzální funkce pro inicializaci PDF vieweru
     function initPdfViewer(config) {

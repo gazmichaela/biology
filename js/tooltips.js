@@ -1,42 +1,42 @@
 /**
- * Úprava chování tooltipů
- * 
- * Zajišťuje plynulé zobrazení tooltipů odstraněním animací,  
- a nastavením optimalizovaných CSS přechodů.
- * 
- * Ostatní funkcionalita (zobrazování, pozicování) je řešena v CSS.
- * 
- * Klíčové funkce:
- * • Vyhledání všech tooltip textů na stránce
- * • Deaktivace rušivých CSS animací
- * • Nastavení plynulých opacity přechodů 
- * 
+ * Inicializace a optimalizace tooltip systému
+ *
+ * Vyhledává všechny tooltip elementy při načtení stránky a nastavuje jejich chování.
+ * Odstraňuje výchozí CSS animace a aplikuje plynulé opacity přechody.
+ *
+ * @fileoverview Jednoduchý tooltip handler s CSS optimalizací
  * @author Michaela Gažová
- * @version 1.0.0
+ * @version 2.1.0
+ * @since 2025-07-24
+ * @updated 2025-08-18
  * @license MIT
  */
 
 
- 
-// Zabránění problikávání tooltipů 
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        const tooltipTexts = document.querySelectorAll('.tooltip .tooltiptext');
 
-        if (tooltipTexts.length === 0) {
-            console.warn('No tooltip elements found');
-            return;
-        }
+// Zabránění problikávání tooltipů
+(function () {
+  const initTooltips = () => {
+    const tooltipTexts = document.querySelectorAll(".tooltip .tooltiptext");
 
-        // Plynulé přechody místo animací
-        tooltipTexts.forEach((tooltipText) => {
-            if (tooltipText) {
-                tooltipText.style.animation = 'none';
-                tooltipText.style.transition = 'opacity 0.3s ease';
-            }
-        });
-
-    } catch (error) {
-        console.error('Tooltip initialization failed:', error);
+    if (!tooltipTexts.length) {
+      console.warn("Tooltip: no tooltips found");
+      return;
     }
-});
+
+    tooltipTexts.forEach((el) => {
+      // Nastavení záložní CSS animace
+      el.style.animation = "none";
+      el.style.transition = "opacity 0.3s ease";
+
+      el.classList.add("tooltiptext--ready");
+    });
+  };
+
+  // Načtení DOM před inicializací tooltipů
+  document.addEventListener("DOMContentLoaded", () => {
+    requestAnimationFrame(() => {
+      initTooltips();
+    });
+  });
+})();

@@ -18,7 +18,7 @@
  */
 
 
-
+//this metoda
 class CookieManager {
     constructor(options = {}) {
         this.config = {
