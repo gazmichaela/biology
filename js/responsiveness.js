@@ -9,30 +9,34 @@
       this.observerInitDelay = options.observerInitDelay || 100;
 
       this.selectors = {
-        burgerMenu: '#burgerMenu',
-        mobileNav: '#mobileNav',
-        menuOverlay: '#menuOverlay',
-        closeButton: '#closeButton',
-        stickyHeader: '.sticky-header',
-        stickyBurgerMenu: '#sticky-burgerMenu, .burger-menu',
-        stickyMobileNav: '#sticky-mobileNav',
-        stickyMenuOverlay: '#sticky-menuOverlay',
-        stickyCloseButton: '#sticky-closeButton, #closeButton, .close-button, [id*="close"]'
+        burgerMenu: "#burgerMenu",
+        mobileNav: "#mobileNav",
+        menuOverlay: "#menuOverlay",
+        closeButton: "#closeButton",
+        stickyHeader: ".sticky-header",
+        stickyBurgerMenu: "#sticky-burgerMenu, .burger-menu",
+        stickyMobileNav: "#sticky-mobileNav",
+        stickyMenuOverlay: "#sticky-menuOverlay",
+        stickyCloseButton:
+          '#sticky-closeButton, #closeButton, .close-button, [id*="close"]',
       };
 
       this.cssClasses = {
-        mobileMenuActive: 'mobile-menu-active',
-        active: 'active',
-        menuOpen: 'menu-open',
-        mainMenuOpen: 'main-menu-open',
-        stickyMenuOpen: 'sticky-menu-open'
+        mobileMenuActive: "mobile-menu-active",
+        active: "active",
+        menuOpen: "menu-open",
+        mainMenuOpen: "main-menu-open",
+        stickyMenuOpen: "sticky-menu-open",
       };
 
       this.elements = {};
       this.observer = null;
       this.isInitialized = false;
 
-      this.handleResize = this._debounce(this._onResize.bind(this), this.debounceDelay);
+      this.handleResize = this._debounce(
+        this._onResize.bind(this),
+        this.debounceDelay
+      );
       this.handleDocumentClick = this._onDocumentClick.bind(this);
       this.handleKeydown = this._onKeyDown.bind(this);
       this.handleTouchMove = this._onTouchMove.bind(this);
@@ -45,7 +49,7 @@
       this._setupEventListeners();
       this._setupStickyMenuObserver();
       this._initializeStickyMenu();
-      this.isInitialized = true;  
+      this.isInitialized = true;
     }
 
     _cacheElements() {
@@ -55,13 +59,13 @@
         menuOverlay: document.querySelector(this.selectors.menuOverlay),
         closeButton: document.querySelector(this.selectors.closeButton),
         stickyHeader: document.querySelector(this.selectors.stickyHeader),
-        body: document.body
+        body: document.body,
       };
     }
 
     _setupEventListeners() {
       if (this.elements.burgerMenu) {
-        this.elements.burgerMenu.addEventListener('click', (e) => {
+        this.elements.burgerMenu.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
           this.openMenu(false);
@@ -69,7 +73,7 @@
       }
 
       if (this.elements.closeButton) {
-        this.elements.closeButton.addEventListener('click', (e) => {
+        this.elements.closeButton.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
           this.closeMenu(false);
@@ -77,47 +81,70 @@
       }
 
       if (this.elements.menuOverlay) {
-        this.elements.menuOverlay.addEventListener('click', (e) => {
+        this.elements.menuOverlay.addEventListener("click", (e) => {
           if (e.target === this.elements.menuOverlay) {
             this.closeMenu(false);
           }
         });
       }
 
-      window.addEventListener('resize', this.handleResize);
-      document.addEventListener('click', this.handleDocumentClick);
-      document.addEventListener('keydown', this.handleKeydown);
-      document.addEventListener('touchmove', this.handleTouchMove, { passive: false});
-    }
+      window.addEventListener("resize", this.handleResize);
+      document.addEventListener("click", this.handleDocumentClick);
+      document.addEventListener("keydown", this.handleKeydown);
+      document.addEventListener("touchmove", this.handleTouchMove, {
+        passive: false,
+      });
 
+      let lastScrollPosition = 0;
+      window.addEventListener("scroll", () => {
+        if (
+          this.elements.body.classList.contains(this.cssClasses.mainMenuOpen) ||
+          this.elements.body.classList.contains(this.cssClasses.stickyMenuOpen)
+        ) {
+          window.scrollTo(0, lastScrollPosition);
+        } else {
+          lastScrollPosition = window.pageYOffset;
+        }
+      });
+    }
+    
     _setupStickyMenuObserver() {
       this.observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           mutation.addedNodes.forEach((node) => {
             if (node.nodeType === 1) {
-              if (node.classList?.contains('sticky-header') || node.querySelector?.('.sticky-header')) {
-                setTimeout(() => this._initializeStickyBurgerMenu(), this.observerInitDelay);
-              } 
+              if (
+                node.classList?.contains("sticky-header") ||
+                node.querySelector?.(".sticky-header")
+              ) {
+                setTimeout(
+                  () => this._initializeStickyBurgerMenu(),
+                  this.observerInitDelay
+                );
+              }
             }
           });
         });
       });
-      this.observer.observe(document.body, { childList: true, subtree: true });  
+      this.observer.observe(document.body, { childList: true, subtree: true });
     }
 
     _initializeStickyMenu() {
       if (document.querySelector(this.selectors.stickyHeader)) {
-        setTimeout(() => this._initializeStickyBurgerMenu(), this.stickyInitDelay);
-      }  
+        setTimeout(
+          () => this._initializeStickyBurgerMenu(),
+          this.stickyInitDelay
+        );
+      }
     }
 
     openMenu(isSticky = true) {
       this.closeAllMenusClean();
       setTimeout(() => {
         if (isSticky) {
-          this._openStickyMenu();  
+          this._openStickyMenu();
         } else {
-          this._openMainMenu();  
+          this._openMainMenu();
         }
       }, this.menuTransitionDelay);
     }
@@ -131,23 +158,32 @@
     }
 
     closeAllMenus() {
-      this.closeAllMenusClean();  
+      this.closeAllMenusClean();
     }
 
     closeAllMenusClean() {
       if (this.elements.mobileNav && this.elements.menuOverlay) {
-        this.elements.mobileNav.classList.remove(this.cssClasses.mobileMenuActive);
+        this.elements.mobileNav.classList.remove(
+          this.cssClasses.mobileMenuActive
+        );
         this.elements.menuOverlay.classList.remove(this.cssClasses.active);
       }
-      
-      const stickyMobileNav = document.querySelector(this.selectors.stickyMobileNav);
-      const stickyMenuOverlay = document.querySelector(this.selectors.stickyMenuOverlay);
+
+      const stickyMobileNav = document.querySelector(
+        this.selectors.stickyMobileNav
+      );
+      const stickyMenuOverlay = document.querySelector(
+        this.selectors.stickyMenuOverlay
+      );
       if (stickyMobileNav && stickyMenuOverlay) {
-        stickyMobileNav.classList.remove(this.cssClasses.mobileMenuActive, this.cssClasses.active);
+        stickyMobileNav.classList.remove(
+          this.cssClasses.mobileMenuActive,
+          this.cssClasses.active
+        );
         stickyMenuOverlay.classList.remove(this.cssClasses.active);
       }
 
-      this.elements.body.classList.remove( 
+      this.elements.body.classList.remove(
         this.cssClasses.menuOpen,
         this.cssClasses.mainMenuOpen,
         this.cssClasses.stickyMenuOpen
@@ -164,109 +200,144 @@
 
     _closeMainMenu() {
       if (this.elements.mobileNav && this.elements.menuOverlay) {
-        this.elements.mobileNav.classList.remove(this.cssClasses.mobileMenuActive);
+        this.elements.mobileNav.classList.remove(
+          this.cssClasses.mobileMenuActive
+        );
         this.elements.menuOverlay.classList.remove(this.cssClasses.active);
         this.elements.body.classList.remove(this.cssClasses.mainMenuOpen);
-      }  
+      }
     }
 
     _openStickyMenu() {
-      const stickyMobileNav = document.querySelector(this.selectors.stickyMobileNav);
-      const stickyMenuOverlay = document.querySelector(this.selectors.stickyMenuOverlay);
+      const stickyMobileNav = document.querySelector(
+        this.selectors.stickyMobileNav
+      );
+      const stickyMenuOverlay = document.querySelector(
+        this.selectors.stickyMenuOverlay
+      );
       if (stickyMobileNav && stickyMenuOverlay) {
         this.elements.body.classList.add(this.cssClasses.stickyMenuOpen);
-        stickyMobileNav.classList.add(this.cssClasses.mobileMenuActive, this.cssClasses.active);
+        stickyMobileNav.classList.add(
+          this.cssClasses.mobileMenuActive,
+          this.cssClasses.active
+        );
         stickyMenuOverlay.classList.add(this.cssClasses.active);
-      }  
+      }
     }
 
     _closeStickyMenu() {
-      const stickyMobileNav = document.querySelector(this.selectors.stickyMobileNav);
-      const stickyMenuOverlay = document.querySelector(this.selectors.stickyMenuOverlay);
+      const stickyMobileNav = document.querySelector(
+        this.selectors.stickyMobileNav
+      );
+      const stickyMenuOverlay = document.querySelector(
+        this.selectors.stickyMenuOverlay
+      );
       if (stickyMobileNav && stickyMenuOverlay) {
-        stickyMobileNav.classList.remove(this.cssClasses.mobileMenuActive, this.cssClasses.active);
+        stickyMobileNav.classList.remove(
+          this.cssClasses.mobileMenuActive,
+          this.cssClasses.active
+        );
         stickyMenuOverlay.classList.remove(this.cssClasses.active);
         this.elements.body.classList.remove(this.cssClasses.stickyMenuOpen);
-      }  
+      }
     }
 
     _initializeStickyBurgerMenu() {
       const stickyHeader = document.querySelector(this.selectors.stickyHeader);
       if (!stickyHeader) return;
-      
-      let stickyBurgerMenu = stickyHeader.querySelector(this.selectors.stickyBurgerMenu);
+
+      let stickyBurgerMenu = stickyHeader.querySelector(
+        this.selectors.stickyBurgerMenu
+      );
       if (!stickyBurgerMenu) return;
 
-      const stickyMobileNav = document.querySelector(this.selectors.stickyMobileNav);
-      const stickyMenuOverlay = document.querySelector(this.selectors.stickyMenuOverlay);
+      const stickyMobileNav = document.querySelector(
+        this.selectors.stickyMobileNav
+      );
+      const stickyMenuOverlay = document.querySelector(
+        this.selectors.stickyMenuOverlay
+      );
       if (!stickyMobileNav || !stickyMenuOverlay) return;
 
       let stickyCloseButton =
-        stickyMobileNav.querySelector(this.selectors.stickyCloseButton) || 
-        stickyMobileNav.querySelector('#closeButton, .close-button, [id*="close"]');
-        
+        stickyMobileNav.querySelector(this.selectors.stickyCloseButton) ||
+        stickyMobileNav.querySelector(
+          '#closeButton, .close-button, [id*="close"]'
+        );
+
       this._setupStickyBurgerMenu(stickyBurgerMenu);
       this._setupStickyCloseButton(stickyCloseButton);
-      this._setupStickyOverlay(stickyMenuOverlay);  
+      this._setupStickyOverlay(stickyMenuOverlay);
     }
 
     _setupStickyBurgerMenu(stickyBurgerMenu) {
       const newStickyBurgerMenu = stickyBurgerMenu.cloneNode(true);
-      stickyBurgerMenu.parentNode.replaceChild(newStickyBurgerMenu, stickyBurgerMenu);
-      newStickyBurgerMenu.addEventListener('click', (e) => {
+      stickyBurgerMenu.parentNode.replaceChild(
+        newStickyBurgerMenu,
+        stickyBurgerMenu
+      );
+      newStickyBurgerMenu.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
         this.openMenu(true);
-      });  
+      });
     }
 
     _setupStickyCloseButton(stickyCloseButton) {
       if (stickyCloseButton) {
         const newCloseButton = stickyCloseButton.cloneNode(true);
-        stickyCloseButton.parentNode.replaceChild(newCloseButton, stickyCloseButton);
-        newCloseButton.addEventListener('click', (e) => {
+        stickyCloseButton.parentNode.replaceChild(
+          newCloseButton,
+          stickyCloseButton
+        );
+        newCloseButton.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          this.closeMenu(true);  
+          this.closeMenu(true);
         });
-      }  
+      }
     }
 
     _setupStickyOverlay(stickyMenuOverlay) {
       const newStickyMenuOverlay = stickyMenuOverlay.cloneNode(true);
-      stickyMenuOverlay.parentNode.replaceChild(newStickyMenuOverlay, stickyMenuOverlay);
-      newStickyMenuOverlay.addEventListener('click', (e) => {
+      stickyMenuOverlay.parentNode.replaceChild(
+        newStickyMenuOverlay,
+        stickyMenuOverlay
+      );
+      newStickyMenuOverlay.addEventListener("click", (e) => {
         if (e.target === newStickyMenuOverlay) {
-          this.closeMenu(true);  
+          this.closeMenu(true);
         }
-      });  
+      });
     }
 
     _onResize() {
       if (window.innerWidth > this.mobileBreakpoint) {
         this.closeAllMenus();
-      }  
+      }
     }
 
     _onDocumentClick(e) {
       const isMainBurger = this.elements.burgerMenu?.contains(e.target);
-      const isStickyBurger = e.target.closest('.sticky-header .burger-menu');
-      const isInsideMobileNav = e.target.closest('#mobileNav, #sticky-moobileNav');
-      
+      const isStickyBurger = e.target.closest(".sticky-header .burger-menu");
+      const isInsideMobileNav = e.target.closest(
+        "#mobileNav, #sticky-mobileNav"
+      );
+
       if (!isMainBurger && !isStickyBurger && !isInsideMobileNav) {
         this.closeAllMenus();
       }
     }
 
     _onKeyDown(e) {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         if (
           this.elements.body.classList.contains(this.cssClasses.mainMenuOpen) ||
-          this.elements.body.classList.contains(this.cssClasses.stickyMenuOpen)  
+          this.elements.body.classList.contains(this.cssClasses.stickyMenuOpen)
         ) {
-          this.closeAllMenus();  
+          this.closeAllMenus();
         }
-      }  
+      }
     }
 
     _onTouchMove(e) {
@@ -274,11 +345,13 @@
         this.elements.body.classList.contains(this.cssClasses.mainMenuOpen) ||
         this.elements.body.classList.contains(this.cssClasses.stickyMenuOpen)
       ) {
-        const isInsideMobileNav = e.target.closest('#mobileNav, #sticky-mobileNav');
+        const isInsideMobileNav = e.target.closest(
+          "#mobileNav, #sticky-mobileNav"
+        );
         if (!isInsideMobileNav) {
-          e.preventDefault();  
+          e.preventDefault();
         }
-      } 
+      }
     }
 
     _debounce(fn, delay) {
@@ -286,23 +359,23 @@
       return (...args) => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => fn.apply(this, args), delay);
-      };  
+      };
     }
 
     refresh() {
       this._cacheElements();
-      this._initializeStickyMenu();  
+      this._initializeStickyMenu();
     }
 
     reinitializeStickyMenu() {
-      this._initializeStickyBurgerMenu();  
+      this._initializeStickyBurgerMenu();
     }
 
     destroy() {
-      window.removeEventListener('resize', this.handleResize);
-      document.removeEventListener('click', this.handleDocumentClick);
-      document.removeEventListener('keydown', this.handleKeydown);
-      document.removeEventListener('touchmove', this.handleTouchMove);  
+      window.removeEventListener("resize", this.handleResize);
+      document.removeEventListener("click", this.handleDocumentClick);
+      document.removeEventListener("keydown", this.handleKeydown);
+      document.removeEventListener("touchmove", this.handleTouchMove);
 
       if (this.observer) {
         this.observer.disconnect();
@@ -315,24 +388,18 @@
   }
 
   let burgerMenuManager;
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener("DOMContentLoaded", function () {
     burgerMenuManager = new BurgerMenuManager();
 
     window.openMenu = (isSticky) => burgerMenuManager.openMenu(isSticky);
     window.closeMenu = (isSticky) => burgerMenuManager.closeMenu(isSticky);
     window.closeAllMenus = () => burgerMenuManager.closeAllMenus();
-    window.initializeStickyBurgerMenu = () => burgerMenuManager._initializeStickyBurgerMenu();
-    window.reinitializeStickyMenu = () => burgerMenuManager.reinitializeStickyMenu();
+    window.initializeStickyBurgerMenu = () =>
+      burgerMenuManager._initializeStickyBurgerMenu();
+    window.reinitializeStickyMenu = () =>
+      burgerMenuManager.reinitializeStickyMenu();
   });
 })();
-
-
-
-
-
-
-
-
 
 
 

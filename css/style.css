@@ -222,6 +222,8 @@ article section .h2 {
     margin-left: 0;
     margin-top: 100px; /* Mezera */
     margin-bottom: 0.9em;
+    text-align: left; /* zajistí, že se mezery nebudou natahovat */
+    hyphens: none;
 }
 
 article section h3 {
