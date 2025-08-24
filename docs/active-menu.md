@@ -49,7 +49,7 @@ Do HTML stačí vložit:
 Navigace se sama spustí po načtení stránky s výchozími nastaveními.
 
 ## Použití:
-Pro ruční naatavení aktivního tlačítka:
+Pro ruční nastavení aktivního tlačítka slouží:
 
 ``` javascript
 setActiveBySelector(".main-button-second");

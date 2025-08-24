@@ -109,17 +109,17 @@ img {
 /* Šedé kolečko (pozadí nerozbaleného zdroje) */
 .info-box {
     position: absolute; /* Absolutní pozicování pro přesné umístění */
-    display: inline-flex; /* Flexbox pro zarovnání obsahu – na řádku */
+    display: flex; /* Flexbox pro zarovnání obsahu – na řádku */
     align-items: center; /* Vertikální zarovnání */
     justify-content: center; /* Horizontální zarovnání */
     background-color: #333;
     color: white;
     border-radius: 12px;
-    width: 24px;
+    flex-basis: 24px;
     height: 24px;
     font-size: 13px;
     font-weight: bold;
-    transition: max-width 0.5s ease, padding 0.5s ease;
+    transition: flex-basis 0.1s ease, max-width 0.5s ease, padding 0.5s ease;
     overflow: hidden; /* Skrytí přečnívajícího obsahu */
     cursor: pointer; /* Kurzor ruky při najetí */
     white-space: nowrap;
@@ -162,8 +162,9 @@ img {
 /* --- Styly pro zdroj v obrázku: rozbalené => hover a aktivní stav --- */
 .info-box:hover:not(.force-close),
 .info-box.active {
-    width: auto;
+    flex-basis: auto;
     max-width: 100%;
+    
 }
 
 /* Vyplnění kruhu na hover/aktivní stav */
@@ -183,14 +184,20 @@ img {
     margin-left: 10px;
     position: static;
     padding: 0 15px 0 22px;
+    transition: opacity 0.1s ease ;
+    overflow: hidden;
+    visibility: hidden;
 }
     
 .info-box:hover:not(.force-close) span,
 .info-box.active span {
     opacity: 1; /* Zobrazení textu při aktivaci/hoveru */
+    transition: opacity 0.2s ease 0.3s, width 0.5s ease, visibility 0s ease 0s;
+    visibility: visible;
 }
     
 /* Třída force-close má přednost před hover */
 .info-box.force-close {
-    width: 24px; /* Zajišťuje, že box zůstane malý i při hoveru */
+    flex-basis: 24px !important;/* Zajišťuje, že box zůstane malý i při hoveru */
+    max-width: 24px !important;
 }
