@@ -1,6 +1,6 @@
 
 //----RESOURCE FUNCIONALITY----// this metoda 
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
   const infoVariants = [
     'info-box', 'info-icon'
   ];
@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
       outline: none;
       cursor: pointer;
     }
-    
-    /* Zajištění, že odkazy v info-boxech budou vždy klikatelné */
+   
     .info-box a,
     .info-box [href] {
       cursor: pointer !important;
@@ -31,13 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
       pointer-events: auto !important;
     }
     
-    /* Zdůrazněný kurzor pro odkazy při hoveru */
+
     .info-box.hover-active a:hover,
     .info-box.active a:hover {
       text-decoration: underline !important;
     }
     
-    /* Info-box ikony musí mít nižší z-index než odkazy */
+    
     .info-icon {
       z-index: 90 !important;
     }
@@ -258,5 +257,5 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-});
+});*/
 

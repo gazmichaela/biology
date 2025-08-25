@@ -715,6 +715,8 @@ function initStickyHeaderFunctionality() {
         console.error('Sticky header or main header not found');
         return;
     }
+
+      stickyHeader.setAttribute('aria-hidden', 'true');
     
     initializeHomeIcon(stickyHeader);
     
@@ -743,6 +745,8 @@ if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) { // přidej malý b
                     stickyHeader.style.transform = '';
                     stickyHeader.style.opacity = '1'; 
                     
+                    stickyHeader.setAttribute('aria-hidden', 'false');
+
                     if (scrollY < lastScrollY) {
                         stickyHeader.classList.add('visible');
                         
@@ -779,6 +783,8 @@ if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) { // přidej malý b
             stickyHeader.style.opacity = '1';
             stickyHeader.style.visibility = 'visible';
             stickyHeader.classList.add('visible');
+
+             stickyHeader.setAttribute('aria-hidden', 'false');
             
             if (scrollY > mainHeaderHeight + 100) {
                 stickyHeader.classList.add('scrolled');
@@ -844,9 +850,30 @@ function initializeHomeIcon(stickyHeader) {
                 e.preventDefault();
                 
                 clearAllDropdownStates();
-                window.location.href = '/';
-            });
-            
+                function findHomepageUrl() {
+
+        const originalHomeIcon = document.querySelector('header .home-icon[href]');
+        if (originalHomeIcon) {
+            const href = originalHomeIcon.getAttribute("href") || "";
+            return href;
+        }
+        
+        const possibleHomeLinks = document.querySelectorAll('header a[href]');
+        for (let link of possibleHomeLinks) {
+            const href = (link.getAttribute("href") || "").replace("/", "");
+            if (href === "" || href === "index.html" || href === "index.php") {
+                return link.getAttribute("href");
+            }
+        }
+        
+        return "./";
+    }
+
+    setTimeout(() => {
+        window.location.href = findHomepageUrl();
+    }, 50);
+                });
+                
         } else {
             console.warn('No IMG element found in home icon');
         }
@@ -1965,6 +1992,8 @@ function initStickyHeaderFunctionality() {
                 stickyHeader.style.visibility = 'visible';
                 stickyHeader.classList.add('visible');
                 
+                 stickyHeader.setAttribute('aria-hidden', 'false');
+
                 if (scrollY > mainHeaderHeight + 100) {
                     stickyHeader.classList.add('scrolled');
                 }

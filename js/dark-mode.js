@@ -38,21 +38,21 @@
     
         ${isDarkMode ?`
             html.dark-mode {
-                background-color: #222222 !important;
-                color: #c8c1b5 !important;
+                background-color: #222222 ;
+                color: #c8c1b5;
             }
             body.dark-mode {
-                background-color: #222222 !important;
-                color: #c8c1b5 !important;
+                background-color: #222222 ;
+                color: #c8c1b5;
             }
         ` : `
             html {
-                background-color: #f0f9f0 !important;
-                color: #023f1e !important;
+                background-color: #f0f9f0 ;
+                color: #023f1e;
             }
             body {
-                background-color: #f0f9f0 !important;
-                color: #023f1e !important;
+                background-color: #f0f9f0;
+                color: #023f1e;
             }
         `}
         
@@ -74,28 +74,28 @@
         
         
         .dark-mode-toggle.hidden {
-            display: none !important;
+            display: none;
         }
             ${isDarkMode ? `
-                background: black !important;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+                background: black;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.5) ;
             ` : `
-                background: white !important;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+                background: white ;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             `}
         }
         
         html.dark-mode .dark-mode-toggle,
         body.dark-mode .dark-mode-toggle,
         .dark-mode .dark-mode-toggle {
-            background: black !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+            background: black;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
     
         html.ready, body.ready {
-            visibility: visible !important;
-            opacity: 1 !important;
-            transition: opacity 0.15s ease-in-out !important;
+            visibility: visible ;
+            opacity: 1 ;
+            transition: opacity 0.15s ease-in-out;
         }
     `;
     
@@ -162,8 +162,8 @@
         }
    
         body.dark-mode {
-            background-color: #222222 !important;
-            color: #c8c1b5 !important;
+            background-color: #222222 ;
+            color: #c8c1b5 ;
         }
         
         body.dark-mode header {
@@ -270,8 +270,8 @@
         }
         
         body.dark-mode .dark-mode-toggle {
-            background: black !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+            background: black ;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5) ;
         }
             
     `;
@@ -601,53 +601,6 @@ function createMoonIcon() {
     `;
 }
 
-/*let isClickOpened = false;
-let positionMonitoringInterval = null;
-let inactivityTimer = null;
-
-/*function startPositionMonitoring(){
-    
-}*/
-/*function startPositionMonitoring(callback = null) {
-    if (positionMonitoringInterval) {
-       clearInterval(positionMonitoringInterval);
-    }
-    
-   positionMonitoringInterval = setInterval(() => {
-        // Callback pattern - zavolá předanou funkci 
-        if (callback && typeof callback === 'function') {
-            callback();
-        }
-    }, 100);
-}
-
-function stopPositionMonitoring() {
-    if (positionMonitoringInterval) {
-        clearInterval(positionMonitoringInterval);
-        positionMonitoringInterval = null;
-    }
-}
-
-function startInactivityTimer() {
-    if (inactivityTimer) {
-        clearTimeout(inactivityTimer);
-    }
-    
-    inactivityTimer = setTimeout(() => {
-        if (isClickOpened) {
-            isClickOpened = false;
-            stopPositionMonitoring();
-        }
-    }, 5000);
-}
-
-function stopInactivityTimer() {
-    if (inactivityTimer) {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = null;
-    }
-}*/
-//--------------------------------------------------
 function initializeDarkMode() {
     let darkModeToggle = document.getElementById('darkModeToggle');
     
@@ -801,15 +754,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('load', function() {
     initializeLoadAnimations();
-    
-   /* setTimeout(function() {
-        if (!isClickOpened) {
-            try {
-                localStorage.removeItem('isFirstMenuOpen');
-                localStorage.removeItem('isMouseOverFirstToggle');
-            } catch (e) {
-                
-            }
-        }
-    }, 5000);*/
+
 });
