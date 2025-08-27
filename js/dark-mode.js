@@ -191,7 +191,7 @@
             background: #309ce5f1;
         }
         
-        body.dark-mode article section a:link:not(.button):not(.sidemap a) {
+        body.dark-mode article section a:link:not(.button):not(.sidemap a):not(.no-a-style) {
             color: skyblue;
         }
         

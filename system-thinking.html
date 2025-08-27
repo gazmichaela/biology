@@ -33,15 +33,13 @@
 
 <body>
     <header>
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Systémové myšlení</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -55,8 +53,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -74,8 +72,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -85,10 +83,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -142,57 +140,58 @@
     
     <article>
         <section>
-            <div class="img-wrapper img-right-top">
-                <picture>
-                    <source srcset="images/webp/systemove-mysleni-ai.webp" type="image/webp" data-src="images/webp/systemove-mysleni-ai.webp">
-                    <img src="images/png/systemove-mysleni-ai.png" data-src="images/png/systemove-mysleni-ai.png">
-                </picture> 
-                <div class="info-box" aria-hidden="true">
-                    <div class="icon-circle">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+            <div class="img-responsive">
+                <div class="img-wrapper img-right-top">
+                    <picture>
+                        <source srcset="images/webp/systemove-mysleni-ai.webp" type="image/webp" data-src="images/webp/systemove-mysleni-ai.webp">
+                        <img src="images/png/systemove-mysleni-ai.png" data-src="images/png/systemove-mysleni-ai.png">
+                    </picture> 
+                    <div class="info-box" aria-hidden="true">
+                        <div class="icon-circle">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+                    </div>
                 </div>
             </div>
 
             <div class="h2">
                 <h2>Systémové myšlení</h2>
             </div>
-            <p>Systémové myšlení je způsob uvažování, který se zaměřuje na pochopení, jak jednotlivé části nějakého
-                systému spolupracují a jak jsou propojené. Místo toho, abychom se soustředili jen na jednotlivé
-                prvky nebo události, snažíme se vidět větší celek – tedy celý systém. Tento způsob myšlení nám pomáhá
-                lépe porozumět složitým problémům, identifikovat jejich příčiny a najít efektivní řešení. Příklady systémů,
+            <p>Systémové myšlení je způsob uvažování, který se zaměřuje na pochopení, jak jednotlivé části nějakého systému spolupracují a jak jsou
+                propojené. Místo toho, abychom se soustředili jen na jednotlivé prvky nebo události, snažíme se vidět větší celek – tedy celý systém.
+                Tento způsob myšlení nám pomáhá lépe porozumět složitým problémům, identifikovat jejich příčiny a najít efektivní řešení. Příklady systémů,
                 které lze zkoumat pomocí systémového myšlení, zahrnují lidské tělo, ekosystémy, výrobní linky nebo třeba počítače.</p>
 
             <div class="h2">
                 <h2>Využití systémového myšlení v praxi</h2>
             </div>
             <ul>
-                  <li>
+                <li>
                     Ve zdravotnictví se při snaze zabránit opakovaným hospitalizacím pacientů uplatňuje systémové myšlení. Poskytovatelé
                     zdravotní péče se nezaměřují pouze na individuální péči o pacienty, ale zohledňují širší souvislosti. To zahrnuje
-                    vzdělávání pacientů, <dfn class="tooltip">podporu po propuštění<span class="tooltiptext" aria-hidden="true">např. rady jak se <br> starat o rány či <br> příprava na návrat <br> do běžného života</span></dfn>,
-                    komunikaci mezi zdravotníky a <dfn class="tooltip">přístup k následné péči<span class="tooltiptext" aria-hidden="true">např. rehabilitace nebo <br> pravidelné kontroly</span></dfn>.
+                    vzdělávání pacientů,
+                    <dfn class="tooltip" role="presentation">podporu po propuštění<span class="tooltiptext" aria-hidden="true">např. rady jak se <br> starat
+                        o rány či <br> příprava na návrat <br> do běžného života</span></dfn>,
+                    komunikaci mezi zdravotníky a
+                    <dfn class="tooltip" role="presentation">přístup k následné péči<span class="tooltiptext" aria-hidden="true">např. rehabilitace
+                        nebo <br> pravidelné kontroly</span></dfn>.
                 </li>
-                <li>
-                    Dalším příkladem použití systémového myšlení je u automobilu: automobil je složitý systém, který se skládá
+                <li>Dalším příkladem použití systémového myšlení je u automobilu: automobil je složitý systém, který se skládá
                     z mnoha částí, jako je motor, brzdy, převodovka či palivový systém. Systémové myšlení nám říká, že když se porouchá
                     jedna část, může to ovlivnit celý automobil. Například problém s motorem může způsobit, že auto nebude 
-                    správně fungovat, i když všechny ostatní části jsou v pořádku.
-                </li>
-                <li>
-                    I v ekosystému lze využít systémové myšlení. Představte si les jako systém. Stromy, zvířata, voda, půda a vzduch jsou propojené. Pokud zmizí
+                    správně fungovat, i když všechny ostatní části jsou v pořádku.</li>
+                <li>I v ekosystému lze využít systémové myšlení. Představte si les jako systém. Stromy, zvířata, voda, půda a vzduch jsou propojené. Pokud zmizí
                     například jeden druh zvířete, může to způsobit změny v potravním řetězci, což ovlivní i další druhy, a tím celý
-                    ekosystém. Systémové myšlení nám umožňuje pochopit, jak jsou tyto složky závislé na sobě navzájem.
-                </li>
-                <li>
-                    I skupinový školní projekt můžeme chápat jako systém. Každý člen týmu má určitou roli a pokud
+                    ekosystém. Systémové myšlení nám umožňuje pochopit, jak jsou tyto složky závislé na sobě navzájem.</li>
+                <li>I skupinový školní projekt můžeme chápat jako systém. Každý člen týmu má určitou roli a pokud
                     někdo nesplní svou část práce, ovlivní to výsledek celého týmu. Úspěch projektu závisí na tom, jak efektivně
-                    všichni spolupracují.
-                </li>
+                    všichni spolupracují.</li>
             </ul>
             <div class="img-wrapper img-bottom">
                 <picture>
-                    <source srcset="images/webp/skolni-projekt.webp" type="image/webp" data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
-                    <img src="images/png/skolni-projekt.png" class="zoomable" data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
+                    <source srcset="images/webp/skolni-projekt.webp" type="image/webp"
+                        data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
+                    <img src="images/png/skolni-projekt.png" class="zoomable"
+                        data-source="Vlastní dílo. Použití systémového myšlení na systému školního projektu. Ⓒ Daniel Friedl, 2025. CC BY-NC-SA 4.0">
                 </picture>
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -200,25 +199,30 @@
                 </div>
             </div>
             <div class="zarazka"></div>
+        </section>
 
-            <div class="h2">
+        <section>
+            <div class="h2 no-print" id="questions-heading">
                 <h2>Otestujte své znalosti:</h2>
             </div>
-            <br>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
-            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"  title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" 
+                title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
   
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč je důležité brát v úvahu celé propojení systémů, místo soustředění se pouze na jednotlivé komponenty?</div>
-                    <div class="answer">Zaměření se pouze na komponenty je jako snažit se pochopit auto zkoumáním samotného motoru, aniž bychom braliv úvahu převodovku, kola, řízení nebo palivový systém.
-                        <br> Systémové myšlení je nezbytně nutné použít pro pochopení toho, jak auto funguje.</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč je důležité brát v úvahu celé propojení systémů, místo
+                        soustředění se pouze na jednotlivé komponenty?</div>
+                    <div class="answer">Zaměření se pouze na komponenty je jako snažit se pochopit auto zkoumáním samotného motoru, aniž bychom braliv úvahu
+                        převodovku, kola, řízení nebo palivový systém.
+                        <br>Systémové myšlení je nezbytně nutné použít pro pochopení toho, jak auto funguje.</div>
                 </div>
   
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co by se stalo, kdybychom zapomněli na propojení mezi částmi systému při řešení velkých problémů, jako je například zdraví populace?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co by se stalo, kdybychom zapomněli na propojení mezi částmi
+                        systému při řešení velkých problémů, jako je například zdraví populace?</div>
                     <div class="answer">Ignorování propojení při řešení zdraví populace by vedlo k drahým, neefektivním a nespravedlivým řešením, která by léčila jen příznaky
                         a často by vytvářela nové problémy.</div>
                 </div>
@@ -231,22 +235,24 @@
   
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Kde všude lze využít systémové myšlení?</div>
-                    <div class="answer">Systémové myšlení nachází uplatnění v mnoha oblastech, jako například v <strong>medicíně</strong> (personalizovaná léčba, pochopení komplexních onemocnení),
-                        <strong>biotechnologiích</strong> (metabolické inženýrství, syntetická biologie), <strong>ekologii</strong> (modelování ekosystémů), <strong>zemědělství</strong> (optimalizace výnosů), <strong>farmakologii</strong> (vývoj léčiv),
+                    <div class="answer">Systémové myšlení nachází uplatnění v mnoha oblastech, jako například v <strong>medicíně</strong> (personalizovaná léčba,
+                        pochopení komplexních onemocnení), <strong>biotechnologiích</strong> (metabolické inženýrství, syntetická biologie), <strong>ekologii</strong>
+                        (modelování ekosystémů), <strong>zemědělství</strong> (optimalizace výnosů), <strong>farmakologii</strong> (vývoj léčiv),
                         <strong>informatice</strong> (bioinformatika, umělá inteligence) či <strong>ekonomii</strong> (modelování komplexních trhů).</div>
                 </div>
                 
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
-            <br>
+        </section>
 
+        <section>
             <div class="h2">
                <h2>Doporučená literatura</h2> 
             </div>
             <div class="citace">
                 <ul>
-                    <li>NG, Jane (2025).<em> Co je systémové myšlení? | Snadný průvodce odemknutím nových perspektiv v roce
-                        2025.</em> Online. AhaSlides. Aktualizováno 3.1.2025. Dostupné z: <a href="https://ahaslides.com/cs/blog/what-is-systems-thinking/" target="_blank">https://ahaslides.com/cs/blog/what-is-systems-thinking/</a>. [citováno 2025-05-09].</li>
+                    <li>NG, Jane (2025).<em> Co je systémové myšlení? | Snadný průvodce odemknutím nových perspektiv v roce 2025.</em> Online. AhaSlides. Aktualizováno 3.1.2025. Dostupné
+                        z: <a href="https://ahaslides.com/cs/blog/what-is-systems-thinking/" target="_blank">https://ahaslides.com/cs/blog/what-is-systems-thinking/</a>. [citováno 2025-05-09].</li>
                 </ul>
             </div>
             <div class="zarazka"></div>
@@ -256,7 +262,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -266,7 +272,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>

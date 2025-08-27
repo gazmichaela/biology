@@ -642,7 +642,16 @@ mobileElements.forEach(element => element.remove());
     stickyHeader.style.overflowY = originalStyles.overflowY;
     
     const elementsWithId = headerContent.querySelectorAll('[id]');
+    // Přidej data atributy pro párování
+const focusableElements = headerContent.querySelectorAll('a, button, [tabindex]');
+focusableElements.forEach((element, index) => {
+    element.setAttribute('data-original-index', index);
+});
     elementsWithId.forEach(element => {
+        const focusableElements = headerContent.querySelectorAll('a, button, [tabindex]');
+focusableElements.forEach((element, index) => {
+    element.setAttribute('data-original-index', index);
+});
         const originalId = element.getAttribute('id');
         element.setAttribute('id', 'sticky-' + originalId);
     });
@@ -705,6 +714,21 @@ mobileElements.forEach(element => element.remove());
     }
     
     document.body.appendChild(stickyHeader);
+
+    const focusableSelectors = 'a, button, [tabindex]';
+    // Nastav tabindex -1 pouze pokud sticky header není viditelný
+    if (!stickyHeader.classList.contains('visible')) {
+        stickyHeader.querySelectorAll(focusableSelectors).forEach(el => {
+            el.setAttribute('tabindex', '-1');
+        });
+
+        if (!stickyHeader.classList.contains('visible')) {
+    const stickyUl = stickyHeader.querySelector('ul');
+    if (stickyUl) {
+        stickyUl.setAttribute('aria-hidden', 'true');
+    }
+}
+    }
     
 }
 function initStickyHeaderFunctionality() {
@@ -747,6 +771,30 @@ if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) { // přidej malý b
                     
                     stickyHeader.setAttribute('aria-hidden', 'false');
 
+                    // Synchronizace tabindexů s původním headerem
+                  // Synchronizace tabindexů pomocí data atributů
+const focusableSelectors = 'a, button, [tabindex]';
+const stickyElements = stickyHeader.querySelectorAll(focusableSelectors);
+const originalElements = mainHeader.querySelectorAll(focusableSelectors);
+
+stickyElements.forEach(stickyEl => {
+    const originalIndex = stickyEl.getAttribute('data-original-index');
+    if (originalIndex !== null) {
+        const matchingOriginal = originalElements[parseInt(originalIndex)];
+        if (matchingOriginal) {
+            if (matchingOriginal.hasAttribute('tabindex')) {
+                stickyEl.setAttribute('tabindex', matchingOriginal.getAttribute('tabindex'));
+            } else {
+                stickyEl.removeAttribute('tabindex');
+            }
+        } else {
+            stickyEl.removeAttribute('tabindex');
+        }
+    } else {
+        stickyEl.removeAttribute('tabindex');
+    }
+});
+
                     if (scrollY < lastScrollY) {
                         stickyHeader.classList.add('visible');
                         
@@ -756,10 +804,18 @@ if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) { // přidej malý b
                             stickyHeader.classList.remove('scrolled');
                         }
                     } 
-                    else if (scrollY > lastScrollY) {
-                        stickyHeader.classList.remove('visible');
-                         clearAllDropdownStates(); 
-                    }
+                   else if (scrollY > lastScrollY) {
+    stickyHeader.classList.remove('visible');
+    clearAllDropdownStates();
+
+    // Nastav tabindex -1 na všechny focusovatelné prvky
+    const stickyElements = stickyHeader.querySelectorAll(focusableSelectors);
+    stickyElements.forEach(stickyEl => {
+        stickyEl.setAttribute('tabindex', '-1');
+    });
+    
+    stickyHeader.setAttribute('aria-hidden', 'true');
+}
                 }
                 
                 lastScrollY = scrollY;
@@ -785,11 +841,40 @@ if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) { // přidej malý b
             stickyHeader.classList.add('visible');
 
              stickyHeader.setAttribute('aria-hidden', 'false');
+             // Synchronizace tabindexů při initial zobrazení
+const focusableSelectors = 'a, button, [tabindex]';
+const stickyElements = stickyHeader.querySelectorAll(focusableSelectors);
+const originalElements = mainHeader.querySelectorAll(focusableSelectors);
+
+stickyElements.forEach(stickyEl => {
+    const elementText = stickyEl.textContent.trim();
+    const elementHref = stickyEl.getAttribute('href');
+    
+    const matchingOriginal = Array.from(originalElements).find(origEl => {
+        const origText = origEl.textContent.trim();
+        const origHref = origEl.getAttribute('href');
+        return (elementText === origText) || (elementHref && elementHref === origHref);
+    });
+    
+    if (matchingOriginal) {
+        if (matchingOriginal.hasAttribute('tabindex')) {
+            stickyEl.setAttribute('tabindex', matchingOriginal.getAttribute('tabindex'));
+        } else {
+            stickyEl.removeAttribute('tabindex');
+        }
+    } else {
+        stickyEl.removeAttribute('tabindex');
+    }
+});
             
             if (scrollY > mainHeaderHeight + 100) {
                 stickyHeader.classList.add('scrolled');
             }
-            
+                const stickyUl = stickyHeader.querySelector('ul');
+        if (stickyUl) {
+            stickyUl.setAttribute('aria-hidden', 'false');
+        }
+        
         }, 50); // Malé zpoždění zajistí, že se aplikuje po načtení
     }
 })();
@@ -1815,6 +1900,10 @@ function createStickyHeader() {
         // Aktualizujeme všechny ID uvnitř mobilní navigace
         const elementsWithId = stickyMobileNav.querySelectorAll('[id]');
         elementsWithId.forEach(element => {
+            const focusableElements = headerContent.querySelectorAll('a, button, [tabindex]');
+focusableElements.forEach((element, index) => {
+    element.setAttribute('data-original-index', index);
+});
             const originalId = element.getAttribute('id');
             if (originalId !== 'sticky-mobileNav') { // Nezměníme hlavní ID
                 element.setAttribute('id', 'sticky-' + originalId);
@@ -1843,7 +1932,16 @@ function createStickyHeader() {
     stickyHeader.style.overflowY = originalStyles.overflowY;
     
     const elementsWithId = headerContent.querySelectorAll('[id]');
+    // Přidej data atributy pro párování
+const focusableElements = headerContent.querySelectorAll('a, button, [tabindex]');
+focusableElements.forEach((element, index) => {
+    element.setAttribute('data-original-index', index);
+});
     elementsWithId.forEach(element => {
+        const focusableElements = headerContent.querySelectorAll('a, button, [tabindex]');
+focusableElements.forEach((element, index) => {
+    element.setAttribute('data-original-index', index);
+});
         const originalId = element.getAttribute('id');
         element.setAttribute('id', 'sticky-' + originalId);
     });
@@ -1913,6 +2011,20 @@ function createStickyHeader() {
         const checkStickyMenuOverlay = document.getElementById('sticky-menuOverlay');
         
     }, 100);
+
+    const focusableSelectors = 'a, button, [tabindex]';
+    // Nastav tabindex -1 pouze pokud sticky header není viditelný
+    if (!stickyHeader.classList.contains('visible')) {
+        stickyHeader.querySelectorAll(focusableSelectors).forEach(el => {
+            el.setAttribute('tabindex', '-1');
+        });
+        if (!stickyHeader.classList.contains('visible')) {
+    const stickyUl = stickyHeader.querySelector('ul');
+    if (stickyUl) {
+        stickyUl.setAttribute('aria-hidden', 'true');
+    }
+}
+    }
 }
 
 // Upravte funkce initStickyHeaderFunctionality - přidejte volání inicializace burger menu
@@ -1950,11 +2062,49 @@ function initStickyHeaderFunctionality() {
                     stickyHeader.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
                     stickyHeader.style.transform = 'translateY(-100%)';
                     stickyHeader.style.opacity = '0';
+
+                    const focusableSelectors = 'a, button, [tabindex]';
+                    stickyHeader.querySelectorAll(focusableSelectors).forEach(el => {
+                        el.setAttribute('tabindex', '-1');
+                    });
+                     const stickyUl = stickyHeader.querySelector('ul');
+    if (stickyUl) {
+        stickyUl.setAttribute('aria-hidden', 'true');
+    }
+
                 }
                 else {
                     stickyHeader.style.transition = '';
                     stickyHeader.style.transform = '';
-                    stickyHeader.style.opacity = '1'; 
+                    stickyHeader.style.opacity = '1';
+
+                    // Synchronizace tabindexů s původním headerem
+               // Synchronizace tabindexů pomocí data atributů
+const focusableSelectors = 'a, button, [tabindex]';
+const stickyElements = stickyHeader.querySelectorAll(focusableSelectors);
+const originalElements = mainHeader.querySelectorAll(focusableSelectors);
+
+stickyElements.forEach(stickyEl => {
+    const originalIndex = stickyEl.getAttribute('data-original-index');
+    if (originalIndex !== null) {
+        const matchingOriginal = originalElements[parseInt(originalIndex)];
+        if (matchingOriginal) {
+            if (matchingOriginal.hasAttribute('tabindex')) {
+                stickyEl.setAttribute('tabindex', matchingOriginal.getAttribute('tabindex'));
+            } else {
+                stickyEl.removeAttribute('tabindex');
+            }
+        } else {
+            stickyEl.removeAttribute('tabindex');
+        }
+    } else {
+        stickyEl.removeAttribute('tabindex');
+    }
+});
+const stickyUl = stickyHeader.querySelector('ul');
+if (stickyUl) {
+    stickyUl.setAttribute('aria-hidden', 'false');
+}
                     
                     if (scrollY < lastScrollY) {
                         stickyHeader.classList.add('visible');
@@ -1968,6 +2118,16 @@ function initStickyHeaderFunctionality() {
                     else if (scrollY > lastScrollY) {
                         stickyHeader.classList.remove('visible');
                         clearAllDropdownStates(); 
+
+                        // Nastav tabindex -1 na všechny focusovatelné prvky
+                        stickyHeader.querySelectorAll(focusableSelectors).forEach(el => {
+                            el.setAttribute('tabindex', '-1');
+                        });
+
+                            const stickyUl = stickyHeader.querySelector('ul');
+    if (stickyUl) {
+        stickyUl.setAttribute('aria-hidden', 'true');
+    }
                     }
                 }
                 
@@ -1993,6 +2153,36 @@ function initStickyHeaderFunctionality() {
                 stickyHeader.classList.add('visible');
                 
                  stickyHeader.setAttribute('aria-hidden', 'false');
+
+                 // Synchronizace tabindexů při initial zobrazení
+const focusableSelectors = 'a, button, [tabindex]';
+const stickyElements = stickyHeader.querySelectorAll(focusableSelectors);
+const originalElements = mainHeader.querySelectorAll(focusableSelectors);
+
+stickyElements.forEach(stickyEl => {
+    const elementText = stickyEl.textContent.trim();
+    const elementHref = stickyEl.getAttribute('href');
+    
+    const matchingOriginal = Array.from(originalElements).find(origEl => {
+        const origText = origEl.textContent.trim();
+        const origHref = origEl.getAttribute('href');
+        return (elementText === origText) || (elementHref && elementHref === origHref);
+    });
+    
+    if (matchingOriginal) {
+        if (matchingOriginal.hasAttribute('tabindex')) {
+            stickyEl.setAttribute('tabindex', matchingOriginal.getAttribute('tabindex'));
+        } else {
+            stickyEl.removeAttribute('tabindex');
+        }
+    } else {
+        stickyEl.removeAttribute('tabindex');
+    }
+});
+const stickyUl = stickyHeader.querySelector('ul');
+if (stickyUl) {
+    stickyUl.setAttribute('aria-hidden', 'false');
+}
 
                 if (scrollY > mainHeaderHeight + 100) {
                     stickyHeader.classList.add('scrolled');
@@ -2122,3 +2312,4 @@ function clearAllDropdownStatesUpdated() {
         }
     }
 }
+

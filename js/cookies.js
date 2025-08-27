@@ -1,4 +1,48 @@
-/**
+(function () {
+  class CookieManager {
+    constructor(options = {}) {
+      this.config = {
+        showDelay: options.showDelay || 1000,
+        checkInterval: options.checkInterval || 1500,
+        enableLogging: options.enableLogging || false,
+        showClass: options.showClass || 'show',
+        storageKey: options.storageKey || 'cookiesAccepted',
+        syncKey: options.syncKey || 'cookiesSync',
+        cookieNoticeSelector: options.cookieNoticeSelector || '#cookiesMiniNotice',
+        acceptButtonSelector: options.acceptButtonSelector || '#acceptCookies',
+        domain: options.domain || this._getDomain(),
+        forceCookies: options.forceCookies || false,
+        firefoxMode: options.firefoxMode !== false 
+      };
+      
+      this.elements = {};
+      this.showTimeout = null;
+      this.intervals = { check: null, sync: null };
+      this.isInitialized = false;
+
+      this.state = {
+        lastPrivateMode: null,
+        lastSyncValue: null,
+        isFirefox: this._isFirefox(),
+        isChrome: this._isChrome(),
+        privateModeDetected: false
+      };
+
+      this.handleAcceptClick = this._onAcceptClick.bind(this);
+      this.handleWindowFocus = this._onWindowFocus.bind(this);
+      this.handleStorageEvent = this._onStorageEvent.bind(this);
+      this.checkPrivateMode = this._checkPrivateMode.bind(this);
+      this.forcedSync = this._forcedSync.bind(this);
+
+      this.init();
+    }
+  }
+})
+
+
+
+
+/*/**
  * CookieManager - Správa souhlasů cookie
  * 
  * Spravuje zobrazování cookie notifikací s detekcí anonymního režimu
@@ -17,7 +61,7 @@
  * @license MIT
  */
 
-
+/*
 //this metoda
 class CookieManager {
     constructor(options = {}) {
@@ -381,3 +425,5 @@ if (typeof module !== 'undefined' && module.exports) {
 if (typeof window !== 'undefined') {
     window.CookieManager = CookieManager;
 }
+
+*/

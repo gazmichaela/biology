@@ -32,15 +32,13 @@
 
 <body>
     <header>
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Úvod</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -54,8 +52,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -73,8 +71,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -84,10 +82,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -144,23 +142,30 @@
             <div class="h2">
                 <h2>Systémová biologie</h2>
             </div>
-            <p>Systémová biologie je vědní obor, který se zabývá zkoumáním 
-                <dfn class="tooltip">živých soustav<span class="tooltiptext" aria-hidden="true">organizmy nebo jejich části, <br> které mají životní funkce <br> (buňky, orgány, celé organismy...)</span></dfn>
+            <p>
+                Systémová biologie je vědní obor, který se zabývá zkoumáním 
+                <dfn class="tooltip">živých soustav<span class="tooltiptext" aria-hidden="true">organizmy nebo jejich části, <br> které mají životní
+                    funkce <br> (buňky, orgány, celé organismy...)</span></dfn>
                 jako 
                 <dfn class="tooltip">komplexních<span class="tooltiptext" aria-hidden="true">celek složený z několika <br> vzájemně propojených částí</span></dfn>
                 systémů, ne jen jednotlivé části izolovaně. Využívá poznatky z teorie systémů, biologie, genetiky, informatiky a dalších disciplín, aby odhalila 
                 <dfn class="tooltip">vztahy a interakce<span class="tooltiptext" aria-hidden="true">spojení a vzájemné působení</span></dfn>
-                mezi různými biologickými složkami a procesy.</p>
-            <p>Cílem je 
+                mezi různými biologickými složkami a procesy.
+            </p>
+            <p>
+                Cílem je 
                 <dfn class="tooltip">analyzovat<span class="tooltiptext" aria-hidden="true">podrobně zkoumat něco, <br> rozdělit celek na části</span></dfn>
                 a 
-                <dfn class="tooltip">modelovat<span class="tooltiptext" aria-hidden="true">vytvořit zjednodušený „obraz“ <br> nebo výpočetní model toho, <br> jak nějaký složitý proces probíhá</span></dfn>,
-                jak jednotlivé složky živých organismů vzájemně interagují a ovlivňují se v rámci celého systému. Tím získáváme
-                hlubší porozumění
-                <dfn class="tooltip">biologickým pochodům<span class="tooltiptext" aria-hidden="true">procesy, které probíhají v živých <br> organismech, např. trávení, <br> dýchání, růst, oprava poškození</span></dfn>
-                 v jejich celistvosti a otevírají se nové možnosti aplikace například v medicíně, vývoji léčiv,
-                <dfn class="tooltip">biotechnologiích<span class="tooltiptext" aria-hidden="true">obor, který využívá <br> živé organismy <br> nebo jejich části <br> k výrobě produktů</span></dfn>
-                 nebo ochraně životního prostředí.</p>
+                <dfn class="tooltip">modelovat<span class="tooltiptext" aria-hidden="true">vytvořit zjednodušený „obraz“ <br> nebo výpočetní model toho, <br> jak
+                    nějaký složitý proces probíhá</span></dfn>,
+                jak jednotlivé složky živých organismů vzájemně interagují a ovlivňují se v rámci celého systému. Tím získáváme hlubší porozumění
+                <dfn class="tooltip">biologickým pochodům<span class="tooltiptext" aria-hidden="true">procesy, které probíhají v živých <br> organismech, např.
+                    trávení, <br> dýchání, růst, oprava poškození</span></dfn>
+                v jejich celistvosti a otevírají se nové možnosti aplikace například v medicíně, vývoji léčiv,
+                <dfn class="tooltip">biotechnologiích<span class="tooltiptext" aria-hidden="true">obor, který využívá <br> živé organismy <br> nebo jejich
+                    části <br> k výrobě produktů</span></dfn>
+                nebo ochraně životního prostředí.
+            </p>
             <div class="img-wrapper img-right">
                 <picture>
                     <source srcset="images/webp/zaklad-system-ai.webp" type="image/webp" data-src="images/webp/zaklad-system-ai.webp">
@@ -174,10 +179,10 @@
             <p>Tento přístup má výrazné přesahy do dalších oborů – principy systémové biologie, které se zaměřují na komplexní interakce v systémech, nacházejí
                 inspiraci v přírodě a uplatnění například při navrhování technických či informačních systémů.
                 Příklady <strong>přesahů v systémové biologii</strong> najdete v příloze níže.</p>
-           <a class="button-light" id="showPresahPdfBtn">Otevřít zde (pdf)</a>
+           <a class="button-light no-print" id="showPresahPdfBtn">Otevřít zde (pdf)</a>
 
             <!-- Překryvná vrstva pro PDF -->
-            <div class="pdf-overlay" id="presahPdfOverlay">
+            <div class="pdf-overlay no-print" id="presahPdfOverlay">
                 <div class="pdf-viewer-container">
                     <div class="pdf-close-button" id="presahPdfCloseBtn">&times;</div>
                     <iframe class="pdf-iframe" id="presahPdfFrame"></iframe>
@@ -185,21 +190,21 @@
             </div>
 
             <br>
-            <a href="pdf/presah.pdf" class="button" target="_blank">Otevřít na nové kartě (pdf) &#8599;</a>             
+            <a href="pdf/presah.pdf" class="button no-print" target="_blank">Otevřít na nové kartě (pdf) &#8599;</a>             
             <br>
 
             <div class="h2">
                 <h2>Systémový přístup</h2>
             </div>
             <p>Při práci v systémové biologii se často využivá systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
-            <a href="system-approach.html" class="button">Více informací zde</a>
+            <a href="system-approach.html" class="button">Více informací zde </a>
             <br>
 
             <div class="h2">
                 <h2>Systémové myšlení</h2>
             </div>
             <p>Často souvisí se systémovým přístupem. Co obnáší systémové myšlení?</p>
-            <a href="system-thinking.html" class="button">Zjistit</a>
+            <a href="system-thinking.html" class="button">Zjistit </a>
             <div class="zarazka"></div>
         </section>
     </article>
@@ -207,7 +212,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -217,7 +222,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>

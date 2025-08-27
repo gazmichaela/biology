@@ -38,7 +38,7 @@ OBSAH:
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background-color: white;
+    background-color: #2a2a2a;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }

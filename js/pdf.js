@@ -216,7 +216,7 @@
       const mobile = this._detectMobile();
       if (mobile.isMobileOrTablet) {
         this.elements.frame.style.cssText +=
-          "width:100% !important; height:100% !important; border:none !important; position:absolute !important; top:0 !important; left:0 !important; z-index:1001 !important; background:white;";
+          "width:100% !important; height:100% !important; border:none !important; position:absolute !important; top:0 !important; left:0 !important; z-index:1001 !important; background:#2a2a2a;";
         this.elements.overlay.style.cssText +=
           "padding:0 !important; background: rgba(0,0,0,0.95) !important; position:fixed !important; top:0 !important; left:0 !important; right:0 !important; bottom:0 !important; z-index:1000 !important;";
         let viewport = document.querySelector('meta[name="viewport"]');

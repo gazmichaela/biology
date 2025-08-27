@@ -96,7 +96,7 @@ Pro jiná nastavení při inicializaci upravte:
 například změněním hodnoty ___1175___ u mobileBreakpoint.
 
 ## API Reference:
-Metody třídy BurgerMenuManager:
+Metody třídy __BurgerMenuManager__:
 
 - init() - spustí inicializaci menu
 

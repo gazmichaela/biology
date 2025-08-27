@@ -31,15 +31,13 @@
 
 <body>
     <header>
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Vznik života na Zemi</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -53,8 +51,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -72,8 +70,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -83,10 +81,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -140,33 +138,34 @@
     
     <article>
         <section>
-            <div class="img-wrapper img-right-top">
-                <picture>
-                    <source srcset="images/webp/vznik-zivota-ai.webp" type="image/webp" data-src="images/webp/vznik-zivota-ai.webp">
-                    <img src="images/png/vznik-zivota-ai.png" data-src="images/png/vznik-zivota-ai.png">
-                </picture>   
-                <div class="info-box" aria-hidden="true">
-                    <div class="icon-circle">i</div>
-                    <span>Zdroj: <a href="https://chatgpt.com" target="_blank" tabindex="-1">ChatGPT</a></span>
+            <div class="img-responsive">
+                <div class="img-wrapper img-right-top">
+                    <picture>
+                        <source srcset="images/webp/vznik-zivota-ai.webp" type="image/webp" data-src="images/webp/vznik-zivota-ai.webp">
+                        <img src="images/png/vznik-zivota-ai.png" data-src="images/png/vznik-zivota-ai.png">
+                    </picture>   
+                    <div class="info-box" aria-hidden="true">
+                        <div class="icon-circle">i</div>
+                        <span>Zdroj: <a href="https://chatgpt.com" target="_blank" tabindex="-1">ChatGPT</a></span>
+                    </div>
                 </div>
             </div>
             
             <div class="h2">
                 <h2>Teorie o vzniku života na Zemi</h2>
             </div>
-            <br>
             <p>Existuje hned několik teoríí o vzniku Života na Zemi. Vznikl život v oceánech, pomocí síly Boží, nebo se sem dostal z vesmíru? Kompletní přehled možných teorií je v přiloženém pdf souboru.</p>
-            <a class="button-light" id="showOriginPdfBtn">Otevřít zde (pdf)</a>
+            <a class="button-light no-print" id="showOriginPdfBtn">Otevřít zde (pdf)</a>
 
             <!-- Překryvná vrstva pro PDF -->
-            <div class="pdf-overlay" id="originPdfOverlay">
+            <div class="pdf-overlay no-print" id="originPdfOverlay">
                 <div class="pdf-viewer-container">
                     <div class="pdf-close-button" id="originPdfCloseBtn">&times;</div>
                     <iframe class="pdf-iframe" id="originPdfFrame"></iframe>
                 </div>
             </div>
             <br>
-            <a href="pdf/origin_of_life.pdf" target="_blank" class="button">Otevřít na nové kartě (pdf) &#8599;</a>
+            <a href="pdf/origin_of_life.pdf" target="_blank" class="button no-print">Otevřít na nové kartě (pdf) &#8599;</a>
             <br>
 
             <div class="h2">
@@ -175,9 +174,9 @@
             <p>Darwin radikálně změnil naše chápání vzniku života, když představil myšlenku evoluce a společného předka lidí a zvířat. Tato teorie však v době svého představení vyvolala značné
                 kontroverze, neboť šla proti tradičním biblickým představám o stvoření světa. Více o Darwinismu se můžete dozvědět níže v přiloženém pdf souboru.</p>
 
-            <a class="button-light" id="showPdfBtn">Otevřít zde (pdf)</a>
+            <a class="button-light no-print" id="showPdfBtn">Otevřít zde (pdf)</a>
             <!-- Překryvná vrstva pro PDF -->
-            <div class="pdf-overlay" id="pdfOverlay">
+            <div class="pdf-overlay no-print" id="pdfOverlay">
                 <div class="pdf-viewer-container">
                     <div class="pdf-close-button" id="pdfCloseBtn">&times;</div>
                     <iframe class="pdf-iframe" id="pdfFrame"></iframe>
@@ -185,7 +184,7 @@
             </div>
             
             <br>
-            <a href="pdf/darwin.pdf" target="_blank" class="button">Otevřít na nové kartě (pdf) &#8599;</a>
+            <a href="pdf/darwin.pdf" target="_blank" class="button no-print">Otevřít na nové kartě (pdf) &#8599;</a>
             <div class="zarazka"></div>
         </section>
     </article>
@@ -193,7 +192,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -203,7 +202,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>

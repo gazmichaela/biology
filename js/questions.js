@@ -6,9 +6,9 @@
  *
  * @fileoverview FAQ handler pro interaktivní otázky a odpovědi
  * @author Michaela Gažová
- * @version 2.0.0
+ * @version 2.1.0
  * @since 2025-04-03
- * @updated 2025-08-19
+ * @updated 2025-08-26
  * @license MIT
  */
 
@@ -20,6 +20,7 @@
     requestAnimationFrame(() => {
       const toggleQuestionsBtn = document.getElementById("toggle-questions-btn");
       const faqContainer = document.getElementById("faq-container");
+      const questionsHeading = document.getElementById("questions-heading");
 
       if (!toggleQuestionsBtn || !faqContainer) {
         return;
@@ -30,7 +31,10 @@
 
         if (faqContainer.classList.contains("hidden")) {
           toggleQuestionsBtn.textContent = "Zobrazit otázky";
-
+          // Přidání třídy no-print pro print verzi
+          if (questionsHeading) {
+            questionsHeading.classList.add("no-print");
+          }
           // Při aktivaci tlačítka pro zavření otázek dojde k resetování všech odpovědí do zavřeného stavu
           document.querySelectorAll(".answer").forEach((answer) => {
             answer.style.display = "none";
@@ -40,6 +44,10 @@
           });
         } else {
           toggleQuestionsBtn.textContent = "Skrýt otázky";
+          // Odebrání třídy no-print pro print verzi
+          if (questionsHeading) {
+            questionsHeading.classList.remove("no-print");
+          }
         }
       });
 

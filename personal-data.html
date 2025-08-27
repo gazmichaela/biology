@@ -27,15 +27,13 @@
 
 <body>
     <header class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Zásady používání cookies</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -49,8 +47,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -68,8 +66,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -79,10 +77,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -139,42 +137,46 @@
             <div class="h2">
                 <h2>Informace o používání cookies</h2>
             </div>
-            <p>Na webu používáme soubory cookies pouze k zajištění správného fungování našich stránek. Níže se dozvíte, jaké druhy cookies používáme, k jakým účelům a jak je můžete spravovat.</p>
+            <p>Na webu používáme soubory cookies pouze k zajištění správného fungování našich stránek. Níže se dozvíte, jaké druhy cookies používáme,
+                k jakým účelům a jak je můžete spravovat.</p>
 
-            <div class="h2">
-                <h2>Co jsou cookies?</h2>
-            </div>
-            <p>Cookies jsou malé textové soubory, které se ukládají ve vašem zařízení při návštěvě webových stránek. Tyto soubory umožňují webu rozpoznat vaše zařízení a zapamatovat si určité informace, například vaše preference nebo předvolby.</p>
+            <h3>Co jsou cookies?</h3>
+            <p>Cookies jsou malé textové soubory, které se ukládají ve vašem zařízení při návštěvě webových stránek. Tyto soubory umožňují webu
+                rozpoznat vaše zařízení a zapamatovat si určité informace, například vaše preference nebo předvolby.</p>
             
-            <div class="h2">
-                <h2>Jaké cookies používáme?</h2>
-            </div>
+            <h3>Jaké cookies používáme?</h3>
             <p>Na našich stránkách najdete tyto dvě hlavní typy cookies:</p>
             <ol>
-                <li><h4 class="h4-small">Technické a funkční cookies</h4></li>
-                <p>Tyto cookies jsou nezbytné pro správné fungování našich webových stránek. Bez jejich použití by nebylo možné zajistit provoz základních funkcionalit, jako je
-                    například přehrávání vložených videí. Slouží k zachování technické funkčnosti a stability webu. </p>
-                <li><h4>Vložený obsah třetích stran (Youtube)</h4></li>
-                <p>Na našich stránkách se nachází vložené videoobsahy z platformy Youtube. Tyto prvky používají vlastní cookies společnosti Youtube, které jsou nezbytné pro jejich
-                    správné fungování a zároveň zajišťují optimalizoaný uživatelský zážitek při přehrání. Tyto cookies jsou spravovány přímo poskytovatelem služby, a proto k nim
-                    nemáme přístup ani kontrolu nad daty, která mohou být jejich prostřednictvím shromažďována. Doporučujeme se seznámit s pravidly používání cookies přímo na stránkách Youtube.</p>
+                <li class="no-break">
+                    <h4 class="h4-small">Technické a funkční cookies</h4>
+                    <p>Tyto cookies jsou nezbytné pro správné fungování našich webových stránek. Bez jejich použití by nebylo možné zajistit
+                        provoz základních funkcionalit. Slouží k zachování technické funkčnosti a stability webu.</p>
+                </li>
+                <li class="no-break">
+                    <h4>Vložený obsah třetích stran (Youtube)</h4>
+                    <p>Na našich stránkách se nachází vložené videoobsahy z platformy Youtube. Tyto prvky používají vlastní cookies společnosti
+                        Youtube, které jsou nezbytné pro jejich správné fungování a zároveň zajišťují optimalizoaný uživatelský zážitek při přehrání.
+                        Tyto cookies jsou spravovány přímo poskytovatelem služby, a proto k nim nemáme přístup ani kontrolu nad daty, která mohou
+                        být jejich prostřednictvím shromažďována. Doporučujeme se seznámit s pravidly používání cookies přímo na stránkách Youtube.</p>
+                </li>
             </ol>
             
-            <div class="h2">
-                <h2>Jak spravovat soubory cookies?</h2>
-            </div>
-            <p>Při první návštěvě našich stránek se vám zobrazí  oznámení o používání cookies. Soubory cookies můžete kdykoli zcela zakázat prostřednictvím nastavení svého prohlížeče. Upozorňujeme však, že zakázáním cookies může dojít k omezení funkcionality našich stránek.</p>
+            <h3>Jak spravovat soubory cookies?</h3>
+            <p>Při první návštěvě našich stránek se vám zobrazí  oznámení o používání cookies. Soubory cookies můžete kdykoli zcela zakázat
+                prostřednictvím nastavení svého prohlížeče. Upozorňujeme však, že zakázáním cookies může dojít k omezení funkcionality našich stránek.</p>
             <p>Pro více informací o tom, jak spravovat cookies v jednotlivých prohlížečích, navštivte níže uvedené odkazy:</p>
-            <li><a href="https://support.google.com/chrome/answer/95647?hl=cs" target="_blank" >Google Chrome</a></li>
-            <li><a href="https://support.mozilla.org/cs/kb/vymazani-cookies-dat-stranek" target="_blank" >Mozilla Firefox</a></li>
-            <li><a href="https://support.microsoft.com/cs-cz/windows/spr%C3%A1va-soubor%C5%AF-cookie-v-prohl%C3%AD%C5%BEe%C4%8Di-microsoft-edge-zobrazen%C3%AD-povolen%C3%AD-blokov%C3%A1n%C3%AD-odstran%C4%9Bn%C3%AD-a-pou%C5%BEit%C3%AD-168dab11-0753-043d-7c16-ede5947fc64d#:~:text=P%C5%99ejd%C4%9Bte%20do%20%C4%8D%C3%A1sti%20Vymazat%20%C3%BAdaje,webu%20a%20pak%20vyberte%20Vymazat." target="_blank" >Microsoft Edge</a></li>
-            <li><a href="https://support.apple.com/cs-cz/guide/safari/sfri11471/mac" target="_blank" >Safari</a></li>
+            <ul class="no-break">
+                <li><a href="https://support.google.com/chrome/answer/95647?hl=cs" target="_blank" class="a-print" aria-label="Správa cookies v Google Chrome">Google Chrome</a></li>
+                <li><a href="https://support.mozilla.org/cs/kb/vymazani-cookies-dat-stranek" target="_blank" class="a-print" aria-label="Správa cookies v Mozilla Firefox">Mozilla Firefox</a></li>
+                <li><a href="https://support.microsoft.com/cs-cz/windows/spr%C3%A1va-soubor%C5%AF-cookie-v-prohl%C3%AD%C5%BEe%C4%8Di-microsoft-edge-zobrazen%C3%AD-povolen%C3%AD-blokov%C3%A1n%C3%AD-odstran%C4%9Bn%C3%AD-a-pou%C5%BEit%C3%AD-168dab11-0753-043d-7c16-ede5947fc64d"
+                        target="_blank" class="a-print" aria-label="Správa cookies v Microsoft Edge">Microsoft Edge</a></li>
+                <li><a href="https://support.apple.com/cs-cz/guide/safari/sfri11471/mac" target="_blank" class="a-print" aria-label="Správa cookies v Safari">Safari</a></li>
+            </ul>
 
-            <div class="h2">
-                <h2>Kontakt</h2>
-            </div>
-            <p>Pokud máte jakékoliv dotazy ohledně používání cookies, můžete nás kontaktovat na e-mailu: <strong><a href="mailto:gazova.michaela@purkynka.cz" class="no-a-style">gazova.michaela@purkynka.cz</a> </strong> | <strong><a href="mailto:friedl.daniel@purkynka.cz" class="no-a-style">friedl.daniel@purkynka.cz</a></strong></p>
-            <p>Tento dokument byl naposledy aktualizován <strong>15. 8. 2025</strong>.</p>
+            <h3>Kontakt</h3>
+            <p>Pokud máte jakékoliv dotazy ohledně používání cookies, můžete nás kontaktovat na e-mailu: <strong><a href="mailto:gazova.michaela@purkynka.cz"
+                class="no-a-style">gazova.michaela@purkynka.cz</a> </strong> | <strong><a href="mailto:friedl.daniel@purkynka.cz" class="no-a-style">friedl.daniel@purkynka.cz</a></strong></p>
+            <p>Tento dokument byl naposledy aktualizován <strong>26. 8. 2025</strong>.</p>
             <div class="zarazka"></div>
         </section>
     </article>
@@ -182,7 +184,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -192,7 +194,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>

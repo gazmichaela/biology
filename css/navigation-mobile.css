@@ -118,12 +118,9 @@ html.menu-open body {
   
 }
 
-#mobileNav, #sticky-mobileNav {
-    max-height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* Pro smooth scroll na iOS */
-    scrollbar-width: thin; /* Pro Firefox */
+#mobileNav,
+#sticky-mobileNav {
+  padding-bottom: 90px !important;
 }
 
 /* Stylování scrollbaru pro Webkit browsery */
@@ -214,6 +211,10 @@ html.menu-open body {
 
 /* ==== 3. RESPONZIVITA MOBILNÍ NAVIGACE ==== */
 @media screen and (max-width: 1175px) {
+    header ul * {
+        display: none !important;
+    }
+
     /* Zobrazí burger menu jen při šířce 1175px a méně */
     .burger-menu {
         display: flex;

@@ -83,7 +83,7 @@
       group.forEach((el) => {
         if (el === button) {
           el.classList.add(this.activeClass);
-          el.setAttribute("aria-current");
+          el.setAttribute("aria-current", "page");
         }
       });
     }

@@ -33,15 +33,13 @@
 
 <body>
     <header class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Buněčné a nebuněčné organismy</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -55,8 +53,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -74,8 +72,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -85,10 +83,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -145,7 +143,7 @@
             <div class="h2">
                 <h2>Nebuněčné organismy – viry</h2>
             </div>
-            <div class="zafrazka"></div>
+            <p>Viry jsou považovány za <strong>nebuněčné organismy</strong>, protože neobsahují buněčnou strukturu a nedokážou samostatně vykonávat životní funkce.</p>
             <div class="img-wrapper img-right-middle">
                 <picture>
                     <source srcset="images/webp/virus-stavba.webp" type="image/webp" data-scr="images/webp/virus-stavba.webp" data-source="Obrázek stažený z velkaencyklopedie.estranky.cz">
@@ -156,13 +154,17 @@
                     <span>Zdroj: <a href="https://velkaencyklopedie.estranky.cz/img/original/476/stavba-viru.png" target="_blank" tabindex="-1">Velkaencyklopedie</a></span>
                 </div>
             </div>
-            <p>Viry jsou považovány za <strong>nebuněčné organismy</strong>, protože neobsahují buněčnou strukturu a nedokážou samostatně vykonávat životní funkce.</p>
             <p>Virové částice obsahují jednu nebo několik molekul jediného typu nukleové kyseliny – buď <strong>RNA</strong> nebo <strong>DNA</strong>. Podle toho rozlišujeme RNA viry a DNA viry.</p>
-            <p>Viry se nemnoží dělením, ale replikací, tzn. <dfn class="tooltip">syntézou<span class="tooltiptext" aria-hidden="true">vytváření složitějších <br> látek z jednodušších</span></dfn> svých složek. Při syntéze <strong>jsou viry závislé na hostitelské buňce</strong>, kdy k pomnožení využívají jejích
-                <dfn class="tooltip">enzymatických<span class="tooltiptext" aria-hidden="true">bílkoviny urychlující<br>chemické reakce</span></dfn> struktur. Jsou schopny přenést svou nukleovou kyselinu z jedné hostitelské buňky do druhé tak, že:</p>
+            <p>Viry se nemnoží dělením, ale replikací, tzn.
+                <dfn class="tooltip" role="presentation">syntézou<span class="tooltiptext" aria-hidden="true">vytváření složitějších <br> látek zjednodušších</span></dfn>
+                svých složek. Při syntéze <strong>jsou viry závislé na hostitelské buňce</strong>, kdy k pomnožení využívají jejích
+                <dfn class="tooltip" role="presentation">enzymatických<span class="tooltiptext" aria-hidden="true">bílkoviny urychlující<br>chemické reakce</span></dfn>
+                struktur. Jsou schopny přenést svou nukleovou kyselinu z jedné hostitelské buňky do druhé tak, že:</p>
             <ol style="list-style: lower-roman;">
-                <li>buď překryjí hostitelskou <dfn class="tooltip">genetickou informaci<span class="tooltiptext" aria-hidden="true">zapsané údaje<br>v DNA nebo RNA </span></dfn> svou genetickou informací,</li>
-                <li>nebo svou genetickou informaci začlení do  <dfn class="tooltip">genomu<span class="tooltiptext" aria-hidden="true">celková genetická<br>informace organismu</span></dfn> hostitele.</li>
+                <li>buď překryjí hostitelskou <dfn class="tooltip" role="presentation">genetickou informaci<span class="tooltiptext" aria-hidden="true">zapsané údaje<br>v DNA nebo
+                    RNA </span></dfn> svou genetickou informací,</li>
+                <li>nebo svou genetickou informaci začlení do  <dfn class="tooltip" role="presentation">genomu<span class="tooltiptext" aria-hidden="true">celková genetická<br>informace
+                    organismu</span></dfn> hostitele.</li>
             </ol>
             <p>Viry se vyznačují <strong>parazitickým způsobem „života“ uvnitř hostitelských buněk</strong>: rozmnožovat se mohou pouze v živých buňkách. Viry způsobují
                 různá onemocnění u lidí, zvířat a rostlin.</p>
@@ -190,64 +192,82 @@
                 množství buněk, jež spolu vzájemně spolupracují, specializují se na různé úkoly a společně tvoří složitě organizovaný celek.</p>
             <p>Přestože se organismy mohou výrazně lišit svou podobou i složitostí, všechny jejich buňky mají velmi podobné 
                 chemické složení, protože obsahují stejné základní stavební látky, jako jsou bílkoviny, lipidy, sacharidy a nukleové kyseliny.</p>
-            <div class="img-wrapper img-right-big">
-                <picture>
-                    <source srcset="images/webp/bunka-popis.webp" type="image/webp" data-src="images/webp/bunka-popis.webp" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
-                    <img src="images/png/bunka-popis.png" data-src="images/png/bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
-                </picture>   
-                <div class="info-box" aria-hidden="true">
-                    <div class="icon-circle">i</div>
-                    <span>Zdroj: <a href="https://braydens5555.wordpress.com/wp-content/uploads/2012/10/plant-cell11.jpg?w=300" target="_blank" tabindex="-1">Swack's Shack</a>, upraveno</span>
+            <div class="img-responsive">
+                <div class="img-wrapper img-right-big">
+                    <picture>
+                        <source srcset="images/webp/bunka-popis.webp" type="image/webp" data-src="images/webp/bunka-popis.webp" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
+                        <img src="images/png/bunka-popis.png" data-src="images/png/bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
+                    </picture>   
+                    <div class="info-box" aria-hidden="true">
+                        <div class="icon-circle">i</div>
+                        <span>Zdroj: <a href="https://braydens5555.wordpress.com/wp-content/uploads/2012/10/plant-cell11.jpg?w=300" target="_blank" tabindex="-1">Swack's Shack</a>, upraveno</span>
+                    </div>
                 </div>
-                </div>
+            </div>
             <p>V buňkách probíhají obdobné chemické reakce, které umožňují uvolňování a přeměnu energie, tvorbu nových látek 
                 a udržování vnitřního prostředí, přičemž jejich vnitřní struktura je rovněž do značné míry podobná – většina buněk 
                 obsahuje cytoplazmu, buněčnou membránu a genetickou informaci uloženou v DNA.</p>
-            <p><strong>Nové buňky</strong> vznikají výhradně z buněk již existujících, takzvaných <dfn class="tooltip">buněk mateřských<span class="tooltiptext" aria-hidden="true">původní buňka</span></dfn>, a to procesem 
-                <dfn class="tooltip">buněčného dělení<span class="tooltiptext" aria-hidden="true">buňka se rozdělí <br>na dvě nové buňky,</span></dfn>, díky čemuž je umožněna <dfn class="tooltip">nepřetržitá kontinuita<span class="tooltiptext" aria-hidden="true">nepřetržité navazování života <br> z generace na generaci</span></dfn> života a přenos genetické informace z generace na generaci.</p> 
+            <p><strong>Nové buňky</strong> vznikají výhradně z buněk již existujících, takzvaných
+                <dfn class="tooltip" role="presentation">buněk mateřských<span class="tooltiptext"aria-hidden="true">původní buňka</span></dfn>,
+                a to procesem 
+                <dfn class="tooltip" role="presentation">buněčného dělení<span class="tooltiptext" aria-hidden="true">buňka se rozdělí <br>na dvě nové buňky,</span></dfn>,
+                díky čemuž je umožněna
+                <dfn class="tooltip" role="presentation">nepřetržitá kontinuita<span class="tooltiptext" aria-hidden="true">nepřetržité navazování života <br> z generace na generaci</span></dfn>
+                života a přenos genetické informace z generace na generaci.</p> 
             <p>Činnost celého živého organismu je pak výsledkem součinnosti jednotlivých buněk, jejich specializovaných funkcí 
                 a vzájemné komunikace, přičemž právě spolupráce mezi buňkami zajišťuje, že organismus jako celek může správně fungovat, 
                 růst, vyvíjet se a reagovat na podněty z okolního prostředí.</p>
             <h3>Historie výzkumu buněk</h3>
             <ol>
-                <strong><li>1837 – J.E. Purkyně</li></strong>
-                <ul>
-                    <li>Vyslovil pouze základy buněčné teorie.</li>
-                    <li>Domníval se, že buňky mohou vznikat <em>de novo</em> = sami od sebe (dnes víme, že není úplně pravda)</li>
-                </ul>
-                               
+                <li class="no-break">
+                    <strong>1837 – J.E. Purkyně</strong>
+                    <ul>
+                        <li>Vyslovil pouze základy buněčné teorie.</li>
+                        <li>Domníval se, že buňky mohou vznikat <em>de novo</em> = sami od sebe (dnes víme, že není úplně pravda)</li>
+                    </ul>
+                </li>
                 <br>
-                <strong><li>1838-39 – Matthias Schleiden a Theodor Schwann</li></strong>
-                <ul>
-                    <li>Schleiden – botanik – zformuloval část teorie týkající se rostlinných buněk.</li>
-                    <li>Schwann – zoolog – doplnil buněčnou teorii o živočišné buňky.</li>
-                    <li><strong>Dohromady vytvořili buněčnou teorii.</strong></li>
-                </ul>
+                <li class="no-break">
+                    <strong>1838-39 – Matthias Schleiden a Theodor Schwann</strong>
+                    <ul>
+                        <li>Schleiden – botanik – zformuloval část teorie týkající se rostlinných buněk.</li>
+                        <li>Schwann – zoolog – doplnil buněčnou teorii o živočišné buňky.</li>
+                        <li><strong>Dohromady vytvořili buněčnou teorii.</strong></li>
+                    </ul>
+                </li>
                 <br>
-                <strong><li>1857 – Rudolf Virchow</li></strong>
-                <ul>
-                    <li>Potvrdil teorii.</li>
-                    <li>Přidal také poslední důležitý bod: <em><dfn>omnis cellua e cellua</dfn></em> (každá buňka pouze z buňky).</li>
-                    <li>Tzn. každá buňka může vzniknout pouze z buňky, nemůže se tedy stát – jak tvrdil Purkyně –, že buňka vznikne
-                        sama od sebe bez nějaké předchozí buňky.</li>
-                </ul>
+                <li class="no-break">
+                    <strong>1857 – Rudolf Virchow</strong>
+                    <ul>
+                        <li>Potvrdil teorii.</li>
+                        <li>Přidal také poslední důležitý bod: <em><dfn>omnis cellua e cellua</dfn></em> (každá buňka pouze z buňky).</li>
+                        <li>Tzn. každá buňka může vzniknout pouze z buňky, nemůže se tedy stát – jak tvrdil Purkyně –, že buňka vznikne
+                            sama od sebe bez nějaké předchozí buňky.</li>
+                    </ul>
+                </li>
             </ol>
             <h3>Prokaryotické buňky</h3>
             <p>Nachází se v jednobuněčných organismech, jako jsou <strong>bakterie</strong> a <strong>archea</strong>.</p>
-            <p>Vnitřní prostor buňky vyplňuje <strong>protoplast</strong>, tj. cytoplazma obsahující různé struktury, která je na povrchu kryta cytoplazmatickou membránou. V cytoplazmě jsou kromě DNA a ribozomů
-                přítomny <strong>plazmidy</strong>. Jsou to malé kruhové molekuly DNA, z nichž některé mají schopnost pronikat z jedné buňky do druhé.</p>
-            <p>Bakteriální buňka je od svého okolí oddělena tuhým obalem – buněčnou stěnou. <strong>Buněčná stěna </strong> uděluje buňce tvar a <dfn class="tooltip">mechanicky<span class="tooltiptext" aria-hidden="true">fyzicky</span></dfn> ji chrání před vlivy vnějšího okolí.
-                Na povrchu mají <strong>bičíky</strong> (jeden a více, umožňují pohyb) a <strong>fimbrie</strong> (usnadňují bakteriím přilnutí k různým povrchům).</p>
-            <p>Za nepříznivých podmínek ztratí bakteriální buňka část vody, cytoplazma se zahustí a na povrchu se vytvoří ochranná vrstva. Buňka se mění na sporu, která se nemnoží. <strong>Spory</strong> jsou
-                velmi odolné, odolávají teplotám až -190 °C i 100 ˚C. V nepříznivých podmínkách přežívají i několik let.</p>
+            <p>Vnitřní prostor buňky vyplňuje <strong>protoplast</strong>, tj. cytoplazma obsahující různé struktury, která je na povrchu kryta cytoplazmatickou membránou.
+                V cytoplazmě jsou kromě DNA a ribozomů přítomny <strong>plazmidy</strong>. Jsou to malé kruhové molekuly DNA, z nichž některé mají schopnost pronikat
+                z jedné buňky do druhé.</p>
+            <p>Bakteriální buňka je od svého okolí oddělena tuhým obalem – buněčnou stěnou. <strong>Buněčná stěna </strong> uděluje buňce tvar a
+                <dfn class="tooltip" role="presentation">mechanicky<span class="tooltiptext" aria-hidden="true">fyzicky</span></dfn>
+                ji chrání před vlivy vnějšího okolí. Na povrchu mají <strong>bičíky</strong> (jeden a více, umožňují pohyb) a <strong>fimbrie</strong> (usnadňují
+                bakteriím přilnutí k různým povrchům).</p>
+            <p>Za nepříznivých podmínek ztratí bakteriální buňka část vody, cytoplazma se zahustí a na povrchu se vytvoří ochranná vrstva. Buňka se mění na sporu, která se
+                nemnoží. <strong>Spory</strong> jsou velmi odolné, odolávají teplotám až -190 °C i 100 ˚C. V nepříznivých podmínkách přežívají i několik let.</p>
             <h3>Eukaryotická buňka</h3>
-            <p>Je evolučně mladší, složitější a zpravidla větší než buňka prokaryotická. Hmota jádra je uspořádána do chromozómů, které obsahují <dfn class="tooltip">lineární DNA<span class="tooltiptext" aria-hidden="true">DNA, která má <br>rovný (nekruhový) tvar</span></dfn>. Buňka obsahuje systém membránových organel, které
-                jsou odvozeny buď od cytoplazmatické membrány, nebo jsou semiautonomní (mitochondrie a plastidy) a vznikly endosymbiózou. Jsou dva způsoby dělení těchto buněk – dělení mitózou a dělení meiózou.</p>
+            <p>Je evolučně mladší, složitější a zpravidla větší než buňka prokaryotická. Hmota jádra je uspořádána do chromozómů, které obsahují
+                <dfn class="tooltip" role="presentation">lineární DNA<span class="tooltiptext" aria-hidden="true">
+                    DNA, která má <br>rovný (nekruhový) tvar</span></dfn>. Buňka obsahuje systém membránových organel, které
+                jsou odvozeny buď od cytoplazmatické membrány, nebo jsou semiautonomní (mitochondrie a plastidy) a vznikly endosymbiózou. Jsou dva způsoby dělení těchto
+                buněk – dělení mitózou a dělení meiózou.</p>
             <p>Rozdělujeme tři typy eukaryotických buněk: <strong>rostlinná, živočišná, houbová</strong>. Základní rozdíl ve stavbě mezi buňkou rostlin a
-                živočichů je ten, že živočišná nemá buněčnou stěnu. Buňka hub se z hlediska stavby v zásadě shoduje s rostlinou. Srovnánní těchto
+                živočichů je ten, že živočišná nemá buněčnou stěnu. Buňka hub se z hlediska stavby v zásadě shoduje s rostlinou. Srovnání těchto
                 typů buněk je v tabulce níže.</p>
             <div class="zarazka"></div>
-            <h3>Srovnání přítomnosti buněčných struktur eukaryotických a prokaryotických buněk</h3>
+            <h3 aria-hidden="true">Srovnání přítomnosti buněčných struktur eukaryotických a prokaryotických buněk</h3>
             <div class="table-wrapper">
                 <table>
                     <caption>Srovnání přítomnosti buněčných struktur eukaryotických a prokaryotických buněk</caption>
@@ -376,15 +396,17 @@
             </div>
             <div class="zarazka"></div>
 
-            <div class="h2">
-                <h2>Rostlinná buňka</h2>
+            <div class="h2 new-page">
+                <h2>Jednotlivé typy eukaryotických buněk</h2>
             </div>
+            <h3>Rostlinná buňka</h3>
             <p>Rostlinné buňky jsou základní stavební a funkční jednotou všech rostlin a také hnědých řas.</p>
-            <br>
             <div class="img-wrapper img-next">
                 <picture>
-                    <source srcset="images/webp/rostlinna-bunka-popis.webp" type="image/webp" data-src="images/webp/rostlinna-bunka-popis.webp" data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
-                    <img src="images/png/rostlinna-bunka-popis.png" data-src="images/png/rostlinna-bunka-popis.png" loading="lazy" class="zoomable" data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
+                    <source srcset="images/webp/rostlinna-bunka-popis.webp" type="image/webp" data-src="images/webp/rostlinna-bunka-popis.webp"
+                    data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
+                    <img src="images/png/rostlinna-bunka-popis.png" data-src="images/png/rostlinna-bunka-popis.png" loading="lazy" class="zoomable"
+                    data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
                 </picture>
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -393,8 +415,10 @@
             </div>
             <div class="img-wrapper img-next">
                 <picture>
-                    <source srcset="images/webp/mapa-rostlinna-bunka.webp" type="image/webp" data-src="images/webp/mapa-rostlinna-bunka.webp" data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
-                    <img src="images/png/mapa-rostlinna-bunka.png" data-src="images/png/mapa-rostlinna-bunka.png" loading="lazy" class="zoomable" data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                    <source srcset="images/webp/mapa-rostlinna-bunka.webp" type="image/webp" data-src="images/webp/mapa-rostlinna-bunka.webp"
+                    data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                    <img src="images/png/mapa-rostlinna-bunka.png" data-src="images/png/mapa-rostlinna-bunka.png" loading="lazy" class="zoomable"
+                    data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                 </picture>  
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -403,11 +427,9 @@
             </div>            
             <div class="zarazka"></div>
 
-            <div class="h2">
-                <h2>Živočišná buňka</h2>
-            </div>
-            <p>Struktura živočišné a rostlinné buňky je v zásadě stejná. Živočišná buňka se liší v tom, že nemá buněčnou stěnu, takže její povrch tvoří pouze cytoplazmatická membrána, která obsahuje navíc cholesterol, ovlivňující propustnost. Také jim chybí plastidy.</p>
-            <br>
+            <h3 class="new-page">Živočišná buňka</h3>
+            <p>Struktura živočišné a rostlinné buňky je v zásadě stejná. Živočišná buňka se liší v tom, že nemá buněčnou stěnu, takže její povrch tvoří pouze cytoplazmatická membrána,
+                která obsahuje navíc cholesterol, ovlivňující propustnost. Také jim chybí plastidy.</p>
             <div class="img-wrapper img-next">
                 <picture>
                     <source srcset="images/webp/zivocisna-bunka-popis.webp" type="image/webp" data-src="images/webp/zivocisna-bunka-popis.webp" data-source="Obrázek stažený z bze.kvalitne.cz, dostupné z archivu">
@@ -420,8 +442,10 @@
             </div>
             <div class="img-wrapper img-next">
                 <picture>
-                    <source srcset="images/webp/mapa-zivocisna-bunka.webp" type="image/webp" data-src="images/webp/mapa-zivocisna-bunka.webp" data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
-                    <img src="images/png/mapa-zivocisna-bunka.png" data-src="images/png/mapa-zivocisna-bunka.png" loading="lazy" class="zoomable" data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                    <source srcset="images/webp/mapa-zivocisna-bunka.webp" type="image/webp" data-src="images/webp/mapa-zivocisna-bunka.webp"
+                    data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                    <img src="images/png/mapa-zivocisna-bunka.png" data-src="images/png/mapa-zivocisna-bunka.png" loading="lazy" class="zoomable"
+                    data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                 </picture>  
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -430,11 +454,11 @@
             </div>            
             <div class="zarazka"></div>
 
-            <div class="h2">
-                <h2>Buňka hub</h2>
-            </div>
+            <h3 class="new-page">Buňka hub</h3>
             <p>Buňka hub se z hlediska stavby v zásadě shoduje s rostlinnou. Rozdíly jsou následující: buněčná stěna je z polysacharidu chtinu, nejsou přítomny plastidy.
-                Zásobními látkami jsou jako v živočišné buňce glykogen a lipidy. Buňky hub jsou <dfn class="tooltip">heterotrofní<span class="tooltiptext" aria-hidden="true">nejsou schopni sami si <br> vytvářet organické látky <br> z anorganických, takže je <br> musí získávat z jiných organismů<br> </span></dfn>.</p>
+                Zásobními látkami jsou jako v živočišné buňce glykogen a lipidy. Buňky hub jsou
+                <dfn class="tooltip" role="presentation">heterotrofní<span class="tooltiptext" aria-hidden="true">nejsou schopni sami si <br> vytvářet
+                    organické látky <br> z anorganických, takže je <br> musí získávat z jiných organismů<br> </span></dfn>.</p>
             <br>
             <div class="img-wrapper img-left">
                 <picture>
@@ -449,10 +473,10 @@
             <div class="zarazka"></div>
             
             <!-- Video -->
-            <div class="h2">
+            <div class="h2 no-print">
                 <h2>Doporučujeme se podívat na:</h2>
             </div>
-            <br>
+            <br class="no-print">
             <div class="video-wrapper">
                 <div class="responsive-video">
                     <iframe src="https://www.youtube.com/embed/URUJD5NEXC8"
@@ -464,20 +488,22 @@
                     </iframe>
                 </div>
             </div>
-            <br>
+        </section>
 
-            <div class="h2">
+        <section>
+            <div class="h2 no-print" id="questions-heading">
                 <h2>Jak dobře rozumíte tomuto tématu?</h2>
             </div>
-            <br>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
-            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
+            title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak byste stručně charakterizoval(a) princip fungování buňky? Jaká je její základní role ve vztahu k okolnímu prostředí?</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak byste stručně charakterizoval(a) princip fungování buňky? Jaká je
+                        její základní role ve vztahu k okolnímu prostředí?</div>
                     <div class="answer">Buňka je samostatně řídící jednotka závislá na prostředí.</div>
                 </div>
 
@@ -499,15 +525,18 @@
                 
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
             </div>
-            <br>
+        </section>
 
+        <section>
             <div class="h2">
                 <h2>Doporučená literatura</h2>
             </div>
             <div class="citace">
                 <ul>
-                    <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/bunecna-biologie" target="_blank">https://eluc.ikap.cz/lekce/bunecna-biologie</a>. [citováno 2025-05-09].</li>
-                    <li><em>Biologie virů a bakterií</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii" target="_blank">https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii</a>. [citováno 2025-05-09].</li>
+                    <li><em>Buněčná biologie</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/bunecna-biologie"
+                        target="_blank">https://eluc.ikap.cz/lekce/bunecna-biologie</a>. [citováno 2025-05-09].</li>
+                    <li><em>Biologie virů a bakterií</em>. Online. ELUC. Dostupné z: <a href="https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii"
+                        target="_blank">https://eluc.ikap.cz/lekce/biologie-viru-a-bakterii</a>. [citováno 2025-05-09].</li>
                 </ul>
                 <p>Na této stránce byl použit text z <a href="https://www.nzip.cz/rejstrikovy-pojem/984" target="_blank">https://www.nzip.cz/rejstrikovy-pojem/984</a>.</p>
             </div>
@@ -518,7 +547,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -528,7 +557,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>

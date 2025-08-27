@@ -29,15 +29,13 @@
 
 <body>
     <header class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Základy systémového myšlení</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -51,8 +49,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -70,8 +68,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -81,10 +79,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -138,14 +136,16 @@
 
     <article>
         <section>
-            <div class="img-wrapper img-right-top">
-                <picture>
-                    <source srcset="images/webp/system-mysl-ai.webp" type="image/webp">
-                    <img src="images/png/system-mysl-ai.png">
-                </picture> 
-                <div class="info-box" aria-hidden="true">
-                    <div class="icon-circle">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+            <div class="img-responsive">
+                <div class="img-wrapper img-right-top">
+                    <picture>
+                        <source srcset="images/webp/system-mysl-ai.webp" type="image/webp">
+                        <img src="images/png/system-mysl-ai.png">
+                    </picture> 
+                    <div class="info-box" aria-hidden="true">
+                        <div class="icon-circle">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+                    </div>
                 </div>
             </div>
 
@@ -153,21 +153,21 @@
                 <h2>Systémový přístup</h2>
             </div>
             <p>Při práci v systémové biologii se často využivá systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
-            <a href="system-approach.html" class="button">Více informací zde</a>
+            <a href="system-approach.html" class="button">Více informací zde </a>
             <br>
 
             <div class="h2">
                 <h2>Systémové myšlení</h2>
             </div>
             <p>Často souvisí se systémovým přístupem. Co obnáší systémové myšlení?</p>
-            <a href="system-thinking.html" class="button">Zjistit</a>
+            <a href="system-thinking.html" class="button">Zjistit </a>
             <br>
 
             <div class="h2">
                 <h2>Teorie systému</h2>
             </div>
             <p>Co to je v obecné rovině systém? Jaké jsou jeho vlastnosti? Odpovědi na tyto otázky naleznete v sekci Teorie systémů.</p>
-            <a href="system-theory.html" class="button">Teorie systémů</a>
+            <a href="system-theory.html" class="button">Teorie systémů </a>
             <div class="zarazka"></div>
         </section>
     </article>
@@ -175,7 +175,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -185,7 +185,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>

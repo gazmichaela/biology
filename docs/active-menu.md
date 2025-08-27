@@ -70,7 +70,7 @@ class NavigationManager {
 například změněním hodnoty ___1175___ u mobileBreakpoint.
 
 ## API Reference:
-Metody třídy:
+Metody třídy __NavigationManager__:
 
 - init() - spustí správu navigace.
 

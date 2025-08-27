@@ -150,7 +150,11 @@ header p {
 
 header h1 {
     font-size: 2em;
-    margin: 25px 14px 0px 14px;
+    margin: 50px 14px 26px 14px;
+}
+
+.h1-index h1 {
+    margin-bottom: 0;
 }
 
 noscript h2 {
@@ -185,23 +189,19 @@ article section p + ol {
 }
 
 article section li {
-    /* margin-left: 1.2em; */
-    line-height: 1.4;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.6em;
 }
 
 article section li li {
-    margin-top: 0.1em;
-    /* margin-left: 0.5em; */
-    line-height: 1.2;
-    margin-bottom: 0.1em;
+    margin-top: 0.2em;
+    margin-bottom: 0.4em;
+    line-height: 1.4;
 }
 
 article section li li li {
-    margin-top: 0.05em;
-    /* margin-left: 0.5em; */
-    line-height: 1.1;
-    margin-bottom: 0.05em;
+    margin-top: 0.1em;
+    margin-bottom: 0.2em;
+    line-height: 1.3;
 }
 
 article section p {
@@ -233,6 +233,14 @@ article section h3 {
     margin-top: 60px;
     margin-bottom: 0.8em;
     text-align: left;
+}
+
+article section ol h3,
+article section ul h3 {
+    text-decoration: none !important; /* !important kvůli dark-mode.js */
+    font-size: 1.1em;
+    margin-top: 2.5em;
+    margin-bottom: 0.4em;
 }
 
 article section h4 {
@@ -275,7 +283,7 @@ article section .button-light {
     border-radius: 20px;
     padding: 9px 20px;
     margin-left: 30px;
-    margin-top: 20px;
+    margin-top: 25px;
     display: inline-block;  
     cursor: pointer;        
     text-align: center;
@@ -290,7 +298,7 @@ article section .button-light {
 }
 
 article section .button {
-    background: #1c77e8;
+    background-color: #1c77e8;
 }
 
 article section .button-light {
@@ -480,7 +488,7 @@ footer p {
 
 /* ==== 6. TABULKY ==== */
 table {
-    width: 70%;
+    width: 90%;
     max-width: 1800px;
     border: 2px solid black;
     border-collapse: collapse; /* Sloučení okrajů buněk */
@@ -526,6 +534,10 @@ table td:first-child {
     -webkit-overflow-scrolling: touch;  /* Plynulé posouvání na iOS */
 }
 
+.extra-bunka {
+    text-align: left !important;
+}
+
 
 
 /* ==== 7. VÝZNAM SLOV PŘI NAJETÍ MYŠÍ ==== */
@@ -558,6 +570,7 @@ table td:first-child {
     font-style: normal;
     line-height: 1.3;
     animation: visibilityTooltext 0s 1s forwards;
+    user-select: none;
 }
 @keyframes visibilityTooltext {
     to { visibility: hidden; }

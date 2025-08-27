@@ -32,15 +32,13 @@
 
 <body>
     <header>
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
             <picture>
                 <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
                 <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
             </picture>
         </a>
-        <br>
         <h1>Systémový přístup</h1>
-        <br>
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
@@ -54,8 +52,8 @@
             <!-- Základy systémového myšlení -->
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
@@ -73,8 +71,8 @@
             <!-- Základy živých soustav **SECOND** -->
             <li class="dropdown">
                 <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow" id="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
@@ -84,10 +82,10 @@
 
             <!-- Buňka, Člověk -->
             <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
             </div>
             <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
             </div>
         </ul>
         <!-- konec navigace pro šířku nad 1175px -->
@@ -141,32 +139,40 @@
     
     <article>
         <section>
-            <div class="img-wrapper img-right-top">
-                <picture>
-                    <source srcset="images/webp/systemovy-pristup-ai.webp" type="image/webp" data-src="images/webp/systemovy-pristup-ai.webp">
-                    <img src="images/png/systemovy-pristup-ai.png" data-src="images/png/systemovy-pristup-ai.png">
-                </picture>   
-                <div class="info-box" aria-hidden="true">
-                    <div class="icon-circle">i</div>
-                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+            <div class="img-responsive">
+                <div class="img-wrapper img-right-top">
+                    <picture>
+                        <source srcset="images/webp/systemovy-pristup-ai.webp" type="image/webp" data-src="images/webp/systemovy-pristup-ai.webp">
+                        <img src="images/png/systemovy-pristup-ai.png" data-src="images/png/systemovy-pristup-ai.png">
+                    </picture>   
+                    <div class="info-box" aria-hidden="true">
+                        <div class="icon-circle">i</div>
+                        <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+                    </div>
                 </div>
             </div>
 
             <div class="h2">
                 <h2>Systémový přístup</h2>
             </div>
-            <p>Systémový přístup je praktická metoda, která vychází ze systémového myšlení a pomáhá při navrhování a optimalizaci složitých systémů. Zaměřuje se na 
-                <dfn class="tooltip">interakce<span class="tooltiptext" aria-hidden="true">vzájemné působení, vliv <br> jednoho prvku na druhý</span></dfn>
+            <p>
+                Systémový přístup je praktická metoda, která vychází ze systémového myšlení a pomáhá při navrhování a optimalizaci složitých
+                systémů. Zaměřuje se na 
+                <dfn class="tooltip" role="presentation">interakce<span class="tooltiptext" aria-hidden="true">vzájemné působení,
+                    vliv <br> jednoho prvku na druhý</span></dfn>
                 mezi jednotlivými částmi a zkoumá se, jak spolupracují. Tento přístup je
-                <dfn class="tooltip">základní filozofií<span class="tooltiptext" aria-hidden="true">základní princip nebo způsob <br> přemýšlení, který ovlivňuje, <br> jak se daná věc řeší</span></dfn>, 
+                <dfn class="tooltip" role="presentation">základní filozofií<span class="tooltiptext" aria-hidden="true">základní princip nebo
+                    způsob <br> přemýšlení, který ovlivňuje, <br> jak se daná věc řeší</span></dfn>, 
                 která stojí za navrhováním a 
-                <dfn class="tooltip">optimalizací<span class="tooltiptext" aria-hidden="true">vylepšení nebo úprava <br> tak, aby celý systém <br> fungoval co nejefektivněji</span></dfn>
-                složitých systémů.
-                Například při návrhu elektromobilu se inženýři nezaměřují pouze na jednotlivé komponenty, jako jsou elektromotor nebo baterie, ale 
-                na to, jak tyto části spolu fungují a jak jejich optimalizace přispěje k efektivitě celého vozu.</p>
-            <p>Systémová biologie používá matematiku, počítače a velké množství dat, aby mohla analyzovat, jak tyto části komunikují a ovlivňují se navzájem. </p>
+                <dfn class="tooltip" role="presentation">optimalizací<span class="tooltiptext" aria-hidden="true">vylepšení nebo úprava <br> tak,
+                    aby celý systém <br> fungoval co nejefektivněji</span></dfn>
+                složitých systémů. Například při návrhu elektromobilu se inženýři nezaměřují pouze na jednotlivé komponenty, jako jsou elektromotor
+                nebo baterie, ale na to, jak tyto části spolu fungují a jak jejich optimalizace přispěje k efektivitě celého vozu.
+            </p>
+            <p>Systémová biologie používá matematiku, počítače a velké množství dat, aby mohla analyzovat, jak tyto části komunikují
+                a ovlivňují se navzájem.</p>
             <p>Postupy práce v systémové biologii:</p>
-            <ul>
+            <ul class="no-break">
                 <li>Sběr dat</li>
                 <li>Modelování</li>
                 <li>Simulace</li>
@@ -179,24 +185,22 @@
              <ul>
                 <li>
                     Představte si řízení dopravy v rušném městě. Systémový přístup v tomto případě umožňuje
-                    <dfn class="tooltip">urbanistům<span class="tooltiptext" aria-hidden="true">odborníci, kteří plánují <br> a navrhují města a <br> jejich infrastrukturu</span></dfn>
-                    navrhovat řešení, která zohledňují nejen tok vozidel, ale také pohyb chodců, veřejnou dopravu, semafory a silniční infrastrukturu. Díky analýze těchto vzájemně
-                    propojených složek mohou odborníci vytvořit dopravní systém, který minimalizuje zácpy a zvyšuje celkovou
-                    <dfn class="tooltip">mobilitu<span class="tooltiptext" aria-hidden="true">schopnost lidí a <br> zboží pohybovat se <br> po městě rychle, <br> bezpečně a pohodlně</span></dfn>.
+                    <dfn class="tooltip" role="presentation">urbanistům<span class="tooltiptext" aria-hidden="true">odborníci, kteří plánují <br> a
+                        navrhují města a <br> jejich infrastrukturu</span></dfn>
+                    navrhovat řešení, která zohledňují nejen tok vozidel, ale také pohyb chodců, veřejnou dopravu, semafory a silniční infrastrukturu.
+                    Díky analýze těchto vzájemně propojených složek mohou odborníci vytvořit dopravní systém, který minimalizuje zácpy a zvyšuje celkovou
+                    <dfn class="tooltip" role="presentation">mobilitu<span class="tooltiptext" aria-hidden="true">schopnost lidí a <br> zboží pohybovat
+                        se <br> po městě rychle, <br> bezpečně a pohodlně</span></dfn>.
                 </li>
-                <li>
-                    Výrobní linka pro automobily je složitý systém, kde je každá část propojená s ostatními. Pokud se například zastaví montáž motorů kvůli technickému problému, může to zpomalit nebo zastavit
-                    celý proces. Pomocí systémového přístupu mohou vedoucí pracovníci analyzovat vzájemné vazby mezi částmi výrobního procesu a optimalizovat jejich spolupráci tak, aby celý systém
-                    fungoval efektivně a pružně reagoval na výpadky či změny.
-                </li>
-                <li>
-                    Při snaze zvýšit kvalitu výuky ve škole se může uplatnit systémový přístup. Vedení školy se nezaměřuje pouze na výkon jednotlivých učitelů, ale analyzuje celý školní systém: strukturu rozvrhu, způsob
-                    hodnocení, motivaci žáků, spolupráci s rodiči i technické zázemí. Teprve propojením těchto prvků a jejich vzájemnou optimalizací je možné dosáhnout trvalého zlepšení výsledků.
-                </li>
-                <li>
-                    Vědci, kteří se zabývají infekcemi, analyzují, jak bakterie komunikují a ovlivňují lidské buňky. Tato data jim pomáhají určit nejlepší místa, kam zasáhnout antibiotiky,
-                    aby zabránili šíření nemoci, a zároveň vyvíjejí způsoby, jak snížit vznik rezistence vůči lékům.
-                </li>
+                <li>Výrobní linka pro automobily je složitý systém, kde je každá část propojená s ostatními. Pokud se například zastaví montáž motorů
+                    kvůli technickému problému, může to zpomalit nebo zastavit celý proces. Pomocí systémového přístupu mohou vedoucí pracovníci
+                    analyzovat vzájemné vazby mezi částmi výrobního procesu a optimalizovat jejich spolupráci tak, aby celý systém fungoval 
+                    efektivně a pružně reagoval na výpadky či změny.</li>
+                <li>Při snaze zvýšit kvalitu výuky ve škole se může uplatnit systémový přístup. Vedení školy se nezaměřuje pouze na výkon jednotlivých
+                    učitelů, ale analyzuje celý školní systém: strukturu rozvrhu, způsob hodnocení, motivaci žáků, spolupráci s rodiči i technické zázemí.
+                    Teprve propojením těchto prvků a jejich vzájemnou optimalizací je možné dosáhnout trvalého zlepšení výsledků.</li>
+                <li>Vědci, kteří se zabývají infekcemi, analyzují, jak bakterie komunikují a ovlivňují lidské buňky. Tato data jim pomáhají určit nejlepší
+                    místa, kam zasáhnout antibiotiky, aby zabránili šíření nemoci, a zároveň vyvíjejí způsoby, jak snížit vznik rezistence vůči lékům.</li>
             </ul>
 
             <div class="h2">
@@ -204,27 +208,32 @@
             </div>
             <p>Systémové myšlení a systémový přístup spolu úzce souvisí. Systémové myšlení je spíše způsob uvažování, způsob, jak chápat svět a problémy.
                 Systémový přístup je konkrétní nástroj nebo metoda, kterou můžeme použít k praktickému řešení problémů vycházejícím ze systémového myšlení.</p>
-            <a href="system-thinking.html" class="button">Více o systémovém myšlení</a>
+            <a href="system-thinking.html" class="button">Více o systémovém myšlení </a>
             <div class="zarazka"></div>
+        </section>
 
-            <div class="h2">
+        <section>
+            <div class="h2 no-print" id="questions-heading">
                 <h2>Kvíz:</h2>
             </div>
-            <br>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
-            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
+                title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak se uplatní systémový přístup při navrhování léčby nemocí?</div>
-                    <div class="answer">Léčba se neomezuje jen na nemocný orgán, ale zohledňuje i imunitní odpověď, psychický stav, životní styl a další faktory, které mohou ovlivnit uzdravení.</div>
+                    <div class="answer">Léčba se neomezuje jen na nemocný orgán, ale zohledňuje i imunitní odpověď, psychický stav, životní styl a další faktory,
+                        které mohou ovlivnit uzdravení.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak systémový přístup pomáhá při navrhování nových technologií, jako jsou elektromobily?</div>
-                    <div class="answer">Při vývoji elektromobilů nesmíme myslet jen na motor a baterii. Systémový přístup zahrnuje infrastrukturu nabíjení, výrobu elektřiny, recyklaci baterií, změny v dopravních návycích lidí i ekonomické dopady na automobilový průmysl. Všechny tyto části musí fungovat dohromady.</div>
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak systémový přístup pomáhá při navrhování nových
+                        technologií, jako jsou elektromobily?</div>
+                    <div class="answer">Při vývoji elektromobilů nesmíme myslet jen na motor a baterii. Systémový přístup zahrnuje infrastrukturu nabíjení, výrobu
+                        elektřiny, recyklaci baterií, změny v dopravních návycích lidí i ekonomické dopady na automobilový průmysl. Všechny tyto části musí fungovat dohromady.</div>
                 </div>
 
                 <div class="faq-item">
@@ -234,7 +243,8 @@
 
                 <div class="faq-item">
                     <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak může systémový přístup pomoci při ochraně životního prostředí?</div>
-                    <div class="answer">Systémový přístup umožňuje zohlednit ekologické, ekonomické i sociální faktory a jejich vzájemné vlivy, což vede k udržitelným řešením environmentálních problémů.</div>
+                    <div class="answer">Systémový přístup umožňuje zohlednit ekologické, ekonomické i sociální faktory a jejich vzájemné vlivy, což vede k udržitelným řešením
+                        environmentálních problémů.</div>
                 </div>
                 
                 <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
@@ -246,7 +256,7 @@
     <footer>
         <p>Vytvořeno pro vzdělávací účely</p>
         <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
-        <hr>
+        <hr role="presentation">
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
@@ -256,7 +266,7 @@
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
     <div id="cookiesMiniNotice" class="cookies-mini-notice">
         <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-        <a href="personal-data.html">Více informací</a><br>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
         <br>
         <button id="acceptCookies">Rozumím</button>
     </div>
