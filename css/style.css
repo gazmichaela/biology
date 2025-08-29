@@ -422,7 +422,7 @@ footer p {
     padding: 15px 25px;
     font-size: 0.9em;
     max-width: 420px;
-    z-index: 999;
+    z-index: 1000;
     border: 1px solid #e0e0e0;
     display: none; /* Počáteční stav - skryto */
 }
