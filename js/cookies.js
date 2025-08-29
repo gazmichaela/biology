@@ -88,26 +88,9 @@
     }
 
     _isPrivateMode() {
-      // Pro Firefox: VŽDY nejdřív zkontrolovat cookies
-      if (this.state.isFirefox) {
-        const cookies = document.cookie;
-        if (cookies.includes(this.config.storageKey + '=true') || 
-            cookies.includes(this.config.storageKey + '=' + encodeURIComponent('true'))) {
-          // Cookie existuje = normální režim
-          this.state.privateModeDetected = false;
-          return false;
-        }
-        // Žádná cookie = anonymní režim nebo první návštěva
-        // Pro Firefox: pokud není cookie, považuj za anonymní
-        this.state.privateModeDetected = true;
-        return true;
-      }
-      
-      // Pro ostatní prohlížeče původní logika
       if (this.state.privateModeDetected !== undefined) {
         return this.state.privateModeDetected;
       }
-      
       try {
         localStorage.setItem('__test__', '1');
         const testValue = localStorage.getItem('__test__');
@@ -179,12 +162,9 @@
       if (this._isPrivateMode()) return false;
       const ts = Date.now().toString();
       const { storageKey, syncKey, domain, forceCookies } = this.config;
-      
-      // Pro Firefox použít pouze cookies
-      const storages = this.state.isFirefox 
-        ? [() => this._getCookieStorage()]
+      const storages = this.state.isFirefox || forceCookies 
+        ? [() => this._getCookieStorage(), () => localStorage, () => sessionStorage]
         : [() => localStorage, () => sessionStorage, () => this._getCookieStorage()];
-      
       let success = false, result = false;
       for (const getStorage of storages) {
         try {
@@ -228,8 +208,9 @@
         setItem: (k, v) => {
           const maxAge = 365 * 24 * 60 * 60;
           let cookieString = `${k}=${encodeURIComponent(v)}; max-age=${maxAge}; path=/`;
-          // Vždy nastavit domain pro Firefox
-          cookieString += `; domain=${domain}`;
+          if (domain && !domain.includes('localhost') && !domain.includes('127.0.0.1')) {
+            cookieString += `; domain=${domain}`;
+          }
           cookieString += '; SameSite=Lax';
           if (location.protocol === 'https:') cookieString += '; Secure';
           document.cookie = cookieString;
@@ -248,7 +229,9 @@
         },
         removeItem: k => {
           let cookieString = `${k}=; max-age=0; path=/`;
-          cookieString += `; domain=${domain}`;
+          if (domain && !domain.includes('localhost') && !domain.includes('127.0.0.1')) {
+            cookieString += `; domain=${domain}`;
+          }
           cookieString += '; SameSite=Lax';
           document.cookie = cookieString;
         }
@@ -291,21 +274,6 @@
           return true;
         }
       }
-      
-      // Firefox double-check přes cookies
-      if (this.state.isFirefox) {
-        const cookies = document.cookie;
-        const cookieVariants = [
-          `${this.config.storageKey}=true`,
-          `${this.config.storageKey}=${encodeURIComponent('true')}`
-        ];
-        for (const variant of cookieVariants) {
-          if (cookies.includes(variant)) {
-            return false;
-          }
-        }
-      }
-      
       return !this._storageOp('get');
     }
 
@@ -342,13 +310,7 @@
     }
 
     _checkPrivateMode() {
-      // Pro Firefox vždy resetovat detekci
-      if (this.state.isFirefox) {
-        this.state.privateModeDetected = undefined;
-      } else {
-        this.state.privateModeDetected = undefined;
-      }
-      
+      this.state.privateModeDetected = undefined;
       const currentPrivateMode = this._isPrivateMode();
       const { lastPrivateMode } = this.state;
       if (lastPrivateMode !== null && lastPrivateMode !== currentPrivateMode) {
@@ -385,11 +347,6 @@
         if (isPrivateNow) setTimeout(() => this._showNotice(), 100);
       }
       setTimeout(() => { this._updateNoticeState(); }, this.state.isFirefox ? 200 : 50);
-      
-      // Firefox extra cross-domain check
-      if (this.state.isFirefox) {
-        setTimeout(() => this._firefoxCrossDomainCheck(), 100);
-      }
     }
 
     _onStorageEvent(event) {
@@ -401,7 +358,7 @@
 
     _startMonitoring() {
       const checkInterval = this.state.isFirefox ? 2000 : this.config.checkInterval;
-      const syncInterval = this.state.isFirefox ? 500 : 2000; // Rychlejší sync pro Firefox
+      const syncInterval = this.state.isFirefox ? 3000 : 2000;
       this.intervals.check = setInterval(this.checkPrivateMode, checkInterval);
       this.intervals.sync = setInterval(this.forcedSync, syncInterval);
       this._log(`Monitoring started (check: ${checkInterval}ms, sync: ${syncInterval}ms)`);
@@ -433,17 +390,6 @@
       }
     }
 
-    _firefoxCrossDomainCheck() {
-      if (!this.state.isFirefox) return;
-      
-      // Zkontroluj všechny možné cookie formáty
-      const cookies = document.cookie;
-      if (cookies.includes(this.config.storageKey + '=true') || 
-          cookies.includes(this.config.storageKey + '=' + encodeURIComponent('true'))) {
-        setTimeout(() => this._updateNoticeState(), 50);
-      }
-    }
-
     _bindEvents() {
       const { acceptButton } = this.elements;
       if (acceptButton) {
@@ -470,14 +416,6 @@
         }
       }
       window.addEventListener('focus', this.handleWindowFocus);
-      
-      // Firefox specifické události
-      if (this.state.isFirefox) {
-        window.addEventListener('focus', () => {
-          setTimeout(() => this._firefoxCrossDomainCheck(), 100);
-        });
-      }
-      
       const focusHandler = () => { if (!document.hidden) this.handleWindowFocus(); };
       document.addEventListener('visibilitychange', focusHandler);
       this._unbindEvents = () => {
