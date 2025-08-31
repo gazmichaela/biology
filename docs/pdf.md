@@ -143,7 +143,7 @@ Eventy jsou pečlivě odpojeny při __destroy()__, aby nedocházelo k memory lea
 
 Díky IIFE (uzavření do anonymní funkce) se interní proměnné a metody nedostávají do globálního scope.
 
-## Příklad:
+## Příklad HTML:
 ```html 
 <div class="pdf-overlay" id="presahPdfOverlay">
   <div class="pdf-viewer-container">

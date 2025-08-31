@@ -18,7 +18,9 @@
   document.addEventListener("DOMContentLoaded", () => {
     // requestAnimationFrame zajišťuje vykreslení před spuštěním nastavování event listenerů
     requestAnimationFrame(() => {
-      const toggleQuestionsBtn = document.getElementById("toggle-questions-btn");
+      const toggleQuestionsBtn = document.getElementById(
+        "toggle-questions-btn"
+      );
       const faqContainer = document.getElementById("faq-container");
       const questionsHeading = document.getElementById("questions-heading");
 

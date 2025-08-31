@@ -101,7 +101,9 @@
       const isAndroid = /android/.test(ua);
       const isMobile = /mobile|phone|mobi|mini/.test(ua);
       const isTablet =
-        /tablet|ipad|playbook|silk|(puffin(?!.*(IP|AP|WP)))|kindle|nook|kobo/.test(ua);
+        /tablet|ipad|playbook|silk|(puffin(?!.*(IP|AP|WP)))|kindle|nook|kobo/.test(
+          ua
+        );
       const isTouchDevice =
         "ontouchstart" in window || navigator.maxTouchPoints > 0;
       const w = window.innerWidth;
@@ -312,6 +314,11 @@
       if (toggle) {
         toggle.style.display = "none";
       }
+      // Schování cookie notifikaci, když je PDF otevřené (překrývalo by se)
+      const cookiesNotice = document.querySelector(".cookies-mini-notice");
+      if (cookiesNotice) {
+        cookiesNotice.style.display = "none";
+      }
 
       this.state.isPdfOpen = true;
       this._applyMobileStyles();
@@ -350,6 +357,11 @@
       const toggle = document.getElementById("darkModeToggle");
       if (toggle) {
         toggle.style.display = "flex";
+      }
+      // Vrácení cookie notifikaci zpět po zavření PDF
+      const cookiesNotice = document.querySelector(".cookies-mini-notice");
+      if (cookiesNotice) {
+        cookiesNotice.style.display = "block"; // nebo původní display hodnotu
       }
 
       this.elements.frame.src = "";

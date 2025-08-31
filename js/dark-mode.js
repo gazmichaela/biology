@@ -1,62 +1,217 @@
-(function() { // this metoda
-    'use strict';
-    
-    let isDarkMode = false;
-    let hasUserPreference = false;
-    
-    const storedPreference = getDarkModePreference();
-    if (storedPreference !== null) {
-        isDarkMode = storedPreference;
-        hasUserPreference = true;
-    }
-    
-    let isToggleVisible = true;
-    try {
-        const storedVisibility = localStorage.getItem('darkModeToggleVisible');
-        if (storedVisibility !== null) {
-            isToggleVisible = storedVisibility === 'true';
-        }
-    } catch (e) {
-        // Fallback na cookies
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; darkModeToggleVisible=`);
-        if (parts.length === 2) {
-            isToggleVisible = parts.pop().split(';').shift() === 'true';
-        }
-    }
-    if (!hasUserPreference) {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            isDarkMode = true;
-        } else {
-            isDarkMode = false;
-        }
+(function () {
+  class DarkModeManager {
+    constructor() {
+      this.browserType = this._detectBrowser();
+      this.isPrivate = this._detectPrivateMode();
+      this.isDarkMode = false;
+      this.hasUserPreference = false;
+      this.isUsingSystemPreference = true;
+      this.isToggleVisible = true;
+      this._toggleBtn = null;
+      this._iconSpan = null;
+      
+      this._storage = this._createStorage();
+      this._initState();
+      this._initCSS();
+      this._createToggle();
+      this._createReset();
+      this._applyAnimations();
+      this._bindEvents();
+      this._initAPI();
     }
 
-    window.isUsingSystemPreference = !hasUserPreference;
-    // Anti-flicker css vložené před zobrazením 
-    const criticalCSS = `
-    
-        ${isDarkMode ?`
-            html.dark-mode {
-                background-color: #222222 ;
-                color: #c8c1b5;
-            }
-            body.dark-mode {
-                background-color: #222222 ;
-                color: #c8c1b5;
-            }
-        ` : `
-            html {
-                background-color: #f0f9f0 ;
-                color: #023f1e;
-            }
-            body {
-                background-color: #f0f9f0;
-                color: #023f1e;
-            }
-        `}
+    _detectBrowser() {
+      const ua = navigator.userAgent.toLowerCase(); 
+      if (ua.includes("firefox")) return "firefox";
+      if (ua.includes("chrome") || ua.includes("safari") || ua.includes("edge"))
+        return "chromium";
+      return "chromium";  
+    }
+
+    _detectPrivateMode() {
+      try {
+        localStorage.setItem("__test__", "1");
+        localStorage.removeItem("__test__");
+      } catch (e) {
+        return true;
+      }
+      try {
+        sessionStorage.setItem("__test__", "1");
+        sessionStorage.removeItem("__test__");
+      } catch (e) {
+        return true;
+      }
+      if (window.navigator.webdriver) return true;
+      return false;
+    }
+
+    _createStorage() {
+      const domain =
+        window.location.hostname.includes(".")
+          ? "." + window.location.hostname.split(".").slice(-2).join(".")
+          : window.location.hostname;
         
-        .dark-mode-toggle {
+      const cookieStore = {
+        setItem: (k, v) => {
+          let cookieString = `${k}=${encodeURIComponent(
+            v
+          )}; max-age=${365 * 24 * 60 * 60}; path=/; SameSite=Lax`;
+          if (
+            domain && 
+            !domain.includes("localhost") &&
+            !domain.match(/^\d+\.\d+\.\d+\.\d+$/)
+          )
+            cookieString += `; domain=${domain}`;
+          if (location.protocol === "https:") cookieString += "; Secure";
+          document.cookie = cookieString;  
+        },
+        getItem: (k) => {
+          const name = `${k}=`;
+          const cookies = document.cookie.split(";");
+          for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name)) {
+              return decodeURIComponent(cookie.substring(name.length));  
+            }
+          }
+          return null;  
+        },
+        removeItem: (k) => {
+          let cookieString = `${k}=; max-age=0; path=/; SameSite=Lax`;
+          if (
+            domain &&
+            !domain.includes("localhost") &&
+            !domain.match(/^\d+\.\d+\.\d+\.\d+$/)
+          )
+            cookieString += `; domain=${domain}`;
+          document.cookie = cookieString;  
+        },
+      };
+      
+      return {
+        get: (key) => {
+          if (this.isPrivate) return null;
+          const storages =
+            this.browserType === "firefox"
+              ? [cookieStore, sessionStorage, localStorage]
+              : [localStorage, sessionStorage, cookieStore];
+          for (const storage of storages) {
+            try {
+              const value = storage.getItem(key);
+              if (value !== null && value !== undefined) return value;  
+            } catch (e) {}
+          }
+          return null;    
+        },
+        set: (key, value) => {
+          if (this.isPrivate) return;
+          const storages =
+            this.browserType === "firefox"
+              ? [cookieStore, sessionStorage, localStorage]
+              : [localStorage, sessionStorage, cookieStore];
+          for (const storage of storages) {
+            try {
+              storage.setItem(key, value);
+              return true;  
+            } catch (e) {}
+          }
+          return false;          
+        },
+        remove: (key) => {
+          try {
+            localStorage.removeItem(key);
+          } catch (e) {}
+          try {
+            sessionStorage.removeItem(key);
+          } catch (e) {}
+          try {
+            cookieStore.removeItem(key);
+          } catch (e) {}
+        },
+      };
+    }
+
+    _initState() {
+      const storedPref = this._getPref("darkMode");
+      if (storedPref !== null) {
+        this.isDarkMode = storedPref === "true";
+        this.hasUserPreference = true;
+        this.isUsingSystemPreference = false;
+      } else {
+        this.isUsingSystemPreference = true;
+        if (
+          window.matchMedia && 
+          window.matchMedia("(prefers-color-scheme: dark)").matches  
+        ) {
+          this.isDarkMode = true;  
+        }
+      }
+      const toggleVis = this._getPref("darkModeToggleVisible");
+      this.isToggleVisible = toggleVis !== null ? toggleVis === "true" : true;
+    }
+
+    _initCSS() {
+      const style = document.createElement("style");
+      style.type = "text/css";
+      style.id = "darkmode-critical-css";
+      style.appendChild(document.createTextNode(this._criticalCSS()));
+      document.head.appendChild(style);
+      
+      const mainStyle = document.createElement("style");
+      mainStyle.appendChild(document.createTextNode(this._mainCSS()));
+      document.head.appendChild(mainStyle);
+
+      const svgStyle = document.createElement("style");
+      svgStyle.appendChild(document.createTextNode(`
+        .dark-mode .dark-mode-toggle {
+          background: #111 !important;
+          transition: background 0.22s, box-shadow 0.22s;
+        }
+        .dark-mode-toggle svg, .dark-mode-toggle .sun-icon {
+          background: transparent !important;
+          stroke: white !important;
+          fill: none !important;
+        }
+        .dark-mode-toggle .icon-anim {
+          transition: transform 0.25s, opacity 0.25s;
+        }  
+      `));
+      document.head.appendChild(svgStyle);
+
+      if (this.isDarkMode) {
+        document.documentElement.classList.add("dark-mode");
+        document.body.classList.add("dark-mode");
+      }
+      setTimeout(() => {
+        style.remove();
+      }, 300);
+    }
+
+    _criticalCSS() {
+      return `
+              ${this.isDarkMode ?`
+              html.dark-mode {
+                background-color: #222222;
+                color: #c8c1b5;
+              }
+              
+              body.dark-mode {
+                background-color: #222222;
+                color: #c8c1b5;
+              }
+         ` : `
+            html {
+              background-color: #f0f9f0;
+              color: #023f1e;
+            }
+            
+            body {
+              background-color: #f0f9f0;
+              color: #023f1e
+            }
+         `}
+         
+          .dark-mode-toggle {
             position: fixed !important;
             bottom: 20px !important;
             right: 20px !important;
@@ -65,694 +220,366 @@
             border-radius: 8px !important;
             border: none !important;
             cursor: pointer !important;
-            display: ${isToggleVisible ? 'flex' : 'none'} !important;
+            display: ${this.isToggleVisible ? 'flex' : 'none'} !important;
             align-items: center !important;
             justify-content: center !important;
             font-size: 1.5rem !important;
             z-index: 1000 !important;
             transition: none !important;
-        
-        
-        .dark-mode-toggle.hidden {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          }
+          
+          .dark-mode-toggle.hidden {
             display: none;
-        }
-            ${isDarkMode ? `
-                background: black;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.5) ;
-            ` : `
-                background: white ;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            `}
-        }
-        
-        html.dark-mode .dark-mode-toggle,
-        body.dark-mode .dark-mode-toggle,
-        .dark-mode .dark-mode-toggle {
-            background: black;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-    
-        html.ready, body.ready {
-            visibility: visible ;
-            opacity: 1 ;
-            transition: opacity 0.15s ease-in-out;
-        }
-    `;
-    
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    style.id = 'anti-flicker-css';
-    
-    if (style.styleSheet) {
-        style.styleSheet.cssText = criticalCSS;
-    } else {
-        style.appendChild(document.createTextNode(criticalCSS));
+          }
+          
+          ${this.isDarkMode ? `
+              html.dark-mode .dark-mode-toggle,
+              body.dark-mode .dark-mode-toggle,
+              .dark-mode .dark-mode-toggle {
+                background: black !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+              }
+      ` : ''}
+              html.ready, body.ready {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.15s ease-in-out;
+              }
+      `;  
     }
-    
-    const head = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
-    head.insertBefore(style, head.firstChild);
-    
-    if (isDarkMode) {
-        document.documentElement.className += ' dark-mode';
-    }
-    
-    window.createToggleButtonEarly = function() {
-        const existingButton = document.getElementById('darkModeToggle');
-        if (existingButton) return; 
-        
-        const button = document.createElement('button');
-        button.id = 'darkModeToggle';
-        button.className = 'dark-mode-toggle';
-        
-        button.title = isDarkMode ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
-        
-        
-        if (isDarkMode) {
-            button.style.background = 'black';
-            button.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
-            button.innerHTML = createMoonIcon();
-        } else {
-            button.style.background = 'white';
-            button.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
-            button.innerHTML = createSunIcon();
-        }
-        
-        const isVisible = getToggleVisibilityState();
-        if (!isVisible) {
-            button.classList.add('hidden');
+
+    _mainCSS() {
+      return `
+            body {
+              transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
-        const container = document.body || document.documentElement;
-        container.appendChild(button);
-
-        setTimeout(() => {
-            button.classList.add('loaded');
-        }, 100);
-        
-
-        return button;
-    };
-    
-})();
-
-(function() {
-    const mainDarkModeCSS = `
-        body {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-   
         body.dark-mode {
-            background-color: #222222 ;
-            color: #c8c1b5 ;
+          background: #222;
+          color: #c8c1b5;
         }
-        
+
         body.dark-mode header {
-            background-color: #77afe0ee;
+          background: #77afe0ee;
         }
-        
+
         body.dark-mode article section h2 {
-            background: linear-gradient(to top, #1aff1a44 10%, transparent 60%);
+          background: linear-gradient(to top, #1aff1a44 10%, transparent 60%);
         }
-        
+
         body.dark-mode article section h3 {
-            text-decoration: underline #1aff1a44;
+          text-decoration: underline #1aff1a44;
         }
-        
+
         body.dark-mode .button,
         body.dark-mode .button-light {
-            color: #e6e6e6;
+          color: #e6e6e6;
         }
-        
+
         body.dark-mode .button {
-            background: #1c78e8f1;
+          background: #1c78e8f1;
         }
-        
+
         body.dark-mode .button-light {
-            background: #309ce5f1;
+          background: #309ce5f1;
         }
-        
+
         body.dark-mode article section a:link:not(.button):not(.sidemap a):not(.no-a-style) {
-            color: skyblue;
+          color: skyblue;
         }
-        
+
         body.dark-mode article section .citace a:visited {
-            color: cornflowerblue;
+          color: cornflowerblue;
         }
-        
+
         body.dark-mode .cookies-mini-notice {
-            background: black;
-            border: 1px solid #585858;
+          background: black;
+          border: 1px solid #585858
         }
-        
+
         body.dark-mode .cookies-mini-notice p {
-            color: #c8c1b5;
+          color: #c8c1b5;
         }
-        
+
         body.dark-mode .cookies-mini-notice a {
-            color: skyblue;
+          color: skyblue;
         }
         
         body.dark-mode .cookies-mini-notice button {
-            background-color: #2c2c2c;
-            border: 1px solid #3b3b3b;
-            color: #c8c1b5;
+          background: #2c2c2c;
+          border: 1px solid #3b3b3b;
+          color: #c8c1b5;
         }
         
         body.dark-mode .cookies-mini-notice button:hover {
-            background-color: #202020;
+          background: #202020;
         }
         
         body.dark-mode table {
-            border: 2px solid #c8c1b5;
+          border: 2px solid #c8c1b5;
         }
         
         body.dark-mode th,
         body.dark-mode td {
-            border: 1px solid #c8c1b5;
+          border: 1px solid #c8c1b5;
         }
         
         body.dark-mode .tooltip .tooltiptext {
-            background-color: #333;
-            color: #e0deda;
-        }
-        
-        body.dark-mode .sidebar-section {
-            background: #2a2a2a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        body.dark-mode .sidebar-title {
-            color: #64b5f6;
-            border-bottom-color: #64b5f6;
-        }
-        
-        body.dark-mode .countdown {
-            color: #64b5f6;
-        }
-        
-        body.dark-mode .article-card {
-            background: #2a2a2a;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          background: #333;
+          color: #e0deda;
         }
         
         body.dark-mode .question {
-            background-color: #333131;
-            border: 1px solid #505050;
+          background: #333131;
+          border: 1px solid #505050
         }
         
         body.dark-mode .answer {
-            background-color: #2b2c2b;
+          background: #2b2c2b;
         }
         
         body.dark-mode #toggle-questions-btn {
-            background-color: #309ce5f1;
-            color: #e6e6e6;
+          background: #309ce5f1;
+          color: #e6e6e6;
         }
         
-        body.dark-mode .dark-mode-toggle {
-            background: black ;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5) ;
+        body:not(.dark-mode) .dark-mode-toggle {
+          background: white !important;
         }
-            
-    `;
-    
-    const mainStyle = document.createElement('style');
-    mainStyle.appendChild(document.createTextNode(mainDarkModeCSS));
-    document.head.appendChild(mainStyle);
-})();
+      `;
+    }
 
-function getCookie(name) {
-    try {
-        if (!document.cookie) return null;
-        
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        
-        if (parts.length === 2) {
-            const cookieValue = parts.pop().split(';').shift();
-            return decodeURIComponent(cookieValue);
+    _initAPI() {
+      window.getDarkModePreference = () => this._getPref("darkMode");
+      window.saveDarkModePreference = (isDark) => this._savePref("darkMode", isDark ? "true" : "false");
+      window.resetToSystemPreferences = () => this._resetSystemPref();
+      window.isIncognitoMode = () => this._detectPrivateMode();
+      window.getBrowserType = () => this.browserType;  
+    }
+
+    _getPref(key) {
+      if (this.isPrivate) return null;
+      const value = this._storage.get(key);
+      return value;  
+    }
+    _savePref(key, value) {
+      if (this.isPrivate) return;
+      this._storage.set(key, value);  
+    }
+    _resetSystemPref() {
+      this._storage.remove("darkMode");
+      this.isUsingSystemPreference = true;
+      const prefersDark = window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+      this._applyMode(prefersDark);
+      this.isDarkMode = prefersDark;
+      this._updateIcon();
+      this._toggleBtn.title = prefersDark
+        ? "Přepnout na světlý režim"
+        : "Přepnout na tmavý režim";    
+    }
+
+    _createToggle() {
+      let btn = document.getElementById("darkModeToggle");
+      if (!btn) {
+        btn = document.createElement("button");
+        btn.id = "darkModeToggle";
+        btn.className = "dark-mode-toggle";
+        btn.style.display = this.isToggleVisible ? "flex" : "none";
+        btn.title = this.isDarkMode
+          ? "Přepnout na světlý režim"
+          : "Přepnout na tmavý režim";
+        const iconSpan = document.createElement("span");
+        iconSpan.id = "darkModeIcon";
+        iconSpan.innerHTML = this.isDarkMode
+          ? this._createMoonIcon()
+          : this._createSunIcon();
+        btn.appendChild(iconSpan);
+        document.body.appendChild(btn);
+        this._iconSpan = iconSpan;
+      } else {
+        btn.title = this.isDarkMode
+          ? "Přepnout na světlý režim"
+          : "Přepnout na tmavý režim";
+        let iconSpan = btn.querySelector("#darkModeIcon");
+        if (!iconSpan) {
+          iconSpan = document.createElement("span");
+          iconSpan.id = "darkModeIcon";
+          btn.appendChild(iconSpan);
         }
-        return null;
-    } catch (error) {
-        console.warn(`Error reading cookie '${name}':`, error);
-        return null;
-    }
-}
-
-function getDarkModePreference() {
-    try {
-        // Nejdříve zkusíme localStorage
-        const localStorageValue = localStorage.getItem('darkMode');
-        if (localStorageValue !== null) {
-            return localStorageValue === 'true';
-        }
-    } catch (e) {
-        console.warn('localStorage not available');
-    }
-    
-    // Pokud localStorage není dostupný nebo nemá hodnotu, zkusíme cookies
-    const cookieValue = getCookie('darkMode');
-    if (cookieValue !== null) {
-        return cookieValue === 'true';
-    }
-    
-    // Pokud nemáme žádnou uloženou preferenci, vrátíme null
-    return null;
-}
-
-// Incognito mode test
-function isIncognitoMode() {
-    try {
-        // Zkusíme zapsat do localStorage
-        localStorage.setItem('test', 'test');
-        localStorage.removeItem('test');
-        return false;
-    } catch (e) {
-        return true;
-    }
-}
-
-function saveDarkModePreference(isDark) {
-    if (isIncognitoMode()) {
-        return;
-    }
-    
-    try {
-        localStorage.setItem('darkMode', isDark);
-    } catch (e) {
-        console.warn('Failed to save to localStorage');
-    }
-    
-    try {
-        document.cookie = `darkMode=${encodeURIComponent(isDark)};path=/;max-age=31536000`;
-    } catch (error) {
-        console.error('Error saving darkMode cookie:', error);
-    }
-}
-
-function saveToggleVisibilityState(isVisible) {
-    if (isIncognitoMode()) {
-        return;
-    }
-    
-    try {
-        localStorage.setItem('darkModeToggleVisible', isVisible);
-    } catch (e) {
-        console.warn('Failed to save toggle visibility to localStorage');
-    }
-    
-    try {
-        document.cookie = `darkModeToggleVisible=${encodeURIComponent(isVisible)};path=/;max-age=31536000`;
-    } catch (error) {
-        console.error('Error saving darkModeToggleVisible cookie:', error);
-    }
-}
-
-function getToggleVisibilityState() {
-    try {
-        const localStorageValue = localStorage.getItem('darkModeToggleVisible');
-
-        if (localStorageValue !== null) {
-            return localStorageValue === 'true';
-        }
-    } catch (e) {
-        console.warn('localStorage not available');
-    }
-    
-    // Fallback na cookies
-    const cookieValue = getCookie('darkModeToggleVisible');
-    if (cookieValue !== null) {
-        return cookieValue === 'true';
-    }
-    
-    // Výchozí stav - tlačítko je viditelné
-    return true;
-}
-
-function saveButtonTextState(text) {
-    if (isIncognitoMode()) {
-        return;
-    }
-    
-    try {
-        localStorage.setItem('resetButtonText', text);
-    } catch (e) {
-        console.warn('Failed to save button text to localStorage');
-    }
-    
-    try {
-        document.cookie = `resetButtonText=${encodeURIComponent(text)};path=/;max-age=31536000`;
-    } catch (error) {
-        console.error('Error saving resetButtonText cookie:', error);
-    }
-}
-
-function getButtonTextState() {
-    try {
-        const localStorageValue = localStorage.getItem('resetButtonText');
-        if (localStorageValue !== null) {
-            return localStorageValue;
-        }
-    } catch (e) {
-        console.warn('localStorage not available');
-    }
-    
-    const cookieValue = getCookie('resetButtonText');
-    if (cookieValue !== null) {
-        return decodeURIComponent(cookieValue);
-    }
-    
-    return 'Preferovat světlý/tmavý režim prohlížeče';
-}
-
-(function() {
-    if (window.matchMedia) {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Handler pro změny OS color scheme
-        function handleSystemPreferenceChange(e) {
-            // Pouze reaguj na změnu, pokud uživatel nemá vlastní preferenci
-            if (window.isUsingSystemPreference) {
-                const shouldBeDark = e.matches;
-                const body = document.body;
-                const currentlyDark = body.classList.contains('dark-mode');
-                
-                if (shouldBeDark !== currentlyDark) {
-                    // Aplikuj změnu
-                    if (shouldBeDark) {
-                        body.classList.add('dark-mode');
-                        document.documentElement.classList.add('dark-mode');
-                    } else {
-                        body.classList.remove('dark-mode');
-                        document.documentElement.classList.remove('dark-mode');
-                    }
-                    
-                    // Aktualizuj ikonu tlačítka
-                    const toggle = document.getElementById('darkModeToggle');
-                    if (toggle) {
-                        toggle.innerHTML = shouldBeDark ? createMoonIcon() : createSunIcon();
-                        toggle.title = shouldBeDark ? 'Switch to light mode' : 'Switch to dark mode';
-                    }
-                }
-            }
-        }
-        
-    // Registrace media query listener
-    if (mediaQuery.addEventListener) {
-        mediaQuery.addEventListener('change', handleSystemPreferenceChange);
-    } else {
-        // Fallback pro starší prohlížeče
-        mediaQuery.addListener(handleSystemPreferenceChange);
-    }
- }
-})();
-
-// Reset na system default
-function resetToSystemPreferences() {
-    // Vymazání preference z localStorage
-    try {
-        localStorage.removeItem('darkMode');
-    } catch (e) {
-        console.warn('Failed to remove from localStorage');
-    }
-    // Vymazání preference z cookies
-    try {
-    document.cookie = 'darkMode=;path=/;max-age=0';
-    } catch (error) {
-        console.error('Error deleting darkMode cookie:', error);
-    }
-    
-    // Nastavení system preference flag
-    window.isUsingSystemPreference = true;
-    
-    // Aplikace OS color scheme
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const body = document.body;
-    
-    if (prefersDark) {
-        body.classList.add('dark-mode');
-        document.documentElement.classList.add('dark-mode');
-    } else {
-        body.classList.remove('dark-mode');
-        document.documentElement.classList.remove('dark-mode');
-    }
-    
-    // Aktualizace toggle icon state
-    const toggle = document.getElementById('darkModeToggle');
-    if (toggle) {
-        toggle.innerHTML = prefersDark ? createMoonIcon() : createSunIcon();
-        toggle.title = prefersDark ? 'Switch to light mode' : 'Switch to dark mode';
+        iconSpan.innerHTML = this.isDarkMode 
+          ? this._createMoonIcon()
+          : this._createSunIcon();
+        this._iconSpan = iconSpan;
+        btn.style.display = this.isToggleVisible ? "flex" : "none";
+      }
+      btn.addEventListener("click", () => {
+        this._toggleMode();
+        this._animateIcon();
+      });
+      this._toggleBtn = btn;
     }
 
-      // Uložení stavu, že tlačítko je skryté
-    saveToggleVisibilityState(false);
-    // Aktualizace button text state
-    saveButtonTextState('Přepínat ručně světlý/tmavý režim prohlížeče');
-}
-
-function showPage() {
-    // Odstranění anti-flicker CSS a zobrazení stránky
-    document.documentElement.classList.add('ready');
-    document.body.classList.add('ready');
-    
-    // Cleanup anti-flicker stylů po transition
-    setTimeout(() => {
-        const antiFlickerStyle = document.getElementById('anti-flicker-css');
-        if (antiFlickerStyle) {
-            antiFlickerStyle.remove();
-        }
-    }, 200);
-}
-
-function initializeEarly() {
-    // Inicializace dark mode state
-    let isDarkMode = false;
-    let hasUserPreference = false;
-    
-    try {
-        const storedPreference = localStorage.getItem('darkMode');
-        if (storedPreference !== null) {
-            isDarkMode = storedPreference === 'true';
-            hasUserPreference = true;
-        }
-    } catch (e) {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            isDarkMode = true;
-        }
-    }
-    
-    if (!hasUserPreference && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        isDarkMode = true;
-    }
-    
-    // Nastavení globálního system preference flag
-    window.isUsingSystemPreference = !hasUserPreference;
-        if (isDarkMode) {
-            document.body.classList.add('dark-mode');
-            document.documentElement.classList.add('dark-mode');
-        }
-        // Vytvoření toggle button v early init
-        if (window.createToggleButtonEarly) {
-            window.createToggleButtonEarly();
-        }
-        // Zobrazení page content
-        showPage();
-}
-
-if (document.readyState === 'loading') {
-    // DOM se načítá
-    document.addEventListener('DOMContentLoaded', initializeEarly);
-} else {
-    // DOM je již načten
-    initializeEarly();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    if (!document.documentElement.classList.contains('ready')) {
-        showPage();
+    _toggleMode() {
+      this.isDarkMode = !this.isDarkMode;
+      this._applyMode(this.isDarkMode);
+      this._savePref("darkMode", this.isDarkMode ? "true" : "false");
+      this.isUsingSystemPreference = false;
+      this._updateIcon();
+      this._toggleBtn.title = this.isDarkMode
+        ? "Přepnout na světlý režim"
+        : "Přepnout na tmavý režim";  
     }
 
-    if (!document.getElementById('darkModeToggle') && window.createToggleButtonEarly) {
-        window.createToggleButtonEarly();
-    }
-});
-
-function createSunIcon() {
-    return `
-        <div class="sun-icon">
-            <div class="sun"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-            <div class="ray"></div>
-        </div>
-    `;
-}
-
-function createMoonIcon() {
-    return `
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-    `;
-}
-
-function initializeDarkMode() {
-    let darkModeToggle = document.getElementById('darkModeToggle');
-    
-    // Vytvoření toggle pokud chybí
-    if (!darkModeToggle && window.createToggleButtonEarly) {
-        darkModeToggle = window.createToggleButtonEarly();
-    }
-    
-    if (!darkModeToggle) return;
-
-    // Nastavení viditelnosti podle uloženého stavu
-    const isVisible = getToggleVisibilityState();
-    if (!isVisible) {
-        darkModeToggle.style.display = 'none';
+    _applyMode(isDark) {
+      const body = document.body;
+      if (isDark) {
+        body.classList.add("dark-mode");
+        document.documentElement.classList.add("dark-mode");
+      } else {
+        body.classList.remove("dark-mode");
+        document.documentElement.classList.remove("dark-mode");
+      } 
     }
 
-    const body = document.body;
-
-    // Nastavení ikony podle aktuálního stavu (pokud ještě není nastavena)
-    if (!darkModeToggle.innerHTML.trim()) {
-        if (body.classList.contains('dark-mode')) {
-            darkModeToggle.innerHTML = createMoonIcon();
-        } else {
-            darkModeToggle.innerHTML = createSunIcon();
-        }
-    }
-
-    // Přidání event listener pokud již není attached
-    if (!darkModeToggle.hasAttribute('data-listener-added')) {
-        darkModeToggle.setAttribute('data-listener-added', 'true');
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDark = body.classList.contains('dark-mode');
-            
-            // Aplikace na html element pro konzistenci
-            if (isDark) {
-                document.documentElement.classList.add('dark-mode');
-            } else {
-                document.documentElement.classList.remove('dark-mode');
-            }
-                // Uložení user preference
-                saveDarkModePreference(isDark);
-
-            // Označení jako user-defined preference
-            window.isUsingSystemPreference = false;
-            
-            // Aktualizace tooltip
-            darkModeToggle.title = isDark ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim';
-            
-            // Animace ikony
-            const currentIcon = darkModeToggle.querySelector('.sun-icon, svg');
-            
-            if (currentIcon) {
-                currentIcon.style.transform = 'translateY(10px)';
-                currentIcon.style.opacity = '0';
-                currentIcon.style.transition = 'all 0.25s ease';
-                
-                setTimeout(() => {
-                    darkModeToggle.innerHTML = isDark ? createMoonIcon() : createSunIcon();
-                    
-                    const newIcon = darkModeToggle.querySelector('.sun-icon, svg');
-                    if (newIcon) {
-                        newIcon.style.transform = 'translateY(-10px)';
-                        newIcon.style.opacity = '0';
-                        newIcon.style.transition = 'all 0.25s ease';
-                        
-                        setTimeout(() => {
-                            newIcon.style.transform = 'translateY(0)';
-                            newIcon.style.opacity = '1';
-                        }, 50);
-                    }
-                }, 150);
-            }
-            
-        });
-        
-    }
-    const resetButton = document.getElementById('resetSystemPreferences');
-        if (resetButton) {
-        // Načtení saved button text
-        const savedText = getButtonTextState();
-        resetButton.textContent = savedText;
-            resetButton.addEventListener('click', () => {
-                const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Kontrola toggle visibility state
-        if (darkModeToggle && darkModeToggle.style.display === 'none') {
-            // Zobrazení toggle a aktualizace text
-            darkModeToggle.style.display = 'flex';
-            resetButton.textContent = ' Preferovat světlý/tmavý režim prohlížeče';
-            saveButtonTextState(' Preferovat světlý/tmavý režim prohlížeče');
-            // Označení jako user-defined preference
-            window.isUsingSystemPreference = false;
-            
-            // Uložení toggle visibility state
-            saveToggleVisibilityState(true);
-            
-        } else {
-            // Skrytí toggle a reset na system
-            resetToSystemPreferences();
-            
-            if (darkModeToggle) {
-                darkModeToggle.style.display = 'none';
-            }
-            
-            // Okamžitá změna textu
-            resetButton.textContent = 'Přepínat ručně světlý/tmavý režim prohlížeče';
-            saveButtonTextState('Přepínat ručně světlý/tmavý režim prohlížeče');
-            
-            // Uložení stavu, že tlačítko je skryté
-            saveToggleVisibilityState(false);
-        }
-    });
-}
-}  
-
-function initializeSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-function initializeLoadAnimations() {
-    document.querySelectorAll('.main-article, .sidebar-section, .article-card').forEach((element, index) => {
-        if (element) {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px)';
+    _animateIcon() {
+      const icon = this._iconSpan && this._iconSpan.querySelector(".icon-anim");
+      if (icon) {
+        icon.style.transform = "translateY(10px)";
+        icon.style.opacity = "0";
+        setTimeout(() => {
+          this._iconSpan.innerHTML = this.isDarkMode 
+            ? this._createMoonIcon()
+            : this._createSunIcon();
+          const newIcon = this._iconSpan.querySelector(".icon-anim");
+          if (newIcon) {
+            newIcon.style.transform = "translateY(-10px)";
+            newIcon.style.opacity = "0";
             setTimeout(() => {
-                element.style.transition = 'all 0.6s ease';
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, index * 100);
-        }
-    });
-}
+              newIcon.style.transform = "translateY(0)";
+              newIcon.style.opacity = "1";
+            }, 50);
+          }
+        }, 150);
+      }
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
-    initializeDarkMode();
-    initializeSmoothScroll();
+    _updateIcon() {
+      if (this._iconSpan) {
+        this._iconSpan.innerHTML = this.isDarkMode
+          ? this._createMoonIcon()
+          : this._createSunIcon();
+      }
+    }
+
+    _createSunIcon() {
+      return `
+        <div class="sun-icon icon-anim">
+          <div class="sun"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+        </div>
+      `;
+    }
+
+    _createMoonIcon() {
+      return `
+        <svg class="icon-anim" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      `;  
+    }
+
+    _createReset() {
+      const resetBtn = document.getElementById("resetSystemPreferences");
+      if (resetBtn) {
+        resetBtn.textContent = "Preferovat světlý/tmavý režim prohlížeče";
+        resetBtn.addEventListener("click", () => {
+          if (
+            this._toggleBtn && 
+            this._toggleBtn.style.display === "none"
+          ) {
+            this._toggleBtn.style.display = "flex";
+            this._toggleBtn.classList.remove("hidden");
+            resetBtn.textContent = "Preferovat světlý/tmavý režim prohlížeče";
+            this.isUsingSystemPreference = false;
+            this._savePref("darkModeToggleVisible", "true");
+          } else {
+            this._resetSystemPref();
+            this._toggleBtn.style.display = "none";
+            this._toggleBtn.classList.add("hidden");
+            resetBtn.textContent = "Přepínat ručně světlý/tmavý režim prohlížeče";
+            this._savePref("darkModeToggleVisible", "false");
+          }  
+        });
+      }
+    }
+
+    _applyAnimations() {
+    document.documentElement.classList.add("ready");
+    document.body.classList.add("ready");
     
-});
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
+        });
+    });
+    }
+    
+    _bindEvents() {
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!document.documentElement.classList.contains("ready")) {
+          document.documentElement.classList.add("ready");
+          document.body.classList.add("ready");  
+        }
+        if (
+          !document.getElementById("darkModeToggle")  
+        ) {
+          this._createToggle();
+        }
+        this._createReset();
+      });  
+    }
 
-window.addEventListener('load', function() {
-    initializeLoadAnimations();
+    getState() {
+      return {
+        isInitialized: true,
+        isPrivateMode: this.isPrivate,
+        isDarkMode: this.isDarkMode,
+        isChromium: this.browserType === "chromium",
+        isFirefox: this.browserType === "firefox",
+        toggleVisible: this.isToggleVisible,
+        usingSystemPreference: this.isUsingSystemPreference,
+        config: {
+          browserType: this.browserType,  
+        },
+      };  
+    }
+  }
 
-});
+  let darkModeManager;
+  document.addEventListener("DOMContentLoaded", function () {
+    darkModeManager = new DarkModeManager();
+    window.darkModeManager = darkModeManager;
+    window.getDarkModeState = () => darkModeManager.getState();
+  });
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = DarkModeManager;
+  }
+  if (typeof window !== "undefined") {
+    window.DarkModeManager = DarkModeManager;
+  }
+})();

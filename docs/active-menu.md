@@ -29,6 +29,7 @@ Script očekává určitou strukturu:
 
 ## Proč OOP?
 Některé mé scripty jsou napsané jen jako funkce.
+
 Tady ale dává větší smysl použít přístup (třídu) objektově orientovaného programování, protože:
 
 - navigace má stav (aktivní tlačítko, seznam prvků),
