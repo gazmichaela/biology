@@ -138,7 +138,7 @@ body header {
     text-align: center;
     padding: 1px 0;
     color: white;
-    z-index: 1000;
+    z-index: 993;
     position: sticky;
 }
 

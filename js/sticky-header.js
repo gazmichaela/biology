@@ -29,7 +29,7 @@ function insertStickyHeaderStyles() {
     background-color: #77afe0ee;
     text-align: center;
     color: white;
-    z-index: 999;
+    z-index: 993;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     transform: translateY(-100%);
@@ -116,11 +116,11 @@ function insertStickyHeaderStyles() {
 
 /* Zajisti, že sticky mobilní nav má správný z-index */
 .sticky-mobile-nav.active {
-    z-index: 10000;
+    z-index: 999;
 }
 
 .sticky-menu-overlay.active {
-    z-index: 9999;
+    z-index: 998;
 }
 .sticky-header .dropdown-toggle,
 .sticky-header .dropdown-toggle-second {
