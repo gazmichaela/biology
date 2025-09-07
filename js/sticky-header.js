@@ -905,9 +905,29 @@ function initializeHomeIcon(stickyHeader) {
     const homeIcons = stickyHeader.querySelectorAll('.home-icon');
     
     homeIcons.forEach(homeIcon => {
+        // Najdeme původní home icon v hlavním headeru pro párování
+        const originalHomeIcon = document.querySelector('header .home-icon');
+        
+        // Nastavíme tabindex podle původního elementu
+        if (originalHomeIcon && originalHomeIcon.hasAttribute('tabindex')) {
+            homeIcon.setAttribute('tabindex', originalHomeIcon.getAttribute('tabindex'));
+        } else {
+            // Pokud původní nemá tabindex, nastavíme 0 pro normální tab navigaci
+            homeIcon.setAttribute('tabindex', '0');
+        }
+        
+        // Přidáme data-original-index pro správné párování
+        const originalElements = document.querySelector('header').querySelectorAll('a, button, [tabindex]');
+        const originalIndex = Array.from(originalElements).indexOf(originalHomeIcon);
+        if (originalIndex !== -1) {
+            homeIcon.setAttribute('data-original-index', originalIndex);
+        }
+        
+        // Zachováme původní chování - celý element není klikatelný
         homeIcon.style.cursor = 'default';
         homeIcon.style.pointerEvents = 'none';
-        homeIcon.removeAttribute('href');
+        
+        // Focus styling bude řešeno přes CSS
         
         const imgElement = homeIcon.querySelector('img');
         
@@ -915,37 +935,88 @@ function initializeHomeIcon(stickyHeader) {
             imgElement.style.cursor = 'pointer';
             imgElement.style.pointerEvents = 'auto';
             
-            imgElement.addEventListener('click', function(e) {
+            // Funkce pro navigaci na domovskou stránku
+            function navigateHome(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 
                 clearAllDropdownStates();
+                
                 function findHomepageUrl() {
+                    const originalHomeIcon = document.querySelector('header .home-icon[href]');
+                    if (originalHomeIcon) {
+                        const href = originalHomeIcon.getAttribute("href") || "";
+                        return href;
+                    }
+                    
+                    const possibleHomeLinks = document.querySelectorAll('header a[href]');
+                    for (let link of possibleHomeLinks) {
+                        const href = (link.getAttribute("href") || "").replace("/", "");
+                        if (href === "" || href === "index.html" || href === "index.php") {
+                            return link.getAttribute("href");
+                        }
+                    }
+                    
+                    return "./";
+                }
 
-        const originalHomeIcon = document.querySelector('header .home-icon[href]');
-        if (originalHomeIcon) {
-            const href = originalHomeIcon.getAttribute("href") || "";
-            return href;
-        }
-        
-        const possibleHomeLinks = document.querySelectorAll('header a[href]');
-        for (let link of possibleHomeLinks) {
-            const href = (link.getAttribute("href") || "").replace("/", "");
-            if (href === "" || href === "index.html" || href === "index.php") {
-                return link.getAttribute("href");
+                setTimeout(() => {
+                    window.location.href = findHomepageUrl();
+                }, 50);
             }
-        }
-        
-        return "./";
-    }
-
-    setTimeout(() => {
-        window.location.href = findHomepageUrl();
-    }, 50);
-                });
+            
+            // Event listenery pro klik i klávesnici
+            imgElement.addEventListener('click', navigateHome);
+            homeIcon.addEventListener('click', navigateHome);
+            
+            // Podpora pro klávesnici (Enter a Space)
+            homeIcon.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    navigateHome(e);
+                }
+            });
                 
         } else {
             console.warn('No IMG element found in home icon');
+            
+            // Pokud není IMG element, přidáme event listenery přímo na home icon
+            function navigateHome(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                
+                clearAllDropdownStates();
+                
+                function findHomepageUrl() {
+                    const originalHomeIcon = document.querySelector('header .home-icon[href]');
+                    if (originalHomeIcon) {
+                        const href = originalHomeIcon.getAttribute("href") || "";
+                        return href;
+                    }
+                    
+                    const possibleHomeLinks = document.querySelectorAll('header a[href]');
+                    for (let link of possibleHomeLinks) {
+                        const href = (link.getAttribute("href") || "").replace("/", "");
+                        if (href === "" || href === "index.html" || href === "index.php") {
+                            return link.getAttribute("href");
+                        }
+                    }
+                    
+                    return "./";
+                }
+
+                setTimeout(() => {
+                    window.location.href = findHomepageUrl();
+                }, 50);
+            }
+            
+            homeIcon.addEventListener('click', navigateHome);
+            homeIcon.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    navigateHome(e);
+                }
+            });
         }
     });
 }
