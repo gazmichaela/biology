@@ -6,7 +6,7 @@
  *
  * @fileoverview PDF viewer s mobilní optimalizací
  * @author Michaela Gažová
- * @version 2.2.0
+ * @version 2.2.1
  * @since 2025-05-16
  * @updated 2025-08-24
  * @license MIT

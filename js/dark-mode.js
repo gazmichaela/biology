@@ -1,3 +1,19 @@
+/**
+ * DarkModeManager - Systém pro správu tmavého režimu
+ *
+ * Automaticky sleduje uživatelské preference a synchronizuje je napříč taby v prohlížečích.
+ * Obsahuje záložní fallback mechanismy pro různé typy úložiště.
+ *
+ * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
+ * @author Michaela Gažová
+ * @version 2.0.0
+ * @since 2025-05-28
+ * @updated 2025-09-01
+ * @license MIT
+ */
+
+
+
 (function () {
   class DarkModeManager {
     constructor() {
@@ -9,7 +25,7 @@
       this.isToggleVisible = true;
       this._toggleBtn = null;
       this._iconSpan = null;
-      
+
       this._storage = this._createStorage();
       this._initState();
       this._initCSS();
@@ -21,11 +37,11 @@
     }
 
     _detectBrowser() {
-      const ua = navigator.userAgent.toLowerCase(); 
+      const ua = navigator.userAgent.toLowerCase();
       if (ua.includes("firefox")) return "firefox";
       if (ua.includes("chrome") || ua.includes("safari") || ua.includes("edge"))
         return "chromium";
-      return "chromium";  
+      return "chromium";
     }
 
     _detectPrivateMode() {
@@ -41,29 +57,29 @@
       } catch (e) {
         return true;
       }
+      // WebDriver detection pro automatizované prohlížeče
       if (window.navigator.webdriver) return true;
       return false;
     }
 
     _createStorage() {
-      const domain =
-        window.location.hostname.includes(".")
-          ? "." + window.location.hostname.split(".").slice(-2).join(".")
-          : window.location.hostname;
-        
+      const domain = window.location.hostname.includes(".")
+        ? "." + window.location.hostname.split(".").slice(-2).join(".")
+        : window.location.hostname;
+
       const cookieStore = {
         setItem: (k, v) => {
-          let cookieString = `${k}=${encodeURIComponent(
-            v
-          )}; max-age=${365 * 24 * 60 * 60}; path=/; SameSite=Lax`;
+          let cookieString = `${k}=${encodeURIComponent(v)}; max-age=${
+            365 * 24 * 60 * 60
+          }; path=/; SameSite=Lax`;
           if (
-            domain && 
+            domain &&
             !domain.includes("localhost") &&
             !domain.match(/^\d+\.\d+\.\d+\.\d+$/)
           )
             cookieString += `; domain=${domain}`;
           if (location.protocol === "https:") cookieString += "; Secure";
-          document.cookie = cookieString;  
+          document.cookie = cookieString;
         },
         getItem: (k) => {
           const name = `${k}=`;
@@ -71,10 +87,10 @@
           for (let cookie of cookies) {
             cookie = cookie.trim();
             if (cookie.startsWith(name)) {
-              return decodeURIComponent(cookie.substring(name.length));  
+              return decodeURIComponent(cookie.substring(name.length));
             }
           }
-          return null;  
+          return null;
         },
         removeItem: (k) => {
           let cookieString = `${k}=; max-age=0; path=/; SameSite=Lax`;
@@ -84,13 +100,14 @@
             !domain.match(/^\d+\.\d+\.\d+\.\d+$/)
           )
             cookieString += `; domain=${domain}`;
-          document.cookie = cookieString;  
+          document.cookie = cookieString;
         },
       };
-      
+
       return {
         get: (key) => {
           if (this.isPrivate) return null;
+          // Firefox má jiný pořádek preferencí kvůli localStorage bugům v anonymním režimu
           const storages =
             this.browserType === "firefox"
               ? [cookieStore, sessionStorage, localStorage]
@@ -98,10 +115,10 @@
           for (const storage of storages) {
             try {
               const value = storage.getItem(key);
-              if (value !== null && value !== undefined) return value;  
+              if (value !== null && value !== undefined) return value;
             } catch (e) {}
           }
-          return null;    
+          return null;
         },
         set: (key, value) => {
           if (this.isPrivate) return;
@@ -112,10 +129,10 @@
           for (const storage of storages) {
             try {
               storage.setItem(key, value);
-              return true;  
+              return true;
             } catch (e) {}
           }
-          return false;          
+          return false;
         },
         remove: (key) => {
           try {
@@ -140,10 +157,10 @@
       } else {
         this.isUsingSystemPreference = true;
         if (
-          window.matchMedia && 
-          window.matchMedia("(prefers-color-scheme: dark)").matches  
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
         ) {
-          this.isDarkMode = true;  
+          this.isDarkMode = true;
         }
       }
       const toggleVis = this._getPref("darkModeToggleVisible");
@@ -156,13 +173,14 @@
       style.id = "darkmode-critical-css";
       style.appendChild(document.createTextNode(this._criticalCSS()));
       document.head.appendChild(style);
-      
+
       const mainStyle = document.createElement("style");
       mainStyle.appendChild(document.createTextNode(this._mainCSS()));
       document.head.appendChild(mainStyle);
 
       const svgStyle = document.createElement("style");
-      svgStyle.appendChild(document.createTextNode(`
+      svgStyle.appendChild(
+        document.createTextNode(`
         .dark-mode .dark-mode-toggle {
           background: #111 !important;
           transition: background 0.22s, box-shadow 0.22s;
@@ -175,7 +193,8 @@
         .dark-mode-toggle .icon-anim {
           transition: transform 0.25s, opacity 0.25s;
         }  
-      `));
+      `)
+      );
       document.head.appendChild(svgStyle);
 
       if (this.isDarkMode) {
@@ -188,8 +207,11 @@
     }
 
     _criticalCSS() {
+      // Nastavíme CSS podle aktuálního režimu, čímž se předejde blikání při načítání
       return `
-              ${this.isDarkMode ?`
+              ${
+                this.isDarkMode
+                  ? `
               html.dark-mode {
                 background-color: #222222;
                 color: #c8c1b5;
@@ -199,7 +221,8 @@
                 background-color: #222222;
                 color: #c8c1b5;
               }
-         ` : `
+         `
+                  : `
             html {
               background-color: #f0f9f0;
               color: #023f1e;
@@ -209,7 +232,8 @@
               background-color: #f0f9f0;
               color: #023f1e
             }
-         `}
+         `
+              }
          
           .dark-mode-toggle {
             position: fixed !important;
@@ -220,7 +244,7 @@
             border-radius: 8px !important;
             border: none !important;
             cursor: pointer !important;
-            display: ${this.isToggleVisible ? 'flex' : 'none'} !important;
+            display: ${this.isToggleVisible ? "flex" : "none"} !important;
             align-items: center !important;
             justify-content: center !important;
             font-size: 1.5rem !important;
@@ -234,20 +258,24 @@
             display: none;
           }
           
-          ${this.isDarkMode ? `
+          ${
+            this.isDarkMode
+              ? `
               html.dark-mode .dark-mode-toggle,
               body.dark-mode .dark-mode-toggle,
               .dark-mode .dark-mode-toggle {
                 background: black !important;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
               }
-      ` : ''}
+      `
+              : ""
+          }
               html.ready, body.ready {
                 visibility: visible;
                 opacity: 1;
                 transition: opacity 0.15s ease-in-out;
               }
-      `;  
+      `;
     }
 
     _mainCSS() {
@@ -353,32 +381,34 @@
 
     _initAPI() {
       window.getDarkModePreference = () => this._getPref("darkMode");
-      window.saveDarkModePreference = (isDark) => this._savePref("darkMode", isDark ? "true" : "false");
+      window.saveDarkModePreference = (isDark) =>
+        this._savePref("darkMode", isDark ? "true" : "false");
       window.resetToSystemPreferences = () => this._resetSystemPref();
       window.isIncognitoMode = () => this._detectPrivateMode();
-      window.getBrowserType = () => this.browserType;  
+      window.getBrowserType = () => this.browserType;
     }
 
     _getPref(key) {
       if (this.isPrivate) return null;
       const value = this._storage.get(key);
-      return value;  
+      return value;
     }
     _savePref(key, value) {
       if (this.isPrivate) return;
-      this._storage.set(key, value);  
+      this._storage.set(key, value);
     }
     _resetSystemPref() {
       this._storage.remove("darkMode");
       this.isUsingSystemPreference = true;
-      const prefersDark = window.matchMedia &&
+      const prefersDark =
+        window.matchMedia &&
         window.matchMedia("(prefers-color-scheme: dark)").matches;
       this._applyMode(prefersDark);
       this.isDarkMode = prefersDark;
       this._updateIcon();
       this._toggleBtn.title = prefersDark
         ? "Přepnout na světlý režim"
-        : "Přepnout na tmavý režim";    
+        : "Přepnout na tmavý režim";
     }
 
     _createToggle() {
@@ -409,7 +439,7 @@
           iconSpan.id = "darkModeIcon";
           btn.appendChild(iconSpan);
         }
-        iconSpan.innerHTML = this.isDarkMode 
+        iconSpan.innerHTML = this.isDarkMode
           ? this._createMoonIcon()
           : this._createSunIcon();
         this._iconSpan = iconSpan;
@@ -430,7 +460,7 @@
       this._updateIcon();
       this._toggleBtn.title = this.isDarkMode
         ? "Přepnout na světlý režim"
-        : "Přepnout na tmavý režim";  
+        : "Přepnout na tmavý režim";
     }
 
     _applyMode(isDark) {
@@ -441,16 +471,17 @@
       } else {
         body.classList.remove("dark-mode");
         document.documentElement.classList.remove("dark-mode");
-      } 
+      }
     }
 
     _animateIcon() {
       const icon = this._iconSpan && this._iconSpan.querySelector(".icon-anim");
       if (icon) {
+        // Ikona sjede dolů -> vymění se -> nová vyjede shora
         icon.style.transform = "translateY(10px)";
         icon.style.opacity = "0";
         setTimeout(() => {
-          this._iconSpan.innerHTML = this.isDarkMode 
+          this._iconSpan.innerHTML = this.isDarkMode
             ? this._createMoonIcon()
             : this._createSunIcon();
           const newIcon = this._iconSpan.querySelector(".icon-anim");
@@ -495,7 +526,7 @@
         <svg class="icon-anim" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
-      `;  
+      `;
     }
 
     _createReset() {
@@ -503,10 +534,7 @@
       if (resetBtn) {
         resetBtn.textContent = "Preferovat světlý/tmavý režim prohlížeče";
         resetBtn.addEventListener("click", () => {
-          if (
-            this._toggleBtn && 
-            this._toggleBtn.style.display === "none"
-          ) {
+          if (this._toggleBtn && this._toggleBtn.style.display === "none") {
             this._toggleBtn.style.display = "flex";
             this._toggleBtn.classList.remove("hidden");
             resetBtn.textContent = "Preferovat světlý/tmavý režim prohlížeče";
@@ -516,41 +544,40 @@
             this._resetSystemPref();
             this._toggleBtn.style.display = "none";
             this._toggleBtn.classList.add("hidden");
-            resetBtn.textContent = "Přepínat ručně světlý/tmavý režim prohlížeče";
+            resetBtn.textContent =
+              "Přepínat ručně světlý/tmavý režim prohlížeče";
             this._savePref("darkModeToggleVisible", "false");
-          }  
+          }
         });
       }
     }
 
     _applyAnimations() {
-    document.documentElement.classList.add("ready");
-    document.body.classList.add("ready");
-    
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      document.documentElement.classList.add("ready");
+      document.body.classList.add("ready");
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
             target.scrollIntoView({ behavior: "smooth" });
-        }
+          }
         });
-    });
+      });
     }
-    
+
     _bindEvents() {
       document.addEventListener("DOMContentLoaded", () => {
         if (!document.documentElement.classList.contains("ready")) {
           document.documentElement.classList.add("ready");
-          document.body.classList.add("ready");  
+          document.body.classList.add("ready");
         }
-        if (
-          !document.getElementById("darkModeToggle")  
-        ) {
+        if (!document.getElementById("darkModeToggle")) {
           this._createToggle();
         }
         this._createReset();
-      });  
+      });
     }
 
     getState() {
@@ -563,9 +590,9 @@
         toggleVisible: this.isToggleVisible,
         usingSystemPreference: this.isUsingSystemPreference,
         config: {
-          browserType: this.browserType,  
+          browserType: this.browserType,
         },
-      };  
+      };
     }
   }
 

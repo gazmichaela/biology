@@ -104,6 +104,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.0.0
+__Verze:__ 2.1.0
 
 __Datum:__ 2025-08-19
