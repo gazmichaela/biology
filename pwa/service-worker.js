@@ -3,9 +3,9 @@
 
 // Feature detection
 const BROWSER_SUPPORT = {
-  backgroundSync: 'serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype,
-  pushManager: 'serviceWorker' in navigator && 'PushManager' in window,
-  notificationActions: 'Notification' in window && 'actions' in Notification.prototype
+  backgroundSync: 'sync' in self.ServiceWorkerRegistration.prototype,
+  pushManager: 'PushManager' in self,
+  notificationActions: 'Notification' in self && 'actions' in self.Notification.prototype
 };
 
 // === KONFIGURACE === // 
@@ -463,16 +463,7 @@ self.addEventListener('fetch', event => {
           const cache = await caches.open(CACHE_NAMES.core);
           const offlinePage = await cache.match('./index.html');
           if (offlinePage) return offlinePage;
-          
-          return new Response(
-            generateOfflineHTML(event.request.url),
-            {
-              headers: {
-                'Content-Type': 'text/html; charset=utf-8',
-                'Cache-Control': 'no-store'
-              }
-            }
-          );
+    
         }
         
         return new Response('Offline - soubor není k dispozici', {
@@ -599,86 +590,6 @@ function getCacheStrategy(request) {
   }
   
   return { name: CACHE_NAMES.runtime, strategy: 'networkFirst', maxAge: CONFIG.maxAge.assets };
-}
-
-function generateOfflineHTML(requestUrl) {
-  const browserInfo = getBrowserInfo();
-  return `
-    <!DOCTYPE html>
-    <html lang="cs">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Offline - Systémová biologie</title>
-      <style>
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-          background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
-          color: #023f1e;
-          margin: 0;
-          padding: 20px;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-        }
-        .offline-container {
-          background: white;
-          padding: 40px;
-          border-radius: 15px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          max-width: 500px;
-          width: 100%;
-        }
-        h1 { color: #3f7093; margin-bottom: 20px; font-size: 2em; }
-        .icon { font-size: 4em; margin-bottom: 20px; opacity: 0.7; }
-        button {
-          background: #3f7093;
-          color: white;
-          border: none;
-          padding: 12px 24px;
-          border-radius: 8px;
-          cursor: pointer;
-          font-size: 16px;
-          margin: 10px;
-          transition: background 0.3s;
-        }
-        button:hover { background: #2d5c7a; }
-        .url {
-          background: #f5f5f5;
-          padding: 10px;
-          border-radius: 5px;
-          font-family: monospace;
-          font-size: 14px;
-          margin: 20px 0;
-          word-break: break-all;
-        }
-        .browser-info {
-          font-size: 12px;
-          opacity: 0.6;
-          margin-top: 20px;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="offline-container">
-        <div class="icon">📡</div>
-        <h1>Jste offline</h1>
-        <p>Stránka není dostupná bez připojení k internetu.</p>
-        <div class="url">${requestUrl}</div>
-        
-        <button onclick="window.location.reload()">🔄 Zkusit znovu</button>
-        <button onclick="window.location.href='./'">🏠 Hlavní stránka</button>
-        <button onclick="window.history.back()">← Zpět</button>
-        
-        <div class="browser-info">
-          Service Worker v${CONFIG.version} • ${browserInfo}
-        </div>
-      </div>
-    </body>
-    </html>
-  `;
 }
 
 // Messages handling
