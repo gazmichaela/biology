@@ -105,8 +105,7 @@ header ul .home-icon:hover img {
 
 .dropdown-toggle,
 .dropdown-toggle-second {
-    width: 100%;
-    max-width: 40px;
+    width: 40px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     display: inline-flex;
@@ -141,7 +140,6 @@ header ul .home-icon:hover img {
 .dropdown-toggle-second:hover {
     background-color: #309ce5;
     color: white;
-    width: auto;
 }
 
 .dropdown-toggle .arrow,

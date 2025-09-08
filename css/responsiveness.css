@@ -1228,6 +1228,10 @@ OBSAH:
         color: black !important;
     }
 
+    .img-wrapper img {
+        border-radius: 0 !important;
+    }
+
     .img-right {
         margin: 5mm 0 5mm 5mm;
         width: 35%;

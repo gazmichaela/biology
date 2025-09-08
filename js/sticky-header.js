@@ -130,7 +130,7 @@ function insertStickyHeaderStyles() {
     align-items: center;
     justify-content: center;
     padding: 12px 10px;
-    height: 42px;
+    height: 43px;
     width: 40px;
     margin-left: 2px;
 }
