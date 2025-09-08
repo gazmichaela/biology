@@ -20,6 +20,14 @@
     <script src="js/source.js" defer></script>
     <script src="js/sticky-header.js" defer></script>
     <script src="js/responsiveness.js" defer></script>
+     <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- iOS PWA podpora -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Systémová biologie">
+    <!--Favicon-->
     <link rel="icon" type="image/x-icon" href="favicon/web-logo-64x64-48x48-32x32-16x16.ico"><!-- Favicon .ico pro běžné prohlížeče ve velikostech 64x64, 48x48, 32x32 a 16x16 (prohlížeč si vybere to nejvhodnější)-->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/web-logo-32x32.png"><!-- Pro běžné prohlížeče preferující png -->
     <link rel="icon" type="image/png" sizes="192x192" href="favicon/web-logo-192x192.png"><!-- Pro vyšší rozlišení -->
@@ -193,6 +201,20 @@
     <!-- Tlačítko tmavého režimu -->
     <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
+        <!-- Service Worker registrace -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('pwa/service-worker.js')
+      .then(function(registration) {
+        console.log('PWA Service Worker registrován:', registration);
+      })
+      .catch(function(registrationError) {
+        console.log('Chyba při registraci Service Worker:', registrationError);
+      });
+  });
+}
+</script>
 </body>
 
 </html>

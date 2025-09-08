@@ -2282,8 +2282,7 @@ if (stickyUl) {
         }
     }
 }
-*/
-document.addEventListener('focusin', function(e) {
+*/document.addEventListener('focusin', function(e) {
     const stickyHeader = document.querySelector('.sticky-header');
     if (!stickyHeader || !stickyHeader.classList.contains('visible')) return;
     
@@ -2305,32 +2304,15 @@ document.addEventListener('focusin', function(e) {
         dropdownContent.style.opacity = '1';
         dropdownContent.style.visibility = 'visible';
         dropdownContent.style.display = 'block';
-    }
-});
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const stickyHeader = document.querySelector('.sticky-header');
-        if (!stickyHeader || !stickyHeader.classList.contains('visible')) return;
-        
-        const focusedElement = document.activeElement;
-        const dropdownContent = focusedElement.closest('.dropdown-content, .dropdown-content-second');
-        
-        if (dropdownContent && stickyHeader.contains(dropdownContent)) {
-            const dropdown = dropdownContent.closest('.dropdown');
-            const toggle = dropdown.querySelector('.dropdown-toggle, .dropdown-toggle-second');
-            
-            dropdownContent.style.opacity = '0';
-            dropdownContent.style.visibility = 'hidden';
-            setTimeout(() => {
-                dropdownContent.style.display = 'none';
-            }, 300);
-            
-            if (toggle) {
-                toggle.focus();
+    } else {
+        // NOVÉ: Pokud focus není v žádném dropdown, zavři všechny otevřené
+        const allDropdowns = stickyHeader.querySelectorAll('.dropdown-content, .dropdown-content-second');
+        allDropdowns.forEach((content, index) => {
+            if (content.style.display === 'block') {
+                if (window[`closeStickyDropdown_${index}`]) {
+                    window[`closeStickyDropdown_${index}`]();
+                }
             }
-            
-            e.preventDefault();
-        }
+        });
     }
 });

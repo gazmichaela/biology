@@ -1,0 +1,98 @@
+{
+  "name": "Systémová biologie",
+  "short_name": "Systémová biologie",
+  "description": "Studium komplexních biologických systémů a jejich interakcí",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#3f7093",
+  "background_color": "#3f7093",
+  "lang": "cs",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "favicon/web-logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon/web-logo-180x180-apple-touch.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon/web-logo-120x120-apple-touch.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon/web-logo-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "reference"],
+  "shortcuts": [
+    {
+      "name": "Základy systémového myšlení",
+      "short_name": "Systémy",
+      "url": "system.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Úvod do systémů",
+      "short_name": "Úvod",
+      "url": "system-introduction.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Systémový přístup",
+      "short_name": "Přístup",
+      "url": "system-approach.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Systémové myšlení",
+      "short_name": "Myšlení",
+      "url": "system-thinking.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Teorie systémů",
+      "short_name": "Teorie",
+      "url": "system-theory.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Základy živých soustav",
+      "short_name": "Život",
+      "url": "life.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Vlastnosti živých soustav",
+      "short_name": "Vlastnosti",
+      "url": "life-properties.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Vznik života na Zemi",
+      "short_name": "Vznik",
+      "url": "life-origin.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Buněčné a nebuněčné organismy",
+      "short_name": "Buňka",
+      "url": "cell.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Člověk",
+      "short_name": "Člověk",
+      "url": "human.html",
+      "icons": [{"src": "favicon/web-logo-192x192.png", "sizes": "192x192"}]
+    }
+  ]
+}
