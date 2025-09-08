@@ -22,7 +22,7 @@ function insertStickyHeaderStyles() {
     background-color: #77afe0ee;
     text-align: center;
     color: white;
-    z-index: 993;
+    z-index: 992;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     transform: translateY(-100%);
