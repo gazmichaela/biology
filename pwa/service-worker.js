@@ -1,4 +1,4 @@
-// === CROSS-BROWSER SERVICE WORKER ===
+// === CROSS-BROWSER SERVICE WORKER === //
 // Kompatibilní s Chrome, Firefox, Safari
 
 // Feature detection
@@ -119,7 +119,6 @@ function fetchWithTimeout(request, timeout = CONFIG.networkTimeout) {
 // Safari-friendly HEAD request check
 async function isFileAvailable(url) {
   try {
-    // Safari má někdy problémy s HEAD requesty, zkus GET s range
     const browserInfo = getBrowserInfo();
     const method = browserInfo === 'Safari' ? 'GET' : 'HEAD';
     
