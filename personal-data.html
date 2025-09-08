@@ -61,7 +61,7 @@
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
                         <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
-                        <span class="sub-dropdown-toggle" tabindex="0">&#9656;</span>
+                        <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
                         <div class="sub-dropdown-content">
                             <a href="system-approach.html" tabindex="0">Systémový přístup</a>
                             <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
@@ -210,20 +210,20 @@
     <!-- Tlačítko tmavého režimu -->
     <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
-        <!-- Service Worker registrace -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('pwa/service-worker.js')
-      .then(function(registration) {
-        console.log('PWA Service Worker registrován:', registration);
-      })
-      .catch(function(registrationError) {
-        console.log('Chyba při registraci Service Worker:', registrationError);
-      });
-  });
-}
-</script>
+    <!-- Service Worker registrace -->
+    <script>
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('pwa/service-worker.js')
+            .then(function(registration) {
+                console.log('PWA Service Worker registrován:', registration);
+            })
+            .catch(function(registrationError) {
+                console.log('Chyba při registraci Service Worker:', registrationError);
+            });
+        });
+        }
+    </script>
 </body>
 
 </html>

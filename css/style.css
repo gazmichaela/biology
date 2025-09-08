@@ -544,9 +544,17 @@ table td:first-child {
 .tooltip {
     position: relative;
     cursor: help;
-    text-decoration: dotted underline;
+    text-decoration: none;
+    border-bottom: 2px dotted;
     white-space: nowrap;
     hyphens: none;
+}
+
+@supports (text-decoration-style: dotted) { /* Safari může mít problém s tečkovaným => fallback (border-bottom); na podporovaných prohlížečích se použije text-decoration */
+    .tooltip {
+        text-decoration: dotted underline;
+        border-bottom: none;
+    }
 }
 
 .tooltip .tooltiptext {

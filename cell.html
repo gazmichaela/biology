@@ -24,7 +24,7 @@
     <script src="js/sticky-header.js" defer></script>
     <script src="js/responsiveness.js" defer></script>
     <script src="js/tooltips.js" defer></script>
-     <!-- PWA manifest -->
+    <!-- PWA manifest -->
     <link rel="manifest" href="manifest.json">
     <!-- iOS PWA podpora -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -67,7 +67,7 @@
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
                         <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
-                        <span class="sub-dropdown-toggle" tabindex="0">&#9656;</span>
+                        <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
                         <div class="sub-dropdown-content">
                             <a href="system-approach.html" tabindex="0">Systémový přístup</a>
                             <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
@@ -155,7 +155,8 @@
             <div class="img-wrapper img-right-middle">
                 <picture>
                     <source srcset="images/webp/virus-stavba.webp" type="image/webp" data-scr="images/webp/virus-stavba.webp" data-source="Obrázek stažený z velkaencyklopedie.estranky.cz">
-                    <img src="images/png/virus-stavba.png" data-scr="images/png/virus-stavba.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z velkaencyklopedie.estranky.cz">
+                    <img src="images/png/virus-stavba.png" data-scr="images/png/virus-stavba.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z velkaencyklopedie.estranky.cz"
+                        alt="Schéma stavby viru s popisky jednotlivých částí.">
                 </picture>
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -204,7 +205,8 @@
                 <div class="img-wrapper img-right-big">
                     <picture>
                         <source srcset="images/webp/bunka-popis.webp" type="image/webp" data-src="images/webp/bunka-popis.webp" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
-                        <img src="images/png/bunka-popis.png" data-src="images/png/bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno">
+                        <img src="images/png/bunka-popis.png" data-src="images/png/bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z braydens5555.wordpress.com, upraveno"
+                            alt="Schéma rostlinné buňky s popisky jednotlivých částí.">
                     </picture>   
                     <div class="info-box" aria-hidden="true">
                         <div class="icon-circle">i</div>
@@ -281,123 +283,123 @@
                     <caption>Srovnání přítomnosti buněčných struktur eukaryotických a prokaryotických buněk</caption>
                     <thead>
                         <tr>
-                            <th></th>
-                            <th colspan="3">Eukaryotické buňky</th>
-                            <th>Prokaryotická buňka</th>
+                            <th id="struktura" aria-hidden="true"></th>
+                            <th id="eukaryota" scope="colgroup" colspan="3">Eukaryotické buňky</th>
+                            <th id="prokaryota" scope="col">Prokaryotická buňka</th>
                         </tr>
                         <tr>
-                            <th>Buněčná struktura</th>
-                            <th>Rostlinná buňka</th>
-                            <th>Živočišná buňka</th>
-                            <th>Buňka hub</th>
-                            <th>Bakterie</th>
+                            <th id="bunecna" scope="col" headers="struktura">Buněčná struktura</th>
+                            <th id="rostlinna" scope="col" headers="eukaryota">Rostlinná buňka</th>
+                            <th id="zivocisna" scope="col" headers="eukaryota">Živočišná buňka</th>
+                            <th id="houba" scope="col" headers="eukaryota">Buňka hub</th>
+                            <th id="bakterie" scope="col" headers="prokaryota">Bakterie</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Buněčná stěna</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
+                            <th id="bunecna-stena" scope="row">Buněčná stěna</th>
+                            <td headers="bunecna-stena rostlinna">Ano</td>
+                            <td headers="bunecna-stena zivocisna">Ne</td>
+                            <td headers="bunecna-stena houba">Ano</td>
+                            <td headers="bunecna-stena bakterie">Ano</td>
                         </tr>
                         <tr>
-                            <td>Cytoplazmatická membrána</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
+                            <th id="cyto-membrana" scope="row">Cytoplazmatická membrána</th>
+                            <td headers="cyto-membrana rostlinna">Ano</td>
+                            <td headers="cyto-membrana zivocisna">Ano</td>
+                            <td headers="cyto-membrana houba">Ano</td>
+                            <td headers="cyto-membrana bakterie">Ano</td>
                         </tr>
                         <tr>
-                            <td>Cytoplazma</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
+                            <th id="cytoplazma" scope="row">Cytoplazma</th>
+                            <td headers="cytoplazma rostlinna">Ano</td>
+                            <td headers="cytoplazma zivocisna">Ano</td>
+                            <td headers="cytoplazma houba">Ano</td>
+                            <td headers="cytoplazma bakterie">Ano</td>
                         </tr>
                         <tr>
-                            <td>Cytoskelet <span class="font-weight-normal">(„kostra")</span></td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ne (většinou)</td>
+                            <th id="cytoskelet" scope="row">Cytoskelet <span class="font-weight-normal">(„kostra")</span></th>
+                            <td headers="cytoskelet rostlinna">Ano</td>
+                            <td headers="cytoskelet zivocisna">Ano</td>
+                            <td headers="cytoskelet houba">Ano</td>
+                            <td headers="cytoskelet bakterie">Ne (většinou)</td>
                         </tr>
                         <tr>
-                            <td>Jádro</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Rozpuštěnná forma jádra (genetický&nbsp;materiál)</td>
+                            <th id="jadro" scope="row">Jádro</th>
+                            <td headers="jadro rostlinna">Ano</td>
+                            <td headers="jadro zivocisna">Ano</td>
+                            <td headers="jadro houba">Ano</td>
+                            <td headers="jadro bakterie">Rozpuštěnná forma jádra (genetický&nbsp;materiál)</td>
                         </tr>
                         <tr>
-                            <td>Jadérko</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
+                            <th id="jaderko" scope="row">Jadérko</th>
+                            <td headers="jaderko rostlinna">Ano</td>
+                            <td headers="jaderko zivocisna">Ano</td>
+                            <td headers="jaderko houba">Ano</td>
+                            <td headers="jaderko bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>ER <span class="font-weight-normal">(endoplazmatické retikulum)</span></td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
+                            <th id="er" scope="row">ER <span class="font-weight-normal">(endoplazmatické retikulum)</span></th>
+                            <td headers="er rostlinna">Ano</td>
+                            <td headers="er zivocisna">Ano</td>
+                            <td headers="er houba">Ano</td>
+                            <td headers="er bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>GA <span class="font-weight-normal">(Golgiho aparát)</span></td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
+                            <th id="ga" scope="row">GA <span class="font-weight-normal">(Golgiho aparát)</span></th>
+                            <td headers="ga rostlinna">Ano</td>
+                            <td headers="ga zivocisna">Ano</td>
+                            <td headers="ga houba">Ano</td>
+                            <td headers="ga bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>Vakuoly <span class="font-weight-normal">(ohraničení nějaké látky)</span></td>
-                            <td>Ano</td>
-                            <td>Ne (vzácné)</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
+                            <th id="vakuoly" scope="row">Vakuoly <span class="font-weight-normal">(ohraničení nějaké látky)</span></th>
+                            <td headers="vakuoly rostlinna">Ano</td>
+                            <td headers="vakuoly zivocisna">Ne (vzácné)</td>
+                            <td headers="vakuoly houba">Ano</td>
+                            <td headers="vakuoly bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>Mitochondrie <span class="font-weight-normal">(energie)</span></td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Energetické reakce probíhájí na plazmatické&nbsp;membráně</td>
+                            <th id="mitochondrie" scope="row">Mitochondrie <span class="font-weight-normal">(energie)</span></th>
+                            <td headers="mitochondrie rostlinna">Ano</td>
+                            <td headers="mitochondrie zivocisna">Ano</td>
+                            <td headers="mitochondrie houba">Ano</td>
+                            <td headers="mitochondrie bakterie">Energetické reakce probíhájí na plazmatické&nbsp;membráně</td>
                         </tr>
                         <tr>
-                            <td>Ribozomy</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
+                            <th id="ribozomy" scope="row">Ribozomy</th>
+                            <td headers="ribozomy rostlinna">Ano</td>
+                            <td headers="ribozomy zivocisna">Ano</td>
+                            <td headers="ribozomy houba">Ano</td>
+                            <td headers="ribozomy bakterie">Ano</td>
                         </tr>
                         <tr>
-                            <td>Plastidy <span class="font-weight-normal">(barviva,tuky....)</span></td>
-                            <td>Ano</td>
-                            <td>Ne</td>
-                            <td>Ano (různé transformace, ale ne jako u rostlin)</td>
-                            <td>Ne</td>
+                            <th id="plastidy" scope="row">Plastidy <span class="font-weight-normal">(barviva,tuky....)</span></th>
+                            <td headers="plastidy rostlinna">Ano</td>
+                            <td headers="plastidy zivocisna">Ne</td>
+                            <td headers="plastidy houba">Ano (různé transformace, ale ne jako u rostlin)</td>
+                            <td headers="plastidy bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>Lyzozómy</td>
-                            <td>Ne</td>
-                            <td>Ano</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
+                            <th id="lyzozomy" scope="row">Lyzozómy</th>
+                            <td headers="lyzozomy rostlinna">Ne</td>
+                            <td headers="lyzozomy zivocisna">Ano</td>
+                            <td headers="lyzozomy houba">Ano</td>
+                            <td headers="lyzozomy bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>Centriola</td>
-                            <td>Ne</td>
-                            <td>Ano</td>
-                            <td>Ne (pouze někdy)</td>
-                            <td>Ne</td>
+                            <th id="centriola" scope="row">Centriola</th>
+                            <td headers="centriola rostlinna">Ne</td>
+                            <td headers="centriola zivocisna">Ano</td>
+                            <td headers="centriola houba">Ne (pouze někdy)</td>
+                            <td headers="centriola bakterie">Ne</td>
                         </tr>
                         <tr>
-                            <td>Plasmodesmy</td>
-                            <td>Ano</td>
-                            <td>Ne</td>
-                            <td>Ne</td>
-                            <td>Ne</td>
+                            <th id="plasmodesmy" scope="row">Plasmodesmy</th>
+                            <td headers="plasmodesmy rostlinna">Ano</td>
+                            <td headers="plasmodesmy zivocisna">Ne</td>
+                            <td headers="plasmodesmy houba">Ne</td>
+                            <td headers="plasmodesmy bakterie">Ne</td>
                         </tr>
                     </tbody>
                 </table>
@@ -412,9 +414,9 @@
             <div class="img-wrapper img-next">
                 <picture>
                     <source srcset="images/webp/rostlinna-bunka-popis.webp" type="image/webp" data-src="images/webp/rostlinna-bunka-popis.webp"
-                    data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
-                    <img src="images/png/rostlinna-bunka-popis.png" data-src="images/png/rostlinna-bunka-popis.png" loading="lazy" class="zoomable"
-                    data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
+                        data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
+                    <img src="images/png/rostlinna-bunka-popis.png" data-src="images/png/rostlinna-bunka-popis.png" loading="lazy" class="zoomable" alt="Schéma stavby rostlinné buňky s popisky jednotlivých částí buňky."
+                        data-source="Autor: Michal Maňas – created by LadyofHats translated by Michal Maňas, Volné dílo, Wikimedia Commons">
                 </picture>
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -424,9 +426,10 @@
             <div class="img-wrapper img-next">
                 <picture>
                     <source srcset="images/webp/mapa-rostlinna-bunka.webp" type="image/webp" data-src="images/webp/mapa-rostlinna-bunka.webp"
-                    data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                        data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                     <img src="images/png/mapa-rostlinna-bunka.png" data-src="images/png/mapa-rostlinna-bunka.png" loading="lazy" class="zoomable"
-                    data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                        alt="Myšlenková mapa struktur rostlinné buňky podle funkcí. Jde vidět, že pro život buňky je důležitá spolupráce mezi jednotlivými strukturami."
+                        data-source="Vlastní dílo. Myšlenková mapa struktur rostlinné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                 </picture>  
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -441,7 +444,8 @@
             <div class="img-wrapper img-next">
                 <picture>
                     <source srcset="images/webp/zivocisna-bunka-popis.webp" type="image/webp" data-src="images/webp/zivocisna-bunka-popis.webp" data-source="Obrázek stažený z bze.kvalitne.cz, dostupné z archivu">
-                    <img src="images/png/zivocisna-bunka-popis.png" data-src="images/png/zivocisna-bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z bze.kvalitne.cz, dostupné z archivu">
+                    <img src="images/png/zivocisna-bunka-popis.png" data-src="images/png/zivocisna-bunka-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z bze.kvalitne.cz, dostupné z archivu"
+                        alt="Schéma stavby živočišné buňky s popisky jednotlivých částí buňky.">
                 </picture>
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -451,9 +455,10 @@
             <div class="img-wrapper img-next">
                 <picture>
                     <source srcset="images/webp/mapa-zivocisna-bunka.webp" type="image/webp" data-src="images/webp/mapa-zivocisna-bunka.webp"
-                    data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                        data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                     <img src="images/png/mapa-zivocisna-bunka.png" data-src="images/png/mapa-zivocisna-bunka.png" loading="lazy" class="zoomable"
-                    data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
+                        alt="Myšlenková mapa struktur živočišné buňky podle funkcí. Jde vidět, že pro život buňky je důležitá spolupráce mezi jednotlivými strukturami."
+                        data-source="Vlastní dílo. Myšlenková mapa struktur živočišné buňky podle funkcí. Ⓒ Michaela Gažová, 2025. CC BY-NC-SA 4.0">
                 </picture>  
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -471,7 +476,8 @@
             <div class="img-wrapper img-left">
                 <picture>
                     <source srcset="images/webp/bunka-hub-popis.webp" type="image/webp" data-src="images/webp/bunka-hub-popis.webp" data-source="Obrázek stažený z eluc.ikap.cz (autor neuveden)">
-                    <img src="images/png/bunka-hub-popis.png" data-src="images/png/bunka-hub-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z eluc.ikap.cz (autor neuveden)">
+                    <img src="images/png/bunka-hub-popis.png" data-src="images/png/bunka-hub-popis.png" loading="lazy" class="zoomable" data-source="Obrázek stažený z eluc.ikap.cz (autor neuveden)"
+                        alt="Schéma stavby buňky hub s popisky jednotlivých částí buňky.">
                 </picture>       
                 <div class="info-box" aria-hidden="true">
                     <div class="icon-circle">i</div>
@@ -573,20 +579,20 @@
     <!-- Tlačítko tmavého režimu -->
     <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
-        <!-- Service Worker registrace -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('pwa/service-worker.js')
-      .then(function(registration) {
-        console.log('PWA Service Worker registrován:', registration);
-      })
-      .catch(function(registrationError) {
-        console.log('Chyba při registraci Service Worker:', registrationError);
-      });
-  });
-}
-</script>
+    <!-- Service Worker registrace -->
+    <script>
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('pwa/service-worker.js')
+            .then(function(registration) {
+                console.log('PWA Service Worker registrován:', registration);
+            })
+            .catch(function(registrationError) {
+                console.log('Chyba při registraci Service Worker:', registrationError);
+            });
+        });
+        }
+    </script>
 </body>
 
 </html>

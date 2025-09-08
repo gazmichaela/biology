@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Systémová Biologie</title>
+    <title>Systémová Biologie</title>
     <script>
     (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
     </script>
@@ -61,7 +61,7 @@
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
                         <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
-                        <span class="sub-dropdown-toggle" tabindex="0">&#9656;</span>
+                        <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
                         <div class="sub-dropdown-content">
                             <a href="system-approach.html" tabindex="0">Systémový přístup</a>
                             <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
@@ -142,11 +142,11 @@
 
     <article>
         <section>
-            <div class="img-responsive">
+            <div class="img-responsive no-print">
                 <div class="img-wrapper img-right-top">
                     <picture>
                         <source srcset="images/webp/hlavni-stranka-ai.webp" type="image/webp" data-src="images/webp/hlavni-stranka-ai.webp">
-                        <img src="images/png/hlavni-stranka-ai.png" data-src="images/png/hlavni-stranka-ai.png">
+                        <img src="images/png/hlavni-stranka-ai.png" data-src="images/png/hlavni-stranka-ai.png" alt="">
                     </picture>
                     <div class="info-box" aria-hidden="true">
                         <div class="icon-circle">i</div>
@@ -195,19 +195,19 @@
     <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
 
     <!-- Service Worker registrace -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('pwa/service-worker.js')
-      .then(function(registration) {
-        console.log('PWA Service Worker registrován:', registration);
-      })
-      .catch(function(registrationError) {
-        console.log('Chyba při registraci Service Worker:', registrationError);
-      });
-  });
-}
-</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('pwa/service-worker.js')
+            .then(function(registration) {
+                console.log('PWA Service Worker registrován:', registration);
+            })
+            .catch(function(registrationError) {
+                console.log('Chyba při registraci Service Worker:', registrationError);
+            });
+        });
+        }
+    </script>
 </body>
 
 </html>
