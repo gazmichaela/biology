@@ -88,7 +88,7 @@ body.dark-mode .question.open {
 
 
 
-/* ==== 3. HOVER EFEKTY ==== */
+/* ==== 3. HOVER EFEKTY (POUZE PRO DESKTOP) ==== */
 @media (hover: hover) and (pointer: fine) {
     .question:hover {
         background-color: #e8e8e8;

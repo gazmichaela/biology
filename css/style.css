@@ -27,7 +27,7 @@ OBSAH:
 
  6. Tabulky
 
- 7. Význam slov při najetí myší
+ 7. Význam slov při najetí myší (tooltipy)
 
  8. Tmavý režim
     - tlačítko pro přepínání světlého/tmavého režimu
@@ -373,7 +373,7 @@ footer p {
 
 
 
-/* ==== 3. LOGO ==== */
+/* ==== 3. LOGO (PURKYŇKA VLEVO NAHOŘE V HEADERU) ==== */
 .logo {
     width: 175px;
     height: auto;
@@ -408,7 +408,7 @@ footer p {
 
 
 
-/* ==== 4. COOKIES OKNO ==== */
+/* ==== 4. COOKIES (VYSKAKOVACÍ OKNO) ==== */
 
 /* Styl pro vyskakovací okno */
 .cookies-mini-notice {
@@ -540,7 +540,7 @@ table td:first-child {
 
 
 
-/* ==== 7. VÝZNAM SLOV PŘI NAJETÍ MYŠÍ ==== */
+/* ==== 7. VÝZNAM SLOV PŘI NAJETÍ MYŠÍ (TOOLTIPY) ==== */
 .tooltip {
     position: relative;
     cursor: help;
@@ -548,13 +548,6 @@ table td:first-child {
     border-bottom: 2px dotted;
     white-space: nowrap;
     hyphens: none;
-}
-
-@supports (text-decoration-style: dotted) { /* Safari může mít problém s tečkovaným => fallback (border-bottom); na podporovaných prohlížečích se použije text-decoration */
-    .tooltip {
-        text-decoration: dotted underline;
-        border-bottom: none;
-    }
 }
 
 .tooltip .tooltiptext {

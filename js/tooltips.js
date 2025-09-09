@@ -38,5 +38,33 @@
     requestAnimationFrame(() => {
       initTooltips();
     });
+document.addEventListener('mouseover', function(e) {
+    if (e.target.closest('.tooltip')) {
+        const tooltip = e.target.closest('.tooltip');
+        const tooltipText = tooltip.querySelector('.tooltiptext');
+        
+        if (tooltipText) {
+            if (window.innerWidth > 768) {
+                tooltipText.style.left = '50%';
+                tooltipText.style.transform = 'translateX(-50%)';
+                return;
+            }
+            
+            tooltipText.style.transition = 'none !important';
+            tooltipText.style.left = '0';
+            tooltipText.style.transform = 'translateX(0)';
+            
+            const rect = tooltipText.getBoundingClientRect();
+            if (rect.right > window.innerWidth) {
+                const overflow = rect.right - window.innerWidth + 10;
+                tooltipText.style.transform = `translateX(-${overflow}px)`;
+            }
+            
+            setTimeout(() => {
+                tooltipText.style.transition = '';
+            }, 10);
+        }
+    }
+});
   });
 })();

@@ -1,3 +1,19 @@
+/**
+ * ModalImageViewer - Systém pro zobrazení obrázků v modálním okně
+ * 
+ * Umožňuje responzivní prohlížení obrázků s možností zoomování (klik/tap pro desktop, jen klik pro mobile), posouvání a touch ovládání.
+ * Automaticky detekuje zařízení a optimalizuje UX pro desktop i mobilní platformy.
+ * 
+ * @fileoverview Modální prohlížeč obrázků s možností zoomu
+ * @author Michaela Gažová
+ * @version 2.0.0
+ * @since 2025-05-05
+ * @updated 2025-09-09
+ * @license MIT 
+ */
+
+
+
 (function () {
   class ModalImageViewer {
     constructor(options) {
@@ -30,6 +46,7 @@
 
       this.elements = {};
       this.state = {
+        // isDragging, wasDragging - rozlišujeme tažení od kliknutí
         isDragging: false,
         wasDragging: false,
         isZoomed: false,
@@ -124,7 +141,8 @@
             justifyContent: 'center'
         }
         });
-
+ 
+    // Základní element pro DOM strukturu (zajišťuje centrování)
     this.elements.modalImg = this._createElement('img', {
     className: this.cssClasses.modalContent,
     styles: {
@@ -136,6 +154,7 @@
         background: 'transparent'
     },
     attributes: {
+        // draggable="false" - aby se nezobrazoval ghost při tažení 
         draggable: 'false',
         tabIndex: -1
     }
@@ -145,6 +164,7 @@
     this.elements.imageContainer.appendChild(this.elements.imageWrapper);
 
 
+      // Přidává pokročilé styly a funkce
       this.elements.modalImg = this._createElement('img', {
         className: this.cssClasses.modalContent,
         styles: {
@@ -484,6 +504,7 @@
         this.state.isZoomed = true;
         this.state.currentScale = this.zoomFactor;
         this.elements.modalImg.style.cursor = 'zoom-out';
+        // Zoom na místo, kde uživatel klikl (u desktopu)
         this._zoomAtPoint(x, y);
       } else {
         this.resetZoom();
@@ -530,6 +551,7 @@
       });
     }
 
+    // Každý obrázek má jiné korekční faktory
     _getCorrectionFactors() {
       const imgWidth = this.state.imgNaturalWidth;
       const imgHeight = this.state.imgNaturalHeight;
@@ -599,6 +621,7 @@
       this._calculateBestLayout();
     }
 
+    // Výpočet nejlepší pozice pro source kontejner
     _calculateBestLayout() {
       const src = this.elements.sourceContainer;
       

@@ -10,19 +10,19 @@ const BROWSER_SUPPORT = {
 
 // === KONFIGURACE === // 
 const CONFIG = {
-  version: '2.1.2-cross',
+  version: '2.1.3-cross',
   cachePrefix: 'systemova-biologie',
   maxAge: {
     pages: 1000 * 60 * 60 * 24 * 7,      // 7 dní
     assets: 1000 * 60 * 60 * 24 * 30,     // 30 dní
     images: 1000 * 60 * 60 * 24 * 90,     // 90 dní
-    api: 1000 * 60 * 5                    // 5 minut
+    api: 1000 * 60 * 60 * 24              // 24 hodin
   },
   maxEntries: {
-    pages: 50,
-    assets: 100,
-    images: 60,
-    runtime: 30
+    pages: 100,
+    assets: 200,
+    images: 100,
+    runtime: 50
   },
   // Fallback timeouts pro různé prohlížeče
   networkTimeout: 5000,  // 5 sekund pro network requesty
