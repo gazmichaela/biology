@@ -61,7 +61,7 @@ Web byl také optimalizován pro čtečky obrazovky.
 3. Přiblížený zvětšený obrázek
 ![Přiblížený zvětšený obrázek](docs/3-img-zoom.png)
 
-4.Interaktivní otázky
+4. Interaktivní otázky
 ![Interaktivní otázky](docs/4-questions.png)
 ## Poděkování 
 Děkujeme za pomoc při tvorbě obsahu na webu doc. RNDr. Aleši Rudovi Ph.D., MBA; Mgr. Nataše Berkové; Ing. Ditě Tůmové; Mgr. Denise Kalokové.
