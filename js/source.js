@@ -324,3 +324,5 @@
     window.closeAllInfoBoxes = () => infoBoxManager.closeAll();
   });
 })();
+
+/* (tento script používá formátování prettier) */

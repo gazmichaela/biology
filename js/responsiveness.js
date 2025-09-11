@@ -409,3 +409,5 @@
       burgerMenuManager.reinitializeStickyMenu();
   });
 })();
+
+/* (tento script používá formátování prettier) */

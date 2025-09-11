@@ -120,11 +120,11 @@ V anonymním režimu se používá __sessionStorage__, pokud není možné zapis
 
 ```html
 <div id="cookiesMiniNotice" class="cookies-mini-notice">
-  <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
-  <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a>
-  <br>
-  <br>
-  <button id="acceptCookies">Rozumím</button>
+    <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
+    <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a>
+    <br>
+    <br>
+    <button id="acceptCookies">Rozumím</button>
 </div>
 ```
 

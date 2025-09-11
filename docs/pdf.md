@@ -146,10 +146,10 @@ Díky IIFE (uzavření do anonymní funkce) se interní proměnné a metody nedo
 ## Příklad HTML:
 ```html 
 <div class="pdf-overlay" id="presahPdfOverlay">
-  <div class="pdf-viewer-container">
-    <div class="pdf-close-button" id="presahPdfCloseBtn">&times;</div>
-    <iframe class="pdf-iframe" id="presahPdfFrame"></iframe>
-  </div>
+    <div class="pdf-viewer-container">
+        <div class="pdf-close-button" id="presahPdfCloseBtn">&times;</div>
+        <iframe class="pdf-iframe" id="presahPdfFrame"></iframe>
+    </div>
 </div> 
 ```
 

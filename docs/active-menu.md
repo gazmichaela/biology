@@ -95,74 +95,74 @@ Kvůli IIFE (uzavření do anonymní funkce) se nedostávájí interní věci do
 ### Desktop navigace:
 
 ```html
-        <ul>
-            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
-                <picture>
-                    <source srcset="images/webp/home.webp" type="image/webp">
-                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
-                </picture>
-            </a>
+<ul>
+    <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
+        <picture>
+            <source srcset="images/webp/home.webp" type="image/webp">
+            <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+        </picture>
+    </a>
 
-            <!-- Základy systémového myšlení -->
-            <li class="dropdown">
-                <div class="button-container">
-                    <a href="system.html" class="main-button">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+    <!-- Základy systémového myšlení -->
+    <li class="dropdown">
+        <div class="button-container">
+            <a href="system.html" class="main-button">Základy systémového myšlení</a>
+            <button class="dropdown-toggle"><span class="arrow" id="arrow">&#9662;</span></button>
+        </div>
+        <div class="dropdown-content" id="dropdown-content" tabindex="-1">
+            <div class="sub-dropdown">
+                <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
+                <span class="sub-dropdown-toggle">&#9656;</span>
+                <div class="sub-dropdown-content">
+                    <a href="system-approach.html" tabindex="0">Systémový přístup</a>
+                    <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
                 </div>
-                <div class="dropdown-content" id="dropdown-content" tabindex="-1">
-                    <div class="sub-dropdown">
-                        <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
-                        <span class="sub-dropdown-toggle">&#9656;</span>
-                        <div class="sub-dropdown-content">
-                            <a href="system-approach.html" tabindex="0">Systémový přístup</a>
-                            <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
-                        </div>
-                    </div>
-                    <a href="system-theory.html" tabindex="0">Teorie systémů</a>
-                </div>
-            </li>
-
-            <!-- Základy živých soustav **SECOND** -->
-            <li class="dropdown">
-                <div class="button-container"> 
-                    <a href="life.html" class="main-button">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
-                </div>
-                <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
-                    <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
-                    <a href="life-origin.html" tabindex="0">Vznik života</a>
-                </div>
-            </li>
-
-            <!-- Buňka, Člověk -->
-            <div class="button-container">
-                <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
             </div>
-            <div class="button-container">
-                <a href="human.html" class="main-button-second">Člověk</a>
-            </div>
-        </ul>
+            <a href="system-theory.html" tabindex="0">Teorie systémů</a>
+        </div>
+    </li>
+
+    <!-- Základy živých soustav **SECOND** -->
+    <li class="dropdown">
+        <div class="button-container"> 
+            <a href="life.html" class="main-button">Základy živých soustav</a>
+            <button class="dropdown-toggle-second"><span class="arrow" id="arrow">&#9662;</span></button>
+        </div>
+        <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
+            <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
+            <a href="life-origin.html" tabindex="0">Vznik života</a>
+        </div>
+    </li>
+
+    <!-- Buňka, Člověk -->
+    <div class="button-container">
+        <a href="cell.html" class="main-button-second">Buněčné a nebuněčné organismy</a>
+    </div>
+    <div class="button-container">
+        <a href="human.html" class="main-button-second">Člověk</a>
+    </div>
+</ul>
 ```
 
 ### Mobilní navigace:
 
 ```html
-                <div class="mobile-expandable">
-                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
-                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
-                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
-                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
-                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
-         
-                <!-- Základy živých soustav -->
-                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
-                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
-                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
-           
-                <!-- Buňka, člověk -->
-                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
-                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
-                </div>
+<div class="mobile-expandable">
+    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+
+    <!-- Základy živých soustav -->
+    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+
+    <!-- Buňka, člověk -->
+    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+</div>
 ```
 
 Po kliknutí na libovolný odkaz se správně označí aktivní stránka. Je ale nutné mít správně nastavené kaskádové styly.

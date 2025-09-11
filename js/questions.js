@@ -78,3 +78,5 @@
     });
   });
 })();
+
+/* (tento script používá formátování prettier) */

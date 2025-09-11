@@ -610,3 +610,5 @@
     window.DarkModeManager = DarkModeManager;
   }
 })();
+
+/* (tento script používá formátování prettier) */

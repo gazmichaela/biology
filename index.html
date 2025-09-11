@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Systémová biologie se zabývá komplexními biologickými systémy a jejich interakcí. Základy systému, živých soustav, buněk a člověka.">
     <title>Systémová Biologie</title>
     <script>
     (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
@@ -21,7 +22,6 @@
     <script src="js/sticky-header.js" defer></script>
     <script src="js/responsiveness.js" defer></script>
     <meta name="theme-color" content="#3f7093">
-    <meta name="description" content="Systémová biologie - studium komplexních biologických systémů a jejich interakcí">
     <!-- PWA manifest -->
     <link rel="manifest" href="manifest.json">
     <!-- iOS PWA podpora -->
@@ -35,7 +35,6 @@
     <link rel="icon" type="image/png" sizes="192x192" href="favicon/web-logo-192x192.png"><!-- Pro vyšší rozlišení -->
     <link rel="apple-touch-icon" sizes="120x120" href="favicon/web-logo-120x120-apple-touch.png"><!-- Pro staré iOS pro přidání na domovskou obrazovku (nezávisle na PWA) -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/web-logo-180x180-apple-touch.png"><!-- Pro iOS pro přidání na domovskou obrazovku (nezávisle na PWA) -->
-    
 </head>
 
 <body class="index-page">
@@ -199,12 +198,8 @@
         if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
             navigator.serviceWorker.register('pwa/service-worker.js')
-            .then(function(registration) {
-                console.log('PWA Service Worker registrován:', registration);
-            })
-            .catch(function(registrationError) {
-                console.log('Chyba při registraci Service Worker:', registrationError);
-            });
+            .then(function(registration) {})
+            .catch(function(registrationError) {});
         });
         }
     </script>

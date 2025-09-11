@@ -644,3 +644,5 @@
     window.CookieManager = CookieManager;
   }
 })();
+
+/* (tento script používá formátování prettier) */

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Základní informace o lidském těle z pohledu systémové biologie. Popis jednotlivých typů tkání a orgánových soustav.">
     <title>Člověk</title>
     <script>
     (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
@@ -717,12 +718,8 @@
         if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
             navigator.serviceWorker.register('pwa/service-worker.js')
-            .then(function(registration) {
-                console.log('PWA Service Worker registrován:', registration);
-            })
-            .catch(function(registrationError) {
-                console.log('Chyba při registraci Service Worker:', registrationError);
-            });
+            .then(function(registration) {})
+            .catch(function(registrationError) {});
         });
     }
     </script>

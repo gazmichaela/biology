@@ -1,791 +1,19 @@
-/*document.addEventListener("DOMContentLoaded", function () {
-  initializeDropdownMenus();*/
+/**
+ * Systém pro správu víceúrovňových dropdown menu
+ *
+ * Automaticky sleduje uživatelské interakce s dropdown menu a uchovává jejich stav napříč relacemi.
+ * Obsahuje fallback mechanismy pro plynulou navigaci mezi úrovněmi menu a detekci pozice myši.
+ * (napsán jako jeden z prvních a funkčních scriptů, z toho důvodu refactoring není priorita)
+ *
+ * @fileoverview Systém správy dropdown menu s interaktivními mechanismy
+ * @author Michaela Gažová
+ * @version 1.21.0
+ * @since 2025-03-11
+ * @updated 2025-09-10
+ * @license MIT
+ */
 
-/*  function initializeDropdownMenus() {
-    /*let mouseX = parseInt(localStorage.getItem("mouseX")) || 0;
-    let mouseY = parseInt(localStorage.getItem("mouseY")) || 0;*/
-   /* let throttleTimer;
-    let dropdownToggle = document.getElementById("dropdown-toggle");
-    let dropdownContent = document.getElementById("dropdown-content");
-    let dropdownToggle2 = document.getElementById("dropdown-toggle2");
-    let dropdownContent2 = document.getElementById("dropdown-content2");
-    let subDropdownToggle = document.getElementById("sub-dropdown-toggle");
-    let subDropdownContent = document.getElementById("sub-dropdown-content");
 
-    let isClickOpened = localStorage.getItem("isFirstMenuOpen") === "true";
-    let isClickOpened2 = localStorage.getItem("isSecondMenuOpen") === "true";
-    let isClickOpenedSub = localStorage.getItem("isSubMenuOpen") === "true";
-
-    let firstDropdownReady = false;
-    let secondDropdownReady = false;
-    let subDropdownReady = false;
-
-    let menuStateRestored = false;
-
-    checkForDropdownElements();
-
-    let fastRefreshTimer = setTimeout(function () {
-      if (!menuStateRestored) {
-        checkMousePositionAndRestoreMenu();
-      }
-    }, 50);
-    let safetyTimeout = setTimeout(function () {
-      if (!menuStateRestored) {
-        restoreMenuStateOnLoad();
-      }
-    }, 1000);
-
-    function checkMousePositionAndRestoreMenu() {
-      checkForDropdownElements();
-
-      if (menuStateRestored) return;
-
-      const isMouseOverFirstToggle =
-        localStorage.getItem("isMouseOverFirstToggle") === "true";
-      const isMouseOverSecondToggle =
-        localStorage.getItem("isMouseOverSecondToggle") === "true";
-
-      if (dropdownToggle && firstDropdownReady) {
-        const toggleRect = dropdownToggle.getBoundingClientRect();
-        const isNowOverFirstToggle = isPointInRect(mouseX, mouseY, toggleRect);
-
-        if (
-          (isMouseOverFirstToggle || isNowOverFirstToggle) &&
-          !isClickOpened2 &&
-          !isClickOpenedSub
-        ) {
-          showMenu();
-          if (isMouseOverFirstToggle) {
-            isClickOpened = true;
-            localStorage.setItem("isFirstMenuOpen", "true");
-          }
-        }
-      }
-
-      if (dropdownToggle2 && secondDropdownReady) {
-        const toggleRect2 = dropdownToggle2.getBoundingClientRect();
-        const isNowOverSecondToggle = isPointInRect(
-          mouseX,
-          mouseY,
-          toggleRect2
-        );
-
-        if (
-          (isMouseOverSecondToggle || isNowOverSecondToggle) &&
-          !isClickOpened &&
-          !isClickOpenedSub
-        ) {
-          showMenu2();
-          if (isMouseOverSecondToggle) {
-            isClickOpened2 = true;
-            localStorage.setItem("isSecondMenuOpen", "true");
-          }
-        }
-      }
-
-      if (isClickOpened && dropdownContent && firstDropdownReady) {
-        showMenu();
-      }
-
-      if (isClickOpened2 && dropdownContent2 && secondDropdownReady) {
-        showMenu2();
-      }
-
-      if (isClickOpenedSub && subDropdownContent && subDropdownReady) {
-        showMenuSub();
-      }
-
-      menuStateRestored = true;
-    }
-
-    function checkForDropdownElements() {
-      if (!firstDropdownReady) {
-        dropdownToggle = document.getElementById("dropdown-toggle");
-        dropdownContent = document.getElementById("dropdown-content");
-
-        if (dropdownToggle && dropdownContent) {
-          firstDropdownReady = true;
-          setupFirstDropdownListeners();
-        }
-      }
-      if (!secondDropdownReady) {
-        dropdownToggle2 = document.getElementById("dropdown-toggle2");
-        dropdownContent2 = document.getElementById("dropdown-content2");
-
-        if (dropdownToggle2 && dropdownContent2) {
-          secondDropdownReady = true;
-          setupSecondDropdownListeners();
-        }
-      }
-
-      if (!subDropdownReady) {
-        subDropdownToggle = document.getElementById("sub-dropdown-toggle");
-        subDropdownContent = document.getElementById("sub-dropdown-content");
-
-        if (subDropdownToggle && subDropdownContent) {
-          subDropdownReady = true;
-          setupSubDropdownListeners();
-        }
-      }
-    }
-
-  /*  function restoreMenuStateOnLoad() {
-      if (menuStateRestored) return;
-
-      checkForDropdownElements();
-
-      checkMousePositionAndRestoreMenu();
-
-      menuStateRestored = true;
-    }
-*/
-/*    function ensureDropdownElementsReady(callback) {
-      checkForDropdownElements();
-
-      if (firstDropdownReady && secondDropdownReady && subDropdownReady) {
-        callback();
-        return;
-      }
-
-      setTimeout(function () {
-        ensureDropdownElementsReady(callback);
-      }, 50);
-    }
-
-    function clearMenuStateOnNavigation() {
-      localStorage.removeItem("isFirstMenuOpen");
-      localStorage.removeItem("isSecondMenuOpen");
-      localStorage.removeItem("isSubMenuOpen");
-      localStorage.removeItem("isMouseOverFirstToggle");
-      localStorage.removeItem("isMouseOverSecondToggle");
-    }
-
-  /*  function throttleMouseMove(callback, delay) {
-      return function (e) {
-        if (!throttleTimer) {
-          throttleTimer = setTimeout(function () {
-            callback(e);
-            throttleTimer = null;
-          }, delay);
-        }
-      };
-    }*/
-
-   /* document.addEventListener(
-      "mousemove",
-      throttleMouseMove(function (e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        localStorage.setItem("mouseX", mouseX);
-        localStorage.setItem("mouseY", mouseY);
-
-        checkForDropdownElements();
-
-        if (
-          firstDropdownReady &&
-          dropdownToggle &&
-          isElementVisible(dropdownToggle)
-        ) {
-          const toggleRect = dropdownToggle.getBoundingClientRect();
-          const isOverFirstToggle = isPointInRect(mouseX, mouseY, toggleRect);
-          localStorage.setItem(
-            "isMouseOverFirstToggle",
-            isOverFirstToggle ? "true" : "false"
-          );
-
-          if (
-            isOverFirstToggle &&
-            !isClickOpened &&
-            !isClickOpened2 &&
-            !isClickOpenedSub
-          ) {
-            showMenu();
-          }
-        }
-
-        if (
-          secondDropdownReady &&
-          dropdownToggle2 &&
-          isElementVisible(dropdownToggle2)
-        ) {
-          const toggleRect2 = dropdownToggle2.getBoundingClientRect();
-          const isOverSecondToggle = isPointInRect(mouseX, mouseY, toggleRect2);
-          localStorage.setItem(
-            "isMouseOverSecondToggle",
-            isOverSecondToggle ? "true" : "false"
-          );
-
-          if (
-            isOverSecondToggle &&
-            !isClickOpened &&
-            !isClickOpened2 &&
-            !isClickOpenedSub
-          ) {
-            showMenu2();
-          }
-        }
-      }, 30)
-    ); */
-
-  /*  function isPointInRect(x, y, rect) {
-      return (
-        x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
-      );
-    }
-
-    function isElementVisible(el) {
-      return el && el.offsetParent !== null;
-    }
-
-    function showMenu() {
-      if (!dropdownContent || !firstDropdownReady) return;
-
-      requestAnimationFrame(function () {
-        dropdownContent.style.display = "block";
-
-        requestAnimationFrame(function () {
-          dropdownContent.style.opacity = "1";
-          localStorage.setItem("isFirstMenuOpen", "true");
-          setTimeout(() => {
-            positionDeadZone();
-          }, 100);
-        });
-      });
-    }
-
-    function hideMenu() {
-      if (!dropdownContent || !firstDropdownReady) return;
-
-      dropdownContent.style.opacity = "0";
-
-      setTimeout(function () {
-        if (dropdownContent && dropdownContent.style.opacity === "0") {
-          dropdownContent.style.display = "none";
-        }
-      }, 100);
-
-      localStorage.setItem("isFirstMenuOpen", "false");
-    }
-
-    function showMenu2() {
-      if (!dropdownContent2 || !secondDropdownReady) return;
-
-      requestAnimationFrame(function () {
-        dropdownContent2.style.display = "block";
-
-        requestAnimationFrame(function () {
-          dropdownContent2.style.opacity = "1";
-          localStorage.setItem("isSecondMenuOpen", "true");
-        });
-      });
-    }
-
-    function hideMenu2() {
-      if (window.tabNavigationActive2) {
-        return;
-      }
-      if (!dropdownContent2 || !secondDropdownReady) return;
-
-      dropdownContent2.style.opacity = "0";
-
-      setTimeout(function () {
-        if (dropdownContent2 && dropdownContent2.style.opacity === "0") {
-          dropdownContent2.style.display = "none";
-        }
-      }, 100);
-
-      localStorage.setItem("isSecondMenuOpen", "false");
-    }
-
-    function showMenuSub() {
-      if (!subDropdownContent || !subDropdownReady) return;
-
-      requestAnimationFrame(function () {
-        subDropdownContent.style.display = "block";
-
-        requestAnimationFrame(function () {
-          subDropdownContent.style.opacity = "1";
-          localStorage.setItem("isSubMenuOpen", "true");
-        });
-      });
-    }
-
-    function hideMenuSub() {
-      if (!subDropdownContent || !subDropdownReady) return;
-
-      subDropdownContent.style.opacity = "0";
-
-      setTimeout(function () {
-        if (subDropdownContent && subDropdownContent.style.opacity === "0") {
-          subDropdownContent.style.display = "none";
-        }
-      }, 100);
-
-      localStorage.setItem("isSubMenuOpen", "false");
-    }
-
-    function closeAllMenus() {
-      hideMenu();
-      hideMenu2();
-      hideMenuSub();
-      isClickOpened = false;
-      isClickOpened2 = false;
-      isClickOpenedSub = false;
-    }
-
-    function closeAllMenusExcept(exceptMenuId) {
-      if (
-        exceptMenuId !== "first-menu" &&
-        dropdownContent &&
-        dropdownContent.style.opacity === "1"
-      ) {
-        hideMenu();
-        isClickOpened = false;
-      }
-
-      if (
-        exceptMenuId !== "second-menu" &&
-        dropdownContent2 &&
-        dropdownContent2.style.opacity === "1"
-      ) {
-        hideMenu2();
-        isClickOpened2 = false;
-      }
-
-      if (
-        exceptMenuId !== "sub-menu" &&
-        subDropdownContent &&
-        subDropdownContent.style.opacity === "1"
-      ) {
-        hideMenuSub();
-        isClickOpenedSub = false;
-      }
-    }
-
-    function setupFirstDropdownListeners() {
-      if (!firstDropdownReady || !dropdownToggle || !dropdownContent) {
-        return;
-      }
-
-      if (dropdownToggle.hasAttribute("data-event-listeners-added")) {
-        return;
-      }
-
-      dropdownToggle.setAttribute("data-event-listeners-added", "true");
-
-      dropdownToggle.addEventListener("click", function (e) {
-        e.stopPropagation();
-        if (isClickOpened) {
-          hideMenu();
-          isClickOpened = false;
-        } else {
-          closeAllMenusExcept("first-menu");
-          showMenu();
-          isClickOpened = true;
-        }
-      });
-
-      /* dropdownToggle.addEventListener("focus", function() {
-    isFocusedInside = true;
-    if (!isClickOpened) {
-        showMenu();
-    }
-});*/
-
-      /*dropdownContent.addEventListener("focusin", function() {
-    isFocusedInside = true;
-    clearTimeout(hideTimeoutFirst);
-});
-
-dropdownContent.addEventListener("focusout", function(e) {
-    setTimeout(() => {
-        if (!dropdownContent.contains(document.activeElement) && 
-            !dropdownToggle.contains(document.activeElement)) {
-            isFocusedInside = false;
-            if (!isClickOpened) {
-                hideMenu();
-            }
-        }
-    }, 0);
-});*/
-
-    /*  dropdownToggle.addEventListener("mouseenter", function () {
-        if (!isClickOpened && !isClickOpened2 && !isClickOpenedSub) {
-          showMenu();
-        }
-      });
-
-      dropdownContent.addEventListener("mouseleave", function (e) {
-        if (window.tabNavigationActive) {
-          return;
-        }
-        if (!isClickOpened) {
-          const rect = dropdownContent.getBoundingClientRect();
-          const isMouseInsideMenu =
-            mouseX >= rect.left &&
-            mouseX <= rect.right &&
-            mouseY >= rect.top &&
-            mouseY <= rect.bottom;
-
-          if (
-            !isMouseInsideMenu &&
-            !isPointInRect(
-              mouseX,
-              mouseY,
-              dropdownToggle.getBoundingClientRect()
-            )
-          ) {
-            hideMenu();
-          }
-        }
-      });
-    }
-
-    /* 
-    document.addEventListener("focusin", function(e) {
-        if (dropdownContent.contains(e.target) || e.target === dropdownToggle) {
-            window.tabNavigationActive = true;
-        } else {
-            window.tabNavigationActive = false;
-        }
-    });
-
-document.addEventListener("focusout", function(e) {
-    setTimeout(() => {
-        const activeElement = document.activeElement;
-
-        if (!dropdownContent.contains(activeElement) && 
-            activeElement !== dropdownToggle && 
-            dropdownContent.style.opacity === "1") {
-            
-            window.tabNavigationActive = false;
-            hideMenu();
-            isClickOpened = false;
-        }
-    }, 100);
-});*/
-
-   /* function setupSecondDropdownListeners() {
-      if (!secondDropdownReady || !dropdownToggle2 || !dropdownContent2) {
-        return;
-      }
-
-      if (dropdownToggle2.hasAttribute("data-event-listeners-added")) {
-        return;
-      }
-
-      dropdownToggle2.setAttribute("data-event-listeners-added", "true");
-
-      dropdownToggle2.addEventListener("click", function (e) {
-        e.stopPropagation();
-        if (isClickOpened2) {
-          hideMenu2();
-          isClickOpened2 = false;
-        } else {
-          closeAllMenusExcept("second-menu");
-          showMenu2();
-          isClickOpened2 = true;
-        }
-      });
-
-      dropdownToggle2.addEventListener("mouseenter", function () {
-        if (!isClickOpened && !isClickOpened2 && !isClickOpenedSub) {
-          showMenu2();
-        }
-      });
-
-      dropdownContent2.addEventListener("mouseleave", function (e) {
-        if (window.tabNavigationActive2) {
-          return;
-        }
-
-        if (!isClickOpened2) {
-          const rect = dropdownContent2.getBoundingClientRect();
-          const isMouseInsideMenu =
-            mouseX >= rect.left &&
-            mouseX <= rect.right &&
-            mouseY >= rect.top &&
-            mouseY <= rect.bottom;
-
-          if (
-            !isMouseInsideMenu &&
-            !isPointInRect(
-              mouseX,
-              mouseY,
-              dropdownToggle2.getBoundingClientRect()
-            )
-          ) {
-            hideMenu2();
-          }
-        }
-      });
-    }
-
-    function setupSubDropdownListeners() {
-      if (!subDropdownReady || !subDropdownToggle || !subDropdownContent) {
-        return;
-      }
-
-      if (subDropdownToggle.hasAttribute("data-event-listeners-added")) {
-        return;
-      }
-
-      subDropdownToggle.setAttribute("data-event-listeners-added", "true");
-
-      subDropdownToggle.addEventListener("click", function (e) {
-        e.stopPropagation();
-        if (isClickOpenedSub) {
-          hideMenuSub();
-          isClickOpenedSub = false;
-        } else {
-          closeAllMenusExcept("sub-menu");
-          showMenuSub();
-          isClickOpenedSub = true;
-        }
-      });
-    }
-
-    document.addEventListener(
-      "click",
-      function (e) {
-        const target = e.target;
-
-        if (target.tagName === "A" || target.closest("a")) {
-          clearMenuStateOnNavigation();
-          closeAllMenus();
-          return;
-        }
-        const isOutsideMenus = !(
-          (dropdownToggle && dropdownToggle.contains(target)) ||
-          (dropdownContent && dropdownContent.contains(target)) ||
-          (dropdownToggle2 && dropdownToggle2.contains(target)) ||
-          (dropdownContent2 && dropdownContent2.contains(target)) ||
-          (subDropdownToggle && subDropdownToggle.contains(target)) ||
-          (subDropdownContent && subDropdownContent.contains(target))
-        );
-
-        if (isOutsideMenus) {
-          closeAllMenus();
-        }
-      },
-      { passive: true }
-    );
-
-    /*window.addEventListener("beforeunload", function (e) {
-      localStorage.setItem("isFirstMenuOpen", "false");
-      localStorage.setItem("isSecondMenuOpen", "false");
-      localStorage.setItem("isSubMenuOpen", "false");
-    });*/
-
-    /*window.addEventListener("beforeunload", function (e) {
-      localStorage.setItem("isRefreshing", "true");
-
-      setTimeout(function () {
-        localStorage.removeItem("isRefreshing");
-      }, 500);
-    });*/
-
-/*    if (!document.body.hasAttribute("data-link-listeners-added")) {
-      document.body.setAttribute("data-link-listeners-added", "true");
-      document.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          if (
-            link.getAttribute("href") !== "#" &&
-            link.getAttribute("href") !== ""
-          ) {
-            clearMenuStateOnNavigation();
-          }
-        });
-      });
-    }
-
-    function setupAggressiveRefreshHandling() {
-      const isRefresh = localStorage.getItem("isRefreshing") === "true";
-      localStorage.removeItem("isRefreshing");
-
-      if (isRefresh) {
-        const refreshTimers = [10, 30, 50, 100, 200, 300, 500, 1000];
-
-        refreshTimers.forEach(function (time) {
-          setTimeout(function () {
-            if (!menuStateRestored) {
-              checkForDropdownElements();
-              checkMousePositionAndRestoreMenu();
-            }
-          }, time);
-        });
-      }
-
-      const images = document.querySelectorAll("img");
-      const totalImages = images.length;
-      if (totalImages > 20) {
-        const additionalTimers = [50, 150, 300, 600, 1000, 1500, 2000];
-
-        additionalTimers.forEach(function (time) {
-          setTimeout(function () {
-            if (!menuStateRestored) {
-              checkForDropdownElements();
-              checkMousePositionAndRestoreMenu();
-            }
-          }, time);
-        });
-
-        let checkCount = 0;
-        const maxChecks = 10;
-        const checkInterval = setInterval(function () {
-          checkCount++;
-
-          if (!menuStateRestored) {
-            checkForDropdownElements();
-            checkMousePositionAndRestoreMenu();
-          }
-
-          if (menuStateRestored || checkCount >= maxChecks) {
-            clearInterval(checkInterval);
-          }
-        }, 200);
-      }
-    }
-
-    setupAggressiveRefreshHandling();
-
-    window.addEventListener("load", function () {
-      clearTimeout(safetyTimeout);
-
-      if (!menuStateRestored) {
-        checkForDropdownElements();
-        restoreMenuStateOnLoad();
-      }
-    });
-
-    window.addEventListener(
-      "resize",
-      throttleMouseMove(function () {
-        checkForDropdownElements();
-
-        if (
-          firstDropdownReady &&
-          dropdownToggle &&
-          isElementVisible(dropdownToggle)
-        ) {
-          const toggleRect = dropdownToggle.getBoundingClientRect();
-          const isOverFirstToggle = isPointInRect(mouseX, mouseY, toggleRect);
-          localStorage.setItem(
-            "isMouseOverFirstToggle",
-            isOverFirstToggle ? "true" : "false"
-          );
-
-          if (isOverFirstToggle && !isClickOpened2 && !isClickOpenedSub) {
-            if (!isClickOpened) {
-              showMenu();
-            }
-          } else if (
-            !isClickOpened &&
-            dropdownContent &&
-            dropdownContent.style.opacity === "1"
-          ) {
-            hideMenu();
-          }
-        }
-
-        if (
-          secondDropdownReady &&
-          dropdownToggle2 &&
-          isElementVisible(dropdownToggle2)
-        ) {
-          const toggleRect2 = dropdownToggle2.getBoundingClientRect();
-          const isOverSecondToggle = isPointInRect(mouseX, mouseY, toggleRect2);
-          localStorage.setItem(
-            "isMouseOverSecondToggle",
-            isOverSecondToggle ? "true" : "false"
-          );
-
-          if (isOverSecondToggle && !isClickOpened && !isClickOpenedSub) {
-            if (!isClickOpened2) {
-              showMenu2();
-            }
-          } else if (
-            !isClickOpened2 &&
-            dropdownContent2 &&
-            dropdownContent2.style.opacity === "1"
-          ) {
-            hideMenu2();
-          }
-        }
-      }, 100),
-      { passive: true }
-    );
-
-    const observer = new MutationObserver(function (mutations) {
-      let needsCheck = false;
-
-      for (let mutation of mutations) {
-        if (mutation.type === "childList" && mutation.addedNodes.length) {
-          needsCheck = true;
-          break;
-        }
-      }
-
-      if (needsCheck) {
-        checkForDropdownElements();
-
-        const isMouseOverFirstToggle =
-          localStorage.getItem("isMouseOverFirstToggle") === "true";
-        const isMouseOverSecondToggle =
-          localStorage.getItem("isMouseOverSecondToggle") === "true";
-
-        if (
-          (isMouseOverFirstToggle || isMouseOverSecondToggle) &&
-          !menuStateRestored
-        ) {
-          checkMousePositionAndRestoreMenu();
-        }
-      }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(
-        function () {
-          if (!menuStateRestored) {
-            checkForDropdownElements();
-            restoreMenuStateOnLoad();
-          }
-        },
-        { timeout: 2000 }
-      );
-    } else {
-      setTimeout(function () {
-        if (!menuStateRestored) {
-          checkForDropdownElements();
-          restoreMenuStateOnLoad();
-        }
-      }, 1500);
-    }
-  }
-});*/
-
-/*let positionMonitoringInterval = null;
-
-function startPositionMonitoring(callback = null) {
-  if (positionMonitoringInterval) {
-    clearInterval(positionMonitoringInterval);
-  }
-
-  positionMonitoringInterval = setInterval(() => {
-    if (callback && typeof callback === "function") {
-      callback();
-    }
-  }, 100);
-}
-
-function stopPositionMonitoring() {
-  if (positionMonitoringInterval) {
-    clearInterval(positionMonitoringInterval);
-    positionMonitoringInterval = null;
-  }
-}*/
 
 // ==== PRVNÍ DROPDOWN ==== //
 
@@ -806,6 +34,7 @@ if (dropdownToggle && dropdownContent) {
   let isMouseOverSubmenu = false;
   let lastMouseMoveTime = 0;
 
+  // Načtení pozice myši z localStorage pro zachování stavu při reload
   let mouseX = parseInt(localStorage.getItem("mouseX")) || 0;
   let mouseY = parseInt(localStorage.getItem("mouseY")) || 0;
 
@@ -815,6 +44,7 @@ if (dropdownToggle && dropdownContent) {
   dropdownContent.style.visibility = "hidden";
   dropdownContent.style.display = "none";
 
+  // Dead zone slouží k plynulému přechodu myši mezi toggle a menu
   const deadZoneElement = document.createElement("div");
   deadZoneElement.className = "dropdown-dead-zone";
   document.body.appendChild(deadZoneElement);
@@ -836,9 +66,9 @@ if (dropdownToggle && dropdownContent) {
         const scrollX = window.scrollX;
         const scrollY = window.scrollY;
 
-        const left = Math.min(toggleRect.left, contentRect.left) + scrollX + 2; 
+        const left = Math.min(toggleRect.left, contentRect.left) + scrollX + 2;
         const right =
-          Math.max(toggleRect.right, contentRect.right) + scrollX - 2; 
+          Math.max(toggleRect.right, contentRect.right) + scrollX - 2;
         const width = right - left;
 
         const top = toggleRect.bottom + scrollY;
@@ -849,7 +79,7 @@ if (dropdownToggle && dropdownContent) {
         deadZoneElement.style.left = `${left}px`;
         deadZoneElement.style.top = `${top - 1}px`;
         deadZoneElement.style.width = `${width}px`;
-        deadZoneElement.style.height = `${height - 1}px`; 
+        deadZoneElement.style.height = `${height - 1}px`;
         deadZoneElement.style.zIndex = "9999";
         deadZoneElement.style.pointerEvents = "auto";
         deadZoneElement.style.display = "block";
@@ -888,19 +118,19 @@ if (dropdownToggle && dropdownContent) {
     }
   });
 
-  
-    function startPositionMonitoring() {
-        clearTimeout(repositionTimeoutFirst);
-        
-        positionDeadZone();
-        
-        repositionTimeoutFirst = setTimeout(() => {
-            if (dropdownContent.style.display === "block") {
-                startPositionMonitoring();
-            }
-        }, 500);
-    }
+  function startPositionMonitoring() {
+    clearTimeout(repositionTimeoutFirst);
 
+    positionDeadZone();
+
+    repositionTimeoutFirst = setTimeout(() => {
+      if (dropdownContent.style.display === "block") {
+        startPositionMonitoring();
+      }
+    }, 500);
+  }
+
+  // Kontrola, jestli je myš nad submenu, aby se nezavřelo předčasně
   function isMouseOverSubmenuElements() {
     const subDropdownContent = document.querySelector(".sub-dropdown-content");
     const subDropdownToggle = document.querySelector(".sub-dropdown-toggle");
@@ -1007,6 +237,7 @@ if (dropdownToggle && dropdownContent) {
     }
   }
 
+  // Timer zavře menu po nečinnosti, aby nevisel dropdown stále otevřený
   function startInactivityTimer() {
     clearTimeout(inactivityTimeoutFirst);
     inactivityTimeoutFirst = setTimeout(() => {
@@ -1188,7 +419,7 @@ if (dropdownToggle && dropdownContent) {
         if (!isClickOpened) {
           hideMenu();
         }
-      }, 250); 
+      }, 250);
     }
   });
 
@@ -1282,7 +513,7 @@ if (dropdownToggle && dropdownContent) {
     if (!isClickOpened) {
       hideTimeoutFirst = setTimeout(function () {
         hideMenu();
-      }, 200); 
+      }, 200);
     }
   });
   const searchElements = dropdownContent.querySelectorAll(
@@ -1443,6 +674,7 @@ if (dropdownToggle && dropdownContent) {
 
   let shouldShowMenuAfterLoad = false;
 
+  // Kontrola pozice myši při načtení stránky (pro obnovení stavu menu)
   function checkMousePosition() {
     const savedMouseX = parseInt(localStorage.getItem("mouseX")) || 0;
     const savedMouseY = parseInt(localStorage.getItem("mouseY")) || 0;
@@ -1487,16 +719,6 @@ if (dropdownToggle && dropdownContent) {
       }
     }
   }
-/*  document.addEventListener("DOMContentLoaded", function () {
-    domContentLoaded = true;
-
-    checkMousePosition();
-
-    if (shouldShowMenuAfterLoad) {
-      showMenu();
-    }
-  });*/
-
   window.addEventListener("load", function () {
     pageLoaded = true;
 
@@ -1520,22 +742,7 @@ if (dropdownToggle && dropdownContent) {
     }
   }, 0);
 }
-
-/*let mouseMoveThrottle = false;
-document.addEventListener("mousemove", function (e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-
-  if (!mouseMoveThrottle) {
-    mouseMoveThrottle = true;
-    setTimeout(() => {
-      localStorage.setItem("mouseX", mouseX);
-      localStorage.setItem("mouseY", mouseY);
-      mouseMoveThrottle = false;
-    }, 50);
-  }
-});*/
-
+// Throttled ukládání pozice myši, aby se localStorage nezahlcoval
 let lastMouseUpdate = 0;
 const MOUSE_UPDATE_INTERVAL = 100;
 
@@ -1552,22 +759,6 @@ document.addEventListener("mousemove", function (e) {
     lastMouseUpdate = now;
   }
 });
-
-/*window.addEventListener("beforeunload", function () {
-  localStorage.removeItem("mouseX");
-  localStorage.removeItem("mouseY");
-  localStorage.removeItem("isMouseOverFirstToggle");
-});*/
-
-/*window.addEventListener("load", function () {
-  setTimeout(function () {
-    if (typeof isClickOpened === "undefined" || !isClickOpened) {
-      localStorage.removeItem("isFirstMenuOpen");
-    }
-    localStorage.removeItem("isMouseOverFirstToggle");
-  }, 5000);
-});*/
-
 window.dropdownMenu = {
   closeFirstMenu: function () {
     if (typeof window.closeFirstMenu === "function") {
@@ -1585,6 +776,7 @@ window.dropdownMenu = {
 };
 
 // ==== DRUHÝ DROPDOWN ==== //
+
 const dropdownToggle2 = document.querySelector(".dropdown-toggle-second");
 const dropdownContent2 = document.querySelector(".dropdown-content-second");
 
@@ -1627,7 +819,7 @@ if (dropdownToggle2 && dropdownContent2) {
 
         const left = Math.min(toggleRect.left, contentRect.left) + scrollX + 2;
         const right =
-          Math.max(toggleRect.right, contentRect.right) + scrollX - 2; 
+          Math.max(toggleRect.right, contentRect.right) + scrollX - 2;
         const width = right - left;
 
         const top = toggleRect.bottom + scrollY;
@@ -1638,7 +830,7 @@ if (dropdownToggle2 && dropdownContent2) {
         deadZoneElement2.style.left = `${left}px`;
         deadZoneElement2.style.top = `${top - 1}px`;
         deadZoneElement2.style.width = `${width}px`;
-        deadZoneElement2.style.height = `${height - 1}px`; 
+        deadZoneElement2.style.height = `${height - 1}px`;
         deadZoneElement2.style.zIndex = "9999";
         deadZoneElement2.style.pointerEvents = "auto";
         deadZoneElement2.style.display = "block";
@@ -1666,6 +858,7 @@ if (dropdownToggle2 && dropdownContent2) {
     }, 200);
   }
 
+  // Inactivity timer pro druhý dropdown
   function startInactivityTimer2() {
     clearTimeout(inactivityTimeoutSecond);
     inactivityTimeoutSecond = setTimeout(() => {
@@ -1759,6 +952,7 @@ if (dropdownToggle2 && dropdownContent2) {
     }
   };
 
+  // Kontrola pozice myši při načtení stránky pro druhý dropdown
   function checkMousePosition2() {
     const savedMouseX = parseInt(localStorage.getItem("mouseX")) || 0;
     const savedMouseY = parseInt(localStorage.getItem("mouseY")) || 0;
@@ -1793,17 +987,6 @@ if (dropdownToggle2 && dropdownContent2) {
       }
     }
   }
-
-/*  document.addEventListener("DOMContentLoaded", function () {
-    domContentLoaded2 = true;
-
-    checkMousePosition2();
-
-    if (shouldShowMenuAfterLoad2) {
-      showMenu2();
-    }
-  });*/
-
   window.addEventListener("load", function () {
     pageLoaded2 = true;
 
@@ -1828,6 +1011,7 @@ if (dropdownToggle2 && dropdownContent2) {
   }, 0);
 
   dropdownToggle2.addEventListener("mouseenter", function () {
+    // Zavření prvního menu při hover na druhém menu, aby se nepřekrývaly
     if (window.closeFirstMenu) {
       window.closeFirstMenu();
     }
@@ -1979,7 +1163,7 @@ if (dropdownToggle2 && dropdownContent2) {
   });
 
   dropdownContent2.addEventListener("mouseleave", function (e) {
-    if (isClickOpened2) return; 
+    if (isClickOpened2) return;
 
     const toElement = e.relatedTarget;
 
@@ -1998,7 +1182,7 @@ if (dropdownToggle2 && dropdownContent2) {
   });
 
   deadZoneElement2.addEventListener("mouseleave", function (e) {
-    if (isClickOpened2) return; 
+    if (isClickOpened2) return;
 
     const toElement = e.relatedTarget;
 
@@ -2015,29 +1199,7 @@ if (dropdownToggle2 && dropdownContent2) {
       }, 300);
     }
   });
-
-  /*document.addEventListener("click", function (event) {
-    if (
-      !dropdownToggle2.contains(event.target) &&
-      !dropdownContent2.contains(event.target) &&
-      event.target !== deadZoneElement2
-    ) {
-      hideMenu2();
-      isClickOpened2 = false;
-    }
-  });*/
 }
-
-/*let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener("mousemove", function (e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-
-  localStorage.setItem("mouseX", mouseX);
-  localStorage.setItem("mouseY", mouseY);
-});*/
 
 // ==== SUBDROPDOWN ==== //
 
@@ -2073,6 +1235,7 @@ if (subDropdownToggle && subDropdownContent) {
       const toggleRect = subDropdownToggle.getBoundingClientRect();
       const contentRect = subDropdownContent.getBoundingClientRect();
 
+      // Detekce, jestli se menu vejde na obrazovku (kvůli správnému pozicování)
       const viewportWidth = window.innerWidth;
       const isMenuRightAligned =
         toggleRect.right + contentRect.width > viewportWidth;
@@ -2130,6 +1293,7 @@ if (subDropdownToggle && subDropdownContent) {
     }
   }
 
+  // Plynulé zavření s delay, aby se animace stihla dokončit
   function smoothCloseSubMenu(skipDelay = false) {
     if (subDropdownContent.style.display === "none") return;
 
@@ -2185,6 +1349,7 @@ if (subDropdownToggle && subDropdownContent) {
     smoothCloseSubMenu();
   };
 
+  // Zavření submenu při hover na hlavní dropdown
   const mainDropdownToggle = document.querySelector(".dropdown-toggle");
   if (mainDropdownToggle) {
     mainDropdownToggle.addEventListener("mouseenter", function () {
@@ -2261,23 +1426,23 @@ if (subDropdownToggle && subDropdownContent) {
       showMenuSub();
     }
   });
-  subDropdownToggle.addEventListener("focus", function() {
-  isMouseOverMenu = true;
-  if (!isClickOpenedSub) {
-    showMenuSub();
-  }
-});
-
-subDropdownToggle.addEventListener("blur", function() {
-  setTimeout(() => {
-    if (!subDropdownContent.contains(document.activeElement)) {
-      isMouseOverMenu = false;
-      if (!isClickOpenedSub) {
-        smoothCloseSubMenu();
-      }
+  subDropdownToggle.addEventListener("focus", function () {
+    isMouseOverMenu = true;
+    if (!isClickOpenedSub) {
+      showMenuSub();
     }
-  }, 100);
-});
+  });
+
+  subDropdownToggle.addEventListener("blur", function () {
+    setTimeout(() => {
+      if (!subDropdownContent.contains(document.activeElement)) {
+        isMouseOverMenu = false;
+        if (!isClickOpenedSub) {
+          smoothCloseSubMenu();
+        }
+      }
+    }, 100);
+  });
 
   const arrowElement = subDropdownToggle.querySelector(
     ".arrow, .dropdown-arrow, .caret, .arrow-icon, i.fa-chevron-down"
@@ -2285,7 +1450,7 @@ subDropdownToggle.addEventListener("blur", function() {
   if (arrowElement) {
     arrowElement.addEventListener("click", function (e) {
       e.preventDefault();
-      e.stopPropagation(); 
+      e.stopPropagation();
 
       const clickEvent = new MouseEvent("click", {
         bubbles: true,
@@ -2373,108 +1538,24 @@ subDropdownToggle.addEventListener("blur", function() {
     subDropdownContent.style.transition =
       "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out";
   }
-  if (!subDropdownToggle.hasAttribute('tabindex')) {
-    subDropdownToggle.setAttribute('tabindex', '0');
+  if (!subDropdownToggle.hasAttribute("tabindex")) {
+    subDropdownToggle.setAttribute("tabindex", "0");
   }
 
-  subDropdownToggle.addEventListener("focus", function() {
+  subDropdownToggle.addEventListener("focus", function () {
     isMouseOverMenu = true;
     if (!isClickOpenedSub) {
       showMenuSub();
     }
   });
 
-  subDropdownToggle.addEventListener("blur", function() {
-  });
+  subDropdownToggle.addEventListener("blur", function () {});
 
+  // Monitoring focus pro tab navigaci kvůli přístupnosti
   if (!window.tabObserverSetup) {
     window.tabObserverSetup = true;
-setInterval(() => {
-  const activeElement = document.activeElement;
-
-  const dropdown1 = document.getElementById("dropdown-content");
-  const toggle1 = document.querySelector(".dropdown-toggle"); 
-  const dropdown2 = document.getElementById("dropdown-content-second");
-  const toggle2 = document.querySelector(".dropdown-toggle-second");
-  const subDropdown = document.querySelector(".sub-dropdown-content");
-  const subToggle = document.querySelector(".sub-dropdown-toggle");
-
-  if (
-    dropdown1 &&
-    dropdown1.contains(activeElement) &&
-    (activeElement.tagName === "A" || activeElement.classList.contains("sub-dropdown-toggle"))
-  ) {
-    window.tabNavigationActive = true;
-  } else if (window.tabNavigationActive) {
-    window.tabNavigationActive = false;
-    if (dropdown1 && dropdown1.style.opacity === "1") {
-      if (typeof hideMenu === "function") hideMenu();
-      isClickOpened = false;
-    }
-  }
-
-  if (
-    dropdown2 &&
-    dropdown2.contains(activeElement) &&
-    activeElement.tagName === "A"
-  ) {
-    window.tabNavigationActive2 = true;
-  } else if (window.tabNavigationActive2) {
-    window.tabNavigationActive2 = false;
-    if (dropdown2 && dropdown2.style.opacity === "1") {
-      if (typeof hideMenu2 === "function") hideMenu2();
-      isClickOpened2 = false;
-    }
-  }
-
-  const isArrowFocused = activeElement && activeElement.classList.contains("sub-dropdown-toggle");
-  const isInSubmenu = subDropdown && subDropdown.contains(activeElement);
-  
-  if (isArrowFocused || isInSubmenu) {
-    window.tabNavigationActiveSub = true;
-    
-    if (window.subMenuCloseTimer) {
-      clearTimeout(window.subMenuCloseTimer);
-      window.subMenuCloseTimer = null;
-    }
-    
-    if (subDropdown && subDropdown.style.opacity !== "1") {
-      subDropdown.style.opacity = "1";
-      subDropdown.style.visibility = "visible";
-      subDropdown.style.display = "block";
-      isMouseOverMenu = true;
-    }
-  } else if (window.tabNavigationActiveSub) {
-    if (!window.subMenuCloseTimer && !isClickOpenedSub) {
-      window.subMenuCloseTimer = setTimeout(() => {
-        const currentActive = document.activeElement;
-        const stillOnArrow = currentActive && currentActive.classList.contains("sub-dropdown-toggle");
-        const stillInMenu = subDropdown && subDropdown.contains(currentActive);
-        
-        if (!stillOnArrow && !stillInMenu && !isClickOpenedSub) {
-          window.tabNavigationActiveSub = false;
-          isMouseOverMenu = false;
-          if (subDropdown && subDropdown.style.opacity === "1") {
-            subDropdown.style.opacity = "0";
-            subDropdown.style.visibility = "hidden";
-            setTimeout(() => {
-              if (subDropdown && subDropdown.style.display !== "none") {
-                subDropdown.style.display = "none";
-              }
-            }, 300);
-          }
-        }
-        window.subMenuCloseTimer = null;
-      }, 200);
-    }
-  }
-}, 200);
-
-if (!window.dropdownEscapeListenerSetup) {
-  window.dropdownEscapeListenerSetup = true;
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
+    // Detekce tab navigace místo myši
+    setInterval(() => {
       const activeElement = document.activeElement;
 
       const dropdown1 = document.getElementById("dropdown-content");
@@ -2485,45 +1566,139 @@ if (!window.dropdownEscapeListenerSetup) {
       const subToggle = document.querySelector(".sub-dropdown-toggle");
 
       if (
-        window.tabNavigationActive &&
         dropdown1 &&
         dropdown1.contains(activeElement) &&
-        activeElement.tagName === "A"
+        (activeElement.tagName === "A" ||
+          activeElement.classList.contains("sub-dropdown-toggle"))
       ) {
-        if (typeof hideMenu === "function") hideMenu();
-        isClickOpened = false;
-        toggle1?.focus(); 
-        event.preventDefault();
+        window.tabNavigationActive = true;
+      } else if (window.tabNavigationActive) {
+        window.tabNavigationActive = false;
+        if (dropdown1 && dropdown1.style.opacity === "1") {
+          if (typeof hideMenu === "function") hideMenu();
+          isClickOpened = false;
+        }
       }
 
       if (
-        window.tabNavigationActive2 &&
         dropdown2 &&
         dropdown2.contains(activeElement) &&
         activeElement.tagName === "A"
       ) {
-        if (typeof hideMenu2 === "function") hideMenu2();
-        isClickOpened2 = false;
-        toggle2?.focus();
-        event.preventDefault();
+        window.tabNavigationActive2 = true;
+      } else if (window.tabNavigationActive2) {
+        window.tabNavigationActive2 = false;
+        if (dropdown2 && dropdown2.style.opacity === "1") {
+          if (typeof hideMenu2 === "function") hideMenu2();
+          isClickOpened2 = false;
+        }
       }
 
-      if (
-        window.tabNavigationActiveSub &&
-        subDropdown &&
-        (subDropdown.contains(activeElement) || activeElement === subToggle)
-      ) {
-        isMouseOverMenu = false;
-        if (isClickOpenedSub) {
-          isClickOpenedSub = false;
-          localStorage.removeItem("isSubMenuOpen");
+      const isArrowFocused =
+        activeElement &&
+        activeElement.classList.contains("sub-dropdown-toggle");
+      const isInSubmenu = subDropdown && subDropdown.contains(activeElement);
+
+      if (isArrowFocused || isInSubmenu) {
+        window.tabNavigationActiveSub = true;
+
+        if (window.subMenuCloseTimer) {
+          clearTimeout(window.subMenuCloseTimer);
+          window.subMenuCloseTimer = null;
         }
-        smoothCloseSubMenu();
-        subToggle?.focus();
-        event.preventDefault();
+
+        if (subDropdown && subDropdown.style.opacity !== "1") {
+          subDropdown.style.opacity = "1";
+          subDropdown.style.visibility = "visible";
+          subDropdown.style.display = "block";
+          isMouseOverMenu = true;
+        }
+      } else if (window.tabNavigationActiveSub) {
+        if (!window.subMenuCloseTimer && !isClickOpenedSub) {
+          window.subMenuCloseTimer = setTimeout(() => {
+            const currentActive = document.activeElement;
+            const stillOnArrow =
+              currentActive &&
+              currentActive.classList.contains("sub-dropdown-toggle");
+            const stillInMenu =
+              subDropdown && subDropdown.contains(currentActive);
+
+            if (!stillOnArrow && !stillInMenu && !isClickOpenedSub) {
+              window.tabNavigationActiveSub = false;
+              isMouseOverMenu = false;
+              if (subDropdown && subDropdown.style.opacity === "1") {
+                subDropdown.style.opacity = "0";
+                subDropdown.style.visibility = "hidden";
+                setTimeout(() => {
+                  if (subDropdown && subDropdown.style.display !== "none") {
+                    subDropdown.style.display = "none";
+                  }
+                }, 300);
+              }
+            }
+            window.subMenuCloseTimer = null;
+          }, 200);
+        }
       }
+    }, 200);
+
+    // Escape zavře menu pro keyboard navigaci
+    if (!window.dropdownEscapeListenerSetup) {
+      window.dropdownEscapeListenerSetup = true;
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          const activeElement = document.activeElement;
+
+          const dropdown1 = document.getElementById("dropdown-content");
+          const toggle1 = document.querySelector(".dropdown-toggle");
+          const dropdown2 = document.getElementById("dropdown-content-second");
+          const toggle2 = document.querySelector(".dropdown-toggle-second");
+          const subDropdown = document.querySelector(".sub-dropdown-content");
+          const subToggle = document.querySelector(".sub-dropdown-toggle");
+
+          if (
+            window.tabNavigationActive &&
+            dropdown1 &&
+            dropdown1.contains(activeElement) &&
+            activeElement.tagName === "A"
+          ) {
+            if (typeof hideMenu === "function") hideMenu();
+            isClickOpened = false;
+            toggle1?.focus();
+            event.preventDefault();
+          }
+
+          if (
+            window.tabNavigationActive2 &&
+            dropdown2 &&
+            dropdown2.contains(activeElement) &&
+            activeElement.tagName === "A"
+          ) {
+            if (typeof hideMenu2 === "function") hideMenu2();
+            isClickOpened2 = false;
+            toggle2?.focus();
+            event.preventDefault();
+          }
+
+          if (
+            window.tabNavigationActiveSub &&
+            subDropdown &&
+            (subDropdown.contains(activeElement) || activeElement === subToggle)
+          ) {
+            isMouseOverMenu = false;
+            if (isClickOpenedSub) {
+              isClickOpenedSub = false;
+              localStorage.removeItem("isSubMenuOpen");
+            }
+            smoothCloseSubMenu();
+            subToggle?.focus();
+            event.preventDefault();
+          }
+        }
+      });
     }
-  });
-}
   }
 }
+
+/* (tento script používá formátování prettier) */

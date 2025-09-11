@@ -650,3 +650,5 @@
     window.PdfViewerManagerCollection = PdfViewerManagerCollection;
   }
 })();
+
+/* (tento script používá formátování prettier) */

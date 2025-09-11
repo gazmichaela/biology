@@ -1,22 +1,19 @@
-// === CROSS-BROWSER SERVICE WORKER === //
-// Kompatibilní s Chrome, Firefox, Safari
+// === Kompatibilní s Chrome, Firefox, Safari a dalšími prohlížeči === //
 
-// Feature detection
 const BROWSER_SUPPORT = {
   backgroundSync: 'sync' in self.ServiceWorkerRegistration.prototype,
   pushManager: 'PushManager' in self,
   notificationActions: 'Notification' in self && 'actions' in self.Notification.prototype
 };
 
-// === KONFIGURACE === // 
 const CONFIG = {
   version: '2.1.3-cross',
   cachePrefix: 'systemova-biologie',
   maxAge: {
     pages: 1000 * 60 * 60 * 24 * 7,      // 7 dní
-    assets: 1000 * 60 * 60 * 24 * 30,     // 30 dní
-    images: 1000 * 60 * 60 * 24 * 90,     // 90 dní
-    api: 1000 * 60 * 60 * 24              // 24 hodin
+    assets: 1000 * 60 * 60 * 24 * 30,    // 30 dní
+    images: 1000 * 60 * 60 * 24 * 90,    // 90 dní
+    api: 1000 * 60 * 60 * 24             // 24 hodin
   },
   maxEntries: {
     pages: 100,
@@ -24,12 +21,10 @@ const CONFIG = {
     images: 100,
     runtime: 50
   },
-  // Fallback timeouts pro různé prohlížeče
-  networkTimeout: 5000,  // 5 sekund pro network requesty
+  networkTimeout: 5000,  
   browserSupport: BROWSER_SUPPORT
 };
 
-// Cache názvy
 const CACHE_NAMES = {
   core: `${CONFIG.cachePrefix}-core-v${CONFIG.version}`,
   pages: `${CONFIG.cachePrefix}-pages-v${CONFIG.version}`,
@@ -39,7 +34,6 @@ const CACHE_NAMES = {
   api: `${CONFIG.cachePrefix}-api-v${CONFIG.version}`
 };
 
-// Core soubory
 const CORE_FILES = [
   './',
   './index.html',
@@ -81,9 +75,6 @@ const ASSETS_TO_CACHE = [
   './favicon/web-logo-64x64-48x48-32x32-16x16.ico'
 ];
 
-// === UTILITY FUNKCE ===
-
-// Cross-browser logging
 function log(message, data = null) {
   const timestamp = new Date().toISOString();
   const browserInfo = getBrowserInfo();
@@ -96,7 +87,6 @@ function logError(message, error) {
   console.error(`[SW ERROR ${timestamp}] [${browserInfo}] ${message}`, error);
 }
 
-// Detekce prohlížeče
 function getBrowserInfo() {
   const ua = self.navigator.userAgent;
   if (ua.includes('Firefox/')) return 'Firefox';
@@ -106,8 +96,8 @@ function getBrowserInfo() {
   return 'Unknown';
 }
 
-// Timeout wrapper pro fetch
 function fetchWithTimeout(request, timeout = CONFIG.networkTimeout) {
+  // Timeout race chrání před zamrznutím requestů
   return Promise.race([
     fetch(request),
     new Promise((_, reject) => 
@@ -116,15 +106,15 @@ function fetchWithTimeout(request, timeout = CONFIG.networkTimeout) {
   ]);
 }
 
-// Safari-friendly HEAD request check
 async function isFileAvailable(url) {
   try {
     const browserInfo = getBrowserInfo();
+    // Safari vyžaduje GET s Range místo HEAD detekce
     const method = browserInfo === 'Safari' ? 'GET' : 'HEAD';
     
     const headers = {};
     if (method === 'GET') {
-      headers['Range'] = 'bytes=0-0'; // Minimal range request pro Safari
+      headers['Range'] = 'bytes=0-0'; 
     }
     
     const response = await fetchWithTimeout(new Request(url, {
@@ -132,16 +122,15 @@ async function isFileAvailable(url) {
       headers,
       cache: 'no-cache',
       mode: 'cors'
-    }), 3000); // Kratší timeout pro availability check
+    }), 3000); 
     
-    return response.ok || response.status === 206; // 206 = Partial Content (range request)
+    return response.ok || response.status === 206; 
   } catch (error) {
-    logError(`Soubor nedostupný: ${url}`, error);
+    logError(`File unavailable: ${url}`, error);
     return false;
   }
 }
 
-// Bezpečný addAll s cross-browser optimalizacemi
 async function safeAddAll(cache, urls, cacheName) {
   const results = {
     successful: [],
@@ -149,8 +138,7 @@ async function safeAddAll(cache, urls, cacheName) {
   };
   
   const browserInfo = getBrowserInfo();
-  
-  // Pro Safari zpracovávej soubory pomaleji
+  // Safari má pomalejší cache batching
   const batchSize = browserInfo === 'Safari' ? 3 : 5;
   
   for (let i = 0; i < urls.length; i += batchSize) {
@@ -163,28 +151,26 @@ async function safeAddAll(cache, urls, cacheName) {
         if (isAvailable) {
           await cache.add(url);
           results.successful.push(url);
-          log(`✓ Cachován: ${url}`);
+          log(`Cached: ${url}`);
         } else {
           results.failed.push({ url, reason: 'File not found' });
-          log(`⚠ Přeskočen (404): ${url}`);
+          log(`Skipped (404): ${url}`);
         }
       } catch (error) {
         results.failed.push({ url, reason: error.message });
-        logError(`✗ Chyba při cachování: ${url}`, error);
+        logError(`Caching error: ${url}`, error);
       }
     }));
     
-    // Krátká pauza mezi batches pro Safari
     if (browserInfo === 'Safari' && i + batchSize < urls.length) {
       await new Promise(resolve => setTimeout(resolve, 100));
     }
   }
 
-  log(`Cache ${cacheName}: ${results.successful.length} úspěšných, ${results.failed.length} neúspěšných`);
+  log(`Cache ${cacheName}: ${results.successful.length} successful, ${results.failed.length} failed`);
   return results;
 }
 
-// Cross-browser cache cleanup
 async function cleanupCache(cacheName, maxEntries, maxAge) {
   try {
     const cache = await caches.open(cacheName);
@@ -192,18 +178,16 @@ async function cleanupCache(cacheName, maxEntries, maxAge) {
     
     if (requests.length <= maxEntries) return;
     
-    // Pro starší Safari použij jednodušší logiku
     const browserInfo = getBrowserInfo();
     
+    // Mazání bez timestamp logiky
     if (browserInfo === 'Safari') {
-      // Safari: Jednoduché mazání nejstarších
       const toDelete = requests.slice(0, requests.length - maxEntries);
       await Promise.all(toDelete.map(request => cache.delete(request)));
-      log(`Safari: Vyčistil jsem ${toDelete.length} entrit z ${cacheName}`);
+      log(`Safari: Cleaned ${toDelete.length} entries from ${cacheName}`);
       return;
     }
     
-    // Pro ostatní prohlížeče: pokročilé mazání podle času
     const requestsWithTime = [];
     
     for (const request of requests) {
@@ -213,7 +197,6 @@ async function cleanupCache(cacheName, maxEntries, maxAge) {
         const time = dateHeader ? new Date(dateHeader).getTime() : 0;
         requestsWithTime.push({ request, time });
       } catch (error) {
-        // Pokud se nepodaří získat čas, přidej s časem 0
         requestsWithTime.push({ request, time: 0 });
       }
     }
@@ -223,13 +206,12 @@ async function cleanupCache(cacheName, maxEntries, maxAge) {
     const toDelete = requestsWithTime.slice(0, requests.length - maxEntries);
     await Promise.all(toDelete.map(item => cache.delete(item.request)));
     
-    log(`Vyčistil jsem ${toDelete.length} starých entrit z ${cacheName}`);
+    log(`Cleaned ${toDelete.length} old entries from ${cacheName}`);
   } catch (error) {
-    logError(`Chyba při čištění cache ${cacheName}:`, error);
+    logError(`Error cleaning cache ${cacheName}:`, error);
   }
 }
 
-// Cross-browser response timestamping
 function addTimestamp(response) {
   try {
     const headers = new Headers(response.headers);
@@ -243,13 +225,10 @@ function addTimestamp(response) {
       headers: headers
     });
   } catch (error) {
-    // Fallback pro starší prohlížeče
-    logError('Nelze přidat timestamp do response:', error);
+    logError('Cannot add timestamp to response:', error);
     return response;
   }
 }
-
-// === CACHE STRATEGIE S CROSS-BROWSER OPTIMALIZACEMI ===
 
 async function cacheFirst(request, cacheConfig) {
   try {
@@ -265,7 +244,6 @@ async function cacheFirst(request, cacheConfig) {
           return cached;
         }
       } else {
-        // Pro Safari - pokud nemáme timestamp, použij cache
         const browserInfo = getBrowserInfo();
         if (browserInfo === 'Safari') {
           log(`Safari cache hit (no timestamp):`, request.url);
@@ -334,7 +312,7 @@ async function staleWhileRevalidate(request, cacheConfig) {
   const cache = await caches.open(cacheConfig.name);
   const cached = await cache.match(request);
   
-  // Background fetch - bez await
+  // Background fetch aktualizuje cache bez blokování
   fetchWithTimeout(request.clone())
     .then(response => {
       if (response.ok) {
@@ -358,11 +336,8 @@ async function staleWhileRevalidate(request, cacheConfig) {
   return fetchWithTimeout(request.clone());
 }
 
-// === SERVICE WORKER EVENTS ===
-
-// Install event
 self.addEventListener('install', event => {
-  log('Service Worker instaluji...', `verze ${CONFIG.version}`);
+  log('Installing Service Worker...', `version ${CONFIG.version}`);
   
   event.waitUntil(
     (async () => {
@@ -379,21 +354,20 @@ self.addEventListener('install', event => {
         const totalSuccessful = coreResults.successful.length + pagesResults.successful.length + assetsResults.successful.length;
         const totalFailed = coreResults.failed.length + pagesResults.failed.length + assetsResults.failed.length;
         
-        log(`Instalace dokončena: ${totalSuccessful} úspěšných, ${totalFailed} neúspěšných`);
+        log(`Installation completed: ${totalSuccessful} successful, ${totalFailed} failed`);
         
         await self.skipWaiting();
         
       } catch (error) {
-        logError('Chyba při instalaci:', error);
+        logError('Installation error:', error);
         await self.skipWaiting();
       }
     })()
   );
 });
 
-// Activate event
 self.addEventListener('activate', event => {
-  log('Service Worker aktivuji...', `verze ${CONFIG.version}`);
+  log('Activating Service Worker...', `version ${CONFIG.version}`);
   
   event.waitUntil(
     (async () => {
@@ -406,7 +380,7 @@ self.addEventListener('activate', event => {
         
         if (oldCaches.length > 0) {
           await Promise.all(oldCaches.map(name => caches.delete(name)));
-          log('Staré cache smazány:', oldCaches);
+          log('Old caches deleted:', oldCaches);
         }
         
         await self.clients.claim();
@@ -422,14 +396,14 @@ self.addEventListener('activate', event => {
               timestamp: new Date().toISOString()
             });
           } catch (error) {
-            logError('Nelze poslat zprávu clientovi:', error);
+            logError('Cannot send message to client:', error);
           }
         });
         
-        log('Service Worker aktivace dokončena');
+        log('Service Worker activation completed');
         
       } catch (error) {
-        logError('Chyba při aktivaci:', error);
+        logError('Activation error:', error);
       }
     })()
   );
@@ -465,7 +439,7 @@ self.addEventListener('fetch', event => {
     
         }
         
-        return new Response('Offline - soubor není k dispozici', {
+        return new Response('Offline - file not available', {
           status: 503,
           statusText: 'Service Unavailable'
         });
@@ -474,7 +448,7 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Background sync - pouze pokud je podporován
+// Background sync pouze, pokud ho prohlížeč podporuje
 if (CONFIG.browserSupport.backgroundSync) {
   self.addEventListener('sync', event => {
     log('Background sync:', event.tag);
@@ -487,14 +461,13 @@ if (CONFIG.browserSupport.backgroundSync) {
             const maxAge = CONFIG.maxAge[key] || CONFIG.maxAge.assets;
             await cleanupCache(cacheName, maxEntries, maxAge);
           }
-          log('Background cache cleanup dokončen');
+          log('Background cache cleanup done');
         })()
       );
     }
   });
 }
 
-// Push notifications - s fallbackem
 if (CONFIG.browserSupport.pushManager) {
   self.addEventListener('push', event => {
     if (!event.data) return;
@@ -503,7 +476,6 @@ if (CONFIG.browserSupport.pushManager) {
       const data = event.data.json();
       const browserInfo = getBrowserInfo();
       
-      // Safari má omezenější notifikace
       const notificationOptions = {
         body: data.body || 'Nový obsah je k dispozici',
         icon: './favicon/web-logo-192x192.png',
@@ -511,7 +483,6 @@ if (CONFIG.browserSupport.pushManager) {
         data: data.url || './'
       };
       
-      // Actions pouze pokud jsou podporované
       if (CONFIG.browserSupport.notificationActions && browserInfo !== 'Safari') {
         notificationOptions.actions = [
           {
@@ -528,9 +499,9 @@ if (CONFIG.browserSupport.pushManager) {
         )
       );
       
-      log('Push notifikace zobrazena:', data);
+      log('Push notification displayed:', data);
     } catch (error) {
-      logError('Chyba při zobrazení push notifikace:', error);
+      logError('Error when displaying push notification:', error);
     }
   });
   
@@ -555,7 +526,6 @@ if (CONFIG.browserSupport.pushManager) {
   });
 }
 
-// Utility funkce
 function isCacheable(request) {
   const url = new URL(request.url);
   
@@ -591,7 +561,6 @@ function getCacheStrategy(request) {
   return { name: CACHE_NAMES.runtime, strategy: 'networkFirst', maxAge: CONFIG.maxAge.assets };
 }
 
-// Messages handling
 self.addEventListener('message', event => {
   const { type, data } = event.data || {};
   
@@ -632,15 +601,14 @@ self.addEventListener('message', event => {
   }
 });
 
-// Periodic cleanup pouze pokud je background sync podporován
 if (CONFIG.browserSupport.backgroundSync) {
   setInterval(() => {
     if (self.registration && self.registration.sync) {
       self.registration.sync.register('background-sync-cache-cleanup');
     }
   }, 1000 * 60 * 60 * 24);
+// Fallback cleanup bez background sync 
 } else {
-  // Fallback pro prohlížeče bez background sync - manual cleanup
   setInterval(async () => {
     try {
       for (const [key, cacheName] of Object.entries(CACHE_NAMES)) {
@@ -651,10 +619,11 @@ if (CONFIG.browserSupport.backgroundSync) {
     } catch (error) {
       logError('Manual cleanup failed:', error);
     }
-  }, 1000 * 60 * 60 * 6); 
+  // Automatický cleanup každých 24 hodin
+  }, 1000 * 60 * 60 * 24); 
 }
 
-log(`Cross-browser Service Worker loaded - verze ${CONFIG.version}`, {
+log(`Cross-browser Service Worker loaded - version ${CONFIG.version}`, {
   browser: getBrowserInfo(),
   support: CONFIG.browserSupport,
   caches: Object.keys(CACHE_NAMES).length
