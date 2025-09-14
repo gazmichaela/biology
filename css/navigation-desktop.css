@@ -1,0 +1,275 @@
+/* DESKTOP NAVIGACE 
+    Desktop navigace je zde myšlena jako navigace, která se zobrazí při šířce > 1175px.
+    Navigace zobrazená při šířce ≤ 1175px je v navigation-mobile.css.
+    Od 2000px dochází k jiným mezerám mezi tlačítky v navigaci => viz responsiveness.css.
+*/
+
+/*
+OBSAH:
+ 1. Header ul
+    - domeček
+
+ 2. Tlačítka v navigaci, dropdown
+    - obecně
+    - pro elementy "a"
+    - aktivní položky
+*/
+
+
+
+/* ==== 1. HEADER UL ==== */
+header ul {
+    list-style: none;
+    margin-top: 1px;
+    display: flex;
+    justify-content: center;
+    padding: 1px 0;
+    position: relative;
+}
+
+/* Domeček */
+header ul .home-icon {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    pointer-events: none; /* Vypne interakci s celým kontejnerem */
+}
+
+header ul .home-icon img {
+    width: 25px;
+    height: auto;
+    margin-left: 10px;
+    margin-top: 8px;
+    pointer-events: auto; /* Zapne interakci pouze pro obrázek */
+}
+
+/* Pro změnu barvy domečku při hoveru (barva souboru je bílá) */
+header ul .home-icon:hover img {
+    filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%); /* Odpovídá přibližně barvě #309ce5 */
+}
+
+
+
+/* ==== 2. TLAČÍTKA V NAVIGACI, DROPDOWN ==== */
+
+/* --- Obecně --- */
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-right: 1.43vw;
+    margin-left: 1.43vw;
+    white-space: nowrap; /* Text se v tlačítkách nebude zalamovat */
+}
+
+.arrow {
+    font-size: 18px;
+    color: #025227;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    margin: 0;
+}
+
+.main-button,
+.main-button-second,
+.dropdown-toggle,
+.dropdown-toggle-second {
+    background-color: #f0f9f0;
+    color: #025227;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    align-items: center; 
+    justify-content: center;
+    padding: 12px 20px;
+}
+
+.main-button {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 19px;
+}
+
+.main-button-second {
+    border-top-right-radius: 20px; 
+    border-bottom-right-radius: 20px;
+    height: 19px;
+}
+
+.dropdown-toggle,
+.dropdown-toggle-second {
+    width: 40px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    display: inline-flex;
+    height: 43px;
+    margin-left: 2px;
+    shape-outside: border-box;
+}
+
+.sub-dropdown-toggle {
+    margin-left: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #025227;
+    position: relative;
+}
+
+.sub-dropdown-toggle::before {
+    content: '';
+    position: absolute;
+    top: -14.5px; /* Rozšíření aktivní oblasti nahoru */
+    right: -17px;  /* Zúžení aktivní oblasti zprava */
+    bottom: -9.5px; /* Rozšíření aktivní oblasti dolů */
+    left: -4.8px;   /* Zúžení aktivní oblasti zleva */
+    z-index: 1;
+    border-top-right-radius: 5px; 
+}
+
+
+.main-button:hover,
+.main-button-second:hover,
+.dropdown-toggle:hover,
+.dropdown-toggle-second:hover {
+    background-color: #309ce5;
+    color: white;
+}
+
+.dropdown-toggle .arrow,
+.dropdown-toggle-second .arrow {
+    color: #025227;
+}
+  
+.dropdown-toggle:hover .arrow,
+.dropdown-toggle-second:hover .arrow {
+    color: white;
+}
+
+.dropdown-content.show-on-load,
+.dropdown-content-second.show-on-load {
+  display: block;
+}
+
+.sub-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding-right: 10px;
+}
+
+.dropdown-content,
+.dropdown-content-second {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0s 0.3s; /* Důležité: zpoždění visibility */
+    position: absolute;
+    background-color: #f0f9f0;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: block;
+    text-align: center; 
+    padding: 5px;
+    z-index: 1000;
+    width: 150px;
+    margin-top: 3px;
+    font-size: 16px; /* Pro zachování stejného písma při různých nastavení prohlížeče => navigace je centrovaná */
+}
+
+.dropdown-content.show,
+.dropdown-content-second.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease-in-out, visibility 0s; /* Bez zpoždění pro visibility */
+}
+
+.dropdown-content {
+    left: 50%; /* V polovině tlačítka*/
+    transform: translateX(-3%); /* Úprava umístění */
+}
+
+.dropdown-content-second {
+    left: 50%; /* V polovině tlačítka*/
+    transform: translateX(-20%); /* Úprava umístění */
+}
+
+.sub-dropdown-content {
+    position: absolute;
+    left: 100%;
+    top: 1px;
+    background-color: #f0f9f0;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 150px;
+    margin-left: 7px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s; /* Plynulý přechod pro opacity a zpožděný přechod pro visibility */
+    z-index: 1000;
+}
+
+
+.sub-dropdown-content.show {
+    opacity: 1; /* Stane se plně viditelným */
+    visibility: visible; /* Stane se interaktivním */
+    transition: opacity 0.3s ease, visibility 0s 0s; /* Bez zpoždění pro visibility při zobrazení */
+}
+
+
+/* --- Pro elementy "a" --- */
+.dropdown-content a,
+.dropdown-content-second a {
+    padding: 10px;
+    color: #025227;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a.centered:hover,
+.dropdown-content-second a:hover,
+.sub-dropdown-content a:hover  {
+    background-color: #309ce5;
+    color: white;
+}
+
+/* Položka úvod */
+.dropdown-content a.centered {
+    display: flex;
+    justify-content: flex-start; /* Zarovná text doleva, ale posune ho padding */
+    align-items: center;
+    width: 100%;
+    color: #025227;
+    text-decoration: none;
+    padding-left: 53px;
+}
+
+.dropdown-content a.centered:hover {
+    cursor: pointer;
+}
+
+
+/* --- Aktivní položky --- */
+.main-button.active,
+.main-button-second.active,
+.dropdown-content a.active,
+.dropdown-content-second a.active {
+    background-color: #1c77e8;
+    color: white;
+}
+
+.button-container a.active:hover,
+.dropdown-content a.active:hover,
+.dropdown-content-second a.active:hover {
+    background-color: #388E3C;
+}

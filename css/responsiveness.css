@@ -1,0 +1,1297 @@
+/* RESPONZIVNÍ STYLY
+    Některé responzivní styly se náchází v:
+        - navigation-mobile.css (responzivní styly pro mobilní navigaci),
+        - questions.css (hover efekty pro desktop – responzivita podle typu vstupního zařízení).
+*/
+
+/*
+OBSAH:
+ 1. Obecné
+    - nad 2000px
+    - nad 4000px
+    - do 1175px
+    - do 1023px
+    - do 768px
+    - do 568px
+    - do 480px
+    - do 320px
+    - landscape (max-height: 500px)
+    - hover efekty (responzivita podle typu vstupního zařízení)
+
+
+ 2. FaQ, Otázky
+    - do 768px
+    - do 568px
+    - do 320px
+
+ 3. PDF
+    - do 768px
+    - do 568px
+    - do 320px
+    - landscape (max-height: 500px)
+
+ 4. Obrázky
+    - do 1023px
+    - do 768px
+    - do 568px
+    - do 480px
+    - do 360px
+
+ 5. Print verze stránky
+*/
+
+
+
+/* ===== 1. OBECNÉ ===== */
+@media screen and (min-width: 2000px) {
+    .button-container {
+        margin-right: 2vw;
+        margin-left: 2vw;
+    }
+}
+
+
+@media screen and (min-width: 4000px) {
+    .button-container {
+        margin-right: min(2vw, 85px); /* Mezera max 85px */
+        margin-left: min(2vw, 85px); /* Mezera max 85px */
+    }
+}
+
+
+@media screen and (max-width: 1175px) {
+    /* Zajistí, že se stránka neprolí horizontálně */
+    html,
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    header {
+        height: auto;
+        max-height: 150px;
+    }
+
+    header h1 {
+        transform: translateY(5px);
+    }
+
+    .h1-index {
+        max-height: 170px;
+    }
+
+    .logo {
+        width: 150px; 
+        margin: 15px 0px 0px 20px;
+    }
+}
+
+
+@media screen and (max-width: 1023px) {
+    body {
+        font-size: 1.2em;
+    }
+    
+    header h1 {
+        font-size: 1.9em;
+        margin-top: 49px;
+        margin-bottom: 25px;
+    }
+
+    .h1-index {
+        max-height: 155px;
+    }
+
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
+    }
+    
+    article section {
+        margin-left: 50px;
+        margin-right: 50px;
+        padding: 15px 0px 40px 0px;
+    }
+    
+    article section h2 {
+        font-size: 1.3em;
+        margin-top: 80px;
+    }
+    
+    article section h3 {
+        font-size: 1.2em;
+        margin-top: 50px;
+    }
+    
+    .video-wrapper {
+        width: 85%;
+    }
+    
+    table th,
+    table td {
+        padding: 6px;
+    }
+
+    .cookies-mini-notice {
+        max-width: 390px;
+    }
+
+    footer {
+        height: 310px;
+    }
+
+    footer p {
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 1.1em;
+    }
+    
+    header {
+        max-height: 130px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+        transform: translateY(10px);
+        margin-top: 46px;
+        margin-bottom: 21px;
+    }
+
+    .h1-index {
+        max-height: 140px;
+    }
+    
+    header ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    header ul li {
+        margin: 8px 0;
+        font-size: 16px;
+    }
+
+    .logo {
+        width: 130px;
+        margin: 15px 0px 0px 20px;
+    }
+    
+    article section {
+        margin-left: 25px;
+        margin-right: 25px;
+        padding: 10px 0px 30px 0px;
+    }
+    
+    
+    article section h2 {
+        font-size: 1.4em;
+        margin-top: 60px;
+        margin-bottom: 0.7em;
+    }
+    
+    article section h3 {
+        font-size: 1.1em;
+        margin-top: 40px;
+        margin-bottom: 0.6em;
+    }
+
+    article section ol h3,
+    article section ul h3 {
+        margin-top: 2em;
+    }
+    
+    article section h4 {
+        margin-top: 2em;
+    }
+
+    article section ol,
+    article section ul {
+        padding-left: 30px !important; /* Je nutné 30px pro správné centrování obrázků v seznamech, pro změnu upravit i .img-list */
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 10px;
+        margin-top: 15px;
+        padding: 8px 16px;
+    }
+    
+    .video-wrapper {
+        width: 95%;
+    }
+    
+    table {
+        width: 95%;
+        font-size: 0.9em;
+        margin: 20px auto 30px 2.5%;
+    }
+    
+    table th,
+    table td {
+        padding: 4px;
+    }
+    
+    .cookies-mini-notice {
+        bottom: 10px;
+        left: 10px;
+        max-width: 330px;
+        font-size: 0.9em;
+        padding: 12px 20px;
+    }
+    
+.tooltip .tooltiptext {
+    font-size: small;
+    white-space: normal;
+    max-width: 300px;
+    left: 0;
+    transform: translateX(min(0px, calc(100vw - 100% - 10px)));
+    bottom: 110%;
+    z-index: 9999;
+}
+
+    footer {
+        padding: 30px 10px 0px 10px;
+        font-size: 0.8em;
+        height: 290px;
+        clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
+    }
+
+    footer p {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+}
+
+
+@media screen and (max-width: 568px) {
+    body {
+        font-size: 1em;
+    }
+    
+    header {
+        max-height: 100px;
+    }
+
+    header h1 {
+        font-size: 1.6em;
+        margin-top: 37px;
+        margin-bottom: 30px;
+    }
+
+    .h1-long {
+        max-height: 130px;
+    }
+    
+    .h1-long h1 {
+        transform: translateY(22px);
+    }
+
+    .h1-index {
+        max-height: 140px;
+    }
+
+    .h1-index h1 {
+        margin-bottom: 24px;
+    }
+
+    header ul li {
+        margin: 6px 0;
+        font-size: 15px;
+    }
+
+    .logo {
+        width: 115px;
+        margin: 10px 0px 0px 15px;
+    }
+    
+    article section {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 8px 0px 25px 0px;
+    }
+    
+    article section p {
+        margin-bottom: 0.6em;
+    }
+
+    article section li {
+        margin-bottom: 0.3em;
+    }
+
+    article section ol,
+    article section ul {
+        padding-left: 20px !important; /* Je nutné 20px pro správné centrování obrázků v seznamech, pro změnu upravit i .img-list */
+    }
+    
+    article section h2 {
+        font-size: 1.4em;
+        margin-top: 50px;
+        margin-bottom: 0.6em;
+        padding: 0 0.1em;
+    }
+    
+    article section h3 {
+        font-size: 1.05em;
+        margin-top: 35px;
+        margin-bottom: 0.5em;
+        padding: 2px 3px;
+    }
+
+    article section ol h3,
+    article section ul h3 {
+        margin-bottom: 0.2em;
+    }
+    
+    article section h4 {
+        font-size: 1em;
+        margin-top: 1.5em;
+    }
+    
+    article section h5 {
+        font-size: 0.95em;
+    }
+    
+    article section .button,
+    article section .button-light {
+        margin-left: 5px;
+        margin-top: 12px;
+        padding: 7px 14px;
+        font-size: 0.85em;
+        border-radius: 15px;
+    }
+    
+    table {
+        font-size: 0.8em;
+        margin: 15px auto 25px 1%;
+    }
+    
+    table th,
+    table td {
+        padding: 3px 1px;
+    }
+    
+    .tooltip {
+        white-space: normal;
+    }
+    
+    .tooltip .tooltiptext {
+        max-width: 200px;
+    }
+    
+    .cookies-mini-notice {
+        bottom: 8px;
+        padding: 6px 16px;
+        max-width: 240px;
+
+    }
+
+    .cookies-mini-notice button {
+        padding: 6px 12px;
+        border-radius: 6px;
+}
+
+    footer {
+        padding: 20px 8px 0px 8px;
+        font-size: 0.75em;
+        height: 300px;
+        clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .h1-long h1 {
+        transform: translateY(13px);
+    }
+
+    .cookies-mini-notice {
+        max-width: 220px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    body {
+        font-size: 0.9em;
+    }
+    
+    header {
+        max-height: 80px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+        transform: translateY(0px);
+        margin-top: 42px;
+        margin-bottom: 17px;
+    }
+
+    .h1-long {
+        height: 100px;
+    }
+
+    .h1-long h1 {
+        font-size: 1.4em;
+        transform: translateY(0px);
+    }
+
+    .h1-index h1 {
+        margin-bottom: 14px;
+    }
+
+    .logo {
+        width: 93px;
+        margin: 8px 0px 0px 10px;
+    }
+    
+    article section {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    article section ol,
+    article section ul {
+        margin-left: 0em;
+        padding-left: 10px !important; /* Je nutné 10px pro správné centrování obrázků v seznamech, pro změnu upravit i .img-list */
+    }
+
+    article section li {
+        margin-left: 1em;
+        padding: 0.2em;
+    }
+
+    article section li li {
+        margin-left: 0em;
+        padding: 0em;
+    }
+
+    article section li li li {
+        margin-left: 0em;
+    }
+
+
+    article section ol h3,
+    article section ul h3 {
+        margin-bottom: 0;
+    }
+
+    article section .button,
+    article section .button-light {
+        margin-left: 2px;
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    
+    .cookies-mini-notice {
+        padding: 9px 15px;
+        max-width: 160px;
+    }
+
+    footer {
+        height: 280px;
+    }
+
+    footer p {
+        margin-left: 43px;
+        margin-right: 43px;
+    }
+}
+
+
+/* Landscape orientace pro mobily */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    header {
+        position: static;
+    }
+    
+    header ul {
+        padding: 5px 0;
+    }
+    
+    header ul li {
+        margin: 4px 10px;
+        font-size: 14px;
+    }
+
+    article section h2 {
+        margin-top: 30px;
+    }
+    
+    article section h3 {
+        margin-top: 25px;
+    }
+    
+    footer {
+        padding: 15px 8px 0px 8px;
+    }
+}
+
+
+/* Hover efekty pouze pro desktop */
+@media (hover: hover) and (pointer: fine) {
+    article section .button:hover,
+    article section .button-light:hover {
+        outline: 1.5px solid black;
+        outline-offset: 0px;
+        z-index: 1;
+        font-weight: 800;
+    }
+    
+    .tooltip:hover .tooltiptext {
+        opacity: 1;
+        pointer-events: auto;
+        animation: fadeTooltext 0.3s;
+        visibility: visible;
+    }
+}
+
+
+
+/* ===== 2. FAQ/OTÁZKY ===== */
+@media screen and (max-width: 768px) {
+    .question {
+        padding: 5px 7px;
+        font-size: 0.9em;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        line-height: 1.4;
+    }
+    
+    .answer {
+        padding: 5px 8px;
+        font-size: 0.85em;
+        line-height: 1.4;
+    }
+    
+    #toggle-questions-btn {
+        padding: 12px 18px;
+        font-size: 1em;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        margin-top: 25px;
+    }
+}
+
+
+@media screen and (max-width: 568px) {
+    .question {
+        font-size: 0.92em;
+        border-radius: 6px;
+        margin-bottom: 3px;
+        line-height: 1.5;
+        touch-action: manipulation; /* Lepší dotyková odezva */
+    }
+    
+    .answer {
+        padding: 5px 10px;
+        border-left-width: 4px;
+        font-size: 0.87em;
+        line-height: 1.5;
+        margin-bottom: 6px;
+        margin-top: 2px;
+    }
+    
+    #toggle-questions-btn {
+        font-size: 1.05em;
+        border-radius: 6px;
+        margin-top: 20px;
+        height: 5%;
+        touch-action: manipulation;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .question {
+        padding: 12px 8px;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    
+    .answer {
+        padding: 12px 8px;
+        font-size: 0.85em;
+        border-left-width: 3px;
+    }
+    
+    #toggle-questions-btn {
+        padding: 12px 16px;
+        font-size: 1em;
+        margin-bottom: 25px;
+        margin-top: 15px;
+    }
+}
+
+
+
+/* ===== 3. PDF ===== */
+@media screen and (max-width: 768px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 95%;
+        height: 90%;
+        background-color: #2a2a2a;
+        border-radius: 6px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 40px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1009;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+    }
+}
+
+
+@media screen and (max-width: 568px) {
+    .pdf-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+    }
+    
+    .pdf-viewer-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 98%;
+        height: 95%;
+        background-color: #2a2a2a;
+        border-radius: 4px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+    }
+    
+    .pdf-close-button {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 50%;
+        font-size: 26px;
+        line-height: 45px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        z-index: 1009;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        border: 2px solid #f0f0f0;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .pdf-viewer-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
+    
+    .pdf-close-button {
+        top: 5px;
+        right: 5px;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        line-height: 40px;
+    }
+    
+    .pdf-iframe {
+        border-radius: 0;
+    }
+}
+
+
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .pdf-viewer-container {
+        width: 98%;
+        height: 98%;
+    }
+    
+    .pdf-close-button {
+        top: -8px;
+        right: -8px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+        line-height: 1.5px;
+    }
+}
+
+
+
+/* ==== 4. OBRÁZKY ==== */
+@media screen and (max-width: 1023px) {
+    .img-right {
+        width: 40%;
+        min-width: 280px;
+        max-width: 500px;
+        margin-left: 30px;
+        margin-top: 15px;
+    }
+    
+    .img-right-big {
+        width: 60%;
+        margin-left: 15px;
+    }
+    
+    .img-right-middle {
+        width: 50%;
+        max-width: 420px;
+        min-width: 380px;
+    }
+    
+    .img-right-top {
+        width: 40%;
+        min-width: 280px;
+        max-width: 500px;
+        margin-top: 60px;
+        margin-left: 12px;
+    }
+    
+    .img-left {
+        width: 50%;
+        margin-left: 3%;
+        margin-right: 15px;
+    }
+    
+    .img-bottom {
+        width: 95%;
+        margin-left: 3%;
+    }
+    
+    .img-next {
+        width: 90%;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .img-list {
+        display: flex;
+        justify-content: center;
+        padding-left: 30px;
+        padding-right: 30px;
+        box-sizing: border-box;
+        margin-left: -30px;
+    }
+
+    .img-responsive {
+        display: flex;
+        justify-self: center;
+        margin: 10px auto;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .img-responsive .img-right-big {
+        width: 100% !important;
+    }
+
+    .img-responsive .img-right-top {
+        width: 100%;
+    }
+
+    .img-list img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .img-right {
+        width: 100%;
+        min-width: 200px;
+        max-width: 100vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        float: none;
+    }
+
+    .img-list .img-right {
+        float: none;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+    
+    .img-right-big {
+        width: 90%;
+        margin-left: 10px;
+        float: none;
+    }
+    
+    .img-right-middle {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        display: block;
+    }
+    
+    .img-right-top {
+        width: 100%;
+        max-width: 100vw;
+        margin: 6vw 30px -70px 30px;
+        float: none;
+    }
+    
+    .img-left {
+        width: auto;
+        min-width: 200px;
+        max-width: 400px;
+        margin-left: 2%;
+        margin-right: 10px;
+    }
+    
+    .img-bottom {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .img-next {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    article section ol .img-wrapper,
+    article section ul .img-wrapper {
+        margin-bottom: inherit;
+        margin-top: inherit;
+        transform: none;
+    }
+    
+    /* Info boxy */
+    .info-box {
+        font-size: 12px;
+        max-width: 22px;
+        height: 22px;
+        touch-action: manipulation; /* Rychlejší touch response */
+        -webkit-tap-highlight-color: transparent; /* Vypne vizuální efekt při ťuknutí */
+        width: auto;
+    }
+    
+    
+    .info-box::before{
+        left: 3px;
+        top: 3px;
+        right: 3px;
+        bottom: 3px;
+        max-width: 14px;
+    }
+    
+    .info-box .icon-circle {
+        max-width: 22px;
+        height: 22px;
+    }
+
+    .info-box span {
+        left: 22px;
+        margin-left: 8px;
+    }
+
+    .info-box.force-close {
+        max-width: 22px !important;
+        flex-basis: 22px !important;
+    }
+}
+
+
+@media screen and (max-width: 568px) {
+    .img-list {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-left: -20px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .img-right,
+    .img-right-big,
+    .img-right-middle,
+    .img-left {
+        float: none;
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .img-right-top {
+        margin-top: 5vw;
+        margin-bottom: -80px;
+    }
+    
+    .img-bottom {
+        width: 90%;
+        margin: 10px auto;
+        margin-left: auto;
+        display: block;
+    }
+    
+    .img-next {
+        width: 90%;
+        margin: 10px auto;
+        margin-left: auto;
+        display: block;
+    }
+}
+
+
+@media screen and (max-width: 360px) {
+    .img-right,
+    .img-right-big,
+    .img-right-middle,
+    .img-left,
+    .img-bottom,
+    .img-next {
+        width: 95%;
+        margin: 8px auto;
+    }
+
+    .img-right-top {
+        min-width: 200px;
+        margin-bottom: -90px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .img-list {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: -10px;
+    }
+}
+
+
+/* ===== 5. PRINT VERZE STRÁNKY ===== */
+@page {
+    margin: 15mm 10mm;
+}
+
+@media print {
+    .no-print,
+    header,
+    .sticky-header,
+    iframe,
+    .video-wrapper,
+    .info-box,
+    .tooltip .tooltiptext,
+    footer,
+    .cookies-mini-notice,
+    .dark-mode-toggle,
+    #faq-container small,
+    #questions-heading + br {
+        display: none !important;
+    }
+
+    .new-page {
+        page-break-before: always;  /* Fallback */
+        break-before: page; /* Moderní standard */
+    }
+
+    .no-break,
+    table tr,
+    .citace ul li,
+    article section .h2 {
+        page-break-inside: avoid; /* Fallback */
+        break-inside: avoid; /* Moderní standard */
+    }
+
+    html,
+    html.dark-mode {
+        background-color: white !important;
+    }
+
+    body,
+    body.dark-mode {
+        background-color: white !important;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+
+    article {
+        max-width: none;
+        margin: 2mm;
+    }
+
+    section {
+        margin: auto;
+        padding: 0 0 2cm 0;
+    }
+
+    article section p {
+        hyphens: auto;
+        widows: 2;  /* Minimálně 2 řádky na konci stránky */
+        orphans: 2; /* Minimálně 2 řádky na začátku stránky */
+    }
+
+    article section p,
+    article section ol,
+    article section ul {
+        color: black;
+    }
+
+    article section .h2 + ol,
+    article section .h2 + ul,
+    article section h3 + ol,
+    article section h3 + ul,
+    article section p + ol,
+    article section p + ul
+    .h2 + .citace {
+        page-break-before: avoid; /* Fallback */
+        break-before: avoid; /* Moderní standard */
+    }
+
+    .citace * {
+        hyphens: none;
+    }
+
+    article section .h2,
+    article section h3,
+    article section h4 {
+        page-break-after: avoid; /* Fallback */
+        break-after: avoid; /* Modení standard */
+    }
+
+    article section h2 {
+        text-decoration: underline 3pt #00c5003d !important;
+        text-decoration-skip-ink: none; /* Zabrání přerušování podtržení */
+        background: transparent !important;
+        color: black;
+        font-weight: 800;
+    }
+
+    article section .h2 {
+        margin-top: 3cm;
+    }
+
+    article > section > .h2:first-of-type,
+    article > section > .img-right-top + .h2,
+    article > section > .img-responsive + .h2 {
+        margin-top: 0;
+    }
+
+    article section h3 {
+        margin-top: 15mm;
+        color: black;
+    }
+
+    article section .h2.new-page,
+    article section h3.new-page {
+        margin-top: 0;
+    }
+
+    table {
+        width: 100%;
+        font-size: 10pt;
+        margin: auto;
+    }
+
+    table thead {
+        display: table-header-group;
+    }
+
+    .tooltip {
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    #toggle-questions-btn {
+        display: none;
+    }
+
+    #questions-heading:not(.no-print) {
+        display: block;
+    }
+
+    .question {
+        background-color: #f1f1f196 !important;
+        border: 1px solid #ccc !important;
+        color: black !important;
+    }
+
+    .question.open {
+        background-color: #e9e9e996 !important;
+    }
+
+    .answer {
+        border: 1px solid #ccc !important;
+        border-left: 3px solid #4CAF50 !important;
+        background-color: #dcdcdc96 !important;
+        color: black !important;
+        page-break-before: avoid; /* Fallback */
+        break-before: avoid; /* Moderní standard */
+    }
+
+    a.button {
+        background-color: transparent !important;
+        color: black !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        font-size: 10pt !important;
+    }
+
+    a.button[href]::after {
+        content: "(" attr(href) ")";
+        font-style: italic;
+        text-decoration: underline;
+        font-weight: normal;
+    }
+
+    .a-print[href]::after {
+        content: " (" attr(href) ")";
+        font-style: italic;
+        text-decoration: underline;
+        font-weight: normal;
+        font-size: 0.8em;
+    }
+
+    a:link:not(.button):not(.sidemap a):not(.no-a-style) {
+        color: -webkit-link !important; /* Výchozí barva odkazů v prohlížeči */
+    }
+
+    table,
+    table th,
+    table td {
+        border-color: black !important;
+        color: black !important;
+    }
+
+    .img-wrapper img {
+        border-radius: 0 !important;
+    }
+
+    .img-right {
+        margin: 5mm 0 5mm 5mm;
+        width: 35%;
+        min-width: 10mm;
+        max-width: 10cm;
+    }
+
+    .img-right-top {
+        margin: 10mm 0 5mm 5mm;
+        width: 35%;
+        min-width: 10mm;
+        max-width: 15cm;
+    }
+
+    .img-right-middle {
+        width: 40%;
+        min-width: 10mm;
+        max-width: 10cm;
+        margin: 5mm 0 5mm 5mm;
+    }
+
+    .img-right-big {
+        width: 55%;
+        min-width: 10mm;
+        max-width: 15cm;
+        margin: 5mm 0 5mm 5mm;
+    }
+
+    .img-next {
+        width: 65%;
+        margin: 5mm auto 0 auto;
+    }
+
+    .img-bottom {
+        width: 90%;
+        margin: 5mm auto;
+    }
+
+    .img-left {
+        width: 40%;
+        min-width: 10mm;
+        max-width: 10cm;
+        margin: 5mm 5mm 5mm 0;
+    }
+
+}
+
+/* Pro zabránění velkým obrázkům při rozložení na šířku */
+@media print and (orientation: landscape) {
+    .img-right {
+        width: 25%;
+    }
+
+    .img-right-top {
+        width: 25%;
+    }
+
+    .img-right-middle {
+        width: 30%;
+    }
+
+    .img-right-big {
+        width: 45%;
+    }
+
+    .img-next {
+        width: 40%;
+    }
+
+    .img-bottom {
+        width: 80%;
+    }
+
+    .img-left {
+        width: 30%;
+    }
+    
+}

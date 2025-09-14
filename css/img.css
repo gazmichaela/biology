@@ -1,0 +1,204 @@
+/* STYLY PRO OBRÁZKY
+    Obrázky v navigaci se nacházejí v navigation.css; Logo v style.css.
+    Responzivita obrázků v responsiveness.css.
+    Pokud není v article obrázek, tenhle CSS se nemusí dávat jako link v HTML.
+*/
+
+/*
+OBSAH:
+ 1. Obrázky (img)
+
+ 2. Zdroje v obrázcích
+    - odkazy
+    - styly pro obalový kontejner obrázku
+    - styly pro zdroj v obrázku: nerozbalené
+    - styly pro zdroj v obrázku: rozbalené => hover a aktivní stav
+*/
+
+
+
+/* ==== 1. OBRÁZKY (IMG) ==== */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-right {
+    margin: 10px;
+    float: right;
+    width: 25%;
+    min-width: 320px;
+    max-width: 600px;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.img-right-big {
+    float: right;
+    width: 40%;
+    margin: 10px;
+    margin-left: 20px;
+    max-width: 1000px;
+}
+
+.img-right-middle {
+    float: right;
+    width: 30%;
+    margin: 1%;
+    max-width: 700px;
+    margin-left: 2%;
+}
+
+.img-right-top {
+    margin: 10px;
+    float: right;
+    width: 25%;
+    min-width: 320px;
+    max-width: 600px;
+    margin-top: 80px;
+    margin-left: 40px;
+}
+
+.img-left {
+    margin: 10px;
+    float: left;
+    width: 30%;
+    margin-left: 5%;
+    margin-right: 20px;
+    max-width: 600px;
+}
+
+.img-bottom {
+    margin: 10px;
+    width: 40%;
+    margin-left: 5%;
+}
+
+.img-next {
+    width: 45%;
+    margin-left: 2%;
+    max-width: 1000px;
+}
+
+
+
+/* ==== 2. ZDROJE V OBRÁZCÍCH ==== */
+
+/* Odkazy */
+.img-wrapper .info-box a {
+    color: skyblue;
+    font-weight: inherit;
+    font-size: inherit;
+    text-decoration: underline;
+}
+
+
+/* --- Styly pro obalový kontejner obrázku --- */
+.img-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.img-wrapper img {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+}
+
+
+/* --- Styly pro zdroj v obrázku: nerozbalené --- */
+/* Šedé kolečko (pozadí nerozbaleného zdroje) */
+.info-box {
+    position: absolute; /* Absolutní pozicování pro přesné umístění */
+    display: flex; /* Flexbox pro zarovnání obsahu – na řádku */
+    align-items: center; /* Vertikální zarovnání */
+    justify-content: center; /* Horizontální zarovnání */
+    background-color: #333;
+    color: white;
+    border-radius: 12px;
+    flex-basis: 24px;
+    height: 24px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: flex-basis 0.1s ease, max-width 0.5s ease, padding 0.5s ease;
+    overflow: hidden; /* Skrytí přečnívajícího obsahu */
+    cursor: pointer; /* Kurzor ruky při najetí */
+    white-space: nowrap;
+    left: 10px;
+    bottom: 10px;
+    transform: none; /* Reset jakýchkoliv transformací */
+    max-width: 24px; /* Důležité pro animaci */
+}
+
+/* Písmeno "i" */
+.info-box .icon-circle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 24px; /* Stejná šířka jako pro šedé kolečko */
+    height: 24px; /* Stejná výška jako šedé kolečko */
+    display: flex; /* Flexbox – usnadňuje zarovnání obsahu */
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* Nad ostatními prvky */
+    transition: color 0.3s ease;
+}
+
+/* Bílé kolečko */
+.info-box::before {
+    content: ""; /* Pseudo-prvek – vytváří dekorativní prvek */
+    position: absolute; /* Pozicování uvnitř info-boxu */
+    left: 4px;
+    top: 4px;
+    right: 4px;
+    bottom: 4px;
+    max-width: 15px;
+    background-color: transparent;
+    border: 1px solid white; /* Bílý rámeček */
+    border-radius: 50%; /* Kulatý tvar */
+    transition: background-color 0.3s ease;
+}
+
+
+/* --- Styly pro zdroj v obrázku: rozbalené => hover a aktivní stav --- */
+.info-box:hover:not(.force-close),
+.info-box.active {
+    flex-basis: auto;
+    max-width: 100%;
+    
+}
+
+/* Vyplnění kruhu na hover/aktivní stav */
+.info-box:hover:not(.force-close)::before,
+.info-box.active::before {
+    background-color: white;
+}
+
+/* Změna barvy ikony při aktivaci/hoveru */
+.info-box:hover:not(.force-close) .icon-circle,
+.info-box.active .icon-circle {
+    color: #333;
+}
+    
+.info-box span {
+    opacity: 0;
+    margin-left: 10px;
+    position: static;
+    padding: 0 15px 0 22px;
+    transition: opacity 0.1s ease ;
+    overflow: hidden;
+    visibility: hidden;
+}
+    
+.info-box:hover:not(.force-close) span,
+.info-box.active span {
+    opacity: 1; /* Zobrazení textu při aktivaci/hoveru */
+    transition: opacity 0.2s ease 0.3s, width 0.5s ease, visibility 0s ease 0s;
+    visibility: visible;
+}
+    
+/* Třída force-close má přednost před hover */
+.info-box.force-close {
+    flex-basis: 24px !important;/* Zajišťuje, že box zůstane malý i při hoveru */
+    max-width: 24px !important;
+}

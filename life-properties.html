@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Základní chemické složení a vlastnosti živých soustav z pohledu systémové biologie.">
+    <title>Vlastnosti živých soustav</title>
+    <script>
+    (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/img.css">
+    <link rel="stylesheet" href="css/navigation-desktop.css">
+    <link rel="stylesheet" href="css/navigation-mobile.css">
+    <link rel="stylesheet" href="css/questions.css">
+    <link rel="stylesheet" href="css/responsiveness.css">
+    <script src="js/dropdowns.js" defer></script>
+    <script src="js/active-menu.js" defer></script>
+    <script src="js/cookies.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
+    <script src="js/questions.js" defer></script>
+    <script src="js/source.js" defer></script>
+    <script src="js/sticky-header.js" defer></script>
+    <script src="js/responsiveness.js" defer></script>
+    <script src="js/tooltips.js" defer></script>
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- iOS PWA podpora -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Systémová biologie">
+    <!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="favicon/web-logo-64x64-48x48-32x32-16x16.ico"><!-- Favicon .ico pro běžné prohlížeče ve velikostech 64x64, 48x48, 32x32 a 16x16 (prohlížeč si vybere to nejvhodnější)-->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/web-logo-32x32.png"><!-- Pro běžné prohlížeče preferující png -->
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/web-logo-192x192.png"><!-- Pro vyšší rozlišení -->
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/web-logo-120x120-apple-touch.png"><!-- Pro staré iOS pro přidání na domovskou obrazovku (nezávisle na PWA) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/web-logo-180x180-apple-touch.png"><!-- Pro iOS pro přidání na domovskou obrazovku (nezávisle na PWA) -->
+</head>
+
+<body>
+    <header class="h1-long">
+        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
+            <picture>
+                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
+                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
+            </picture>
+        </a>
+        <h1>Vlastnosti živých soustav</h1>
+
+        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+        <ul role="navigation">
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
+            <!-- Základy systémového myšlení -->
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content" id="dropdown-content" tabindex="-1">
+                    <div class="sub-dropdown">
+                        <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
+                        <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
+                        <div class="sub-dropdown-content">
+                            <a href="system-approach.html" tabindex="0">Systémový přístup</a>
+                            <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
+                        </div>
+                    </div>
+                    <a href="system-theory.html" tabindex="0">Teorie systémů</a>
+                </div>
+            </li>
+
+            <!-- Základy živých soustav **SECOND** -->
+            <li class="dropdown">
+                <div class="button-container"> 
+                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
+                    <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
+                    <a href="life-origin.html" tabindex="0">Vznik života</a>
+                </div>
+            </li>
+
+            <!-- Buňka, Člověk -->
+            <div class="button-container">
+                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
+            </div>
+            <div class="button-container">
+                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
+            </div>
+        </ul>
+        <!-- konec navigace pro šířku nad 1175px -->
+
+
+        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+        <!-- Burger menu tlačítko -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+  
+        <!-- Overlay pro zavření menu -->
+        <div class="menu-overlay" id="menuOverlay"></div>
+
+        <!-- Mobilní navigace -->
+        <nav class="mobile-nav-container" id="mobileNav">
+            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+            <div class="mobile-nav-list">
+
+                <!-- Domů -->
+                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+
+                <!-- Základy systémového myšlení -->
+                <div class="mobile-expandable">
+                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+         
+                <!-- Základy živých soustav -->
+                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+           
+                <!-- Buňka, člověk -->
+                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                </div>
+            </div>
+        </nav>
+        <!-- konec navigace pro šířku pod 1175px -->
+
+        <noscript>
+            <h2>Váš prohlížeč nepodporuje JavaScript nebo ho máte vypnutý!</h2>
+            <p>Je nám líto, ale bez JavaScriptu stránka nemůže fungovat správně.</p>
+        </noscript>
+    </header>
+
+    <article>
+        <section>
+            <div class="h2">
+                <h2>Chemické základy živých soustav</h2>
+            </div>
+            <p>Živé soustavy, jako jsou buňky rostlin, živočichů, hub a bakterií, představují složité systémy, jejichž fungování je
+                neoddělitelně spjato s chemickými procesy. Tyto procesy jsou založeny na chemických prvcích a sloučeninách,
+                které tvoří struktury organismů a umožňují jejich metabolismus.</p>
+            <div class="img-wrapper img-right no-print">
+                <picture>
+                    <source srcset="images/webp/vlastnosti-zivych-soustav-ai.webp" type="image/webp" data-src="images/webp/vlastnosti-zivych-soustav-ai.webp">
+                    <img src="images/png/vlastnosti-zivych-soustav-ai.png" data-src="images/png/vlastnosti-zivych-soustav-ai.png" alt="">
+                </picture>
+                <div class="info-box" aria-hidden="true">
+                    <div class="icon-circle">i</div>
+                    <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" target="_blank" tabindex="-1">DeepAI</a></span>
+                </div>
+            </div>  
+            <p>Chemické základy života zahrnují biogenní prvky, které dělíme na dvě skupiny.</p>
+            <ol style="list-style-type: upper-roman;">
+                <li class="no-break">
+                    <h3>Makrobiogenní prvky</h3>
+                    <p>Makrobiogenní prvky tvoří až 99&nbsp;% hmotnosti živé hmoty a mezi nejdůležitější patří:</p>
+                    <ul>
+                        <li><strong>uhlík</strong>: základ <dfn class="tooltip" role="presentation">organických sloučenin<span class="tooltiptext"
+                            aria-hidden="true">látky obsahující uhlík <br> a tvořící živé organismy</span></dfn>, umožňuje tvorbu dlouhých <dfn class="tooltip"
+                            role="presentation">řetězců<span class="tooltiptext" aria-hidden="true">spojené řady atomů</span></dfn>,</li>
+                        <li><strong>vodík</strong> a <strong>kyslík</strong>: součást vody a organických látek, klíčové pro energetický metabolismus,</li>
+                        <li><strong>dusík</strong>: základ <dfn class="tooltip" role="presentation">aminokyselin<span class="tooltiptext" aria-hidden="true">stavební
+                            jednotky bílkovin</span></dfn> a <dfn class="tooltip" role="presentation">nukleových kyselin<span class="tooltiptext"
+                            aria-hidden="true">DNA, RNA</span></dfn>,</li>
+                        <li><strong>fosfor</strong>: přítomen v <dfn class="tooltip" role="presentation">nukleotidech<span class="tooltiptext" aria-hidden="true">stavební
+                            jednotky DNA a RNA</span></dfn> a <dfn class="tooltip" role="presentation">fosfolipidech<span class="tooltiptext" aria-hidden="true">základní součást
+                            buněčných membrán</span></dfn>, důležitý pro přenos energie (ATP),</li>
+                        <li><strong>síra</strong>: součást některých aminokyselin (např. cystein, methionin).</li>
+                    </ul>
+                </li>
+                <br>
+                <li class="no-break">
+                    <h3>Mikrobiogenní prvky</h3>
+                    <p>Mikrobiogenní prvky se vyskytují v měnším množství, mezi významné patří:</p>
+                    <ul>
+                        <li><strong>železo</strong>: transport kyslíku v <dfn class="tooltip" role="presentation">hemoglobinu<span class="tooltiptext" aria-hidden="true">bílkovina
+                            v červených krvinkách</span></dfn>,</li>
+                        <li><strong>hořčík</strong>: součást <dfn class="tooltip" role="presentation">chlorofylu<span class="tooltiptext" aria-hidden="true">zelené barvivo
+                            v rostlinách,<br>zachycuje sluneční světlo při fotosyntéze</span></dfn> a některých <dfn class="tooltip" role="presentation">enzymů<span class="tooltiptext"
+                            aria-hidden="true">bílkoviny urychlující chemické reakce</span></dfn>,</li>
+                        <li><strong>zinek</strong>,</li>
+                        <li><strong>měď</strong>,</li>
+                        <li><strong>jod</strong>.</li>
+                    </ul>
+                </li>
+            </ol>
+            <br>
+            <p>
+                Nezastupitelnou složkou živých organismů je voda, která tvoří 60–70&nbsp;% jejich hmotnosti. Díky své
+                <dfn class="tooltip" role="presentation">polaritě<span class="tooltiptext" aria-hidden="true">vlastnost molekuly, že <br> má kladný a
+                    záporný <br> konec → umožňuje <br> přitahovat jiné látky</span></dfn>
+                je voda <strong>výborným rozpouštědlem</strong> pro
+                <dfn class="tooltip" role="presentation">ionty<span class="tooltiptext" aria-hidden="true">nabité částice</span></dfn>
+                a
+                <dfn class="tooltip" role="presentation">polární molekuly<span class="tooltiptext" aria-hidden="true">molekuly s nerovnoměrným <br> rozložením
+                    náboje</span></dfn>,
+                což umožňuje chemické reakce nezbytné pro metabolismus. Její vysoká
+                <dfn class="tooltip" role="presentation">tepelná kapacita<span class="tooltiptext" aria-hidden="true">schopnost udržet teplo <br> a pomalu
+                    se zahřívat <br> nebo ochlazovat</span></dfn>
+                stabilizuje teplotu organismů, zatímco
+                <dfn class="tooltip" role="presentation">koheze<span class="tooltiptext" aria-hidden="true">přitažlivost <br> mezi molekulami</span></dfn>
+                a
+                <dfn class="tooltip" role="presentation">kapilarita<span class="tooltiptext" aria-hidden="true">schopnost vody <br> pohybovat se
+                    vzhůru <br> úzkými trubicem</span></dfn>
+                zajišťují transport látek, například v cévních svazcích rostlin.
+            </p>
+            <br>
+            <p>Kromě biogenních prvků a vody jsou klíčovými složkami živých organismů organické molekuly (makromolekuly),
+                jako jsou:</p>
+            <ul>
+                <li><strong>Sacharidy</strong>: fungují jako zdroj energie (například glukóza), zásobní látky (škrob u rostlin, glykogen u
+                    živočichů) a stavební materiály (celulóza v rostlinách, chitin uhub a hmyzu).
+                    <ul class="no-break">
+                        <li><strong>Monosacharidy</strong>: jednoduché sacharidy, tj. <strong>cukry</strong> (např. glukóza).</li>
+                        <li><strong>Disacharidy</strong>: složené ze dvou monosacharidů (např. sacharóza).</li>
+                        <li><strong>Oligosacharidy* a polysacharidy</strong>: složené z několika monosacharidů (např. mateřské mléko, škrob).</li>
+                    </ul>
+                </li>
+                <li class="no-break"><strong>Lipidy</strong> (tuky a oleje): jsou zásobní látky, tvoří <dfn class="tooltip" role="presentation">biomembrány<span class="tooltiptext"
+                    aria-hidden="true">vrstvy obklopující buňky</span></dfn> a působí jako izolace.
+                    <ul>
+                        <li><strong>Fosfolipidy</strong>: stavební jednotky membrán.</li>
+                        <li><strong><dfn class="tooltip" role="presentation">Steroidy<span class="tooltiptext" aria-hidden="true">skupina látek odvozených od tuků, <br> které
+                            ovlivňují tělesné procesy</span></dfn></strong>: regulace <dfn class="tooltip" role="presentation">hormonů<span class="tooltiptext" aria-hidden="true">látky
+                            ovlivňující např. <br> růst, náladu, metabolismus</span></dfn> (např. cholesterol).</li>
+                    </ul>
+                </li>
+                <li class="no-break"><strong>Proteiny</strong> (bílkoviny): skládají se z aminokyselin a plní různé funkce, například:
+                    <ul>
+                        <li><dfn class="tooltip" role="presentation">katalýza reakcí<span class="tooltiptext" aria-hidden="true">urychlení chemických reakcí</span></dfn> (enzymy),</li>
+                        <li>transport (hemoglobin),</li>
+                        <li>tvorba struktur (kolagen).</li>
+                    </ul>
+                </li>
+                <li class="no-break"><strong>Nukleové kyseliny</strong>: zajišťují uchování, přenos a využití genetické informace v buňce.
+                    <ul>
+                        <li><strong>DNA</strong> (deoxyribonukleová kyselina) nese genetickou informaci, uchovává ji v jádře buňky.</li>
+                        <li><strong>RNA</strong> (ribonukleová kyselina) přenáší genetickou informaci z DNA do ribozomů, kde se podle ní tvoří bílkoviny (proteiny).</li>
+                    </ul>
+                </li>
+            </ul>
+            <br>
+            <p>
+                Anorganické sloučeniny a ionty, jako jsou Na⁺, K⁺, Ca²⁺ nebo Cl⁻, mají v buňkách rovněž významnou roli. Přispívají k přenosu
+                <dfn class="tooltip" role="presentation">nervových vzruchů<span class="tooltiptext" aria-hidden="true">elektrické signály, <br> které posílají nervy</span></dfn>,
+                <dfn class="tooltip" role="presentation">regulaci osmotického tlaku<span class="tooltiptext" aria-hidden="true">udržování rovnováhy vody a solí v buňce</span></dfn>
+                nebo svalové činnosti.
+            </p>
+            <ul class="no-break">
+                <li><strong>Vápník</strong> a <strong>fosfor</strong> dodávají pevnost kostem a zubům.</li>
+                <li><strong>Hořčík</strong> a <strong>zinek</strong> se podílejí na enzymových procesech.</li>
+            </ul>
+        </section>
+
+        <section>
+            <div class="h2 new-page">
+                <h2>Vlastnosti živých soustav</h2>
+            </div>
+            <p>Živé soustavy se liší od neživých tím, že <strong>vykazují určité základní vlastnosti</strong>. Tyto vlastnosti společně tvoří složitý systém,
+                ve kterém jednotlivé procesy spolupracují na zachování života.</p>
+            <ol>
+                <li class="no-break">
+                    <h3>Strukturovanost a hierarchie</h3>
+                    <p>Živé soustavy jsou organizovány na různých úrovních:</p>
+                    <ul>
+                        <li><strong>Buňka</strong>: základní stavební jednotka života.</li>
+                        <li><strong>Tkáň, orgán, organismus</strong>: buňky se spojují do tkání, tkáně tvoří orgány a orgány spolupracují v celém organismu.</li>
+                        <li><strong>Ekosystém</strong>: jednotlivé organismy vytvářejí větší systémy, jako jsou
+                            <dfn class="tooltip" role="presentation">společenstva<span class="tooltiptext" aria-hidden="true">skupina různých druhů <br> organismů, které žijí <br> na
+                                jednom místě a <br> ovlivňují se navzájem</span></dfn>
+                            a
+                            <dfn class="tooltip" role="presentation">ekosystémy<span class="tooltiptext" aria-hidden="true">soubor všech živých i neživých <br> složek prostředí,
+                                které spolu <br> fungují jako celek</span></dfn>.</li>
+                    </ul>
+                </li>
+                <div class="img-list no-print">
+                    <div class="img-wrapper img-right">
+                        <picture>
+                            <source srcset="images/webp/metabolismus-ai.webp" type="image/webp" data-src="images/webp/metabolismus-ai.webp">
+                            <img src="images/png/metabolismus-ai.png" data-src="images/png/metabolismus-ai.png" alt="">
+                        </picture>     
+                        <div class="info-box" aria-hidden="true">
+                            <div class="icon-circle">i</div>
+                            <span>Zdroj: <a href="https://deepai.org/machine-learning-model/text2img" tabindex="-1">DeepAI</a></span>
+                        </div>
+                    </div>
+                </div>       
+                <li class="no-break">
+                    <h3>Metabolismus</h3>
+                    <p>Metabolismus zahrnuje všechny chemické reakce probíhající v organismu.</p>
+                    <p>Tyto procesy jsou rozděleny na</p>
+                    <ul>
+                        <li><strong>Katabolismus</strong>: rozklad látek spojený s uvolněním energie (např. trávení potravy, dýchání).</li>
+                        <li><strong>Anabolismus</strong>: syntéza složitějších molekul za spotřeby energie (např. tvorba bílkovin, fotosyntéza).</li>
+                    </ul>
+                    <p>Energetické přeměny jsou klíčové pro růst, pohyb i reprodukci.</p>
+                </li>
+                <li class="no-break">
+                    <h3>Reprodukce</h3>
+                    <p>Všechny živé soustavy jsou schopny reprodukce, což je proces tvorby nových jedinců.</p>
+                    <ul>
+                        <li><strong>Pohlavní reprodukce</strong>: kombinuje genetickou informaci dvou jedinců, čímž zajišťuje <dfn class="tooltip" role="presentation">genetickou
+                            variabilitu<span class="tooltiptext" aria-hidden="true">rozmanitost dědičné výbavy</span></dfn>.</li>
+                        <li><strong>Nepohlavní reprodukce</strong>: dochází k vytvoření kopií (např. dělení buněk).</li>
+                    </ul>
+                </li>
+                <li class="no-break"><h4>Autoregulace a homeostáza</h4>
+                    <p>Organismy mají schopnost <strong>udržovat stabilní vnitřní prostředí</strong> <dfn>(homeostázu)</dfn>, i když se vnější podmínky mění.</p>
+                    <p>Příklady:</p>
+                        <ul>
+                            <li>Regulace tělesné teploty (termoregulace).</li>
+                            <li>Udržování optimální hladiny cukru v krvi.</li>
+                        </ul>
+                </li>
+                <li class="no-break">
+                    <h3>Růst a vývoj</h3>
+                    <p><strong>Růst</strong> znamená zvětšování velikosti organismu nebo jeho částí,
+                        zatímco <strong>vývoj</strong> zahrnuje změny struktury a funkce během života.</p>
+                    <p>Příklad:</p>
+                    <ul>
+                        <li>Semínko se vyvine v dospělou rostlinu schopnou rozmnožování.</li>
+                    </ul>
+                </li>
+                <li class="no-break">
+                    <h3>Dráždivost a reakce na podněty</h3>
+                    <p>Živé soustavy reagují na změny prostředí.</p>
+                    <ul>
+                        <li>Rostliny se otáčejí za světlem <dfn>(fototropismus)</dfn>.  </li>
+                        <li>Živočichové reagují na zvuk, světlo nebo teplotu.</li>
+                    </ul>
+                </li>
+                <li class="no-break">
+                    <h3>Adaptace</h3>
+                    <p><dfn class="tooltip" role="presentation">Adaptace<span class="tooltiptext" aria-hidden="true">přizbůsobování se</span></dfn> umožňují organismům
+                        přežít v měnícím se prostředí.</p>
+                    <p>Příklady:</p>
+                    <ul>
+                        <li>Tlusté listy sukulentů pro ukládání vody v suchém prostředí.</li>
+                        <li>Srst ledního medvěda pro izolaci v chladných oblastech.</li>
+                    </ul>
+                </li>
+                <li class="no-break">
+                    <h3>Propojenost a systémovost</h3>
+                    <p>Všechny vlastnosti živých soustav spolu úzce souvisejí a vytvářejí systém. Například:</p>
+                    <ul>
+                        <li>Metabolismus závisí na příjmu živin a <dfn class="tooltip" role="presentation">autoregulaci<span class="tooltiptext" aria-hidden="true">schopnost
+                            organismu sám si <br> řídit své vnitřní procesy</span></dfn>.</li>
+                        <li>Růst a reprodukce závisí na energii získané metabolismem.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <div class="h2 no-print" id="questions-heading">
+                <h2>Prověřte si své znalosti:</h2>
+            </div>
+
+            <!-- Tlačítko pro zobrazení/skrytí otázek -->
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
+            title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+
+            <!-- Kontejner pro otázky -->
+            <div id="faq-container" class="hidden">
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký je rozdíl mezi autotrofními a heterotrofními organismy?</div>
+                    <div class="answer">Autotrofní organismy si vyrábějí organické látky z anorganických (např. fotosyntézou), </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Které z vlastností živých soustav jsou nezbytné a které jsou pouze výhodné?</div>
+                    <div class="answer">Metabolismus, reakce na podněty a určitá forma organizace jsou nezbytné. Složitá reprodukce či pokročilá adaptace jsou výhodné, ale ne vždy nutné.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku."> Může organismus fungovat bez jedné ze základních vlastností živých soustav?</div>
+                    <div class="answer"> Krátkodobě možno - například dočasná ztráta schopnosti reprodukce neohrozí přežití jedince, ale dlouhodobě jsou všechny klíčové.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak organismy zajišťují výměnu látek s prostředím?</div>
+                    <div class="answer">Výměna látek probíhá dýcháním, vylučováním, příjmem potravy, osmoregulací a fotosyntézou – je základní podmínkou pro udržení metabolismu a života.</div>
+                </div>
+
+                <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
+            </div>
+        </section>
+
+        <section>
+            <div class="h2">
+                <h2>Pro zajímavost</h2>
+            </div>
+            <p>*Krevní skupiny se liší právě podle typu <strong>oligosacharidu</strong>, který je součástí antigenů na povrchu červených krvinek.</p>
+            <p>Podrobnosti najdete zde:</p>
+            <a href="human.html#obehovasoustava" class="button">Člověk </a>
+            <div class="zarazka"></div>
+        </section>
+    </article>
+
+    <footer>
+        <p>Vytvořeno pro vzdělávací účely</p>
+        <p>Děkujeme za cenné rady a pomoc doc. RNDr. Aleši Rudovi, Ph.D., MBA; Mgr. Nataše Berkové a Ing. Ditě Tůmové</p>
+        <hr role="presentation">
+        <p><a href="personal-data.html">Zásady používání cookies</a></p>
+        <p><a href="sidemap.html">Mapa stránek</a></p>
+        <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
+        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+    </footer>
+
+    <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->
+    <div id="cookiesMiniNotice" class="cookies-mini-notice">
+        <p>Tento web používá pouze nezbytné cookies pro zajištění jeho správné funkčnosti.</p>
+        <a href="personal-data.html" aria-label="Více informací o používání cookies">Více informací</a><br>
+        <br>
+        <button id="acceptCookies">Rozumím</button>
+    </div>
+
+    <!-- Tlačítko tmavého režimu -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Přepnout tmavý/světlý režim"></button>
+
+    <!-- Service Worker registrace -->
+    <script>
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('pwa/service-worker.js')
+            .then(function(registration) {})
+            .catch(function(registrationError) {});
+        });
+        }
+    </script>
+</body>
+
+</html>
