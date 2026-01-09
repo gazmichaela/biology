@@ -261,51 +261,55 @@
       return success;
     }
 
-    _getCookieStorage() {
-      const { domain } = this.config;
-      return {
-        setItem: (k, v) => {
-          const maxAge = 365 * 24 * 60 * 60;
-          let cookieString = `${k}=${encodeURIComponent(
-            v
-          )}; max-age=${maxAge}; path=/`;
-          if (
-            domain &&
-            !domain.includes("localhost") &&
-            !domain.includes("127.0.0.1")
-          ) {
-            cookieString += `; domain=${domain}`;
-          }
-          cookieString += "; SameSite=Lax";
-          if (location.protocol === "https:") cookieString += "; Secure";
-          document.cookie = cookieString;
-          this._log(`Cookie set: ${cookieString}`);
-        },
-        getItem: (k) => {
-          const name = `${k}=`;
-          const cookies = document.cookie.split(";");
-          for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.startsWith(name)) {
-              return decodeURIComponent(cookie.substring(name.length));
-            }
-          }
-          return null;
-        },
-        removeItem: (k) => {
-          let cookieString = `${k}=; max-age=0; path=/`;
-          if (
-            domain &&
-            !domain.includes("localhost") &&
-            !domain.includes("127.0.0.1")
-          ) {
-            cookieString += `; domain=${domain}`;
-          }
-          cookieString += "; SameSite=Lax";
-          document.cookie = cookieString;
-        },
-      };
-    }
+   _getCookieStorage() {
+  const { domain } = this.config;
+  return {
+    setItem: (k, v) => {
+      const maxAge = 365 * 24 * 60 * 60;
+      let cookieString = `${k}=${encodeURIComponent(
+        v
+      )}; max-age=${maxAge}; path=/`;
+      
+      // Pro Firefox NIKDY nepřidávat domain
+      if (!this.state.isFirefox && 
+          domain &&
+          !domain.includes("localhost") &&
+          !domain.includes("127.0.0.1")) {
+        cookieString += `; domain=${domain}`;
+      }
+      
+      cookieString += "; SameSite=Lax";
+      if (location.protocol === "https:") cookieString += "; Secure";
+      document.cookie = cookieString;
+      this._log(`Cookie set: ${cookieString}`);
+    },
+    getItem: (k) => {
+      const name = `${k}=`;
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name)) {
+          return decodeURIComponent(cookie.substring(name.length));
+        }
+      }
+      return null;
+    },
+    removeItem: (k) => {
+      let cookieString = `${k}=; max-age=0; path=/`;
+      
+      // Pro Firefox NIKDY nepřidávat domain
+      if (!this.state.isFirefox && 
+          domain &&
+          !domain.includes("localhost") &&
+          !domain.includes("127.0.0.1")) {
+        cookieString += `; domain=${domain}`;
+      }
+      
+      cookieString += "; SameSite=Lax";
+      document.cookie = cookieString;
+    },
+  };
+}
 
     _broadcastChange(operation, timestamp) {
       try {
