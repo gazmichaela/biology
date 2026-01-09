@@ -266,11 +266,14 @@
   return {
     setItem: (k, v) => {
       const maxAge = 365 * 24 * 60 * 60;
-      let cookieString = `${k}=${encodeURIComponent(v)}; max-age=${maxAge}; path=/`;
+      let cookieString = `${k}=${encodeURIComponent(
+        v
+      )}; max-age=${maxAge}; path=/`;
       
-      // Pro Firefox NIKDY nepřidávat domain parametr
-      if (!this.state.isFirefox && domain && 
-          !domain.includes("localhost") && 
+      // Pro Firefox NIKDY nepřidávat domain
+      if (!this.state.isFirefox && 
+          domain &&
+          !domain.includes("localhost") &&
           !domain.includes("127.0.0.1")) {
         cookieString += `; domain=${domain}`;
       }
@@ -294,9 +297,10 @@
     removeItem: (k) => {
       let cookieString = `${k}=; max-age=0; path=/`;
       
-      // Pro Firefox NIKDY nepřidávat domain parametr
-      if (!this.state.isFirefox && domain && 
-          !domain.includes("localhost") && 
+      // Pro Firefox NIKDY nepřidávat domain
+      if (!this.state.isFirefox && 
+          domain &&
+          !domain.includes("localhost") &&
           !domain.includes("127.0.0.1")) {
         cookieString += `; domain=${domain}`;
       }
@@ -306,6 +310,7 @@
     },
   };
 }
+
     _broadcastChange(operation, timestamp) {
       try {
         if (window.BroadcastChannel) {
