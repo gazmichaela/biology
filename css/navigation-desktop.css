@@ -20,11 +20,13 @@ OBSAH:
 /* ==== 1. HEADER UL ==== */
 header ul {
     list-style: none;
-    margin-top: 1px;
+    margin: 12px auto 12px auto;
     display: flex;
     justify-content: center;
     padding: 1px 0;
     position: relative;
+    min-width: 1200px;
+    max-width: 2000px;
 }
 
 /* Domeček */
@@ -33,12 +35,14 @@ header ul .home-icon {
     position: relative;
     text-decoration: none;
     pointer-events: none; /* Vypne interakci s celým kontejnerem */
+    margin-right: min(1.43vw, 45px);
+    margin-left: min(1.43vw, 45px);
 }
 
 header ul .home-icon img {
     width: 25px;
     height: auto;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     margin-top: 8px;
     pointer-events: auto; /* Zapne interakci pouze pro obrázek */
 }
@@ -56,8 +60,8 @@ header ul .home-icon:hover img {
 .button-container {
     display: flex;
     align-items: center;
-    margin-right: 1.43vw;
-    margin-left: 1.43vw;
+    margin-right: min(1.43vw, 50px);
+    margin-left: min(1.43vw, 50px);
     white-space: nowrap; /* Text se v tlačítkách nebude zalamovat */
 }
 
@@ -76,7 +80,8 @@ header ul .home-icon:hover img {
 .main-button,
 .main-button-second,
 .dropdown-toggle,
-.dropdown-toggle-second {
+.dropdown-toggle-second,
+.dropdown-toggle-third {
     background-color: #f0f9f0;
     color: #025227;
     font-weight: bold;
@@ -104,7 +109,8 @@ header ul .home-icon:hover img {
 }
 
 .dropdown-toggle,
-.dropdown-toggle-second {
+.dropdown-toggle-second,
+.dropdown-toggle-third {
     width: 40px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -137,18 +143,21 @@ header ul .home-icon:hover img {
 .main-button:hover,
 .main-button-second:hover,
 .dropdown-toggle:hover,
-.dropdown-toggle-second:hover {
+.dropdown-toggle-second:hover,
+.dropdown-toggle-third:hover {
     background-color: #309ce5;
     color: white;
 }
 
 .dropdown-toggle .arrow,
-.dropdown-toggle-second .arrow {
+.dropdown-toggle-second .arrow,
+.dropdown-toggle-third .arrow {
     color: #025227;
 }
   
 .dropdown-toggle:hover .arrow,
-.dropdown-toggle-second:hover .arrow {
+.dropdown-toggle-second:hover .arrow,
+.dropdown-toggle-third:hover .arrow {
     color: white;
 }
 

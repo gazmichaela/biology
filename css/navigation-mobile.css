@@ -26,13 +26,15 @@ OBSAH:
     top: 15px;
     right: 20px;
     z-index: 1000;
-    width: 17px; /* Délka čar */
-    height: 17px; /* Vzdálenost mezi jednotlivými čarami */
+    width: 25px; /* Délka čar */
+    height: 20px; /* Vzdálenost mezi jednotlivými čarami */
     justify-content: space-between;
     touch-action: manipulation;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
 }
 
 /* Tři čárky v burger menu tlačítku */

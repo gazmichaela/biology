@@ -328,11 +328,11 @@
         }
 
         body.dark-mode article section h2 {
-          background: linear-gradient(to top, #1aff1a44 10%, transparent 60%);
+          background: linear-gradient(to top, #3f7093ee 10%, transparent 60%);
         }
 
         body.dark-mode article section h3 {
-          text-decoration: underline #1aff1a44;
+          text-decoration: underline #3f7093ee;
         }
 
         body.dark-mode .button,

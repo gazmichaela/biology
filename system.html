@@ -38,32 +38,33 @@
 
 <body>
     <header class="h1-long">
-        <a href="https://www.purkynka.cz/" target="_blank" tabindex="-1" aria-hidden="true">
-            <picture>
-                <source srcset="images/webp/logo-purkynka.webp" type="image/webp">
-                <img src="images/png/logo-purkynka.png" alt="Purkyňka" class="logo" aria-hidden="true">
-            </picture>
-        </a>
-        <h1>Základy systémového myšlení</h1>
+
+        <!-- <h1>Základy systémového myšlení</h1> -->
 
         <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
         <ul role="navigation">
-            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
+            <a href="index.html" tabindex="-1" aria-hidden="true">
                 <picture>
-                    <source srcset="images/webp/home.webp" type="image/webp">
-                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
+                    <source srcset="images/webp/logo.webp" type="image/webp">
+                    <img src="images/png/logo.png" alt="Systémová biologie" class="logo" aria-hidden="true"">
                 </picture>
             </a>
 
-            <!-- Základy systémového myšlení -->
+            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
+                <picture>
+                    <source srcset="images/webp/home.webp" type="image/webp">
+                    <img src="images/png/home.png" alt="Domů" title="Vrátit se na hlavní stránku">
+                </picture>
+            </a>
+
             <li class="dropdown">
                 <div class="button-container">
-                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+                    <a href="system.html" class="main-button" tabindex="0">Úvod</a>
                     <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
                 </div>
                 <div class="dropdown-content" id="dropdown-content" tabindex="-1">
                     <div class="sub-dropdown">
-                        <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
+                        <a href="system-introduction.html" class="centered" tabindex="0">Základní principy</a>
                         <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
                         <div class="sub-dropdown-content">
                             <a href="system-approach.html" tabindex="0">Systémový přístup</a>
@@ -71,29 +72,36 @@
                         </div>
                     </div>
                     <a href="system-theory.html" tabindex="0">Teorie systémů</a>
-                </div>
-            </li>
-
-            <!-- Základy živých soustav **SECOND** -->
-            <li class="dropdown">
-                <div class="button-container"> 
-                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
-                </div>
-                <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
                     <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
                     <a href="life-origin.html" tabindex="0">Vznik života</a>
                 </div>
             </li>
 
-            <!-- Buňka, Člověk -->
-            <div class="button-container">
-                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
-            </div>
-            <div class="button-container">
-                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
-            </div>
-        </ul>
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="human.html" class="main-button" tabindex="0">Člověk</a>
+                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
+                    <a href="cell.html" tabindex="0">Buněčné a nebuněčné organismy</a>
+                    <a href="tissues.html" tabindex="0">Tkáně</a>
+                    <a href="organ-system.html" tabindex="0">Orgánové soustavy</a>
+                    <a href="genetics.html" tabindex="0">Genetika</a>
+                </div>
+            </li>
+
+            <li class="dropdown">
+                <div class="button-container">
+                    <a href="environment.html" class="main-button" tabindex="0">Životní prostředí</a>
+                    <button class="dropdown-toggle-third dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
+                </div>
+                <div class="dropdown-content-third dropdown-content" id="dropdown-content-third" tabindex="-1">
+                    <a href="ecology-introduction.html" tabindex="0">Základy ekologie</a>
+                    <a href="ecosystems.html" tabindex="0">Ekosystémy</a>
+                    <a href="climate-change.html" tabindex="0">Klimatická změna</a>
+                    <a href="environmental-protection.html" tabindex="0">Ochrana prostředí</a>
+                </div>
+            </li>
         <!-- konec navigace pro šířku nad 1175px -->
 
 
@@ -188,7 +196,7 @@
         <p><a href="personal-data.html">Zásady používání cookies</a></p>
         <p><a href="sidemap.html">Mapa stránek</a></p>
         <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
-        <p>&copy; 2025 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
+        <p>&copy; 2025-2026 <a href="mailto:gazova.michaela@purkynka.cz">Michaela Gažová</a> a <a href="mailto:friedl.daniel@purkynka.cz">Daniel Friedl</a></p>
     </footer>
 
     <!-- Vyskakovací cookies okno (po potvrzení se nezobrazuje) -->

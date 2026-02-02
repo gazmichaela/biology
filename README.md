@@ -25,6 +25,7 @@ Byl důkladně testován na následujících verzích prohlížečů:
 - Chrome 140,
 - Firefox 141,
 - Edge 140.
+
 Web bude fungovat i na starších verzích prohlížečů (pokud se nejedná o historické verze), ale není garantováno.
 Internet Explorer není podporován.
 

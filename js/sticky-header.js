@@ -356,9 +356,14 @@ function insertStickyHeaderStyles() {
     top: 15px;  /* Stejné jako normální header */
     right: 20px; /* Stejné jako normální header */
     z-index: 1003;
-    width: 17px;
-    height: 17px;
+    width: 25px;
+    height: 20px;
     justify-content: space-between;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .sticky-header .burger-line {
@@ -369,18 +374,6 @@ function insertStickyHeaderStyles() {
     transition: all 0.3s ease;
 }
 
-/* Animace pro otevření burger menu */
-.sticky-header .burger-menu.open .burger-line:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px) !important;
-}
-
-.sticky-header .burger-menu.open .burger-line:nth-child(2) {
-    opacity: 0 !important;
-}
-
-.sticky-header .burger-menu.open .burger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px) !important;
-}
 
 /* Responsivní zobrazení pro sticky header */
 

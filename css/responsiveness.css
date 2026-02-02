@@ -7,8 +7,6 @@
 /*
 OBSAH:
  1. Obecné
-    - nad 2000px
-    - nad 4000px
     - do 1175px
     - do 1023px
     - do 768px
@@ -43,22 +41,6 @@ OBSAH:
 
 
 /* ===== 1. OBECNÉ ===== */
-@media screen and (min-width: 2000px) {
-    .button-container {
-        margin-right: 2vw;
-        margin-left: 2vw;
-    }
-}
-
-
-@media screen and (min-width: 4000px) {
-    .button-container {
-        margin-right: min(2vw, 85px); /* Mezera max 85px */
-        margin-left: min(2vw, 85px); /* Mezera max 85px */
-    }
-}
-
-
 @media screen and (max-width: 1175px) {
     /* Zajistí, že se stránka neprolí horizontálně */
     html,
@@ -1017,6 +999,7 @@ OBSAH:
 }
 
 
+
 /* ===== 5. PRINT VERZE STRÁNKY ===== */
 @page {
     margin: 15mm 10mm;
@@ -1108,7 +1091,7 @@ OBSAH:
     }
 
     article section h2 {
-        text-decoration: underline 3pt #00c5003d !important;
+        text-decoration: underline 3pt #309ce554 !important;
         text-decoration-skip-ink: none; /* Zabrání přerušování podtržení */
         background: transparent !important;
         color: black;
@@ -1128,6 +1111,7 @@ OBSAH:
     article section h3 {
         margin-top: 15mm;
         color: black;
+        text-decoration: underline #309ce584 !important;
     }
 
     article section .h2.new-page,
@@ -1148,6 +1132,7 @@ OBSAH:
     .tooltip {
         font-style: normal;
         text-decoration: none;
+        border: none;
     }
 
     #toggle-questions-btn {
@@ -1293,5 +1278,4 @@ OBSAH:
     .img-left {
         width: 30%;
     }
-    
 }
