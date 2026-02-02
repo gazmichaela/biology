@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
  * @author Michaela Gažová
- * @version 2.0.0
+ * @version 2.1.1
  * @since 2025-05-28
- * @updated 2025-09-01
+ * @updated 2026-01-09
  * @license MIT
  */
 
@@ -62,116 +62,125 @@
       return false;
     }
 
-  _createStorage() {
-  const domain = window.location.hostname.includes(".")
-    ? "." + window.location.hostname.split(".").slice(-2).join(".")
-    : window.location.hostname;
+    _createStorage() {
+      const domain = window.location.hostname.includes(".")
+        ? "." + window.location.hostname.split(".").slice(-2).join(".")
+        : window.location.hostname;
 
-  const cookieStore = {
-    setItem: (k, v) => {
-      let cookieString = `${k}=${encodeURIComponent(v)}; max-age=${
-        365 * 24 * 60 * 60
-      }; path=/; SameSite=Lax`;
-      
-      // Pro Firefox NIKDY nepřidávat domain
-      if (this.browserType !== "firefox" &&
-          domain &&
-          !domain.includes("localhost") &&
-          !domain.match(/^\d+\.\d+\.\d+\.\d+$/))
-        cookieString += `; domain=${domain}`;
-        
-      if (location.protocol === "https:") cookieString += "; Secure";
-      document.cookie = cookieString;
-    },
-    getItem: (k) => {
-      const name = `${k}=`;
-      const cookies = document.cookie.split(";");
-      for (let cookie of cookies) {
-        cookie = cookie.trim();
-        if (cookie.startsWith(name)) {
-          return decodeURIComponent(cookie.substring(name.length));
-        }
-      }
-      return null;
-    },
-    removeItem: (k) => {
-      let cookieString = `${k}=; max-age=0; path=/; SameSite=Lax`;
-      
-      // Pro Firefox NIKDY nepřidávat domain
-      if (this.browserType !== "firefox" &&
-          domain &&
-          !domain.includes("localhost") &&
-          !domain.match(/^\d+\.\d+\.\d+\.\d+$/))
-        cookieString += `; domain=${domain}`;
-        
-      document.cookie = cookieString;
-    },
-  };
+      const cookieStore = {
+        setItem: (k, v) => {
+          let cookieString = `${k}=${encodeURIComponent(v)}; max-age=${
+            365 * 24 * 60 * 60
+          }; path=/; SameSite=Lax`;
 
-  return {
-    get: (key) => {
-      if (this.isPrivate) return null;
-      const storages =
-        this.browserType === "firefox"
-          ? [cookieStore, sessionStorage, localStorage]
-          : [localStorage, sessionStorage, cookieStore];
-      for (const storage of storages) {
-        try {
-          const value = storage.getItem(key);
-          if (value !== null && value !== undefined) return value;
-        } catch (e) {}
-      }
-      return null;
-    },
-    set: (key, value) => {
-      if (this.isPrivate) return;
-      const storages =
-        this.browserType === "firefox"
-          ? [cookieStore, sessionStorage, localStorage]
-          : [localStorage, sessionStorage, cookieStore];
-      for (const storage of storages) {
-        try {
-          storage.setItem(key, value);
-        } catch (e) {}
-      }
-      // Broadcast změnu do ostatních tabů
-      this._broadcastChange(key, value);
-      return true;
-    },
-    remove: (key) => {
-      try {
-        localStorage.removeItem(key);
-      } catch (e) {}
-      try {
-        sessionStorage.removeItem(key);
-      } catch (e) {}
-      try {
-        cookieStore.removeItem(key);
-      } catch (e) {}
-      // Broadcast změnu do ostatních tabů
-      this._broadcastChange(key, null);
-    },
-  };
-}
+          // Pro Firefox NIKDY nepřidávat domain
+          if (
+            this.browserType !== "firefox" &&
+            domain &&
+            !domain.includes("localhost") &&
+            !domain.match(/^\d+\.\d+\.\d+\.\d+$/)
+          )
+            cookieString += `; domain=${domain}`;
 
-_broadcastChange(key, value) {
-  try {
-    if (window.BroadcastChannel) {
-      const channel = new BroadcastChannel("darkModeSync");
-      channel.postMessage({ key, value, timestamp: Date.now() });
-      channel.close();
+          if (location.protocol === "https:") cookieString += "; Secure";
+          document.cookie = cookieString;
+        },
+        getItem: (k) => {
+          const name = `${k}=`;
+          const cookies = document.cookie.split(";");
+          for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name)) {
+              return decodeURIComponent(cookie.substring(name.length));
+            }
+          }
+          return null;
+        },
+        removeItem: (k) => {
+          let cookieString = `${k}=; max-age=0; path=/; SameSite=Lax`;
+
+          // Pro Firefox NIKDY nepřidávat domain
+          if (
+            this.browserType !== "firefox" &&
+            domain &&
+            !domain.includes("localhost") &&
+            !domain.match(/^\d+\.\d+\.\d+\.\d+$/)
+          )
+            cookieString += `; domain=${domain}`;
+
+          document.cookie = cookieString;
+        },
+      };
+
+      return {
+        get: (key) => {
+          if (this.isPrivate) return null;
+          const storages =
+            this.browserType === "firefox"
+              ? [cookieStore, sessionStorage, localStorage]
+              : [localStorage, sessionStorage, cookieStore];
+          for (const storage of storages) {
+            try {
+              const value = storage.getItem(key);
+              if (value !== null && value !== undefined) return value;
+            } catch (e) {}
+          }
+          return null;
+        },
+        set: (key, value) => {
+          if (this.isPrivate) return;
+          const storages =
+            this.browserType === "firefox"
+              ? [cookieStore, sessionStorage, localStorage]
+              : [localStorage, sessionStorage, cookieStore];
+          for (const storage of storages) {
+            try {
+              storage.setItem(key, value);
+            } catch (e) {}
+          }
+          // Broadcast změnu do ostatních tabů
+          this._broadcastChange(key, value);
+          return true;
+        },
+        remove: (key) => {
+          try {
+            localStorage.removeItem(key);
+          } catch (e) {}
+          try {
+            sessionStorage.removeItem(key);
+          } catch (e) {}
+          try {
+            cookieStore.removeItem(key);
+          } catch (e) {}
+          // Broadcast změnu do ostatních tabů
+          this._broadcastChange(key, null);
+        },
+      };
     }
-    
-    // Storage event pro starší prohlížeče
-    setTimeout(() => {
-      window.dispatchEvent(new StorageEvent("storage", {
-        key: key,
-        newValue: value,
-        url: location.href
-      }));
-    }, this.browserType === "firefox" ? 100 : 0);
-  } catch (e) {}
-}
+
+    _broadcastChange(key, value) {
+      try {
+        if (window.BroadcastChannel) {
+          const channel = new BroadcastChannel("darkModeSync");
+          channel.postMessage({ key, value, timestamp: Date.now() });
+          channel.close();
+        }
+
+        // Storage event pro starší prohlížeče
+        setTimeout(
+          () => {
+            window.dispatchEvent(
+              new StorageEvent("storage", {
+                key: key,
+                newValue: value,
+                url: location.href,
+              })
+            );
+          },
+          this.browserType === "firefox" ? 100 : 0
+        );
+      } catch (e) {}
+    }
 
     _initState() {
       const storedPref = this._getPref("darkMode");
@@ -603,25 +612,11 @@ _broadcastChange(key, value) {
         }
         this._createReset();
       });
-       
-  // Synchronizace mezi taby
-  window.addEventListener("storage", (e) => {
-    if (e.key === "darkMode") {
-      const newValue = e.newValue === "true";
-      if (this.isDarkMode !== newValue) {
-        this.isDarkMode = newValue;
-        this._applyMode(this.isDarkMode);
-        this._updateIcon();
-      }
-    }
-  });
-  
-  if (window.BroadcastChannel) {
-    try {
-      const syncChannel = new BroadcastChannel("darkModeSync");
-      syncChannel.addEventListener("message", (e) => {
-        if (e.data.key === "darkMode") {
-          const newValue = e.data.value === "true";
+
+      // Synchronizace mezi taby
+      window.addEventListener("storage", (e) => {
+        if (e.key === "darkMode") {
+          const newValue = e.newValue === "true";
           if (this.isDarkMode !== newValue) {
             this.isDarkMode = newValue;
             this._applyMode(this.isDarkMode);
@@ -629,8 +624,22 @@ _broadcastChange(key, value) {
           }
         }
       });
-    } catch (e) {}
-  }
+
+      if (window.BroadcastChannel) {
+        try {
+          const syncChannel = new BroadcastChannel("darkModeSync");
+          syncChannel.addEventListener("message", (e) => {
+            if (e.data.key === "darkMode") {
+              const newValue = e.data.value === "true";
+              if (this.isDarkMode !== newValue) {
+                this.isDarkMode = newValue;
+                this._applyMode(this.isDarkMode);
+                this._updateIcon();
+              }
+            }
+          });
+        } catch (e) {}
+      }
     }
 
     getState() {

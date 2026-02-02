@@ -364,7 +364,7 @@ function insertStickyHeaderStyles() {
 .sticky-header .burger-line {
     width: 100%;
     height: 3px;
-    background-color: #025227;
+    background-color: #ffffff;;
     border-radius: 2px;
     transition: all 0.3s ease;
 }

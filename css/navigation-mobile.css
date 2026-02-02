@@ -39,7 +39,7 @@ OBSAH:
 .burger-menu .burger-line {
     width: 100%;
     height: 3px; /* Tloušťka */
-    background-color: #025227;
+    background-color: #ffffff;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -169,7 +169,7 @@ html.menu-open body {
 /* Podtržení tmavé (většina položek) */
 .mobile-nav-button-big {
     border-bottom: 1px solid grey;
-    margin-bottom: clamp(10px, 5%, 40px); /* nikdy méně než 10px, ideálně 5%, ale max 40px */
+    margin-bottom: clamp(10px, 5%, 40px); /* nikdy méně než 10px, ideálně 5%, ale max 40px */ 
 }
 
 /* Podtržení pod "Úvod" */
