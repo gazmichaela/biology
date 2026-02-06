@@ -54,14 +54,6 @@ OBSAH:
         max-height: 150px;
     }
 
-    header h1 {
-        transform: translateY(5px);
-    }
-
-    .h1-index {
-        max-height: 170px;
-    }
-
     .logo {
         width: 150px; 
         margin: 15px 0px 0px 20px;
@@ -72,16 +64,6 @@ OBSAH:
 @media screen and (max-width: 1023px) {
     body {
         font-size: 1.2em;
-    }
-    
-    header h1 {
-        font-size: 1.9em;
-        margin-top: 49px;
-        margin-bottom: 25px;
-    }
-
-    .h1-index {
-        max-height: 155px;
     }
 
     .logo {
@@ -136,17 +118,6 @@ OBSAH:
     
     header {
         max-height: 130px;
-    }
-    
-    header h1 {
-        font-size: 1.8em;
-        transform: translateY(10px);
-        margin-top: 46px;
-        margin-bottom: 21px;
-    }
-
-    .h1-index {
-        max-height: 140px;
     }
     
     header ul {
@@ -260,28 +231,6 @@ OBSAH:
         max-height: 100px;
     }
 
-    header h1 {
-        font-size: 1.6em;
-        margin-top: 37px;
-        margin-bottom: 30px;
-    }
-
-    .h1-long {
-        max-height: 130px;
-    }
-    
-    .h1-long h1 {
-        transform: translateY(22px);
-    }
-
-    .h1-index {
-        max-height: 140px;
-    }
-
-    .h1-index h1 {
-        margin-bottom: 24px;
-    }
-
     header ul li {
         margin: 6px 0;
         font-size: 15px;
@@ -388,10 +337,6 @@ OBSAH:
 
 
 @media screen and (max-width: 480px) {
-    .h1-long h1 {
-        transform: translateY(13px);
-    }
-
     .cookies-mini-notice {
         max-width: 220px;
     }
@@ -406,27 +351,7 @@ OBSAH:
     header {
         max-height: 80px;
     }
-
-    header h1 {
-        font-size: 1.5em;
-        transform: translateY(0px);
-        margin-top: 42px;
-        margin-bottom: 17px;
-    }
-
-    .h1-long {
-        height: 100px;
-    }
-
-    .h1-long h1 {
-        font-size: 1.4em;
-        transform: translateY(0px);
-    }
-
-    .h1-index h1 {
-        margin-bottom: 14px;
-    }
-
+    
     .logo {
         width: 93px;
         margin: 8px 0px 0px 10px;

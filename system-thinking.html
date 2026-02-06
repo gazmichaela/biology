@@ -42,100 +42,104 @@
 
 <body>
     <header>
-        <a href="index.html" tabindex="-1" aria-hidden="true">
-            <picture>
-                <source srcset="images/webp/logo.webp" type="image/webp">
-                <img src="images/png/logo.png" alt="Systémová biologie" class="logo" aria-hidden="true">
-            </picture>
-        </a>
-        <!-- <h1>Systémové myšlení</h1> -->
-
-        <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
-        <ul role="navigation">
-            <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
-                <picture>
-                    <source srcset="images/webp/home.webp" type="image/webp">
-                    <img src="images/png/home.png" alt="Domů" class="button-container" title="Vrátit se na hlavní stránku">
-                </picture>
-            </a>
-
-            <!-- Základy systémového myšlení -->
-            <li class="dropdown">
-                <div class="button-container">
-                    <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
-                    <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
-                </div>
-                <div class="dropdown-content" id="dropdown-content" tabindex="-1">
-                    <div class="sub-dropdown">
-                        <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
-                        <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
-                        <div class="sub-dropdown-content">
-                            <a href="system-approach.html" tabindex="0">Systémový přístup</a>
-                            <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
-                        </div>
+        <nav>
+            <!-- NAVIGACE PRO ŠÍŘKU NAD 1175PX (desktop) -->
+            <ul class="nav-desktop">
+                <li class="nav-left" aria-hidden="true">
+                    <a href="index.html" tabindex="-1" aria-hidden="true">
+                        <picture>
+                            <source srcset="images/webp/logo.webp" type="image/webp">
+                            <img src="images/png/logo.png" alt="Systémová biologie" class="logo" aria-hidden="true">
+                        </picture>
+                    </a>
+                </li>
+                <li class="nav-right nav-home">
+                    <a href="index.html" class="home-icon" aria-label="Přejít na domovskou stránku">
+                        <picture>
+                            <source srcset="images/webp/home.webp" type="image/webp">
+                            <img src="images/png/home.png" alt="Domů" title="Vrátit se na hlavní stránku">
+                        </picture>
+                    </a>
+                </li>
+                <li class="nav-right dropdown">
+                    <div class="button-container">
+                        <a href="system.html" class="main-button" tabindex="0">Úvod</a>
+                        <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
                     </div>
-                    <a href="system-theory.html" tabindex="0">Teorie systémů</a>
-                </div>
-            </li>
+                    <div class="dropdown-content" id="dropdown-content" tabindex="-1">
+                        <div class="sub-dropdown">
+                            <a href="system-introduction.html" class="centered" tabindex="0">Základní principy</a>
+                            <span class="sub-dropdown-toggle" aria-label="Dvě položky pod základními principy jsou rozbaleny" tabindex="0">&#9656;</span>
+                            <div class="sub-dropdown-content">
+                                <a href="system-approach.html" tabindex="0">Systémový přístup</a>
+                                <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
+                            </div>
+                        </div>
+                        <a href="system-theory.html" tabindex="0">Teorie systémů</a>
+                        <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
+                        <a href="life-origin.html" tabindex="0">Vznik života</a>
+                    </div>
+                </li>
+                <li class="nav-right dropdown">
+                    <div class="button-container">
+                        <a href="human.html" class="main-button" tabindex="0">Člověk</a>
+                        <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
+                    </div>
+                    <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
+                        <a href="cell.html" tabindex="0">Buněčné a nebuněčné organismy</a>
+                        <a href="tissues.html" tabindex="0">Tkáně</a>
+                        <a href="organ-system.html" tabindex="0">Orgánové soustavy</a>
+                        <a href="genetics.html" tabindex="0">Genetika</a>
+                    </div>
+                </li>
+                <li class="nav-right">
+                    <div class="button-container">
+                        <a href="environment.html" class="main-button" tabindex="0">Životní prostředí</a>
+                        <button class="dropdown-toggle-third dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
+                    </div>
+                    <div class="dropdown-content-third dropdown-content" id="dropdown-content-third" tabindex="-1">
+                        <a href="ecology-introduction.html" tabindex="0">Základy ekologie</a>
+                        <a href="ecosystems.html" tabindex="0">Ekosystémy</a>
+                        <a href="climate-change.html" tabindex="0">Klimatická změna</a>
+                        <a href="environmental-protection.html" tabindex="0">Ochrana prostředí</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- konec navigace pro šířku nad 1175px -->
 
-            <!-- Základy živých soustav **SECOND** -->
-            <li class="dropdown">
-                <div class="button-container"> 
-                    <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
-                    <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
-                </div>
-                <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
-                    <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
-                    <a href="life-origin.html" tabindex="0">Vznik života</a>
-                </div>
-            </li>
 
-            <!-- Buňka, Člověk -->
-            <div class="button-container">
-                <a href="cell.html" class="main-button-second" tabindex="0">Buněčné a nebuněčné organismy</a>
+            <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+            <!-- Burger menu tlačítko -->
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
             </div>
-            <div class="button-container">
-                <a href="human.html" class="main-button-second" tabindex="0">Člověk</a>
-            </div>
-        </ul>
-        <!-- konec navigace pro šířku nad 1175px -->
+    
+            <!-- Overlay pro zavření menu -->
+            <div class="menu-overlay" id="menuOverlay"></div>
 
+            <!-- Položky v mobilní navigaci -->
+            <div class="mobile-nav-container" id="mobileNav">
+                <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
+                <div class="mobile-nav-list">
 
-        <!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
-        <!-- Burger menu tlačítko -->
-        <div class="burger-menu" id="burgerMenu">
-            <div class="burger-line"></div>
-            <div class="burger-line"></div>
-            <div class="burger-line"></div>
-        </div>
-  
-        <!-- Overlay pro zavření menu -->
-        <div class="menu-overlay" id="menuOverlay"></div>
+                    <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
 
-        <!-- Mobilní navigace -->
-        <nav class="mobile-nav-container" id="mobileNav">
-            <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
-            <div class="mobile-nav-list">
-
-                <!-- Domů -->
-                <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
-
-                <!-- Základy systémového myšlení -->
-                <div class="mobile-expandable">
-                    <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
-                        <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
-                            <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
-                            <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
-                        <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
-         
-                    <!-- Základy živých soustav -->
-                    <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
-                        <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
-                        <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
-           
-                    <!-- Buňka, člověk -->
-                    <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
-                    <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                    <div class="mobile-expandable">
+                        <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
+                            <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
+                                <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
+                                <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
+                            <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
+            
+                        <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
+                            <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
+                            <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
+            
+                        <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
+                        <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -149,6 +153,7 @@
     
     <article>
         <section>
+            <!-- <h1>Systémové myšlení</h1> -->
             <div class="img-responsive">
                 <div class="img-wrapper img-right-top no-print">
                     <picture>

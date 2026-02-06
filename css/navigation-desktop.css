@@ -1,12 +1,12 @@
 /* DESKTOP NAVIGACE 
     Desktop navigace je zde myšlena jako navigace, která se zobrazí při šířce > 1175px.
     Navigace zobrazená při šířce ≤ 1175px je v navigation-mobile.css.
-    Od 2000px dochází k jiným mezerám mezi tlačítky v navigaci => viz responsiveness.css.
 */
 
 /*
 OBSAH:
- 1. Header ul
+ 1. Header nav-desktop
+    - logo
     - domeček
 
  2. Tlačítka v navigaci, dropdown
@@ -17,38 +17,52 @@ OBSAH:
 
 
 
-/* ==== 1. HEADER UL ==== */
-header ul {
+/* ==== 1. HEADER NAV-DESKTOP ==== */
+header .nav-desktop {
     list-style: none;
     margin: 12px auto 12px auto;
     display: flex;
-    justify-content: center;
-    padding: 1px 0;
+    align-items: center;
+    padding: 0;
     position: relative;
-    min-width: 1200px;
-    max-width: 2000px;
+    width: 80vw;
+    min-width: 1075px; /* Mít cca 100px méně než minimální šířku desktop navigace, než se objeví mobilní navigace (kvůli mezeře) */
+    max-width: 1800px;
+}
+
+header .nav-desktop a {
+    text-decoration: none;
+}
+
+/* Logo */
+.logo {
+    height: 43px; /* Jako výška navigace */
+    display: block;
+    opacity: 0; /* Na začátku je obrázek neviditelný */
+    animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
+}
+@keyframes showImage {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
 }
 
 /* Domeček */
-header ul .home-icon {
+header .nav-desktop .nav-home > a {
     display: inline-block;
-    position: relative;
-    text-decoration: none;
     pointer-events: none; /* Vypne interakci s celým kontejnerem */
-    margin-right: min(1.43vw, 45px);
-    margin-left: min(1.43vw, 45px);
 }
 
-header ul .home-icon img {
-    width: 25px;
-    height: auto;
-    /* margin-left: 10px; */
-    margin-top: 8px;
+header .nav-desktop .nav-home a img {
+    height: 23px; /* O 20px méně než výška navigace */
     pointer-events: auto; /* Zapne interakci pouze pro obrázek */
 }
 
 /* Pro změnu barvy domečku při hoveru (barva souboru je bílá) */
-header ul .home-icon:hover img {
+header .nav-desktop .nav-home a:hover img {
     filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%); /* Odpovídá přibližně barvě #309ce5 */
 }
 
@@ -60,8 +74,6 @@ header ul .home-icon:hover img {
 .button-container {
     display: flex;
     align-items: center;
-    margin-right: min(1.43vw, 50px);
-    margin-left: min(1.43vw, 50px);
     white-space: nowrap; /* Text se v tlačítkách nebude zalamovat */
 }
 
@@ -70,11 +82,20 @@ header ul .home-icon:hover img {
     color: #025227;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    text-decoration: none;
-    margin: 0;
+.nav-left {
+    margin-right: auto;
+}
+
+.nav-right {
+    margin: 0 min(1.8vw, 50px);
+}
+
+.nav-right:last-of-type {
+    margin-right: 0; /* Poslední tlačítko nebude mít mezeru vpravo */
+}
+
+.nav-home {
+    line-height: 0; /* Pro vertikální centrování domečku */
 }
 
 .main-button,
@@ -84,8 +105,7 @@ header ul .home-icon:hover img {
 .dropdown-toggle-third {
     background-color: #f0f9f0;
     color: #025227;
-    font-weight: bold;
-    text-decoration: none;
+    font-weight: 700;
     border-radius: 20px;
     font-size: 16px;
     border: none;
@@ -116,12 +136,13 @@ header ul .home-icon:hover img {
     border-bottom-left-radius: 0px;
     display: inline-flex;
     height: 43px;
-    margin-left: 2px;
+    margin-left: 2px; /* Mezera mezi hlavním tlačítkem a tlačítkem se šipkou */
     shape-outside: border-box;
 }
 
 .sub-dropdown-toggle {
-    margin-left: 5px;
+    margin-left: 8px;
+    margin-right: -3px;
     font-size: 16px;
     cursor: pointer;
     color: #025227;
@@ -130,13 +151,14 @@ header ul .home-icon:hover img {
 
 .sub-dropdown-toggle::before {
     content: '';
-    position: absolute;
-    top: -14.5px; /* Rozšíření aktivní oblasti nahoru */
-    right: -17px;  /* Zúžení aktivní oblasti zprava */
-    bottom: -9.5px; /* Rozšíření aktivní oblasti dolů */
-    left: -4.8px;   /* Zúžení aktivní oblasti zleva */
     z-index: 1;
-    border-top-right-radius: 5px; 
+    border-top-right-radius: 5px;
+    position: absolute;
+    /* Nastavení aktivní oblati: */
+    top: -14.5px;
+    right: -14px;
+    bottom: -9.5px;
+    left: -7.8px;
 }
 
 
@@ -201,13 +223,11 @@ header ul .home-icon:hover img {
 }
 
 .dropdown-content {
-    left: 50%; /* V polovině tlačítka*/
-    transform: translateX(-3%); /* Úprava umístění */
+    transform: translateX(-37.58px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 122.42 */
 }
 
 .dropdown-content-second {
-    left: 50%; /* V polovině tlačítka*/
-    transform: translateX(-20%); /* Úprava umístění */
+    transform: translateX(-24.83px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 135.17 */
 }
 
 .sub-dropdown-content {
@@ -228,8 +248,8 @@ header ul .home-icon:hover img {
 
 
 .sub-dropdown-content.show {
-    opacity: 1; /* Stane se plně viditelným */
-    visibility: visible; /* Stane se interaktivním */
+    opacity: 1;
+    visibility: visible;
     transition: opacity 0.3s ease, visibility 0s 0s; /* Bez zpoždění pro visibility při zobrazení */
 }
 
@@ -239,8 +259,7 @@ header ul .home-icon:hover img {
 .dropdown-content-second a {
     padding: 10px;
     color: #025227;
-    text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
     display: block;
 }
 
@@ -255,12 +274,11 @@ header ul .home-icon:hover img {
 /* Položka úvod */
 .dropdown-content a.centered {
     display: flex;
-    justify-content: flex-start; /* Zarovná text doleva, ale posune ho padding */
+    justify-content: center; /* Zarovná text doleva, ale posune ho padding */
     align-items: center;
     width: 100%;
     color: #025227;
-    text-decoration: none;
-    padding-left: 53px;
+    padding-left: 33.03px; /* Běžná šířka ".dropdown-content a" mínus šířka ".dropdown-content a.centered" plus padding ".dropdown-content a", tj. 150 - 126.97 + 10 */
 }
 
 .dropdown-content a.centered:hover {

@@ -2,7 +2,7 @@
     Toto je výchozí CSS soubor se základními styly a styly neroztříděnými do vlastních souborů.
     Zpravidla je zde většina stylů, které se využívají na většině stránek a které nejsou příliš dlouhé.
     Všechna nastavení pro obrázky a zdroje u obrázku jsou v img.css.
-    Navigace (včetně tlačítek a domečku v ní) má styly v navigation.css.
+    Navigace (včetně tlačítek a domečku v ní) má styly v navigation-desktop.css, příp. navigaton-mobile.css.
     Některé styly mohou být v JS.
 */
 
@@ -19,17 +19,15 @@ OBSAH:
     - footer
     - základní třídy
 
- 3. Logo (vlevo v headeru)
+ 3. Cookies (vyskakovací okno)
 
- 4. Cookies (vyskakovací okno)
+ 4. Videa
 
- 5. Videa
+ 5. Tabulky
 
- 6. Tabulky
+ 6. Význam slov při najetí myší (tooltipy)
 
- 7. Význam slov při najetí myší (tooltipy)
-
- 8. Tmavý režim
+ 7. Tmavý režim
     - tlačítko pro přepínání světlého/tmavého režimu
     - ikona slunce
     - přepínání chování změny tmavého/světlého režimu ve footeru
@@ -42,11 +40,11 @@ OBSAH:
 
 /* Variabilní fonty */
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
-  font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Inter';
+    src: url('../fonts/Inter/Inter-VariableFont_opsz-wght.woff2') format('woff2');
+    font-weight: 100 900; /* Definuje rozsah váhy od 100 do 900 */
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -60,50 +58,50 @@ OBSAH:
 /* Statické fallback řezy */
 @font-face {
   font-family: 'Inter';
-  src: url('../fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
-  font-weight: 400; /* Váha pro "normal" */
-  font-style: normal;
-  font-display: swap;
+    src: url('../fonts/Inter/static/Inter_18pt-Regular.woff2') format('woff2');
+    font-weight: 400; /* Váha pro "normal" */
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter/static/Inter_18pt-Bold.woff2') format('woff2');
-  font-weight: 700; /* Váha pro "bold" */
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Inter';
+    src: url('../fonts/Inter/static/Inter_18pt-Bold.woff2') format('woff2');
+    font-weight: 700; /* Váha pro "bold" */
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter/static/Inter_18pt-Italic.woff2') format('woff2');
-  font-weight: 400; /* Váha pro "normal" */
-  font-style: italic;
-  font-display: swap;
+    font-family: 'Inter';
+    src: url('../fonts/Inter/static/Inter_18pt-Italic.woff2') format('woff2');
+    font-weight: 400; /* Váha pro "normal" */
+    font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter/static/Inter_18pt-BoldItalic.woff2') format('woff2');
-  font-weight: 700; /* Váha pro "bold" */
-  font-style: italic;
-  font-display: swap;
+    font-family: 'Inter';
+    src: url('../fonts/Inter/static/Inter_18pt-BoldItalic.woff2') format('woff2');
+    font-weight: 700; /* Váha pro "bold" */
+    font-style: italic;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter/static/Inter_18pt-SemiBold.woff2') format('woff2');
-  font-weight: 600; /* Váha pro "semi-bold" (600) */
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Inter';
+    src: url('../fonts/Inter/static/Inter_18pt-SemiBold.woff2') format('woff2');
+    font-weight: 600; /* Váha pro "semi-bold" (600) */
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/Inter/static/Inter_18pt-ExtraBold.woff2') format('woff2');
-  font-weight: 800; /* Váha pro "extra-bold" (800) */
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Inter';
+    src: url('../fonts/Inter/static/Inter_18pt-ExtraBold.woff2') format('woff2');
+    font-weight: 800; /* Váha pro "extra-bold" (800) */
+    font-style: normal;
+    font-display: swap;
 }
 
 
@@ -128,9 +126,8 @@ body {
     max-width: 100%; /* Respektuje scrollbar a nezpůsobuje přetečení jako 100vw */
 }
 
-/* Zajistí všem tlačítkům, že se použije výchozí font a nebude to přepsáno user agentem */
 body button {
-    font-family: inherit;
+    font-family: inherit; /* Zajistí všem tlačítkům, že se použije výchozí font a nebude to přepsáno user agentem */
 }
 
 body header {
@@ -146,15 +143,6 @@ header p {
     font-weight: 600;
     margin-left: 20px;
     margin-right: 20px;
-}
-
-header h1 {
-    font-size: 2em;
-    margin: 50px 14px 26px 14px;
-}
-
-.h1-index h1 {
-    margin-bottom: 0;
 }
 
 noscript h2 {
@@ -374,46 +362,7 @@ footer p {
 
 
 
-/* ==== 3. LOGO (VLEVO V HEADERU) ==== */
-.logo {
-    /* width: 240px; */
-    width: 100%;
-    height: 43px;
-    /* height: auto; */
-    display: block;
-    /* position: absolute;
-    left: 0;
-    top: 0; */
-    z-index: 1000;
-    margin-top: 12px;
-    margin-right: 1.43vw;
-    margin: auto;
-    opacity: 0;               /* Na začátku je obrázek neviditelný */
-    animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
-    float: none;
-}
-@keyframes showImage {
-    0% {
-      opacity: 0;  /* Začátek animace (neviditelný) */
-    }
-    100% {
-      opacity: 1;  /* Konec animace (viditelný) */
-    }
-}
-
-.logo a {
-    display: inline-block;
-    width: fit-content; 
-    height: auto; 
-    position: relative;
-    text-decoration: none;
-    left: 15%; 
-    top: 15%; 
-}
-
-
-
-/* ==== 4. COOKIES (VYSKAKOVACÍ OKNO) ==== */
+/* ==== 3. COOKIES (VYSKAKOVACÍ OKNO) ==== */
 
 /* Styl pro vyskakovací okno */
 .cookies-mini-notice {
@@ -466,7 +415,7 @@ footer p {
 
 
 
-/* ==== 5. VIDEA ==== */
+/* ==== 4. VIDEA ==== */
 .video-wrapper {
     max-width: 1600px;
     width: 75%;
@@ -491,7 +440,7 @@ footer p {
 
 
 
-/* ==== 6. TABULKY ==== */
+/* ==== 5. TABULKY ==== */
 table {
     width: 90%;
     max-width: 1800px;
@@ -545,7 +494,7 @@ table td:first-child {
 
 
 
-/* ==== 7. VÝZNAM SLOV PŘI NAJETÍ MYŠÍ (TOOLTIPY) ==== */
+/* ==== 6. VÝZNAM SLOV PŘI NAJETÍ MYŠÍ (TOOLTIPY) ==== */
 .tooltip {
     position: relative;
     cursor: help;
@@ -595,9 +544,7 @@ table td:first-child {
 
 
 
-
-
-/* ==== 8. TMAVÝ REŽIM ==== */
+/* ==== 7. TMAVÝ REŽIM ==== */
 
 /* Tlačítko ve světlém režimu */
 .dark-mode-toggle {

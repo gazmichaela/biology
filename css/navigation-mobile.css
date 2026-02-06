@@ -213,7 +213,11 @@ html.menu-open body {
 
 /* ==== 3. RESPONZIVITA MOBILNÍ NAVIGACE ==== */
 @media screen and (max-width: 1175px) {
-    header ul * {
+    header .nav-desktop {
+        visibility: hidden;
+    }
+
+    header .nav-desktop * {
         display: none !important;
     }
 
@@ -238,10 +242,6 @@ html.menu-open body {
     .no-scroll {
         overflow: hidden !important;
         height: 100vh !important;
-    }
-    
-    header ul {
-        visibility: hidden;
     }
 
     /* Zabrání scrollování stránky, když je menu otevřené */
