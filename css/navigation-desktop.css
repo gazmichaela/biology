@@ -66,6 +66,13 @@ header .nav-desktop .nav-home a:hover img {
     filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%); /* Odpovídá přibližně barvě #309ce5 */
 }
 
+/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
+body:not(.using-mouse) .nav-home a:focus,
+body:not(.using-mouse) .nav-home a:focus-visible {
+  outline: black solid 2px;
+  border-radius: 3px;
+  outline-offset: 3px;
+}
 
 
 /* ==== 2. TLAČÍTKA V NAVIGACI, DROPDOWN ==== */
@@ -99,7 +106,6 @@ header .nav-desktop .nav-home a:hover img {
 }
 
 .main-button,
-.main-button-second,
 .dropdown-toggle,
 .dropdown-toggle-second,
 .dropdown-toggle-third {
@@ -122,10 +128,11 @@ header .nav-desktop .nav-home a:hover img {
     height: 19px;
 }
 
-.main-button-second {
-    border-top-right-radius: 20px; 
-    border-bottom-right-radius: 20px;
-    height: 19px;
+/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
+body:not(.using-mouse) .main-button:focus,
+body:not(.using-mouse) .main-button:focus-visible {
+    outline: black solid 2px;
+    outline-offset: -1px;
 }
 
 .dropdown-toggle,
@@ -140,6 +147,17 @@ header .nav-desktop .nav-home a:hover img {
     shape-outside: border-box;
 }
 
+/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
+body:not(.using-mouse) .dropdown-toggle:focus,
+body:not(.using-mouse) .dropdown-toggle:focus-visible,
+body:not(.using-mouse) .dropdown-toggle-second:focus,
+body:not(.using-mouse) .dropdown-toggle-second:focus-visible,
+body:not(.using-mouse) .dropdown-toggle-third:focus,
+body:not(.using-mouse) .dropdown-toggle-third:focus-visible {
+    outline: black solid 2px;
+    outline-offset: -1px;
+}
+
 .sub-dropdown-toggle {
     margin-left: 8px;
     margin-right: -3px;
@@ -147,6 +165,8 @@ header .nav-desktop .nav-home a:hover img {
     cursor: pointer;
     color: #025227;
     position: relative;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .sub-dropdown-toggle::before {
@@ -155,15 +175,20 @@ header .nav-desktop .nav-home a:hover img {
     border-top-right-radius: 5px;
     position: absolute;
     /* Nastavení aktivní oblati: */
-    top: -14.5px;
+    top: -19.5px;
     right: -14px;
-    bottom: -9.5px;
+    bottom: -19.5px;
     left: -7.8px;
 }
 
+/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
+body:not(.using-mouse) .sub-dropdown-toggle:focus,
+body:not(.using-mouse) .sub-dropdown-toggle:focus-visible {
+    outline: black solid 2px;
+    border-radius: 2px;
+}
 
 .main-button:hover,
-.main-button-second:hover,
 .dropdown-toggle:hover,
 .dropdown-toggle-second:hover,
 .dropdown-toggle-third:hover {
@@ -183,9 +208,25 @@ header .nav-desktop .nav-home a:hover img {
     color: white;
 }
 
-.dropdown-content.show-on-load,
-.dropdown-content-second.show-on-load {
-  display: block;
+/* Prosím zde doplnit text: jde o zabarvení toggle když je menu otevřené kliknutím*/
+body:not(.using-mouse) .dropdown-toggle:focus,
+body:not(.using-mouse) .dropdown-toggle-second:focus,
+body:not(.using-mouse) .dropdown-toggle-third:focus,
+.dropdown-toggle.is-open,
+.dropdown-toggle-second.is-open,
+.dropdown-toggle-third.is-open {
+    background-color: #309ce5;
+    color: white;
+}
+
+/* Prosím zde doplnit text: jde o zabarvení toggle když je menu otevřené kliknutím*/
+body:not(.using-mouse) .dropdown-toggle:focus .arrow,
+body:not(.using-mouse) .dropdown-toggle-second:focus .arrow,
+body:not(.using-mouse) .dropdown-toggle-third:focus .arrow,
+.dropdown-toggle.is-open .arrow,
+.dropdown-toggle-second.is-open .arrow,
+.dropdown-toggle-third.is-open .arrow {
+    color: white;
 }
 
 .sub-dropdown {
@@ -197,7 +238,8 @@ header .nav-desktop .nav-home a:hover img {
 }
 
 .dropdown-content,
-.dropdown-content-second {
+.dropdown-content-second,
+.dropdown-content-third {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0s 0.3s; /* Důležité: zpoždění visibility */
@@ -214,20 +256,16 @@ header .nav-desktop .nav-home a:hover img {
     font-size: 16px; /* Pro zachování stejného písma při různých nastavení prohlížeče => navigace je centrovaná */
 }
 
-.dropdown-content.show,
-.dropdown-content-second.show {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease-in-out, visibility 0s; /* Bez zpoždění pro visibility */
-}
-
 .dropdown-content {
     transform: translateX(-37.58px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 122.42 */
 }
 
 .dropdown-content-second {
     transform: translateX(-24.83px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 135.17 */
+}
+
+.dropdown-content-third {
+    transform: translateX(49.44px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 209.44 */
 }
 
 .sub-dropdown-content {
@@ -247,16 +285,10 @@ header .nav-desktop .nav-home a:hover img {
 }
 
 
-.sub-dropdown-content.show {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease, visibility 0s 0s; /* Bez zpoždění pro visibility při zobrazení */
-}
-
-
 /* --- Pro elementy "a" --- */
 .dropdown-content a,
-.dropdown-content-second a {
+.dropdown-content-second a,
+.dropdown-content-third a {
     padding: 10px;
     color: #025227;
     font-weight: 700;
@@ -266,12 +298,17 @@ header .nav-desktop .nav-home a:hover img {
 .dropdown-content a:hover,
 .dropdown-content a.centered:hover,
 .dropdown-content-second a:hover,
-.sub-dropdown-content a:hover  {
+.dropdown-content-third a:hover,
+.sub-dropdown-content a:hover,
+.dropdown-content a.centered.keyboard-hover, 
+.dropdown-content a.keyboard-hover,
+.dropdown-content-second a.keyboard-hover,
+.dropdown-content-third a.keyboard-hover {
     background-color: #309ce5;
     color: white;
 }
 
-/* Položka úvod */
+/* Položka základní principy */
 .dropdown-content a.centered {
     display: flex;
     justify-content: center; /* Zarovná text doleva, ale posune ho padding */
@@ -288,15 +325,41 @@ header .nav-desktop .nav-home a:hover img {
 
 /* --- Aktivní položky --- */
 .main-button.active,
-.main-button-second.active,
 .dropdown-content a.active,
-.dropdown-content-second a.active {
+.dropdown-content-second a.active,
+.dropdown-content-third a.active,
+.dropdown-content a.active.keyboard-hover,
+.dropdown-content-second a.active.keyboard-hover,
+.dropdown-content-third a.active.keyboard-hover {
     background-color: #1c77e8;
     color: white;
 }
 
 .button-container a.active:hover,
 .dropdown-content a.active:hover,
-.dropdown-content-second a.active:hover {
+.dropdown-content-second a.active:hover,
+.dropdown-content-third a.active:hover,
+.dropdown-content a.active.keyboard-hover,
+.dropdown-content-second a.active.keyboard-hover,
+.dropdown-content-third a.active.keyboard-hover {
     background-color: #388E3C;
+}
+
+/* Prosím zde doplnit text: jde o zabarvení TABu na main tlačítku */
+.main-button.active.keyboard-focus {
+    background-color: #388E3C;
+    color: white;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Prosím zde doplnit text: jde o vypnutí automatického outline když použiješ myš*/
+body.using-mouse .dropdown-content a:hover,
+body.using-mouse .dropdown-content a.centered:hover,
+body.using-mouse .dropdown-content-second a:hover,
+body.using-mouse .dropdown-content-third a:hover,
+body.using-mouse .sub-dropdown-content a:hover,
+body.using-mouse .dropdown-content a.keyboard-hover,
+body.using-mouse .dropdown-content-second a.keyboard-hover,
+body.using-mouse .dropdown-content-third a.keyboard-hover {
+    outline: none;
 }

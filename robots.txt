@@ -1,0 +1,12 @@
+# robots.txt pro https://gazmichaela.github.io/biology/
+
+User-agent: *
+Allow: /
+
+# Neindexovat specifické soubory
+Disallow: /google60141997a1cad3ad.html
+Disallow: /.vscode/
+Disallow: /not used/
+
+# Odkaz na sitemapu
+Sitemap: https://gazmichaela.github.io/biology/sitemap.xml
