@@ -8,7 +8,7 @@
  * @author Michaela Gažová
  * @version 2.1.1
  * @since 2025-05-28
- * @updated 2026-01-09
+ * @updated 2026-03-19
  * @license MIT
  */
 
@@ -174,10 +174,10 @@
                 key: key,
                 newValue: value,
                 url: location.href,
-              })
+              }),
             );
           },
-          this.browserType === "firefox" ? 100 : 0
+          this.browserType === "firefox" ? 100 : 0,
         );
       } catch (e) {}
     }
@@ -227,7 +227,7 @@
         .dark-mode-toggle .icon-anim {
           transition: transform 0.25s, opacity 0.25s;
         }  
-      `)
+      `),
       );
       document.head.appendChild(svgStyle);
 
@@ -434,15 +434,21 @@
     _resetSystemPref() {
       this._storage.remove("darkMode");
       this.isUsingSystemPreference = true;
-      const prefersDark =
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
-      this._applyMode(prefersDark);
-      this.isDarkMode = prefersDark;
-      this._updateIcon();
-      this._toggleBtn.title = prefersDark
-        ? "Přepnout na světlý režim"
-        : "Přepnout na tmavý režim";
+
+      const applySystem = () => {
+        const prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        this._applyMode(prefersDark);
+        this.isDarkMode = prefersDark;
+        this._updateIcon();
+        this._toggleBtn.title = prefersDark
+          ? "Přepnout na světlý režim"
+          : "Přepnout na tmavý režim";
+      };
+
+      applySystem();
+      setTimeout(applySystem, 50);
     }
 
     _createToggle() {
@@ -566,7 +572,11 @@
     _createReset() {
       const resetBtn = document.getElementById("resetSystemPreferences");
       if (resetBtn) {
-        resetBtn.textContent = "Preferovat světlý/tmavý režim prohlížeče";
+        const toggleVisible = this._getPref("darkModeToggleVisible");
+        resetBtn.textContent =
+          toggleVisible === "false"
+            ? "Přepínat ručně světlý/tmavý režim prohlížeče"
+            : "Preferovat světlý/tmavý režim prohlížeče";
         resetBtn.addEventListener("click", () => {
           if (this._toggleBtn && this._toggleBtn.style.display === "none") {
             this._toggleBtn.style.display = "flex";
@@ -616,6 +626,7 @@
       // Synchronizace mezi taby
       window.addEventListener("storage", (e) => {
         if (e.key === "darkMode") {
+          if (e.newValue === null) return; // ignoruj mazání
           const newValue = e.newValue === "true";
           if (this.isDarkMode !== newValue) {
             this.isDarkMode = newValue;
@@ -630,6 +641,7 @@
           const syncChannel = new BroadcastChannel("darkModeSync");
           syncChannel.addEventListener("message", (e) => {
             if (e.data.key === "darkMode") {
+              if (e.data.value === null) return; // ignoruj mazání
               const newValue = e.data.value === "true";
               if (this.isDarkMode !== newValue) {
                 this.isDarkMode = newValue;
@@ -639,6 +651,17 @@
             }
           });
         } catch (e) {}
+      }
+      if (window.matchMedia) {
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            if (this.isUsingSystemPreference) {
+              this.isDarkMode = e.matches;
+              this._applyMode(e.matches);
+              this._updateIcon();
+            }
+          });
       }
     }
 

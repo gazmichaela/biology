@@ -90,7 +90,7 @@ Kvůli DOMContentLoaded listeneru a použití requestAnimationFrame se tooltipy 
 ```
 
 ## Další informace:
-Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnou vylepšení.
+Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
 
 __Autor:__ Michaela Gažová
 

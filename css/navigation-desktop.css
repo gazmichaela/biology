@@ -66,14 +66,6 @@ header .nav-desktop .nav-home a:hover img {
     filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%); /* Odpovídá přibližně barvě #309ce5 */
 }
 
-/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
-body:not(.using-mouse) .nav-home a:focus,
-body:not(.using-mouse) .nav-home a:focus-visible {
-  outline: black solid 2px;
-  border-radius: 3px;
-  outline-offset: 3px;
-}
-
 
 /* ==== 2. TLAČÍTKA V NAVIGACI, DROPDOWN ==== */
 
@@ -128,13 +120,6 @@ body:not(.using-mouse) .nav-home a:focus-visible {
     height: 19px;
 }
 
-/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
-body:not(.using-mouse) .main-button:focus,
-body:not(.using-mouse) .main-button:focus-visible {
-    outline: black solid 2px;
-    outline-offset: -1px;
-}
-
 .dropdown-toggle,
 .dropdown-toggle-second,
 .dropdown-toggle-third {
@@ -145,17 +130,6 @@ body:not(.using-mouse) .main-button:focus-visible {
     height: 43px;
     margin-left: 2px; /* Mezera mezi hlavním tlačítkem a tlačítkem se šipkou */
     shape-outside: border-box;
-}
-
-/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
-body:not(.using-mouse) .dropdown-toggle:focus,
-body:not(.using-mouse) .dropdown-toggle:focus-visible,
-body:not(.using-mouse) .dropdown-toggle-second:focus,
-body:not(.using-mouse) .dropdown-toggle-second:focus-visible,
-body:not(.using-mouse) .dropdown-toggle-third:focus,
-body:not(.using-mouse) .dropdown-toggle-third:focus-visible {
-    outline: black solid 2px;
-    outline-offset: -1px;
 }
 
 .sub-dropdown-toggle {
@@ -179,13 +153,6 @@ body:not(.using-mouse) .dropdown-toggle-third:focus-visible {
     right: -14px;
     bottom: -19.5px;
     left: -7.8px;
-}
-
-/* Prosím zde doplnit text: jde o vypnutí automatického outline TABu a šipek */
-body:not(.using-mouse) .sub-dropdown-toggle:focus,
-body:not(.using-mouse) .sub-dropdown-toggle:focus-visible {
-    outline: black solid 2px;
-    border-radius: 2px;
 }
 
 .main-button:hover,
@@ -350,16 +317,4 @@ body:not(.using-mouse) .dropdown-toggle-third:focus .arrow,
     background-color: #388E3C;
     color: white;
     transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-/* Prosím zde doplnit text: jde o vypnutí automatického outline když použiješ myš*/
-body.using-mouse .dropdown-content a:hover,
-body.using-mouse .dropdown-content a.centered:hover,
-body.using-mouse .dropdown-content-second a:hover,
-body.using-mouse .dropdown-content-third a:hover,
-body.using-mouse .sub-dropdown-content a:hover,
-body.using-mouse .dropdown-content a.keyboard-hover,
-body.using-mouse .dropdown-content-second a.keyboard-hover,
-body.using-mouse .dropdown-content-third a.keyboard-hover {
-    outline: none;
 }

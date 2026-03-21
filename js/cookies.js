@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy cookie notifikací s cross-tab synchronizací
  * @author Michaela Gažová
- * @version 3.2.1
+ * @version 3.2.2
  * @since 2025-05-10
- * @updated 2026-01-09
+ * @updated 2026-03-15
  * @license MIT
  */
 
@@ -20,7 +20,6 @@
       this.config = {
         showDelay: options.showDelay || 1000,
         checkInterval: options.checkInterval || 1500,
-        enableLogging: options.enableLogging || false,
         showClass: options.showClass || "show",
         storageKey: options.storageKey || "cookiesAccepted",
         syncKey: options.syncKey || "cookiesSync",
@@ -67,11 +66,6 @@
         }
 
         this.isInitialized = true;
-        this._log(
-          `Initialized (Firefox: ${this.state.isFirefox}, Chrome: ${
-            this.state.isChrome
-          }, Private: ${this._isPrivateMode()})`
-        );
       } catch (error) {
         console.error(`Cookie manager init failed:`, error);
       }
@@ -88,7 +82,7 @@
     _validateElements() {
       if (!this.elements.cookieNotice) {
         throw new Error(
-          `Cookie notice not found: ${this.config.cookieNoticeSelector}`
+          `Cookie notice not found: ${this.config.cookieNoticeSelector}`,
         );
       }
     }
@@ -171,7 +165,7 @@
               },
               () => {
                 this.state.privateModeDetected = true;
-              }
+              },
             );
           }
         }
@@ -250,7 +244,7 @@
             break;
           }
         } catch (error) {
-          this._log(`Storage error: ${error.message}`, "warn");
+          console.error(`Storage error: ${error.message}`);
         }
       }
       if (op === "get") return result;
@@ -267,7 +261,7 @@
         setItem: (k, v) => {
           const maxAge = 365 * 24 * 60 * 60;
           let cookieString = `${k}=${encodeURIComponent(
-            v
+            v,
           )}; max-age=${maxAge}; path=/`;
 
           // Pro Firefox NIKDY nepřidávat domain
@@ -283,7 +277,6 @@
           cookieString += "; SameSite=Lax";
           if (location.protocol === "https:") cookieString += "; Secure";
           document.cookie = cookieString;
-          this._log(`Cookie set: ${cookieString}`);
         },
         getItem: (k) => {
           const name = `${k}=`;
@@ -334,10 +327,10 @@
         });
         setTimeout(
           () => window.dispatchEvent(storageEvent),
-          this.state.isFirefox ? 100 : 0
+          this.state.isFirefox ? 100 : 0,
         );
       } catch (error) {
-        this._log(`Broadcast error: ${error.message}`, "warn");
+        console.error(`Broadcast error: ${error.message}`);
       }
     }
 
@@ -346,10 +339,10 @@
         window.dispatchEvent(
           new CustomEvent("cookieManagerSync", {
             detail: { timestamp, key: this.config.storageKey },
-          })
+          }),
         );
       } catch (error) {
-        this._log(`Sync trigger error: ${error.message}`, "warn");
+        console.error(`Sync trigger error: ${error.message}`);
       }
     }
 
@@ -369,7 +362,6 @@
       if (this.showTimeout) clearTimeout(this.showTimeout);
       this.showTimeout = setTimeout(() => {
         this.elements.cookieNotice.classList.add(this.config.showClass);
-        this._log("Notice shown");
       }, this.config.showDelay);
     }
 
@@ -377,23 +369,18 @@
       const { cookieNotice } = this.elements;
       if (cookieNotice) {
         cookieNotice.classList.remove(this.config.showClass);
-        this._log("Notice hidden");
       }
     }
 
     _onAcceptClick() {
       this._hideNotice();
       if (!this._isPrivateMode()) {
-        const success = this._storageOp("set");
-        this._log(
-          success ? "Cookies accepted & saved" : "Failed to save cookies"
-        );
+        this._storageOp("set");
       } else {
         try {
           sessionStorage.setItem(this.config.storageKey, "true");
-          this._log("Cookies accepted (private mode - saved to session)");
         } catch (e) {
-          this._log("Cookies accepted (private mode - not saved)");
+          console.error(`Failed to save cookies to session: ${e.message}`);
         }
       }
     }
@@ -405,9 +392,7 @@
       if (lastPrivateMode !== null && lastPrivateMode !== currentPrivateMode) {
         if (currentPrivateMode) {
           this._showNotice();
-          this._log("Switched to private mode - showing notice");
         } else {
-          this._log("Switched from private mode - checking saved state");
           setTimeout(() => this._updateNoticeState(), 200);
         }
       }
@@ -419,11 +404,10 @@
       const delay = this.state.isFirefox ? 150 : shouldShow ? 100 : 200;
       setTimeout(() => {
         const isVisible = this.elements.cookieNotice?.classList.contains(
-          this.config.showClass
+          this.config.showClass,
         );
         if (shouldShow !== isVisible) {
           shouldShow ? this._showNotice() : this._hideNotice();
-          this._log(shouldShow ? "Showing notice" : "Hiding notice");
         }
       }, delay);
     }
@@ -433,9 +417,6 @@
       const wasPrivate = this.state.lastPrivateMode;
       const isPrivateNow = this._isPrivateMode();
       if (wasPrivate !== isPrivateNow) {
-        this._log(
-          "Private mode changed on focus: " + wasPrivate + " -> " + isPrivateNow
-        );
         this.state.lastPrivateMode = isPrivateNow;
         if (isPrivateNow) setTimeout(() => this._showNotice(), 100);
       }
@@ -443,7 +424,7 @@
         () => {
           this._updateNoticeState();
         },
-        this.state.isFirefox ? 200 : 50
+        this.state.isFirefox ? 200 : 50,
       );
     }
 
@@ -452,10 +433,9 @@
         event.key === this.config.storageKey ||
         event.key === this.config.syncKey
       ) {
-        this._log("Storage event received: " + event.key);
         setTimeout(
           () => this._updateNoticeState(),
-          this.state.isFirefox ? 100 : 50
+          this.state.isFirefox ? 100 : 50,
         );
       }
     }
@@ -467,9 +447,6 @@
       const syncInterval = this.state.isFirefox ? 3000 : 2000;
       this.intervals.check = setInterval(this.checkPrivateMode, checkInterval);
       this.intervals.sync = setInterval(this.forcedSync, syncInterval);
-      this._log(
-        `Monitoring started (check: ${checkInterval}ms, sync: ${syncInterval}ms)`
-      );
     }
 
     _forcedSync() {
@@ -489,13 +466,12 @@
           const syncValue = getSource();
           if (syncValue && syncValue !== this.state.lastSyncValue) {
             this.state.lastSyncValue = syncValue;
-            this._log("Forced sync triggered: " + syncValue);
             const delay = this.state.isFirefox ? 100 : 50;
             setTimeout(() => this._updateNoticeState(), delay);
             return;
           }
         } catch (error) {
-          this._log(`Sync source error: ${error.message}`, "warn");
+          console.error(`Sync source error: ${error.message}`);
         }
       }
     }
@@ -508,31 +484,25 @@
       window.addEventListener("storage", this.handleStorageEvent);
       window.addEventListener("cookieManagerSync", (event) => {
         if (event.detail.key === this.config.storageKey) {
-          this._log("Custom sync event received");
           setTimeout(
             () => this._updateNoticeState(),
-            this.state.isFirefox ? 100 : 50
+            this.state.isFirefox ? 100 : 50,
           );
         }
       });
       if (window.BroadcastChannel) {
-        try {
-          this.broadcastChannel = new BroadcastChannel("cookieManager");
-          this.broadcastChannel.addEventListener("message", (event) => {
-            if (
-              event.data.type === "cookieChange" &&
-              event.data.key === this.config.storageKey
-            ) {
-              this._log("Broadcast message received");
-              setTimeout(
-                () => this._updateNoticeState(),
-                this.state.isFirefox ? 100 : 50
-              );
-            }
-          });
-        } catch (error) {
-          this._log("BroadcastChannel not available", "warn");
-        }
+        this.broadcastChannel = new BroadcastChannel("cookieManager");
+        this.broadcastChannel.addEventListener("message", (event) => {
+          if (
+            event.data.type === "cookieChange" &&
+            event.data.key === this.config.storageKey
+          ) {
+            setTimeout(
+              () => this._updateNoticeState(),
+              this.state.isFirefox ? 100 : 50,
+            );
+          }
+        });
       }
       // Fallback na storage events pro starší prohlížeče
       window.addEventListener("focus", this.handleWindowFocus);
@@ -555,15 +525,6 @@
         });
         this.intervals = { check: null, sync: null };
       };
-      this._log("Events bound");
-    }
-
-    _log(message, level = "info") {
-      if (!this.config.enableLogging) return;
-      const logMethod = console[level] || console.log;
-      logMethod(
-        `[CookieManager${this.state.isFirefox ? " Firefox" : ""}] ${message}`
-      );
     }
 
     show() {
@@ -578,30 +539,27 @@
         try {
           sessionStorage.removeItem(this.config.storageKey);
         } catch (e) {
-          this._log(`SessionStorage cleanup failed: ${error.message}`, "warn");
+          console.error(`SessionStorage cleanup failed: ${e.message}`);
         }
         setTimeout(
           () => this._updateNoticeState(),
-          this.state.isFirefox ? 150 : 100
+          this.state.isFirefox ? 150 : 100,
         );
-        this._log("Reset completed");
       } catch (error) {
-        this._log("Reset failed: " + error.message, "warn");
+        console.error(`Reset failed: ${error.message}`);
       }
     }
     refresh() {
       this._cacheElements();
       setTimeout(
         () => this._updateNoticeState(),
-        this.state.isFirefox ? 100 : 50
+        this.state.isFirefox ? 100 : 50,
       );
-      this._log("Refreshed");
     }
     destroy() {
       if (this._unbindEvents) this._unbindEvents();
       this.elements = {};
       this.isInitialized = false;
-      this._log("Destroyed");
     }
 
     getState() {
@@ -614,7 +572,7 @@
         cookiesAccepted: this._storageOp("get"),
         noticeVisible:
           this.elements.cookieNotice?.classList.contains(
-            this.config.showClass
+            this.config.showClass,
           ) || false,
         domain: this.config.domain,
         config: this.config,
@@ -625,7 +583,6 @@
   let cookieManager;
   document.addEventListener("DOMContentLoaded", function () {
     cookieManager = new CookieManager({
-      enableLogging: false,
       firefoxMode: navigator.userAgent.toLowerCase().includes("firefox"),
       forceCookies: navigator.userAgent.toLowerCase().includes("firefox"),
       domain: window.location.hostname.includes(".")

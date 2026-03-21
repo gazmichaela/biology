@@ -1,23 +1,14 @@
 # dropdowns.js
 
 ## Úvod
-Tento skript řeší správu víceúrovňových dropdown menu (hlavní menu, druhé menu a submenu) u desktop navigace.
-Cílem je zajistit plynulé chování jak na desktopu (hover, klik), tak i při použití klávesnice. Umí si také zapamatovat stav menu a po obnovení stránky je znovu otevřít.
+Tento script řeší správu víceúrovňových dropdown menu (první menu, druhé menu, třetí menu a submenu) u desktop navigace. Zajišťuje jejich správné otevírání, zavírání a plynulé chování při práci s myší i klávesnicí.
 
 ## Jak to funguje:
-`DropdownManager` sleduje tři typy menu:
+`DropdownManager` spravuje jednotlivé dropdowny a hlídá jejich stav – jestli jsou otevřené, jakým způsobem byly aktivovány a jak se uživatel pohybuje mezi jejich prvky.
 
-- hlavní dropdown (`.dropdown-toggle`, `.dropdown-content`),
+Každý dropdown funguje jako samostatná instance, takže se navzájem neovlivňují.
 
-- druhé dropdown (`.dropdown-toggle-second`, `.dropdown-content-second`),
-
-- submenu (`.sub-dropdown-toggle`, `.sub-dropdown-content`).
-
-Každé menu má vlastní logiku zobrazování a skrývání.
-
-Součástí je tzv. ___dead zone___, která zabraňuje nechtěnému zavření při přechodu myší mezi tlačítkem a obsahem.
-
-Stavy menu (otevřeno/zavřeno) se ukládají do `localStorage`, po reloadu zůstane navigace konzistentní.
+Součástí je i logika pro plynulé přechody mezi tlačítkem a obsahem dropdownu (tzv. „mrtvá zóna“), která zabraňuje nechtěnému zavření při pohybu myši.
 
 ## Požadavky a kompatibilita:
 - JavaScript ES6+
@@ -26,105 +17,139 @@ Stavy menu (otevřeno/zavřeno) se ukládají do `localStorage`, po reloadu zůs
 
 - Testováno v:
 
-    - Chrome (139.0.7258.67),
+    - Chrome (146.0.7680.154),
 
-    - Firefox (141.0.3),
+    - Firefox (148.0.2),
 
-    - Edge (139.0.3405.102)
+    - Edge (146.0.3856.62)
 
-## Požadavky na HTML:
+## Požadavky na HTML: 
 Script očekává určitou strukturu:
 
-- Dropdown kontejner s třídou `.dropdown-toggle` a vnořený element s třídou `.dropdown-content`, který obsahuje obsah __prvního dropdown menu__.
+- Tlačítka s třídami `.dropdown-toggle`, `.dropdown-toggle-second`, `.dropdown-toggle-third`
 
-- Pro druhé menu: kontejner s třídou `.dropdown-toggle-second` a obsah s `.dropdown-content-second`.
+- Obsah dropdownů s třídami `.dropdown-content`, `.dropdown-content-second`, `.dropdown-content-third`
 
-- Pro submenu: element s třídou `.sub-dropdown-toggle` a obsah s `.sub-dropdown-content`.
+- Volitelně subdropdown s třídami `.sub-dropdown-toggle` a `.sub-dropdown-content`
 
+## Proč OOP?
+Některé mé scripty jsou napsané jen jako funkce.
 
-## Proč není použité OOP?
-Na rozdíl od jiných skriptů (např. pro navigaci) zde nebylo použité objektově orientované programování. Dropdowny totiž nepracují s jedním jasně definovaným stavem, ale s množstvím menších interakcí (hover, klik, časovače, dead-zone výpočty).
+Tady ale dává smysl použít třídu `DropdownManager` objektově orientovaného programování, protože:
 
-Místo jedné třídy je proto použit funkcionální přístup – jednotlivé části logiky jsou řešeny pomocí samostatných funkcí a listenerů. Kód je sice rozsáhlejší, ale díky tomuto rozdělení je flexibilní a snadno se dá rozšiřovat (např. o další úrovně menu nebo speciální chování).
+- každý dropdown má vlastní stav (otevřený/zavřený, způsob aktivace),
 
-Použití OOP by zde nepřineslo výrazné zjednodušení – naopak by přidalo vrstvu abstrakce, která by práci spíš komplikovala.
+- je tu víc logiky (hover, click, klávesnice, subdropdowny), která k sobě patří,
+
+- každá instance běží samostatně a nepřepisuje ostatní,
+
+Díky tomu je kód přehlednější a lépe se udržuje i při větším počtu dropdownů.
 
 ## Instalace:
 Do HTML vložte:
+
 ```html
 <script src="dropdowns.js"></script>
 ```
 
-Script se spustí automaticky po načtení stránky.
+Dropdowny se automaticky inicializují po načtení stránky.
 
 ## Použití:
-Pro ruční ovládání dropdown menu slouží:
+Pro ruční ovládání dropdownů slouží:
 
-```javascript
-window.dropdownMenu.closeFirstMenu();
-window.dropdownMenu.isFirstMenuOpen();
+``` javascript
+window.dropdownMenus.first.open();
+window.dropdownMenus.second.open();
+window.dropdownMenus.third.open();
+window.closeAllMenusExcept(exceptMenuId);
+window.closeFirstMenu();
 window.closeSecondMenu();
+window.closeThirdMenu();
+window.closeSubMenuWithParent();
+window.setSubmenuActive(active);
+window.dropdownMenu = window.dropdownMenus.first;
 ```
 
-Pro jiná nastavení upravte:
+Pro jiné nastavení si můžete vytvořit vlastní instanci:
 
-```javascript
-const inactivityDelay = 2000;
-const clickInactivityDelay = 2000;
+``` javascript
+class DropdownManager {
+    constructor(options = {}) {
+      this.id = options.id || "default-menu";
+
+      this.config = {
+        toggleSelector: options.toggleSelector || ".dropdown-toggle",
+        contentSelector: options.contentSelector || ".dropdown-content",
+        subToggleSelector: options.subToggleSelector || null,
+        subContentSelector: options.subContentSelector || null,
+        clickInactivityDelay: options.clickInactivityDelay || 2000,
+        ... další 
+      };
+    }
+  }
 ```
-například změnou inactivityDelay z ___2000___ na ___3000___ 
+například změněním hodnoty ___2000___ u clickInactivityDelay na ___3000___.
 
 ## API Reference:
-Script obsahuje několik veřejných metod:
+Metody třídy __DropdownManager__:
 
-- closeFirstMenu() - zavře první dropdown menu programaticky.
+- init() - inicializuje dropdown
 
-- isFirstMenuOpen() - vrátí stav prvního menu jako boolean hodnotu.
+- open() - otevře dropdown
 
-- getMousePosition() - vrátí aktuální pozici myši.
+- close() - zavře dropdown
 
-- closeSecondMenu() - zavře druhé dropdown menu.
+- toggle() - přepne stav dropdownu
 
-- closeAllMenusExcept() - zavře všechna menu kromě zadaného.
+- isOpen() - vrátí, zda je dropdown otevřený
 
-- setSubmenuActive() - aktivuje nebo deaktivuje submenu.
+- refresh() - znovu načte elementy a obnoví listenery
 
-Veškerá logika běží automaticky.
+- destroy() - odpojí všechny eventy a vyčistí stav
+
+- getState() - vrátí aktuální stav instance
+
+- setSubmenuActive(active) - nastaví, zda je subdropdown aktivní
+
+___Klávesnicová přístupnost:___
+
+Script podporuje ovládání klávesnicí:
+
+- Enter / Mezerník - otevře nebo zavře dropdown
+
+- Šipky - pohyb v dropdownu mezi položkami
+
+- Home / End - přesune focus na první nebo poslední položku
+
+- Escape - zavře dropdown
 
 ## Bezpečnostní poznámky:
-Každý blok kontroluje, zda existuje odpovídající HTML element (`if (!el) return`).
+- Script kontroluje existenci elementů před jejich použitím, takže nedojde k chybám při chybějící struktuře.
 
-Každé menu má vlastní stav, aby se eventy nemíchaly.
+- Každá instance pracuje samostatně, takže se dropdowny navzájem neovlivňují.
 
-Kvůli IIFE (uzavření do anonymní funkce) se interní proměnné nedostávají do globálního scope.
+- Kvůli IIFE (uzavření do anonymní funkce) se interní logika nedostává do globálního scope.
+
+- Zápisy do localStorage jsou omezené, aby nedocházelo ke zbytečnému zatěžování při pohybu myši.
 
 ## Příklad HTML:
 
 ```html
-<li class="dropdown">
+<li class="nav-right dropdown">
     <div class="button-container">
-        <a href="system.html" class="main-button" tabindex="0">Základy systémového myšlení</a>
+        <a href="system.html" class="main-button" tabindex="0">Úvod</a>
         <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
     </div>
     <div class="dropdown-content" id="dropdown-content" tabindex="-1">
         <div class="sub-dropdown">
-            <a href="system-introduction.html" class="centered" tabindex="0">Úvod</a>
-            <span class="sub-dropdown-toggle" aria-label="Rozbalit dvě položky v úvodu" tabindex="0">&#9656;</span>
+            <a href="system-introduction.html" class="centered" tabindex="0">Základní principy</a>
+            <span class="sub-dropdown-toggle" aria-label="Dvě položky pod základními principy jsou rozbaleny" tabindex="0">&#9656;</span>
             <div class="sub-dropdown-content">
                 <a href="system-approach.html" tabindex="0">Systémový přístup</a>
                 <a href="system-thinking.html" tabindex="0">Systémové myšlení</a>
             </div>
         </div>
         <a href="system-theory.html" tabindex="0">Teorie systémů</a>
-    </div>
-    </li>
-
-    <li class="dropdown">
-    <div class="button-container"> 
-        <a href="life.html" class="main-button" tabindex="0">Základy živých soustav</a>
-        <button class="dropdown-toggle-second" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
-    </div>
-    <div class="dropdown-content-second" id="dropdown-content-second" tabindex="-1">
         <a href="life-properties.html" tabindex="0">Vlastnosti živých soustav</a>
         <a href="life-origin.html" tabindex="0">Vznik života</a>
     </div>
@@ -138,6 +163,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 1.21.0
+__Verze:__ 2.5.0
 
-__Datum:__ 2025-09-10
+__Datum:__ 2026-03-21

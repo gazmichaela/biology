@@ -1,13 +1,515 @@
+/**
+ * Systém pro sticky header s adaptivním menu
+ *
+ * Automaticky řídí zobrazování/skrývání sticky headeru na základě směru scrollování uživatele.
+ * Implementuje komplexní dropdown menu systém s dead zone detekcí pro plynulou interakci.
+ * (napsán jako jeden z prvních a funkčních scriptů, z toho důvodu refactoring není priorita)
+ *
+ * @fileoverview Sticky header systém s interaktivními dropdown menu
+ * @author Michaela Gažová
+ * @version 2.22.0
+ * @since 2025-04-19
+ * @updated 2025-09-10
+ * @license MIT
+ */
+
+
+
 // Globální objekty pro správu timeoutů napříč všemi dropdowny
 window.dropdownTimeouts = window.dropdownTimeouts || {};
 window.autoHideTimeouts = window.autoHideTimeouts || {};
 
 document.addEventListener("DOMContentLoaded", function () {
+  insertStickyHeaderStyles();
+
   createStickyHeader();
 
   initStickyHeaderFunctionality();
 });
 
+function insertStickyHeaderStyles() {
+  const styleTag = document.createElement("style");
+  styleTag.textContent = `
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #77afe0ee;
+    text-align: center;
+    color: white;
+    z-index: 992;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    transform: translateY(-100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 9px 0;
+}
+
+.sticky-header.visible {
+    transform: translateY(0);
+}
+
+.sticky-header h1 {
+    font-size: 30px;
+    margin: 1px 0 8px 0;
+    transition: all 0.3s ease;
+}
+
+.sticky-header ul {
+    list-style: none;
+    padding: 0;
+    margin: 1px 0 0 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.sticky-header ul li {
+    display: inline;
+    margin: 0 15px;
+    color: #023f1e;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+}
+
+.sticky-header .button-container {
+    display: flex;
+    align-items: center;
+    margin: 0 1.43vw;
+
+    white-space: nowrap;
+    margin-top: 1px;
+}
+
+.sticky-header .dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+}
+
+.sticky-header .main-button,
+.sticky-header .main-button-second {
+    background-color: #f0f9f0;
+    color: #025227;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    height: 18.5px;
+}
+
+.sticky-header .main-button-second {
+    border-radius: 20px;
+}
+.sticky-mobile-nav {
+    /* Kopírují se šechny styly z původní mobilní navigace */
+}
+
+
+
+.sticky-menu-overlay {
+    /* Kopírují se všechny styly z původního overlay */
+}
+
+.sticky-mobile-nav.active {
+    z-index: 999;
+}
+
+.sticky-menu-overlay.active {
+    z-index: 998;
+}
+.sticky-header .dropdown-toggle,
+.sticky-header .dropdown-toggle-second {
+    background-color: #f0f9f0;
+    color: #025227;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0 20px 20px 0;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 10px;
+    height: 43px;
+    width: 40px;
+    margin-left: 2px;
+}
+
+.sticky-header .dropdown-toggle.clicked,
+.sticky-header .dropdown-toggle-second.clicked {
+    background-color: #309ce5;
+    color: white;
+}
+
+.sticky-header .dropdown-toggle.clicked .arrow,
+.sticky-header .dropdown-toggle-second.clicked .arrow {
+    color: white;
+}
+
+.sticky-header .arrow {
+    font-size: 18px;
+    color: #025227;
+}
+
+.sticky-header .main-button:hover,
+.sticky-header .main-button-second:hover,
+.sticky-header .dropdown-toggle:hover,
+.sticky-header .dropdown-toggle-second:hover {
+    background-color: #309ce5;
+    color: white;
+}
+
+.sticky-header .dropdown-toggle:hover .arrow,
+.sticky-header .dropdown-toggle-second:hover .arrow {
+    color: white;
+}
+
+.sticky-header .dropdown-content,
+.sticky-header .dropdown-content-second {
+    position: absolute;
+    background-color: #f0f9f0;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1000;
+    width: 150px;
+    margin-top: 3px;
+    font-size: medium;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility  0.5s;
+    left: 50%;
+    transform: translateX(-3%);
+}
+
+.sticky-header .dropdown-content-second {
+    transform: translateX(-20%);
+}
+
+.sticky-header .dropdown-content.show,
+.sticky-header .dropdown-content-second.show {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
+}
+
+.sticky-header .dropdown-content a,
+.sticky-header .dropdown-content-second a {
+    padding: 10px;
+    color: #025227;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+.sticky-header .dropdown-content a:hover,
+.sticky-header .dropdown-content-second a:hover {
+    background-color: #309ce5;
+    color: white;
+}
+
+.sticky-header .dropdown-content a.centered {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    color: #025227;
+    text-decoration: none;
+    padding-left: 53px;
+}
+
+.sticky-header .dropdown-content a.centered:hover {
+    cursor: pointer;
+    background-color: #309ce5;
+    color: white;
+}
+
+.sticky-header .sub-dropdown-toggle {
+    margin-left: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #025227;
+    position: relative;
+}
+
+.sticky-header .sub-dropdown-toggle::before {
+    content: '';
+    position: absolute;
+    top: -14px;
+    right: -16px;
+    bottom: -9.5px;
+    left: -4.8px;
+    z-index: 1;
+    border-top-right-radius: 5px; 
+}
+
+.sticky-header .sub-dropdown-content {
+    position: absolute;
+    left: 100%;
+    top: 1px;
+    background-color: #f0f9f0;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 150px;
+    margin-left: 4.5%;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.5s;
+    z-index: 1000;
+}
+
+.sticky-header .sub-dropdown-content.show {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
+}
+
+.sticky-header .sub-dropdown-content a {
+    padding: 10px;
+    color: #025227;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+.sticky-header .sub-dropdown-content a:hover {
+    background-color: #309ce5;
+    color: white;
+}
+
+.sticky-header .main-button.active,
+.sticky-header .main-button-second.active,
+.sticky-header .dropdown-content a.active,
+.sticky-header .dropdown-content-second a.active {
+    background-color: #1c77e8;
+    color: white;
+}
+
+.sticky-header-dead-zone, 
+.sub-dropdown-dead-zone {
+    position: absolute;
+    z-index: 999;
+    background-color: transparent;
+    pointer-events: auto;
+}
+
+.sticky-header .home-icon {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.sticky-header .home-icon img {
+    width: 25px;
+    height: auto;
+    margin-left: 10px;
+    margin-top: 9.3px;
+    pointer-events: auto;
+}
+
+.sticky-header .home-icon:hover img {
+    filter: brightness(0) saturate(100%) invert(38%) sepia(79%) saturate(2126%) hue-rotate(174deg) brightness(105%) contrast(91%);
+}
+
+@media screen and (max-width: 768px) {
+    .sticky-header h1 {
+        font-size: 24px;
+        margin-top: 8px;
+    }
+    
+
+    
+    .sticky-header ul li {
+        margin: 0 10px;
+        font-size: 16px;
+    }
+}
+
+/* BURGER MENU TLAČÍTKO - Sticky Header */
+.sticky-header .burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;  /* Stejné jako normální header */
+    right: 20px; /* Stejné jako normální header */
+    z-index: 1003;
+    width: 25px;
+    height: 20px;
+    justify-content: space-between;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sticky-header .burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #ffffff;;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+
+/* Responsivní zobrazení pro sticky header */
+
+@media screen and (min-width: 2000px) {
+    .sticky-header .button-container {
+        margin-right: 2vw;
+        margin-left: 2vw;
+    }
+}
+
+@media screen and (max-width: 1175px) {
+    .sticky-header .burger-menu {
+        display: flex; 
+    }
+    
+    .sticky-header ul:not(.mobile-menu) {
+        display: none;
+    }
+    
+    .sticky-header .button-container {
+        display: none;
+    }
+}
+
+/* Mobile menu ve sticky headeru */
+.sticky-header .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100vw; 
+    min-height: 300px; 
+    background-color: #77afe0ee;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.sticky-header .mobile-menu.show {
+    display: block;
+}
+
+.sticky-header .mobile-menu li {
+    display: block;
+    margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sticky-header .mobile-menu a {
+    display: block;
+    padding: 20px 20px; 
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+    .sticky-header {
+        min-height: 30px;
+    }
+
+.sticky-header .mobile-menu a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+@media screen and (max-width: 480px) {
+    .sticky-header .burger-menu {
+        right: 15px; 
+        top: 12px;
+    }
+    
+    .sticky-header .mobile-menu {
+        width: 100vw; 
+    }
+    
+    .sticky-header {
+        padding: 15px 0;
+        min-height: 10px;
+    }
+}
+
+.sticky-header .menu-overlay,
+.sticky-header .mobile-nav-container {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+
+.sticky-header .mobile-sub-expand-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.sticky-header .mobile-sub-expand-content.expanded {
+    max-height: 300px;
+}
+
+.sticky-header .mobile-sub-expand-header {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 10px 30px;
+    background: none;
+    color: #666;
+    border-radius: 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sticky-header .mobile-sub-expand-header:hover {
+    background-color: #f5f5f5;
+    color: #025227;
+}
+
+@media screen and (max-width: 1175px) {
+    .sticky-header .burger-menu {
+        display: flex !important;
+    }
+    
+    .sticky-header .menu-overlay,
+    .sticky-header .mobile-nav-container {
+        display: none !important;
+    }
+}
+`;
+  document.head.appendChild(styleTag);
+}
 function clearAllDropdownStates() {
   Object.keys(localStorage).forEach((key) => {
     if (key.startsWith("sticky_menu_") && key.endsWith("_open")) {
@@ -81,6 +583,209 @@ function clearAllDropdownStates() {
   }
 }
 
+function initStickyHeaderFunctionality() {
+  const stickyHeader = document.querySelector(".sticky-header");
+  const mainHeader = document.querySelector("header");
+
+  if (!stickyHeader || !mainHeader) {
+    console.error("Sticky header or main header not found");
+    return;
+  }
+
+  stickyHeader.setAttribute("aria-hidden", "true");
+
+  initializeHomeIcon(stickyHeader);
+
+  const mainHeaderHeight = mainHeader.offsetHeight;
+  let lastScrollY = window.scrollY || document.documentElement.scrollTop;
+  let ticking = false;
+
+  function handleScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+        // Buffer zone pro méně citlivé schovávání sticky headeru
+        const hideBuffer = 50;
+        if (scrollY <= Math.max(mainHeaderHeight - hideBuffer, 10)) {
+          stickyHeader.classList.remove("visible");
+          clearAllDropdownStates();
+          stickyHeader.classList.remove("scrolled");
+
+          stickyHeader.style.transition =
+            "transform 0.2s ease-out, opacity 0.2s ease-out";
+          stickyHeader.style.transform = "translateY(-100%)";
+          stickyHeader.style.opacity = "0";
+        } else {
+          stickyHeader.style.transition = "";
+          stickyHeader.style.transform = "";
+          stickyHeader.style.opacity = "1";
+
+          stickyHeader.setAttribute("aria-hidden", "false");
+
+          // Synchronizace tabindex mezi původním a sticky headerem pro přístupnost
+          const focusableSelectors = "a, button, [tabindex]";
+          const stickyElements =
+            stickyHeader.querySelectorAll(focusableSelectors);
+          const originalElements =
+            mainHeader.querySelectorAll(focusableSelectors);
+
+          stickyElements.forEach((stickyEl) => {
+            const originalIndex = stickyEl.getAttribute("data-original-index");
+            if (originalIndex !== null) {
+              const matchingOriginal =
+                originalElements[parseInt(originalIndex)];
+              if (matchingOriginal) {
+                if (matchingOriginal.hasAttribute("tabindex")) {
+                  stickyEl.setAttribute(
+                    "tabindex",
+                    matchingOriginal.getAttribute("tabindex")
+                  );
+                } else {
+                  stickyEl.removeAttribute("tabindex");
+                }
+              } else {
+                stickyEl.removeAttribute("tabindex");
+              }
+            } else {
+              stickyEl.removeAttribute("tabindex");
+            }
+          });
+
+          if (scrollY < lastScrollY) {
+            stickyHeader.classList.add("visible");
+
+            if (scrollY > mainHeaderHeight + 100) {
+              stickyHeader.classList.add("scrolled");
+            } else {
+              stickyHeader.classList.remove("scrolled");
+            }
+          } else if (scrollY > lastScrollY) {
+            stickyHeader.classList.remove("visible");
+            clearAllDropdownStates();
+
+            const stickyElements =
+              stickyHeader.querySelectorAll(focusableSelectors);
+            stickyElements.forEach((stickyEl) => {
+              stickyEl.setAttribute("tabindex", "-1");
+            });
+
+            stickyHeader.setAttribute("aria-hidden", "true");
+          }
+        }
+
+        lastScrollY = scrollY;
+        ticking = false;
+      });
+
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  // Kontrola pozice při načtení stránky (refresh uprostřed stránky)
+  (function initialCheck() {
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollY > mainHeaderHeight) {
+      setTimeout(() => {
+        stickyHeader.style.transition = "";
+        stickyHeader.style.transform = "translateY(0)";
+        stickyHeader.style.opacity = "1";
+        stickyHeader.style.visibility = "visible";
+        stickyHeader.classList.add("visible");
+
+        stickyHeader.setAttribute("aria-hidden", "false");
+
+        const focusableSelectors = "a, button, [tabindex]";
+        const stickyElements =
+          stickyHeader.querySelectorAll(focusableSelectors);
+        const originalElements =
+          mainHeader.querySelectorAll(focusableSelectors);
+
+        stickyElements.forEach((stickyEl) => {
+          const elementText = stickyEl.textContent.trim();
+          const elementHref = stickyEl.getAttribute("href");
+
+          // Párování elementů podle textu nebo href pro správný tabindex
+          const matchingOriginal = Array.from(originalElements).find(
+            (origEl) => {
+              const origText = origEl.textContent.trim();
+              const origHref = origEl.getAttribute("href");
+              return (
+                elementText === origText ||
+                (elementHref && elementHref === origHref)
+              );
+            }
+          );
+
+          if (matchingOriginal) {
+            if (matchingOriginal.hasAttribute("tabindex")) {
+              stickyEl.setAttribute(
+                "tabindex",
+                matchingOriginal.getAttribute("tabindex")
+              );
+            } else {
+              stickyEl.removeAttribute("tabindex");
+            }
+          } else {
+            stickyEl.removeAttribute("tabindex");
+          }
+        });
+
+        if (scrollY > mainHeaderHeight + 100) {
+          stickyHeader.classList.add("scrolled");
+        }
+        const stickyUl = stickyHeader.querySelector("ul");
+        if (stickyUl) {
+          stickyUl.setAttribute("aria-hidden", "false");
+        }
+      }, 50);
+    }
+  })();
+
+  let themeChangeTimeout;
+
+  // Sledování změn pro zachování viditelnosti headeru
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (
+        mutation.type === "attributes" &&
+        (mutation.attributeName === "class" ||
+          mutation.attributeName === "data-theme")
+      ) {
+        if (themeChangeTimeout) {
+          clearTimeout(themeChangeTimeout);
+        }
+
+        const currentScrollY =
+          window.scrollY || document.documentElement.scrollTop;
+        const wasVisible = stickyHeader.classList.contains("visible");
+
+        if (wasVisible && currentScrollY > 50) {
+          themeChangeTimeout = setTimeout(() => {
+            if (
+              stickyHeader &&
+              (window.scrollY || document.documentElement.scrollTop) > 50
+            ) {
+              stickyHeader.classList.add("visible");
+              stickyHeader.style.opacity = "1";
+              stickyHeader.style.transform = "translateY(0)";
+            }
+          }, 0);
+        }
+      }
+    });
+  });
+
+  observer.observe(document.body, { attributes: true, subtree: false });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    subtree: false,
+  });
+}
+
 function initializeHomeIcon(stickyHeader) {
   const homeIcons = stickyHeader.querySelectorAll(".home-icon");
 
@@ -112,6 +817,8 @@ function initializeHomeIcon(stickyHeader) {
     // Zachováme původní chování - celý element není klikatelný
     homeIcon.style.cursor = "default";
     homeIcon.style.pointerEvents = "none";
+
+    // Focus styling bude řešeno přes CSS
 
     const imgElement = homeIcon.querySelector("img");
 
@@ -207,7 +914,6 @@ function initializeHomeIcon(stickyHeader) {
     }
   });
 }
-
 function initializeStickyDropdowns() {
   const stickyHeader = document.querySelector(".sticky-header");
   if (!stickyHeader) {
@@ -291,7 +997,6 @@ function initializeSingleDropdown(
     clearTimeout(window.autoHideTimeouts[inactivityTimeoutKey]);
     clearTimeout(window.autoHideTimeouts[clickInactivityTimeoutKey]);
   }
-
   // Kontinuální monitoring pozice pro správné umístění dead zone
   function startStickyPositionMonitoring() {
     function updatePositions() {
@@ -303,7 +1008,6 @@ function initializeSingleDropdown(
     clearTimeout(repositionTimeoutSticky);
     updatePositions();
   }
-
   function updateDeadZonePosition() {
     if (dropdownContent.style.display === "block") {
       const toggleRect = dropdownToggle.getBoundingClientRect();
@@ -319,7 +1023,6 @@ function initializeSingleDropdown(
       deadZoneElement.style.zIndex = "999";
     }
   }
-
   function showMenu() {
     clearAllTimeouts();
     isClosingInProgress = false;
@@ -607,7 +1310,6 @@ function closeOtherStickyDropdowns(currentIndex) {
     }
   });
 }
-
 function initializeSingleSubDropdown(
   subDropdownToggle,
   subDropdownContent,
@@ -678,7 +1380,6 @@ function initializeSingleSubDropdown(
       localStorage.setItem(`sticky_submenu_${index}_open`, "true");
     }
   }
-
   function hideSubMenu() {
     clearAllSubTimeouts();
     isClosingInProgressSub = true;
@@ -695,7 +1396,6 @@ function initializeSingleSubDropdown(
       localStorage.removeItem(`sticky_submenu_${index}_open`);
     }, 300);
   }
-
   subDropdownToggle.addEventListener("mouseenter", function (e) {
     e.stopPropagation();
     isMouseOverMenu = true;
@@ -794,7 +1494,6 @@ function initializeSingleSubDropdown(
     hideSubMenu();
   };
 }
-
 function initializeStickySubDropdowns(stickyHeader) {
   const subDropdowns = stickyHeader.querySelectorAll(".sub-dropdown-toggle");
 
@@ -973,6 +1672,7 @@ function createStickyHeader() {
   stickyHeader.style.overflowX = originalStyles.overflowX;
   stickyHeader.style.overflowY = originalStyles.overflowY;
 
+  const elementsWithId = headerContent.querySelectorAll("[id]");
   const dropdownElements = headerContent.querySelectorAll(
     ".dropdown, .dropdown-toggle, .dropdown-content, .dropdown-content-second, .sub-dropdown-toggle, .sub-dropdown-content"
   );
@@ -1031,14 +1731,21 @@ function createStickyHeader() {
 
   document.body.appendChild(stickyHeader);
 
+  setTimeout(() => {
+    const checkStickyMobileNav = document.getElementById("sticky-mobileNav");
+    const checkStickyMenuOverlay =
+      document.getElementById("sticky-menuOverlay");
+  }, 100);
   const focusableSelectors = "a, button, [tabindex]";
   if (!stickyHeader.classList.contains("visible")) {
     stickyHeader.querySelectorAll(focusableSelectors).forEach((el) => {
       el.setAttribute("tabindex", "-1");
     });
-    const stickyUl = stickyHeader.querySelector("ul");
-    if (stickyUl) {
-      stickyUl.setAttribute("aria-hidden", "true");
+    if (!stickyHeader.classList.contains("visible")) {
+      const stickyUl = stickyHeader.querySelector("ul");
+      if (stickyUl) {
+        stickyUl.setAttribute("aria-hidden", "true");
+      }
     }
   }
 }
@@ -1059,6 +1766,7 @@ function initStickyHeaderFunctionality() {
   const mainHeaderHeight = mainHeader.offsetHeight;
   let lastScrollY = window.scrollY || document.documentElement.scrollTop;
   let ticking = false;
+  const hideBuffer = 48;
 
   function handleScroll() {
     if (!ticking) {
@@ -1115,7 +1823,6 @@ function initStickyHeaderFunctionality() {
               stickyEl.removeAttribute("tabindex");
             }
           });
-
           const stickyUl = stickyHeader.querySelector("ul");
           if (stickyUl) {
             stickyUl.setAttribute("aria-hidden", "false");
@@ -1200,7 +1907,6 @@ function initStickyHeaderFunctionality() {
             stickyEl.removeAttribute("tabindex");
           }
         });
-
         const stickyUl = stickyHeader.querySelector("ul");
         if (stickyUl) {
           stickyUl.setAttribute("aria-hidden", "false");
@@ -1254,7 +1960,6 @@ function initStickyHeaderFunctionality() {
     subtree: false,
   });
 }
-
 // Monitoring focus pro zachování otevřeného dropdownu při TAB navigaci
 document.addEventListener("focusin", function (e) {
   const stickyHeader = document.querySelector(".sticky-header");
@@ -1281,7 +1986,7 @@ document.addEventListener("focusin", function (e) {
     dropdownContent.style.visibility = "visible";
     dropdownContent.style.display = "block";
   } else {
-    // Pokud focus není v žádném dropdown, zavři všechny otevřené
+    // NOVÉ: Pokud focus není v žádném dropdown, zavři všechny otevřené
     const allDropdowns = stickyHeader.querySelectorAll(
       ".dropdown-content, .dropdown-content-second"
     );
@@ -1294,3 +1999,5 @@ document.addEventListener("focusin", function (e) {
     });
   }
 });
+
+/* (tento script používá formátování prettier) */

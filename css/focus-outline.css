@@ -1,0 +1,116 @@
+/* Prosím zde doplnit text: jedná se o vypnutí výchozího outline pro všechny prvky */
+*:focus,
+*:focus-visible {
+  outline: none;
+}
+
+
+/* Prosím zde doplnit text: jedná se o to aby se nezobrazoval outline při použití myši (a použití všeho co není TAB) */
+body.using-mouse *:focus,
+body.using-mouse *:focus-visible {
+  outline: none;
+}
+
+
+/* Prosím zde doplnit text: jedná se o globální outline pro světlý režim */
+body:not(.using-mouse) *:focus,
+body:not(.using-mouse) *:focus-visible {
+  outline: black solid 2px;
+  outline-offset: 2px;
+}
+
+
+/* Prosím zde doplnit text: jedná se o globální outline pro tmavý režim */
+body.dark-mode:not(.using-mouse) *:focus,
+body.dark-mode:not(.using-mouse) *:focus-visible {
+  outline: white solid 2px;
+  outline-offset: 2px;
+}
+
+
+/* Prosím zde doplnit text: jedná se o outline, který je ve jak ve světlém/tmavém režimu ve footeru vždy bílý */
+body:not(.using-mouse) footer *:focus,
+body:not(.using-mouse) footer *:focus-visible {
+  outline: white solid 2px;
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+
+/* Prosím zde doplnit text: jedná se o outline pro odkazy mimo tlačítek (pro světlý režim) */
+body:not(.using-mouse) article a:not(.button):not(.button-light):focus,
+body:not(.using-mouse) article a:not(.button):not(.button-light):focus-visible {
+  outline: black solid 2px;
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+/*(pro tmavý režim) */
+body.dark-mode:not(.using-mouse) article a:not(.button):not(.button-light):focus,
+body.dark-mode:not(.using-mouse) article a:not(.button):not(.button-light):focus-visible {
+  outline: white solid 2px;
+  outline-offset: 4px;
+  border-radius: 1px;
+}
+
+
+/* Prosím zde doplnit text: jedná se o outline pro tlačítka (pro světlý režim) */
+body:not(.using-mouse) .button:focus,
+body:not(.using-mouse) .button:focus-visible,
+body:not(.using-mouse) .button-light:focus,
+body:not(.using-mouse) .button-light:focus-visible {
+  outline: black solid 2px;
+  border-radius: 20px;
+}
+/* (pro tmavý režim) */
+body.dark-mode:not(.using-mouse) .button:focus,
+body.dark-mode:not(.using-mouse) .button:focus-visible,
+body.dark-mode:not(.using-mouse) .button-light:focus,
+body.dark-mode:not(.using-mouse) .button-light:focus-visible {
+  outline: white solid 2px;
+  border-radius: 20px;
+}
+
+
+/* Prosím zde doplnit text: jedná se o outline pro navigaci, domeček a menu  který je ve jak ve světlém/tmavém režimu ve footeru vždy černý */
+body:not(.using-mouse) .nav-home a:focus,
+body:not(.using-mouse) .nav-home a:focus-visible {
+  outline: black solid 2px;
+  border-radius: 3px;
+  outline-offset: 3px;
+}
+
+body:not(.using-mouse) .main-button:focus,
+body:not(.using-mouse) .main-button:focus-visible {
+  outline: black solid 2px;
+  outline-offset: -1px;
+}
+
+body:not(.using-mouse) .dropdown-toggle:focus,
+body:not(.using-mouse) .dropdown-toggle:focus-visible,
+body:not(.using-mouse) .dropdown-toggle-second:focus,
+body:not(.using-mouse) .dropdown-toggle-second:focus-visible,
+body:not(.using-mouse) .dropdown-toggle-third:focus,
+body:not(.using-mouse) .dropdown-toggle-third:focus-visible {
+  outline: black solid 2px;
+  outline-offset: -1px;
+}
+
+body:not(.using-mouse) .sub-dropdown-toggle:focus,
+body:not(.using-mouse) .sub-dropdown-toggle:focus-visible {
+  outline: black solid 2px;
+  border-radius: 2px;
+  outline-offset: -1px;
+}
+
+body:not(.using-mouse) .dropdown-content a:focus,
+body:not(.using-mouse) .dropdown-content a:focus-visible,
+body:not(.using-mouse) .dropdown-content-second a:focus,
+body:not(.using-mouse) .dropdown-content-second a:focus-visible,
+body:not(.using-mouse) .dropdown-content-third a:focus,
+body:not(.using-mouse) .dropdown-content-third a:focus-visible,
+body:not(.using-mouse) .sub-dropdown-content a:focus,
+body:not(.using-mouse) .sub-dropdown-content a:focus-visible {
+  outline: black solid 2px;
+  outline-offset: -2px;
+  border-radius: 3px;
+}

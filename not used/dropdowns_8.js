@@ -2,7 +2,7 @@
   class DropdownManager {
     constructor(options = {}) {
       this.id = options.id || 'default-menu';
-      
+
       this.config = {
         toggleSelector: options.toggleSelector || ".dropdown-toggle",
         contentSelector: options.contentSelector || ".dropdown-content",
@@ -12,9 +12,11 @@
         inactivityDelay: options.inactivityDelay || 2000,
         hoverHideDelay: options.hoverHideDelay || 200,
         transitionDuration: options.transitionDuration || 300,
+        // Pokud true, mrtvá zóna kopíruje šířku obsahu místo šířky tlačítek
         deadzoneMatchContent: options.deadzoneMatchContent || false,
       };
 
+      // Klíče jsou prefixovány ID instance, aby se více dropdownů navzájem nepřepisovalo
       this.config.storageKeys = {
         mouseX: "mouseX",
         mouseY: "mouseY",
@@ -46,11 +48,13 @@
         isSubKeyboardOpened: false,
         currentFocusIndex: -1,
         focusableElements: [],
+        // Samotná třída visible nestačí, header může být mimo viewport během přechodu
         wasStickyActuallyVisible: false,
       };
 
       this.deadzoneElement = null;
       this.subDeadzoneElement = null;
+      // Uchováváme původní display hodnotu subdropdownu pro obnovení při znovuotevření
       this.subOriginalDisplay = null;
 
       this.handleToggleMouseEnter = this._onToggleMouseEnter.bind(this);
@@ -84,7 +88,6 @@
         this._bindEvents();
         this._checkInitialState();
         this._setupStickyHeaderObserver();
-        this._setupMouseKeyboardTracking();
 
         this.isInitialized = true;
       } catch (error) {
@@ -99,51 +102,41 @@
 
         const hasVisible = stickyHeader.classList.contains('visible');
         const rect = stickyHeader.getBoundingClientRect();
-        
+
+        // Tolerance 10px kvůli vykreslování subdropdownu a plynulým přechodům
         const isActuallyVisible = hasVisible && rect.top >= -10 && rect.top <= 10;
-        
+
+        // Dropdown zavíráme jen při přechodu z neviditelného na viditelný
         if (isActuallyVisible && !this.state.wasStickyActuallyVisible && this.isOpen()) {
           this._closeForStickyHeader();
         }
-        
+
         this.state.wasStickyActuallyVisible = isActuallyVisible;
       };
 
+      // Sleduje přechod z neviditelného na viditelný stav, aby se dropdown nezobrazoval přes sticky header
       this.stickyCheckInterval = setInterval(checkStickyHeader, 100);
-    }
-
-    _setupMouseKeyboardTracking() {
-      if (document.body.dataset.mouseKeyboardTracking) return;
-      document.body.dataset.mouseKeyboardTracking = 'true';
-
-      document.addEventListener('mousedown', () => {
-        document.body.classList.add('using-mouse');
-      });
-
-      document.addEventListener('keydown', () => {
-        document.body.classList.remove('using-mouse');
-      });
     }
 
     _closeForStickyHeader() {
       this._clearAllTimers();
       this.state.isClosingInProgress = true;
-      this.elements.toggle.classList.remove('is-open'); 
-      
+      this.elements.toggle.classList.remove('is-open');
+
       const originalTransition = this.elements.content.style.transition;
       const originalSubTransition = this.elements.subContent ? this.elements.subContent.style.transition : '';
-      
+
       this.elements.content.style.transition = 'opacity 0.1s ease-out, visibility 0.1s ease-out';
-      
+
       if (this.elements.subContent) {
         this.elements.subContent.style.transition = 'opacity 0.1s ease-out, visibility 0.1s ease-out';
       }
-      
+
       requestAnimationFrame(() => {
         this.elements.content.style.opacity = "0";
         this.elements.content.style.visibility = "hidden";
         this._hideDeadzone();
-        
+
         if (this.elements.subContent) {
           this.state.isClickOpenedSub = false;
           this.elements.subContent.style.opacity = "0";
@@ -151,20 +144,20 @@
           this._hideSubDeadzone();
         }
       });
-      
+
       setTimeout(() => {
         this.elements.content.style.display = "none";
         this.elements.content.style.transition = originalTransition;
-        
+
         if (this.elements.subContent) {
           this.elements.subContent.style.display = "none";
           this.elements.subContent.style.transition = originalSubTransition;
         }
-        
+
         this.state.isClickOpened = false;
         this.state.isSubmenuActive = false;
         this.state.isClosingInProgress = false;
-        
+
         this._clearStorageKeys();
       }, 30);
     }
@@ -187,21 +180,17 @@
 
     _validateElements() {
       if (!this.elements.toggle) {
-        throw new Error(
-          `Dropdown toggle not found: ${this.config.toggleSelector}`
-        );
+        throw new Error(`Dropdown toggle not found: ${this.config.toggleSelector}`);
       }
       if (!this.elements.content) {
-        throw new Error(
-          `Dropdown content not found: ${this.config.contentSelector}`
-        );
+        throw new Error(`Dropdown content not found: ${this.config.contentSelector}`);
       }
     }
 
-    // ==== ARROW KEYS NAVIGATION ==== //
+    // ==== NAVIGACE ŠIPKAMI ==== //
     _onDocumentKeyDown(e) {
       if (!this.isOpen()) return;
-      
+
       if (e.key === 'Escape') {
         e.preventDefault();
         e.stopPropagation();
@@ -210,18 +199,18 @@
         this.state.isKeyboardOpened = false;
         return;
       }
-      
+
       if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-        e.preventDefault();        
-        
+        e.preventDefault();
+
         this._updateFocusableElements();
-        
+
         if (this.state.focusableElements.length === 0) return;
-        
+
         if (e.key === 'ArrowDown') {
           this.state.currentFocusIndex++;
           if (this.state.currentFocusIndex >= this.state.focusableElements.length) {
-            this.state.currentFocusIndex = 0; 
+            this.state.currentFocusIndex = 0;
           }
         } else if (e.key === 'ArrowUp') {
           this.state.currentFocusIndex--;
@@ -229,9 +218,9 @@
             this.state.currentFocusIndex = this.state.focusableElements.length - 1;
           }
         }
-        
+
         const currentElement = this.state.focusableElements[this.state.currentFocusIndex];
-        
+
         if (!currentElement) return;
         if (this.elements.subToggle && currentElement === this.elements.subToggle) {
           
@@ -240,10 +229,10 @@
           this.state.isClosingInProgressSub = false;
           this.state.isClickOpenedSub = true;
           localStorage.setItem(this.config.storageKeys.isSubMenuOpen, "true");
-          
+
           if (this.elements.subContent.style.display === "none") {
             this.elements.subContent.style.display = this.subOriginalDisplay || "block";
-            
+
             setTimeout(() => {
               this.elements.subContent.style.opacity = "1";
               this.elements.subContent.style.visibility = "visible";
@@ -254,33 +243,34 @@
             this.elements.subContent.style.visibility = "visible";
             this._showSubDeadzone();
           }
-          
+
           if (window.setSubmenuActive) {
             window.setSubmenuActive(true);
           }
         }
-        
+
         if (this.elements.subContent && this.elements.subContent.style.opacity === "1") {
           const isInSubContent = this.elements.subContent.contains(currentElement);
           const isSubToggle = currentElement === this.elements.subToggle;
-          
+
           if (!isInSubContent && !isSubToggle) {
-            
+
             this.state.isClickOpenedSub = false;
             localStorage.removeItem(this.config.storageKeys.isSubMenuOpen);
-            
+
             this.elements.subContent.style.opacity = "0";
             this.elements.subContent.style.visibility = "hidden";
             this._hideSubDeadzone();
-            
+
             requestAnimationFrame(() => {
+              // subContent mění display až v dalším snímku, focusableElements musíme přepočítat až po té změně
               this._updateFocusableElements();
               const newIndex = this.state.focusableElements.indexOf(currentElement);
               if (newIndex !== -1) {
                 this.state.currentFocusIndex = newIndex;
               }
             });
-            
+
             setTimeout(() => {
               if (this.elements.subContent && this.state.isClickOpenedSub === false) {
                 this.elements.subContent.style.display = "none";
@@ -288,12 +278,12 @@
             }, 300);
           }
         }
-        
+
         this._applyKeyboardHoverStyle();
-        
+
         currentElement.focus();
       }
-      
+
       if (e.key === 'Home' && this.isOpen()) {
         e.preventDefault();
         this._updateFocusableElements();
@@ -303,7 +293,7 @@
           this.state.focusableElements[0].focus();
         }
       }
-      
+
       if (e.key === 'End' && this.isOpen()) {
         e.preventDefault();
         this._updateFocusableElements();
@@ -321,7 +311,7 @@
         el.style.backgroundColor = '';
         el.style.color = '';
       });
-      
+
       if (this.state.currentFocusIndex >= 0 && this.state.currentFocusIndex < this.state.focusableElements.length) {
         const currentElement = this.state.focusableElements[this.state.currentFocusIndex];
         currentElement.classList.add('keyboard-hover');
@@ -346,17 +336,17 @@
     _updateFocusableElements() {
       const content = this.elements.content;
       if (!content) return;
-      
+
       const selector = 'a, button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), span[tabindex]:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [role="button"], [role="menuitem"]';
-      
+
       const isVisible = (el) => {
         const style = window.getComputedStyle(el);
-        return el.offsetParent !== null && 
-               style.display !== 'none' && 
+        return el.offsetParent !== null &&
+               style.display !== 'none' &&
                style.visibility !== 'hidden' &&
                style.opacity !== '0';
       };
-      
+
       const allContentElements = Array.from(content.querySelectorAll(selector)).filter(isVisible);
 
       if (!this.elements.subContent || this.elements.subContent.style.opacity !== "1") {
@@ -370,31 +360,31 @@
               parent = parent.parentElement;
             }
             return true;
-          });      
+          });
         } else {
           this.state.focusableElements = allContentElements;
         }
         return;
       }
-      
+
       this.state.focusableElements = allContentElements;
     }
 
-    // ==== KEYBOARD NAVIGATION ==== //
+    // ==== OVLÁDÁNÍ KLÁVESNICÍ ==== //
     _onToggleKeyDown(e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const isOpen = this.elements.content.style.opacity === "1";
-        
+
         if (isOpen) {
           this._hideMenuKeyboard();
         } else {
           this._showMenuKeyboard();
         }
       }
-      
+
       if (e.key === 'Escape') {
         e.preventDefault();
         this._hideMenuKeyboard();
@@ -402,25 +392,24 @@
     }
 
     _onToggleBlur(e) {
-     localStorage.removeItem(`${this.id}-toggleFocused`);
       setTimeout(() => {
         const activeElement = document.activeElement;
-        
+
         const isFocusInContent = this.elements.content.contains(activeElement);
         const isFocusInToggle = this.elements.toggle.contains(activeElement);
         const isFocusInSubToggle = this.elements.subToggle && this.elements.subToggle.contains(activeElement);
         const isFocusInSubContent = this.elements.subContent && this.elements.subContent.contains(activeElement);
-        
+      
      if (!isFocusInContent && !isFocusInToggle && !isFocusInSubToggle && !isFocusInSubContent) {
       if (this.state.isKeyboardOpened) {
         this._hideMenuKeyboard();
-      }
-    }
+      } 
+    }  
   }, 10);
-}
-
+}   
+    
     _onContentFocusIn(e) {
-      
+
       if (this.state.isKeyboardOpened || this.state.isClickOpened) {
         this._clearTimer("clickInactivity");
         this._clearTimer("inactivity");
@@ -428,36 +417,36 @@
     }
 
     _onContentFocusOut(e) {
-      
+
       setTimeout(() => {
         const activeElement = document.activeElement;
-        
+
         const isFocusInContent = this.elements.content.contains(activeElement);
         const isFocusInToggle = this.elements.toggle.contains(activeElement);
         const isFocusInSubToggle = this.elements.subToggle && this.elements.subToggle.contains(activeElement);
         const isFocusInSubContent = this.elements.subContent && this.elements.subContent.contains(activeElement);
-        
+
         if (!isFocusInContent && !isFocusInToggle && !isFocusInSubToggle && !isFocusInSubContent) {
-      
+          
           const allElementsInMenu = this.elements.content.querySelectorAll('a, button, span, [tabindex]');
           allElementsInMenu.forEach(el => {
             el.style.backgroundColor = '';
             el.style.color = '';
             el.classList.remove('keyboard-hover');
           });
-          
+
     this._removeKeyboardHoverStyles();
-      
+       
       if (this.state.isKeyboardOpened) {
         this._hideMenuKeyboard();
       }
     }
   }, 10);
-}
+}   
 
     _showMenuKeyboard() {
       this.state.isKeyboardOpened = true;
-      this.state.isClickOpened = true; 
+      this.state.isClickOpened = true;
       this.elements.toggle.classList.add('is-open');
       this._showMenu();
     }
@@ -466,7 +455,7 @@
       this.state.isKeyboardOpened = false;
       this.state.isClickOpened = false;
       this._hideMenu();
-      
+
       const activeElement = document.activeElement;
       if (this.elements.content.contains(activeElement)) {
         setTimeout(() => {
@@ -475,23 +464,23 @@
       }
     }
 
-    // ==== SUBDROPDOWN KEYBOARD ==== //
+    // ==== OVLÁDÁNÍ SUBDROPDOWNU KLÁVESNICÍ ==== //
     _onSubToggleKeyDown(e) {
       if (!this.elements.subContent) return;
-      
+
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const isOpen = this.elements.subContent.style.opacity === "1";
-        
+
         if (isOpen) {
           this._hideSubMenuKeyboard();
         } else {
           this._showSubMenuKeyboard();
         }
       }
-      
+
       if (e.key === 'Escape') {
         e.preventDefault();
         this._hideSubMenuKeyboard();
@@ -508,10 +497,10 @@
       
       setTimeout(() => {
         const activeElement = document.activeElement;
-        
+
         const isFocusInSubToggle = this.elements.subToggle && this.elements.subToggle.contains(activeElement);
         const isFocusInSubContent = this.elements.subContent && this.elements.subContent.contains(activeElement);
-        
+
         if (!isFocusInSubToggle && !isFocusInSubContent) {
           if (this.state.isSubKeyboardOpened) {
             this._hideSubMenuKeyboard();
@@ -531,14 +520,15 @@
       
       setTimeout(() => {
         const activeElement = document.activeElement;
-        
+
         const isFocusInSubToggle = this.elements.subToggle && this.elements.subToggle.contains(activeElement);
         const isFocusInSubContent = this.elements.subContent && this.elements.subContent.contains(activeElement);
-        
+
+        // Fokus při klávesnicové navigaci řídí _onDocumentKeyDown, jinak by se subdropdown zavřel uprostřed procházení
         if (this.state.currentFocusIndex >= 0) {
           return;
         }
-        
+
         if (!isFocusInSubToggle && !isFocusInSubContent) {
           
           if (this.elements.subContent) {
@@ -546,12 +536,12 @@
             allElementsInSubMenu.forEach(el => {
               el.style.backgroundColor = '';
               el.style.color = '';
-              el.classList.remove('keyboard-hover');
+              el.classList.remove('keyboard-hover');  
             });
           }
-          
+
           this._removeKeyboardHoverStyles();
-          
+
           if (this.state.isSubKeyboardOpened) {
             this._hideSubMenuKeyboard();
           }
@@ -569,16 +559,16 @@
       this.state.isSubKeyboardOpened = false;
       this.state.isClickOpenedSub = false;
       this._hideSubMenu();
-      
+
       const activeElement = document.activeElement;
       if (this.elements.subContent && this.elements.subContent.contains(activeElement)) {
         setTimeout(() => {
-          this.elements.subToggle.focus();
+          this.elements.subToggle.focus();  
         }, 50);
       }
     }
 
-    // ==== SUBDROPDOWN DEADZONE ==== //
+    // ==== MRTVÁ ZÓNA SUBDROPDOWNU ==== //
     _createSubDeadzone() {
       if (!this.elements.subToggle || !this.elements.subContent) {
         return;
@@ -591,7 +581,7 @@
       this.subDeadzoneElement.style.pointerEvents = 'none';
       this.subDeadzoneElement.style.display = 'none';
       this.subDeadzoneElement.style.zIndex = '9999';
-      
+
       document.body.appendChild(this.subDeadzoneElement);
     }
 
@@ -602,16 +592,18 @@
 
       const subDropdownContainer = this.elements.subToggle.closest('.sub-dropdown');
       const containerRect = subDropdownContainer ? subDropdownContainer.getBoundingClientRect() : this.elements.subToggle.getBoundingClientRect();
-      
+
       const subContentRect = this.elements.subContent.getBoundingClientRect();
-      
-      const paddingOffset = 5;
+
+      // Mrtvá zóna nezasahuje pod spodní padding subdropdownu
+      const paddingOffset = 5;  
 
       const left = containerRect.right;
       const width = subContentRect.left - containerRect.right;
       const top = subContentRect.top + 2;
       const height = subContentRect.height - paddingOffset;
 
+      // Mrtvou zónu zobrazujeme, jen pokud je mezi togglem a obsahem skutečná mezera
       if (width > 0 && height > 0) {
         this.subDeadzoneElement.style.left = left + 'px';
         this.subDeadzoneElement.style.top = top + 'px';
@@ -651,10 +643,10 @@
       );
     }
 
-    // ==== SUBDROPDOWN SETUP ==== //
+    // ==== NASTAVENÍ SUBDROPDOWNU ==== //
     _setupSubDropdown() {
       const { subToggle, subContent } = this.elements;
-      
+
       if (!subToggle || !subContent) {
         return;
       }
@@ -716,13 +708,13 @@
       }
 
       const isInSubContent = currentElementBeforeClose && this.elements.subContent.contains(currentElementBeforeClose);
-      
+
       this.elements.subContent.style.opacity = "0";
       this.elements.subContent.style.visibility = "hidden";
       this._hideSubDeadzone();
 
       const animationDuration = 400;
-      const delay = skipDelay ? Math.floor(animationDuration / 2) : animationDuration + 50;
+      const delay = skipDelay ? Math.floor(animationDuration / 2) : animationDuration + 50; // 50ms rezerva aby CSS přechod plně doběhl
 
       this.timers.subAnimation = setTimeout(() => {
         if (!this.state.isMouseOverMenuSub && !this._isMouseInSubDeadzone()) {
@@ -736,10 +728,10 @@
           if (window.setSubmenuActive) {
             window.setSubmenuActive(false);
           }
-          
+
           if (currentElementBeforeClose) {
             this._updateFocusableElements();
-            
+
             if (isInSubContent) {
               const subToggleIndex = this.state.focusableElements.indexOf(this.elements.subToggle);
               if (subToggleIndex !== -1) {
@@ -762,8 +754,9 @@
       }, delay);
     }
 
-    // ==== MAIN DROPDOWN ==== //
+    // ==== HLAVNÍ DROPDOWNY ==== //
     _createDeadzone() {
+      // Mrtvá zóna zabraňuje zavření menu při přesunu myši z tlačítka na obsah
       this.deadzoneElement = document.createElement('div');
       this.deadzoneElement.id = `dropdown-deadzone-${this.id}`;
       this.deadzoneElement.className = 'dropdown-deadzone';
@@ -771,7 +764,7 @@
       this.deadzoneElement.style.pointerEvents = 'none';
       this.deadzoneElement.style.display = 'none';
       this.deadzoneElement.style.zIndex = '9999';
-      
+
       document.body.appendChild(this.deadzoneElement);
     }
 
@@ -779,7 +772,8 @@
       if (!this.deadzoneElement) return;
 
       const container = this.elements.toggle.closest('.button-container');
-      
+
+      // Bez button-container nelze spolehlivě určit rozměry mrtvé zóny
       if (!container) {
         this.deadzoneElement.style.display = 'none';
         return;
@@ -787,7 +781,7 @@
 
       const mainButton = container.querySelector('.main-button');
       const dropdownToggle = this.elements.toggle;
-      
+
       if (!mainButton) {
         this.deadzoneElement.style.display = 'none';
         return;
@@ -797,29 +791,30 @@
       const toggleRect = dropdownToggle.getBoundingClientRect();
       const contentRect = this.elements.content.getBoundingClientRect();
 
+      // -2 kompenzuje border mezi tlačítky
       const totalWidth = mainButton.offsetWidth + dropdownToggle.offsetWidth - 2;
       const left = mainButtonRect.left;
       const top = Math.max(mainButtonRect.bottom, toggleRect.bottom);
       const height = contentRect.top - top;
 
       if (height > 0) {
-  let width = totalWidth;
-  let left = mainButtonRect.left;
+        let width = totalWidth;
+        let left = mainButtonRect.left;
 
-if (this.config.deadzoneMatchContent) {
-  const computedStyle = window.getComputedStyle(this.elements.content);
-  const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
-  left = contentRect.left;
-  width = contentRect.width - paddingRight;
-}
-  this.deadzoneElement.style.left = left + 'px';
-  this.deadzoneElement.style.top = top + 'px';
-  this.deadzoneElement.style.width = width + 'px';
-  this.deadzoneElement.style.height = height + 'px';
-  this.deadzoneElement.style.display = 'block';
-} else {
-  this.deadzoneElement.style.display = 'none';
-}
+      if (this.config.deadzoneMatchContent) {
+        const computedStyle = window.getComputedStyle(this.elements.content);
+        const paddingRight = parseFloat(computedStyle.paddingRight) || 0;
+        left = contentRect.left;
+        width = contentRect.width - paddingRight;
+      } 
+        this.deadzoneElement.style.left = left + 'px';
+        this.deadzoneElement.style.top = top + 'px';
+        this.deadzoneElement.style.width = width + 'px';
+        this.deadzoneElement.style.height = height + 'px';
+        this.deadzoneElement.style.display = 'block';
+      } else {
+        this.deadzoneElement.style.display = 'none';
+      }
     }
 
     _showDeadzone() {
@@ -893,28 +888,29 @@ if (this.config.deadzoneMatchContent) {
       return false;
     }
 
-_showMenu() {
-  this._clearAllTimers();
-  this.state.isClosingInProgress = false;
-  this.state.currentFocusIndex = -1;
-  this._removeKeyboardHoverStyles();
+    _showMenu() {
+      this._clearAllTimers();
+      this.state.isClosingInProgress = false;
+      this.state.currentFocusIndex = -1;
+      this._removeKeyboardHoverStyles();
 
-  this.elements.content.style.opacity = "0";
-  this.elements.content.style.visibility = "hidden";
-  this.elements.content.style.display = "block";
+      this.elements.content.style.opacity = "0";
+      this.elements.content.style.visibility = "hidden";
+      this.elements.content.style.display = "block";
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      this.elements.content.style.opacity = "1";
-      this.elements.content.style.visibility = "visible";
-      this._showDeadzone();
-    });
-  });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.elements.content.style.opacity = "1";
+          this.elements.content.style.visibility = "visible";
+          this._showDeadzone();
+        });
+      });
 
-  if (this.state.isClickOpened) {
-    this._startInactivityTimer();
-  }
-}
+      if (this.state.isClickOpened) {
+        this._startInactivityTimer();
+      }
+    }
+
     _hideMenu() {
       if (window.tabNavigationActive) {
         return;
@@ -922,10 +918,10 @@ _showMenu() {
 
       this._clearAllTimers();
       this.state.isClosingInProgress = true;
-      this.state.currentFocusIndex = -1; 
-      this._removeKeyboardHoverStyles(); 
+      this.state.currentFocusIndex = -1;
+      this._removeKeyboardHoverStyles();
       this.elements.toggle.classList.remove('is-open');
-      
+
 
       this.elements.content.style.opacity = "0";
       this.elements.content.style.visibility = "hidden";
@@ -988,11 +984,11 @@ _showMenu() {
         mouseY <= menuRect.bottom;
 
       const isMouseOverToggle =
-        mouseX >= toggleRect.left &&
+        mouseX >= toggleRect.left && 
         mouseX <= toggleRect.right &&
         mouseY >= toggleRect.top &&
         mouseY <= toggleRect.bottom;
-
+      
       const isMouseOverSub = this._isMouseOverSubmenuElements();
       const isMouseInDeadzone = this._isMouseInDeadzone();
       const isMouseInSubDeadzone = this._isMouseInSubDeadzone();
@@ -1021,7 +1017,7 @@ _showMenu() {
         requestAnimationFrame(() => {
           this._showMenu();
         });
-      }
+      } 
 
         localStorage.setItem(
         this.config.storageKeys.isMouseOverToggle,
@@ -1073,6 +1069,9 @@ _showMenu() {
         this.elements.toggle.classList.add('is-open');
         this.elements.content.style.display = "block";
 
+        // Vynutíme reflow, jinak CSS přechod po nastavení display: block neproběhne
+        void this.elements.content.offsetHeight;
+
         requestAnimationFrame(() => {
           this.elements.content.style.opacity = "1";
           this.elements.content.style.visibility = "visible";
@@ -1117,7 +1116,7 @@ _showMenu() {
         this._clearTimer("clickInactivity");
         this._clearTimer("inactivity");
       }
-      
+
       this.state.currentFocusIndex = -1;
       this._removeKeyboardHoverStyles();
     }
@@ -1136,7 +1135,7 @@ _showMenu() {
         !this.elements.toggle.contains(event.target) &&
         !this.elements.content.contains(event.target) &&
         (!subToggle || !subToggle.contains(event.target)) &&
-        (!subContent || !subContent.contains(event.target))
+        (!subContent || !subContent.contains(event.target)) 
       ) {
         this._hideMenu();
         this.state.isClickOpened = false;
@@ -1148,7 +1147,8 @@ _showMenu() {
 
       this.state.mouseX = e.clientX;
       this.state.mouseY = e.clientY;
-
+      
+      // Throttling zápisu do localStorage, mousemove se spouští desetkrát za sekundu
       if (now - this.state.lastMouseUpdate > 100) {
         localStorage.setItem(this.config.storageKeys.mouseX, this.state.mouseX);
         localStorage.setItem(this.config.storageKeys.mouseY, this.state.mouseY);
@@ -1157,13 +1157,13 @@ _showMenu() {
 
       if (this.elements.content.style.opacity === "1") {
         this._updateDeadzone();
-        
+
         if (this.elements.subContent && this.elements.subContent.style.opacity === "1") {
           this._updateSubDeadzone();
         }
-        
+
         const isMouseOver = this._isMouseOverAnyElement();
-        
+
         if (!this.state.isClickOpened && !isMouseOver) {
           if (!this.timers.hide) {
             this.timers.hide = setTimeout(() => {
@@ -1173,7 +1173,7 @@ _showMenu() {
         } else if (!this.state.isClickOpened) {
           this._clearTimer("hide");
         }
-        
+
         if (this.state.isClickOpened && !isMouseOver) {
           if (!this.timers.clickInactivity) {
             this._startClickInactivityTimer();
@@ -1204,11 +1204,11 @@ _showMenu() {
     }
 
     _checkInitialState() {
-      const savedMouseX =
+      const savedMouseX = 
         parseInt(localStorage.getItem(this.config.storageKeys.mouseX)) || 0;
-      const savedMouseY =
+      const savedMouseY = 
         parseInt(localStorage.getItem(this.config.storageKeys.mouseY)) || 0;
-
+      
       this.state.mouseX = savedMouseX;
       this.state.mouseY = savedMouseY;
 
@@ -1237,16 +1237,8 @@ _showMenu() {
           this._showMenu();
         }, 50);
       }
-        if (localStorage.getItem(`${this.id}-toggleFocused`) === "true") {
-    this.state.isClickOpened = true;
-    this.state.isKeyboardOpened = true; 
-    setTimeout(() => {
-      this._showMenu();
-      setTimeout(() => {
-        this.elements.toggle.focus();
-      }, 100);
-    }, 50);
-  }
+      // Subdropdown při načtení stránky nikdy neobnovujeme, pouze hlavní dropdown
+      localStorage.removeItem(this.config.storageKeys.isSubMenuOpen);
     }
 
     _bindEvents() {
@@ -1257,10 +1249,7 @@ _showMenu() {
       toggle.addEventListener("click", this.handleToggleClick);
       toggle.addEventListener("keydown", this.handleToggleKeyDown);
       toggle.addEventListener("blur", this.handleToggleBlur);
-      toggle.addEventListener("focus", () => {
-  localStorage.setItem(`${this.id}-toggleFocused`, "true");
-});
-      
+
       const container = toggle.closest('.button-container');
       if (container) {
         const mainButton = container.querySelector('.main-button, .main-button-second');
@@ -1275,7 +1264,7 @@ _showMenu() {
                 el.classList.remove('keyboard-hover');
               });
             });
-            
+
             const dropdownToggle = container.querySelector('.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third');
             if (dropdownToggle) {
               dropdownToggle.style.backgroundColor = '';
@@ -1285,14 +1274,14 @@ _showMenu() {
                 arrow.style.color = '';
               }
             }
-          if (e.target.classList.contains('active')) {
-  e.target.classList.add('keyboard-focus');
-} else {
-  e.target.style.backgroundColor = '#309ce5';
-  e.target.style.color = 'white';
-}
+            if (e.target.classList.contains('active')) {
+              e.target.classList.add('keyboard-focus');
+            } else {
+              e.target.style.backgroundColor = '#309ce5';
+              e.target.style.color = 'white';
+            }
           });
-          
+
           mainButton.addEventListener("blur", (e) => {
             setTimeout(() => {
               e.target.classList.remove('keyboard-focus');
@@ -1338,7 +1327,7 @@ _showMenu() {
             e.stopPropagation();
           }
         });
-        
+
         element.addEventListener("mouseenter", () => {
           this._removeKeyboardHoverStyles();
         });
@@ -1351,7 +1340,7 @@ _showMenu() {
             this._clearStorageKeys();
           });
         }
-    
+
         element.addEventListener("focus", (e) => {
           setTimeout(() => {
               if (document.body.classList.contains('using-mouse')) return;
@@ -1366,7 +1355,7 @@ _showMenu() {
                 }
               });
             });
-            
+
             e.target.classList.add('keyboard-hover');
             if (e.target.classList.contains('active')) {
               e.target.style.backgroundColor = '#388E3C';
@@ -1374,7 +1363,6 @@ _showMenu() {
               e.target.style.backgroundColor = '#309ce5';
             }
             e.target.style.color = 'white';
-            
           }, 0);
         });
         
@@ -1389,7 +1377,6 @@ _showMenu() {
 
       window.addEventListener("resize", this.handleWindowResize);
       window.addEventListener("scroll", this.handleWindowScroll);
-
     }
 
     _bindSubDropdownEvents() {
@@ -1508,7 +1495,7 @@ _showMenu() {
                 }
               });
             });
-            
+
             e.target.classList.add('keyboard-hover');
             if (e.target.classList.contains('active')) {
               e.target.style.backgroundColor = '#388E3C';
@@ -1516,7 +1503,6 @@ _showMenu() {
               e.target.style.backgroundColor = '#309ce5';
             }
             e.target.style.color = 'white';
-            
           }, 0);
         });
       });
@@ -1662,7 +1648,7 @@ _showMenu() {
       id: "dropdown-content-third",
       toggleSelector: ".dropdown-toggle-third",
       contentSelector: ".dropdown-content-third",
-      deadzoneMatchContent: true, 
+      deadzoneMatchContent: true,
     });
 
     window.closeAllMenusExcept = function (exceptMenuId) {

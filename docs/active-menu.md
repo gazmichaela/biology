@@ -1,10 +1,10 @@
 # active-menu.js
 
- ## Úvod
- Tento script řeší správu navigačních tlačítek na webu (hlavní menu, dropdowny a mobilní verze). Umí si zapamatovat, na které stránce se uživatel nachází, a podle toho nastavit aktivní odkaz.
+## Úvod
+Tento script řeší správu navigačních tlačítek na webu (hlavní menu, dropdowny a mobilní verze). Umí si zapamatovat, na které stránce se uživatel nachází, a podle toho nastavit aktivní odkaz.
 
 ## Jak to funguje:
-NavigationManager hlídá, která navigační položka má být zrovna aktivní - podle toho, co je v URL, nebo když uživatel klikne na tlačítko.
+`NavigationManager` hlídá, která navigační položka má být zrovna aktivní - podle toho, co je v URL, nebo když uživatel klikne na tlačítko.
 
 Součástí je i responzivní logika - při určité šířce okna (výchozí hranice 1175 px) se přepne z desktopové navigace na mobilní, takže aktivní stav se udržuje v obou variantách.
 
@@ -23,8 +23,11 @@ Součástí je i responzivní logika - při určité šířce okna (výchozí hr
 
 ## Požadavky na HTML: 
 Script očekává určitou strukturu:
+
 - Tlačítka s třídami `.main-button`, `.main-button-second`
+
 - Mobilní verze s `.mobile-nav-button`
+
 - Dropdown s `.dropdown-content`
 
 ## Proč OOP?
@@ -169,7 +172,6 @@ Po kliknutí na libovolný odkaz se správně označí aktivní stránka. Je ale
 
 ## Další informace
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
-
 
 __Autor:__ Michaela Gažová 
 

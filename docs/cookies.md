@@ -85,7 +85,7 @@ class CookieManager {
       storageKey: options.storageKey || "cookiesAccepted",
       ... další 
     };
-  }
+  } 
 }
 ```
 například změněním hodnoty ___1000___ u showDelay na ___2000___
@@ -137,6 +137,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 3.2.1
+__Verze:__ 3.2.2
 
-__Datum:__ 2026-01-09
+__Datum:__ 2026-03-15

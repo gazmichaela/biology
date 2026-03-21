@@ -146,4 +146,4 @@ __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
 __Verze:__ 2.1.1
 
-__Datum:__ 2026-01-09
+__Datum:__ 2026-03-19
