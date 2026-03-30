@@ -46,10 +46,23 @@
 
       if (tooltipText) {
         if (window.innerWidth > 768) {
-          tooltipText.style.left = "50%";
-          tooltipText.style.transform = "translateX(-50%)";
-          return;
-        }
+  tooltipText.style.left = "50%";
+  tooltipText.style.transform = "translateX(-50%)";
+
+  requestAnimationFrame(() => {
+    const rect = tooltipText.getBoundingClientRect();
+    const clientWidth = document.documentElement.clientWidth;
+
+    if (rect.right > clientWidth - 10) {
+      const overflow = rect.right - clientWidth + 10;
+      tooltipText.style.transform = `translateX(calc(-50% - ${overflow}px))`;
+    } else if (rect.left < 10) {
+      const overflow = 10 - rect.left;
+      tooltipText.style.transform = `translateX(calc(-50% + ${overflow}px))`;
+    }
+  });
+  return;
+}
 
         tooltipText.style.transition = "none !important";
         tooltipText.style.left = "0";
