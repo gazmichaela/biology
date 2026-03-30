@@ -514,7 +514,7 @@ table td:first-child {
     z-index: 1;
     bottom: 100%;
     left: 50%;
-     transform: translateX(clamp(calc(-100% + 5px), -50%, calc(100vw - 100% - 40px)));
+    transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s 0.6s ease; /* Fallback, řešeno v JS */
     font-size: 0.8em;
