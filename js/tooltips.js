@@ -8,9 +8,10 @@
  * @author Michaela Gažová
  * @version 2.2.0
  * @since 2025-07-24
- * @updated 2025-08-18
+ * @updated 2026-03-30
  * @license MIT
  */
+
 
 
 // Zabránění problikávání tooltipů
@@ -46,31 +47,31 @@
 
       if (tooltipText) {
         if (window.innerWidth > 768) {
-  tooltipText.style.left = "50%";
-  tooltipText.style.transform = "translateX(-50%)";
+          tooltipText.style.left = "50%";
+          tooltipText.style.transform = "translateX(-50%)";
 
-  requestAnimationFrame(() => {
-    const rect = tooltipText.getBoundingClientRect();
-    const clientWidth = document.documentElement.clientWidth;
+          requestAnimationFrame(() => {
+            const rect = tooltipText.getBoundingClientRect();
+            const clientWidth = document.documentElement.clientWidth;
 
-    if (rect.right > clientWidth - 10) {
-      const overflow = rect.right - clientWidth + 10;
-      tooltipText.style.transform = `translateX(calc(-50% - ${overflow}px))`;
-    } else if (rect.left < 10) {
-      const overflow = 10 - rect.left;
-      tooltipText.style.transform = `translateX(calc(-50% + ${overflow}px))`;
-    }
-  });
-  return;
-}
-
+            if (rect.right > clientWidth - 10) {
+              const overflow = rect.right - clientWidth + 10;
+              tooltipText.style.transform = `translateX(calc(-50% - ${overflow}px))`;
+            } else if (rect.left < 10) {
+              const overflow = 10 - rect.left;
+              tooltipText.style.transform = `translateX(calc(-50% + ${overflow}px))`;
+            }
+          });
+          return;
+        }
         tooltipText.style.transition = "none !important";
         tooltipText.style.left = "0";
         tooltipText.style.transform = "translateX(0)";
 
         const rect = tooltipText.getBoundingClientRect();
         if (rect.right > document.documentElement.clientWidth) {
-          const overflow = rect.right - document.documentElement.clientWidth + 10;
+          const overflow =
+            rect.right - document.documentElement.clientWidth + 10;
           tooltipText.style.transform = `translateX(-${overflow}px)`;
         }
 
