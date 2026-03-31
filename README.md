@@ -65,7 +65,7 @@ Web byl také optimalizován pro čtečky obrazovky.
 4. Interaktivní otázky
 ![Interaktivní otázky](docs/4-questions.png)
 ## Poděkování 
-Děkujeme za pomoc při tvorbě obsahu na webu doc. RNDr. Aleši Rudovi Ph.D., MBA; Mgr. Nataše Berkové; Ing. Ditě Tůmové; Mgr. Denise Kalokové.
+Děkujeme za pomoc při tvorbě obsahu na webu doc. RNDr. Aleši Rudovi, Ph.D., MBA, LL.M; Mgr. Nataše Berkové; Ing. Ditě Tůmové; Mgr. Denise Kalokové.
 
 ## Autoři
 - Michaela Gažová
