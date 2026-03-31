@@ -6,7 +6,7 @@
  *
  * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
  * @author Michaela Gažová
- * @version 2.1.1
+ * @version 2.1.2
  * @since 2025-05-28
  * @updated 2026-03-31
  * @license MIT
