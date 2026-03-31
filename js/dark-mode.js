@@ -8,7 +8,7 @@
  * @author Michaela Gažová
  * @version 2.1.1
  * @since 2025-05-28
- * @updated 2026-03-19
+ * @updated 2026-03-31
  * @license MIT
  */
 
@@ -380,12 +380,20 @@
         }
         
         body.dark-mode table {
-          border: 2px solid #c8c1b5;
+          border-color: #c8c1b5;
+        }
+
+        body.dark-mode thead {
+          box-shadow: 0 -2px 0 0 #c8c1b5;
         }
         
         body.dark-mode th,
         body.dark-mode td {
           border: 1px solid #c8c1b5;
+        }
+
+        body.dark-mode table > thead th {
+          box-shadow: inset 0 1px 0 #c8c1b5;;
         }
         
         body.dark-mode .tooltip .tooltiptext {

@@ -107,8 +107,10 @@ OBSAH:
 
 
 /* ==== 2. ZÁKLADNÍ STYLY ==== */
-html {
+html { /* Nedávat overflow-x: hidden; na body, nebo nebude fungovat position: sticky; u table thead th */
     background: #3f7093;
+    overflow-x: hidden;
+    max-width: 100%; /* Respektuje scrollbar a nezpůsobuje přetečení jako 100vw */
 }
 
 body {
@@ -118,12 +120,6 @@ body {
     min-width: 248px;
     margin: 0;
     color: #023f1e;
-}
-
-html,
-body {
-    overflow-x: hidden;
-    max-width: 100%; /* Respektuje scrollbar a nezpůsobuje přetečení jako 100vw */
 }
 
 body button {
@@ -195,6 +191,7 @@ article section li li li {
 article section p {
     margin-bottom: 0.75em;
     text-wrap: pretty;
+    overflow-wrap: break-word;
 }
 
 article section h2 {
@@ -267,6 +264,10 @@ article section small {
     margin-top: 1.5em;
 }
 
+article section a {
+    overflow-wrap: anywhere;
+}
+
 article section .button,
 article section .button-light {
     border-radius: 20px;
@@ -316,9 +317,9 @@ footer {
 
 footer hr {
     border: none;
-    border-top: 1px solid #5396c5;
+    border-top: 1px solid #76b5e2; /* #5396c5 */
     margin: 20px auto;
-    max-width: 60rem;
+    max-width: 65rem;
     width: 90%;
 }
 
@@ -445,12 +446,13 @@ table {
     width: 90%;
     max-width: 1800px;
     border: 2px solid black;
+    border-top: none !important; /* Aby při přilepení k hornímu okraji nevznikala mezera, okraj řešený přes border-box; !important kvůli tomu aby zůstalo i při dark-mode */
     border-collapse: collapse; /* Sloučení okrajů buněk */
     margin: 30px auto 40px 5%;
     font-size: 1em;
     min-width: 600px;
+    /* overflow: scroll; */
 }
-
 /* Pro čtečky, neviditelné */
 table caption {
     position: absolute;
@@ -466,6 +468,12 @@ table caption {
 
 thead {
     text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: #77afe0ee;
+    color: white;
+    z-index: 1;
+    box-shadow: 0 -1px 0 0 black; /* V kombinaci s box-shadow na `table > thead th` to bude tlustší */
 }
 
 tbody {
@@ -478,13 +486,19 @@ table td {
     border: 1px solid black;
 }
 
+table > thead th {
+    border-top: none !important; /* Aby při přilepení k hornímu okraji nevznikala mezera, okraj řešený přes border-box; !important kvůli tomu aby zůstalo i při dark-mode */
+    border-bottom: none !important; /* !important kvůli tomu aby zůstalo i při dark-mode */
+    box-shadow: inset 0 1px 0 black;
+}
+
 table td:first-child {
     font-weight: bold;
     text-align: center;
 }
 
 .table-wrapper {
-    overflow-x: auto; /* Horizontální posun */
+    /*overflow-x: auto;*/ /* Horizontální posun */
     -webkit-overflow-scrolling: touch;  /* Plynulé posouvání na iOS */
 }
 
@@ -545,6 +559,7 @@ table td:first-child {
 
 
 /* ==== 7. TMAVÝ REŽIM ==== */
+/* Styly pro tmavý režim se nachází v dark-moe.js */
 
 /* Tlačítko ve světlém režimu */
 .dark-mode-toggle {

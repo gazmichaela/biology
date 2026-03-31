@@ -8,7 +8,7 @@
  * @author Michaela Gažová
  * @version 2.5.0
  * @since 2026-02-07
- * @updated 2026-03-21
+ * @updated 2026-03-31
  * @license MIT
  */
 
@@ -1204,25 +1204,45 @@
     }
 
     _onContentMouseEnter() {
-      if (!this.state.isClickOpened) {
-        this._clearTimer("hide");
+      this._clearTimer("hide");
+      this._clearTimer("inactivity");
+      this._clearTimer("clickInactivity");
+      this._clearTimer("animation");
 
+      if (this.state.isClosingInProgress) {
+        this.state.isClosingInProgress = false;
+        this.elements.content.style.opacity = "1";
+        this.elements.content.style.visibility = "visible";
         this.elements.content.style.display = "block";
+        this._showDeadzone();
+        return;
+      }
 
+      if (this.state.isClickOpened) {
+        this._clearTimer("clickInactivity");
+        this._clearTimer("inactivity");
+      } else {
+        this.elements.content.style.display = "block";
         requestAnimationFrame(() => {
           this.elements.content.style.opacity = "1";
           this.elements.content.style.visibility = "visible";
         });
-      } else {
-        this._clearTimer("clickInactivity");
-        this._clearTimer("inactivity");
       }
     }
-
     _onContentMouseLeave(e) {
+      const toElement = e.relatedTarget;
+
+      // Pokud myš přechází na toggle nebo jeho potomka, nezavírej
+      if (
+        toElement === this.elements.toggle ||
+        this.elements.toggle.contains(toElement)
+      ) {
+        return;
+      }
+
       if (!this.state.isClickOpened) {
         this.timers.hide = setTimeout(() => {
-          if (!this._isMouseInDeadzone()) {
+          if (!this._isMouseInDeadzone() && !this._isMouseOverAnyElement()) {
             this._hideMenu();
           }
         }, this.config.hoverHideDelay);
@@ -1286,11 +1306,12 @@
         }
 
         const isMouseOver = this._isMouseOverAnyElement();
-
         if (!this.state.isClickOpened && !isMouseOver) {
           if (!this.timers.hide) {
             this.timers.hide = setTimeout(() => {
-              this._hideMenu();
+              if (!this._isMouseOverAnyElement()) {
+                this._hideMenu();
+              }
             }, this.config.hoverHideDelay);
           }
         } else if (!this.state.isClickOpened) {
