@@ -673,6 +673,7 @@
       this.subDeadzoneElement.style.pointerEvents = "none";
       this.subDeadzoneElement.style.display = "none";
       this.subDeadzoneElement.style.zIndex = "9999";
+      this.subDeadzoneElement.style.backgroundColor = "red";
 
       document.body.appendChild(this.subDeadzoneElement);
     }
@@ -885,6 +886,7 @@
       this.deadzoneElement.style.pointerEvents = "none";
       this.deadzoneElement.style.display = "none";
       this.deadzoneElement.style.zIndex = "9999";
+      this.deadzoneElement.style.backgroundColor = "red";
 
       document.body.appendChild(this.deadzoneElement);
     }
