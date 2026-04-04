@@ -35,7 +35,7 @@ header .nav-desktop a {
 }
 
 /* Logo */
-.logo {
+header .nav-desktop .logo {
     height: 43px; /* Jako výška navigace */
     display: block;
     opacity: 0; /* Na začátku je obrázek neviditelný */
@@ -224,15 +224,15 @@ body:not(.using-mouse) .dropdown-toggle-third:focus .arrow,
 }
 
 .dropdown-content {
-    transform: translateX(-37.58px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 122.42 */
+    transform: translateX(-37.58px); /* šířka celého tlačítka mínus šířka .dropdown-content, tj. 122.42 - 160 */
 }
 
 .dropdown-content-second {
-    transform: translateX(-24.83px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 135.17 */
+    transform: translateX(-24.83px); /* šířka celého tlačítka mínus šířka .dropdown-content, tj. 135.17 - 160 */
 }
 
 .dropdown-content-third {
-    transform: translateX(49.44px); /* šířka .dropdown-content mínus šířka celého tlačítka, tj. 160 - 209.44 */
+    transform: translateX(49.44px); /* šířka celého tlačítka mínus šířka .dropdown-content, tj. 209.44 - 160*/
 }
 
 .sub-dropdown-content {

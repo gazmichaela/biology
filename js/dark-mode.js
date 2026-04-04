@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
  * @author Michaela Gažová
- * @version 2.1.2
+ * @version 2.1.3
  * @since 2025-05-28
- * @updated 2026-03-31
+ * @updated 2026-04-04
  * @license MIT
  */
 
@@ -332,7 +332,7 @@
         }
 
         body.dark-mode article section h3 {
-          text-decoration: underline #3f7093ee;
+          text-decoration-color: #3f7093ee;
         }
 
         body.dark-mode .button,
@@ -358,7 +358,7 @@
 
         body.dark-mode .cookies-mini-notice {
           background: black;
-          border: 1px solid #585858
+          border-color: #585858;
         }
 
         body.dark-mode .cookies-mini-notice p {
@@ -371,7 +371,7 @@
         
         body.dark-mode .cookies-mini-notice button {
           background: #2c2c2c;
-          border: 1px solid #3b3b3b;
+          border-color: #3b3b3b;
           color: #c8c1b5;
         }
         
@@ -384,16 +384,18 @@
         }
 
         body.dark-mode thead {
-          box-shadow: 0 -2px 0 0 #c8c1b5;
+          box-shadow: 0 -1px 0 0 #c8c1b5;
         }
         
         body.dark-mode th,
         body.dark-mode td {
-          border: 1px solid #c8c1b5;
+          border-color: #c8c1b5;
         }
 
         body.dark-mode table > thead th {
-          box-shadow: inset 0 1px 0 #c8c1b5;;
+          box-shadow: inset 0 1px 0 #c8c1b5;
+          border-top: none;
+          border-bottom: none;
         }
         
         body.dark-mode .tooltip .tooltiptext {
@@ -403,7 +405,7 @@
         
         body.dark-mode .question {
           background: #333131;
-          border: 1px solid #505050
+          border-color: #505050
         }
         
         body.dark-mode .answer {
@@ -416,7 +418,92 @@
         }
         
         body:not(.dark-mode) .dark-mode-toggle {
-          background: white !important;
+          background: white;
+        }
+
+
+        @media (prefers-contrast: more) {
+          body.dark-mode {
+            background: #111;
+            color: #f0ede9;
+          }
+
+          body.dark-mode article section a:link:not(.button):not(.sidemap a):not(.no-a-style) {
+            color: #4ecdff;
+          }
+
+          body.dark-mode article section h2 {
+            background: linear-gradient(to top, #5b9ece 10%, transparent 40%);
+          }
+
+          body.dark-mode .question {
+            background-color: #444;
+            color: white;
+            border-color: #f0ede9;
+          }
+          
+          body.dark-mode .answer {
+            background-color: #333;
+            color: white;
+          }
+          
+          body.dark-mode #toggle-questions-btn {
+            border-color: #f0ede9;
+          }
+
+          body.dark-mode article section :is(.button, .button-light) {
+            border-color: #f0ede9;
+          }
+
+          body.dark-mode article section .citace a:visited {
+            color: #9583ff;
+          }
+
+          body.dark-mode .tooltip .tooltiptext {
+            border: 2px solid currentColor;
+            color: #f0ede9;
+          }
+
+          body.dark-mode .cookies-mini-notice {
+            border-color: #f0ede9;
+            background-color: #333;
+          }
+
+          body.dark-mode .cookies-mini-notice p {
+            color: #f0ede9;
+          }
+
+          body.dark-mode .cookies-mini-notice a {
+            color: #4ecdff;
+          }
+        
+          body.dark-mode .cookies-mini-notice button {
+            background-color: black;
+            border-color: currentColor;
+            color: #f0ede9;
+          }
+
+          body.dark-mode .dark-mode-toggle {
+            background-color: #333 !important;
+            border-color: #f0ede9;
+          }
+
+          body.dark-mode table {
+            border-color: #f0ede9;
+          }
+
+          body.dark-mode thead {
+            box-shadow: 0 -1px 0 0 #f0ede9;
+          }
+          
+          body.dark-mode :is(th, td) {
+            border-color: #f0ede9;
+          }
+
+          body.dark-mode table > thead th {
+            box-shadow: inset 0 1px 0 #f0ede9;
+          }
+
         }
       `;
     }

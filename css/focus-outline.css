@@ -1,3 +1,5 @@
+/* Při (prefers-contrast: more) anebo při (forced-colors: active) se používají styly uložené v responsiveness.css */
+
 /* Vypnutí výchozího outline pro všechny prvky */
 *:focus,
 *:focus-visible {

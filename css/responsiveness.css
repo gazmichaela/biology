@@ -36,6 +36,8 @@ OBSAH:
     - do 360px
 
  5. Print verze stránky
+
+ 6. Další media queries pro přístupnost
 */
 
 
@@ -45,7 +47,6 @@ OBSAH:
     /* Zajistí, že se stránka neprolí horizontálně */
     html,
     body {
-        overflow-x: hidden;
         max-width: 100vw;
     }
 
@@ -57,6 +58,10 @@ OBSAH:
     .logo {
         width: 150px; 
         margin: 15px 0px 0px 20px;
+    }
+
+    .table-wrapper {
+        max-height: min(20rem + 40vh, 800px, 85vh);
     }
 }
 
@@ -198,15 +203,15 @@ OBSAH:
         padding: 12px 20px;
     }
     
-.tooltip .tooltiptext {
-    font-size: small;
-    white-space: normal;
-    max-width: 300px;
-    left: 0;
-    transform: translateX(min(0px, calc(100vw - 100% - 10px)));
-    bottom: 110%;
-    z-index: 9999;
-}
+    .tooltip .tooltiptext {
+        font-size: small;
+        white-space: normal;
+        max-width: 300px;
+        left: 0;
+        transform: translateX(min(0px, calc(100vw - 100% - 10px)));
+        bottom: 110%;
+        z-index: 9999;
+    }
 
     footer {
         padding: 30px 10px 0px 10px;
@@ -318,7 +323,7 @@ OBSAH:
     .cookies-mini-notice {
         bottom: 8px;
         padding: 6px 16px;
-        max-width: 240px;
+        max-width: 300px;
 
     }
 
@@ -338,7 +343,7 @@ OBSAH:
 
 @media screen and (max-width: 480px) {
     .cookies-mini-notice {
-        max-width: 220px;
+        max-width: 280px;
     }
 }
 
@@ -397,7 +402,6 @@ OBSAH:
     
     .cookies-mini-notice {
         padding: 9px 15px;
-        max-width: 160px;
     }
 
     footer {
@@ -1044,16 +1048,6 @@ OBSAH:
         margin-top: 0;
     }
 
-    table {
-        width: 100%;
-        font-size: 10pt;
-        margin: auto;
-    }
-
-    table thead {
-        display: table-header-group;
-    }
-
     .tooltip {
         font-style: normal;
         text-decoration: none;
@@ -1114,6 +1108,32 @@ OBSAH:
 
     a:link:not(.button):not(.sidemap a):not(.no-a-style) {
         color: -webkit-link !important; /* Výchozí barva odkazů v prohlížeči */
+    }
+
+    table {
+        border: 2pt solid black !important;
+        width: 100%;
+        font-size: 10pt;
+        margin: auto;
+    }
+
+    .table-wrapper {
+        height: auto;
+        min-height: initial;
+        overflow: hidden;
+        max-height: none;
+    }
+
+    table thead {
+        box-shadow: none !important;
+        border-bottom: 1pt solid black;
+    }
+
+    table th {
+        position: static;
+        background-color: initial !important;
+        box-shadow: none !important;
+        border-top: 1pt solid black !important;
     }
 
     table,
@@ -1202,5 +1222,315 @@ OBSAH:
 
     .img-left {
         width: 30%;
+    }
+}
+
+
+
+/* ===== 6. DALŠÍ MEDIA QUERIES PRO PŘÍSTUPNOST ===== */
+@media (prefers-reduced-motion: reduce) or (update: slow) {
+    * {
+        animation: none !important;
+    }
+
+    header .nav-desktop .logo {
+        opacity: 1;
+    }
+
+    .burger-line,
+    .menu-overlay,
+    .mobile-nav-container,
+    .mobile-nav-button,
+    .menu-close-button,
+    .question,
+    .answer,
+    .sticky-header,
+    .tooltip .tooltiptext,
+    .dark-mode-toggle,
+    .dark-mode-toggle .icon-anim,
+    .modal-content,
+    .source-container,
+    #originPdfFrame_fallback :is(a, button) {
+        transition-duration: 0.1s !important;
+        transition-timing-function: linear !important;
+    }
+
+    body,
+    .cookies-mini-notice button,
+    .dark-mode-toggle,
+    .dark-mode-toggle .icon-anim,
+    .main-button,
+    .dropdown-toggle,
+    .dropdown-toggle-second,
+    .dropdown-toggle-third,
+    .dropdown-content,
+    .dropdown-content-second,
+    .dropdown-content-third,
+    .sub-dropdown-content,
+    .info-box,
+    .info-box .icon-circle,
+    .info-box::before,
+    .info-box span {
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+
+}
+
+@media screen and (prefers-reduced-transparency: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    header,
+    .sticky-header,
+    table > thead th {
+        background-color: #77afe0; /* Bez průhlednosti */
+    }
+
+    .pdf-overlay,
+    .modal-image-viewer {
+        backdrop-filter: initial !important; /* Teď nemá ve výchozím nastavení nějaký backdrop-filter, ale kdybychom chtěli časem přidat, bude to připravené i na (prefers-reduced-transparency: reduce) */
+        background-color: rgba(0, 0, 0, 0.9) !important; /* Náhrada za backdrop-filter */
+    }
+
+}
+
+@media (display-mode: fullscreen) {
+    .sticky-header {
+        display: none !important; /* Aby při fullscreen bylo co nejvíce místa pro obsah stránky */
+    }
+}
+
+@media screen and (prefers-contrast: more) { /* Pro tmavý režim v dark-mode.js */
+    body:not(.using-mouse) *:focus,
+    body:not(.using-mouse) *:focus-visible {
+        outline-color: red !important;
+        outline-width: 3px !important;
+    }
+
+    body {
+        color: black;
+        background-color: #f3fcf2;
+    }
+
+    body header,
+    .sticky-header,
+    table > thead th {
+        background-color: #4978a0 !important;
+    }
+
+    .nav-desktop .main-button.active {
+        box-shadow: inset 0 0 0 2px white;
+    }
+
+    .nav-desktop .main-button.active,
+    .nav-desktop :is(.dropdown-content, .dropdown-content-second, .dropdown-content-third) a.active {
+        background-color: #b326f5 !important;
+        outline-offset: 3px !important;
+        z-index: 1;
+    }
+
+    .nav-desktop .nav-right a:not(.home-icon):is(:hover, :focus, :focus-visible),
+    .nav-desktop :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third):is(:hover, :focus, :focus-visible) {
+        background-color: blue !important;
+    }
+
+    .nav-desktop .nav-right a.active:is(:hover, :focus, :focus-visible) {
+        background-color: #098809 !important;
+    }
+    
+    header .nav-desktop .nav-home a:hover img {
+        filter: brightness(0) saturate(100%) invert(10%) sepia(100%) saturate(9950%) hue-rotate(251deg) brightness(128%) contrast(138%);
+    }
+
+    article section h2 {
+        background: linear-gradient(to top, #309de5b6 10%, transparent 40%);
+    }
+
+    article section h3 {
+        text-decoration-color: #309de5b6;
+        text-decoration-thickness: 15%;
+    }
+
+    article section .button {
+        color: white;
+        background-color: #671eee !important;
+        border-width: 2px;
+    }
+
+    article section .button-light {
+        color: white;
+        background-color: #0049e7 !important;
+        border-width: 2px;
+    }
+
+    article section :is(.button, .button-light):hover {
+        text-shadow: 0 0 1px white;
+        font-weight: 800;
+        border-width: 3px;
+        margin-bottom: -2px; /* Aby se nehýbal zbytek stránky */
+    }
+
+    .question {
+        border: 2px solid black;
+    }
+
+    .question:hover {
+        background-color: #dcdcdc;
+    }
+          
+    .answer {
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+    }
+
+    article section #toggle-questions-btn {
+        background-color: #0049e7 !important;
+        border-width: 2px;
+    }
+
+    article section #toggle-questions-btn:hover {
+        text-shadow: 0 0 1px white;
+        font-weight: 800;
+        border-width: 3px;
+        margin-bottom: 18px; /* Aby se nehýbal zbytek stránky; púvodní margin-bottom - 2px */
+    }
+
+    article section a:link:not(.button):not(.sidemap a):not(.no-a-style) {
+        color: #0051ff;
+    }
+
+    article section .citace a:visited {
+        color: #7337ff;
+    }
+
+    .img-wrapper img {
+        border: 2px solid currentColor;
+    }
+
+    .info-box .info-box-link {
+        color: #4ecdff !important;
+    }
+
+    .tooltip {
+        border-bottom-width: 3px;
+    }
+
+    .cookies-mini-notice {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        border: 3px solid #333;
+        background-color: white;
+    }
+
+    .cookies-mini-notice p {
+        color: black;
+    }
+
+    .cookies-mini-notice button:hover {
+        text-shadow: 0 0 1px white;
+        font-weight: 800;
+    }
+
+    .dark-mode-toggle {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        border: 3px solid #333;
+    }
+
+    .pdf-overlay {
+        background-color: rgba(0, 0, 0, 0.9) !important; /* Pro sulnější vyniknutí*/
+    }
+
+    .pdf-close-button {
+        font-size: 28px;
+        font-weight: 700;
+        width: 35px;
+        height: 35px;
+        background-color: white !important;
+        color: black !important;
+        top: -25px;
+        right: -25px;
+    }
+ 
+}
+
+@media screen and (forced-colors: active) {
+    * {
+        forced-color-adjust: auto;
+    }
+
+    *:focus,
+    *:focus-visible {
+        outline: 3px solid Highlight !important;
+    }
+
+    a:hover,
+    .reset-preferences-btn:hover {
+        text-decoration: underline Highlight;
+    }
+
+    :is(.button, .button-light, #toggle-questions-btn, #acceptCookies):hover,
+    :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third):hover,
+    .sub-dropdown-toggle:hover::before {
+        outline: 2px solid Highlight !important;
+    }
+
+    body header,
+    .sticky-header {
+        border-bottom: 2px solid CanvasText;
+    }
+
+    .nav-right :is(a, :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third) span) {
+        color: LinkText !important;
+    }
+
+    .nav-desktop .nav-home a:hover img {
+        filter: none !important;
+    }
+
+    .nav-right .sub-dropdown-toggle::before {
+        color: LinkText !important;
+    }
+
+    .nav-right :is(.dropdown-content, .dropdown-content-second, .dropdown-content-third) {
+        border: 2px solid CanvasText;
+    }
+
+    button,
+    .main-button,
+    .button,
+    .button-light,
+    #toggle-questions-btn {
+        background-color: ButtonFace !important;
+        color: ButtonText !important;
+    }
+
+    article section h2 {
+        text-decoration: underline solid CanvasText 5px;
+    }
+
+    .question {
+        border: 3px solid CanvasText;
+    }
+
+    .answer {
+        border: 1px solid CanvasText;
+    }
+
+    .tooltip .tooltiptext {
+        border: 3px dashed CanvasText;
+    }
+
+    #darkModeToggle {
+        display: none !important;
+    }
+
+    footer {
+        border-top: 2px solid CanvasText;
+        clip-path: none;
+    }
+
+    .reset-preferences-btn {
+        color: LinkText;
     }
 }

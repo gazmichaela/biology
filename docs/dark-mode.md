@@ -144,6 +144,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.1.2
+__Verze:__ 2.1.3
 
-__Datum:__ 2026-03-31
+__Datum:__ 2026-04-04
