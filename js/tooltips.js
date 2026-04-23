@@ -6,9 +6,9 @@
  *
  * @fileoverview Jednoduchý tooltip handler s CSS optimalizací
  * @author Michaela Gažová
- * @version 2.2.0
+ * @version 2.2.1
  * @since 2025-07-24
- * @updated 2026-03-30
+ * @updated 2026-04-05
  * @license MIT
  */
 
@@ -25,6 +25,8 @@
     }
 
     tooltipTexts.forEach((el) => {
+      // Zabránění zalomení řádku před čárkou
+      el.innerHTML = el.innerHTML.replace(/,(\n\s+)/g, ",\u00A0");
       // Nastavení záložní CSS animace
       el.style.animation = "none";
       el.style.transition = "opacity 0.3s ease";

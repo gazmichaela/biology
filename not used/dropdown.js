@@ -1,18 +1,3 @@
-/**
- * DropdownManager - Systém pro správu víceúrovňových dropdown menu
- *
- * Řešení pro dropdown menu a vnořeného subdropdownu s podporou hoveru, kliků a ovládání pomocí klávesnice.
- * Zajišťuje synchronizaci stavu napříč taby v prohlížeči a poskytuje mechanismy pro plynulý přechod mezi tlačítkem a obsahem pomocí mrtvých zón.
- *
- * @fileoverview Automatický systém správy dropdown menu s cross-tab synchronizací a podporou subdropdownů
- * @author Michaela Gažová
- * @version 2.7.1
- * @since 2026-02-07
- * @updated 2026-04-18
- * @license MIT
- */
-
-
 
 (function () {
   class DropdownManager {
@@ -34,6 +19,9 @@
 
       // Klíče jsou prefixovány ID instance, aby se více dropdownů navzájem nepřepisovalo
       this.config.storageKeys = {
+       /* mouseX: "mouseX",*/
+       /* mouseY: "mouseY",*/
+       /* isMouseOverToggle: `${this.id}-mouseOver`,*/
         isSubMenuOpen: `${this.id}-sub-isOpen`,
       };
 
@@ -48,9 +36,15 @@
       };
 
       this.state = {
+       /* mouseX:
+          parseInt(localStorage.getItem(this.config.storageKeys.mouseX)) || 0,
+        mouseY:
+          parseInt(localStorage.getItem(this.config.storageKeys.mouseY)) || 0,*/
         mouseX: 0,
         mouseY: 0,
+       /* lastMouseUpdate: 0,*/
         isClickOpened: false,
+      /*  isSubmenuActive: false,*/
         isClosingInProgress: false,
         isClickOpenedSub: false,
         isMouseOverMenuSub: false,
@@ -175,6 +169,7 @@
         }
 
         this.state.isClickOpened = false;
+      /*  this.state.isSubmenuActive = false;*/
         this.state.isClosingInProgress = false;
 
         this._clearStorageKeys();
@@ -277,6 +272,10 @@
             this.elements.subContent.style.visibility = "visible";
             this._showSubDeadzone();
           }
+
+        /*  if (window.setSubmenuActive) {
+            window.setSubmenuActive(true);
+          }*/
         }
 
         if (
@@ -779,6 +778,10 @@
         this._showSubDeadzone();
       }, 10);
 
+    /*  if (window.setSubmenuActive) {
+        window.setSubmenuActive(true);
+      }*/
+
       if (this.state.isClickOpenedSub) {
         localStorage.setItem(this.config.storageKeys.isSubMenuOpen, "true");
       }
@@ -825,6 +828,10 @@
             this.state.isClickOpenedSub = false;
             localStorage.removeItem(this.config.storageKeys.isSubMenuOpen);
           }
+
+       /*   if (window.setSubmenuActive) {
+            window.setSubmenuActive(false);
+          }*/
 
           if (currentElementBeforeClose) {
             this._updateFocusableElements();
@@ -1040,6 +1047,7 @@
         this.elements.content.style.display = "none";
 
         this.state.isClickOpened = false;
+      /*  this.state.isSubmenuActive = false;*/
         this.state.isClosingInProgress = false;
         this._clearStorageKeys();
       }, this.config.transitionDuration);
@@ -1121,9 +1129,13 @@
           this._showMenu();
         });
       }
+
+    /*  localStorage.setItem(this.config.storageKeys.isMouseOverToggle, "true");*/
     }
 
     _onToggleMouseLeave(e) {
+    /*  localStorage.removeItem(this.config.storageKeys.isMouseOverToggle);*/
+
       if (this.state.isClickOpened) {
         this._startClickInactivityTimer();
         return;
@@ -1258,8 +1270,17 @@
     }
 
     _onDocumentMouseMove(e) {
+     /* const now = Date.now();*/
+
       this.state.mouseX = e.clientX;
       this.state.mouseY = e.clientY;
+
+      // Throttling zápisu do localStorage, mousemove se spouští desetkrát za sekundu
+     /* if (now - this.state.lastMouseUpdate > 100) {
+        localStorage.setItem(this.config.storageKeys.mouseX, this.state.mouseX);
+        localStorage.setItem(this.config.storageKeys.mouseY, this.state.mouseY);
+        this.state.lastMouseUpdate = now;
+      }*/
 
       if (this.elements.content.style.opacity === "1") {
         this._updateDeadzone();
@@ -1319,9 +1340,45 @@
       }
     }
 
-    _checkInitialState() {
+  /*  _checkInitialState() {
+      const savedMouseX =
+        parseInt(localStorage.getItem(this.config.storageKeys.mouseX)) || 0;
+      const savedMouseY =
+        parseInt(localStorage.getItem(this.config.storageKeys.mouseY)) || 0;
+
+      this.state.mouseX = savedMouseX;
+      this.state.mouseY = savedMouseY;
+
+      const toggleRect = this.elements.toggle.getBoundingClientRect();
+
+      const isOverToggle =
+        savedMouseX >= toggleRect.left &&
+        savedMouseX <= toggleRect.right &&
+        savedMouseY >= toggleRect.top &&
+        savedMouseY <= toggleRect.bottom;
+
+      const wasOverToggle =
+        localStorage.getItem(this.config.storageKeys.isMouseOverToggle) ===
+        "true";
+
+      let isCurrentlyHovered = false;
+      try {
+        isCurrentlyHovered = this.elements.toggle.matches(":hover");
+      } catch (e) {
+        isCurrentlyHovered = false;
+      }
+
+      if (isOverToggle || wasOverToggle || isCurrentlyHovered) {
+        setTimeout(() => {
+          this._showMenu();
+        }, 50);
+      }
+      // Subdropdown při načtení stránky nikdy neobnovujeme, pouze hlavní dropdown
       localStorage.removeItem(this.config.storageKeys.isSubMenuOpen);
-    }
+    }*/
+   _checkInitialState() {
+  localStorage.removeItem(this.config.storageKeys.isSubMenuOpen);
+}
 
     _bindEvents() {
       const { toggle, content, subToggle, subContent } = this.elements;
@@ -1551,6 +1608,9 @@
         if (this.state.isClosingInProgressSub) {
           this._showSubMenu();
         }
+      /*  if (window.setSubmenuActive) {
+          window.setSubmenuActive(true);
+        }*/
       });
 
       subContent.addEventListener("mouseleave", () => {
@@ -1663,6 +1723,16 @@
       return this.elements.content.style.opacity === "1";
     }
 
+   /* setSubmenuActive(active) {
+      this.state.isSubmenuActive = active;
+
+      if (active) {
+        if (this.state.isClickOpened) {
+          this._startInactivityTimer();
+        }
+      }
+    }*/
+
     refresh() {
       this._cacheElements();
     }
@@ -1716,6 +1786,7 @@
         isOpen: this.isOpen(),
         isClickOpened: this.state.isClickOpened,
         isKeyboardOpened: this.state.isKeyboardOpened,
+      /*  isSubmenuActive: this.state.isSubmenuActive,*/
         hasSubDropdown: !!(this.elements.subToggle && this.elements.subContent),
         subDropdownOpen: this.elements.subContent
           ? this.elements.subContent.style.opacity === "1"
@@ -1768,12 +1839,36 @@
       }
     };
 
+    window.closeFirstMenu = function () {
+      if (dropdownManager1) {
+        dropdownManager1.close();
+      }
+    };
+
+    window.closeSecondMenu = function () {
+      if (dropdownManager2) {
+        dropdownManager2.close();
+      }
+    };
+
+    window.closeThirdMenu = function () {
+      if (dropdownManager3) {
+        dropdownManager3.close();
+      }
+    };
+
     window.closeSubMenuWithParent = function () {
       if (dropdownManager1 && dropdownManager1.elements.subContent) {
         dropdownManager1.state.isClickOpenedSub = false;
         dropdownManager1._hideSubMenu();
       }
     };
+
+  /*  window.setSubmenuActive = function (active) {
+      if (dropdownManager1) {
+        dropdownManager1.setSubmenuActive(active);
+      }
+    }; */
 
     window.dropdownMenus = {
       first: {
@@ -1804,6 +1899,8 @@
         destroy: () => dropdownManager3?.destroy(),
       },
     };
+
+    window.dropdownMenu = window.dropdownMenus.first;
   });
 
   if (typeof module !== "undefined" && module.exports) {
@@ -1813,5 +1910,3 @@
     window.DropdownManager = DropdownManager;
   }
 })();
-
-/* (tento script používá formátování prettier) */

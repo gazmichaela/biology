@@ -1,23 +1,7 @@
-/**
- * StickyHeader - Systém pro správu sticky headeru a dropdown menu v něm
- *
- * Klonuje původní header stránky a zobrazuje/skrývá ho jako sticky header při scrollování nahoru/dolů.
- * Spravuje vlastní instanci StickyDropdownManager pro každé dropdown menu ve sticky headeru včetně subdropdownů s detekcí mrtvých zón.
- *
- * @fileoverview Systém správy sticky headeru s integrovanými dropdown menu a podporou mobilního i desktopového zobrazení
- * @author Michaela Gažová
- * @version 3.0.0
- * @since 2026-04-02
- * @updated 2026-04-23
- * @license MIT
- */
-
-
-
 (function () {
   class ScrollStateManager {
     constructor() {
-      history.scrollRestoration = "manual";
+      history.scrollRestoration = 'manual';
       this._bindEvents();
       this.isInitialized = true;
     }
@@ -148,8 +132,7 @@
     _createDeadzone() {
       this.deadzoneElement = document.createElement("div");
       this.deadzoneElement.id = `dropdown-deadzone-${this.id}`;
-      this.deadzoneElement.className =
-        "dropdown-deadzone sticky-dropdown-deadzone";
+      this.deadzoneElement.className = "dropdown-deadzone sticky-dropdown-deadzone";
       this.deadzoneElement.style.cssText = `
         position: fixed;
         pointer-events: none;
@@ -164,16 +147,10 @@
 
       const container = this.elements.toggle.closest(".button-container");
 
-      if (!container) {
-        this.deadzoneElement.style.display = "none";
-        return;
-      }
+      if (!container) { this.deadzoneElement.style.display = "none"; return; }
 
       const mainButton = container.querySelector(".main-button");
-      if (!mainButton) {
-        this.deadzoneElement.style.display = "none";
-        return;
-      }
+      if (!mainButton) { this.deadzoneElement.style.display = "none"; return; }
 
       const mainRect = mainButton.getBoundingClientRect();
       const toggleRect = this.elements.toggle.getBoundingClientRect();
@@ -181,10 +158,7 @@
 
       const top = Math.max(mainRect.bottom, toggleRect.bottom);
       const height = contentRect.top - top;
-      if (height <= 0) {
-        this.deadzoneElement.style.display = "none";
-        return;
-      }
+      if (height <= 0) { this.deadzoneElement.style.display = "none"; return; }
 
       let left = mainRect.left;
       // -2 kompenzuje border mezi tlačítky
@@ -203,27 +177,14 @@
       this.deadzoneElement.style.display = "block";
     }
 
-    _showDeadzone() {
-      if (this.deadzoneElement) this._updateDeadzone();
-    }
-    _hideDeadzone() {
-      if (this.deadzoneElement) this.deadzoneElement.style.display = "none";
-    }
+    _showDeadzone() { if (this.deadzoneElement) this._updateDeadzone(); }
+    _hideDeadzone() { if (this.deadzoneElement) this.deadzoneElement.style.display = "none"; }
 
     _isMouseInDeadzone() {
-      if (
-        !this.deadzoneElement ||
-        this.deadzoneElement.style.display === "none"
-      )
-        return false;
+      if (!this.deadzoneElement || this.deadzoneElement.style.display === "none") return false;
       const { mouseX, mouseY } = this.state;
       const rect = this.deadzoneElement.getBoundingClientRect();
-      return (
-        mouseX >= rect.left &&
-        mouseX <= rect.right &&
-        mouseY >= rect.top &&
-        mouseY <= rect.bottom
-      );
+      return mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
     }
 
     _createSubDeadzone() {
@@ -231,8 +192,7 @@
 
       this.subDeadzoneElement = document.createElement("div");
       this.subDeadzoneElement.id = `subdropdown-deadzone-${this.id}`;
-      this.subDeadzoneElement.className =
-        "subdropdown-deadzone sticky-subdropdown-deadzone";
+      this.subDeadzoneElement.className = "subdropdown-deadzone sticky-subdropdown-deadzone";
       this.subDeadzoneElement.style.cssText = `
         position: fixed;
         pointer-events: none;
@@ -243,16 +203,9 @@
     }
 
     _updateSubDeadzone() {
-      if (
-        !this.subDeadzoneElement ||
-        !this.elements.subToggle ||
-        !this.elements.subContent
-      )
-        return;
+      if (!this.subDeadzoneElement || !this.elements.subToggle || !this.elements.subContent) return;
 
-      const container =
-        this.elements.subToggle.closest(".sub-dropdown") ||
-        this.elements.subToggle;
+      const container = this.elements.subToggle.closest(".sub-dropdown") || this.elements.subToggle;
       const contRect = container.getBoundingClientRect();
       const subRect = this.elements.subContent.getBoundingClientRect();
 
@@ -275,28 +228,14 @@
       }
     }
 
-    _showSubDeadzone() {
-      if (this.subDeadzoneElement) this._updateSubDeadzone();
-    }
-    _hideSubDeadzone() {
-      if (this.subDeadzoneElement)
-        this.subDeadzoneElement.style.display = "none";
-    }
+    _showSubDeadzone() { if (this.subDeadzoneElement) this._updateSubDeadzone(); }
+    _hideSubDeadzone() { if (this.subDeadzoneElement) this.subDeadzoneElement.style.display = "none"; }
 
     _isMouseInSubDeadzone() {
-      if (
-        !this.subDeadzoneElement ||
-        this.subDeadzoneElement.style.display === "none"
-      )
-        return false;
+      if (!this.subDeadzoneElement || this.subDeadzoneElement.style.display === "none") return false;
       const { mouseX, mouseY } = this.state;
       const rect = this.subDeadzoneElement.getBoundingClientRect();
-      return (
-        mouseX >= rect.left &&
-        mouseX <= rect.right &&
-        mouseY >= rect.top &&
-        mouseY <= rect.bottom
-      );
+      return mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
     }
 
     _setupSubDropdown() {
@@ -313,8 +252,7 @@
         position: ${subContent.style.position || "absolute"};
       `;
 
-      if (!subToggle.hasAttribute("tabindex"))
-        subToggle.setAttribute("tabindex", "0");
+      if (!subToggle.hasAttribute("tabindex")) subToggle.setAttribute("tabindex", "0");
       subContent.classList.add("fade-dropdown");
     }
 
@@ -374,7 +312,7 @@
       this._clearTimer("subAnimation");
       this.state.isClosingInProgressSub = false;
 
-      this.elements.subContent.style.display = "block";
+     this.elements.subContent.style.display = "block";
 
       setTimeout(() => {
         this.elements.subContent.style.opacity = "1";
@@ -388,11 +326,7 @@
     }
 
     _hideSubMenu(skipDelay = false) {
-      if (
-        !this.elements.subContent ||
-        this.elements.subContent.style.display === "none"
-      )
-        return;
+      if (!this.elements.subContent || this.elements.subContent.style.display === "none") return;
 
       this._clearTimer("subHide");
       this._clearTimer("subAnimation");
@@ -403,22 +337,18 @@
         this.state.currentFocusIndex >= 0 &&
         this.state.currentFocusIndex < this.state.focusableElements.length
       ) {
-        currentElementBeforeClose =
-          this.state.focusableElements[this.state.currentFocusIndex];
+        currentElementBeforeClose = this.state.focusableElements[this.state.currentFocusIndex];
       }
 
       const isInSubContent =
-        currentElementBeforeClose &&
-        this.elements.subContent.contains(currentElementBeforeClose);
-
+        currentElementBeforeClose && this.elements.subContent.contains(currentElementBeforeClose);
+      
       this.elements.subContent.style.opacity = "0";
       this.elements.subContent.style.visibility = "hidden";
       this._hideSubDeadzone();
 
       const animationDuration = 400;
-      const delay = skipDelay
-        ? Math.floor(animationDuration / 2)
-        : animationDuration + 50; // 50ms rezerva, aby CSS přechod plně doběhl
+      const delay = skipDelay ? Math.floor(animationDuration / 2) : animationDuration + 50; // 50ms rezerva aby CSS přechod plně doběhl
 
       this.timers.subAnimation = setTimeout(() => {
         if (!this.state.isMouseOverMenuSub && !this._isMouseInSubDeadzone()) {
@@ -433,14 +363,10 @@
             this._updateFocusableElements();
 
             if (isInSubContent) {
-              const idx = this.state.focusableElements.indexOf(
-                this.elements.subToggle,
-              );
+              const idx = this.state.focusableElements.indexOf(this.elements.subToggle);
               this.state.currentFocusIndex = idx !== -1 ? idx : -1;
             } else {
-              const idx = this.state.focusableElements.indexOf(
-                currentElementBeforeClose,
-              );
+              const idx = this.state.focusableElements.indexOf(currentElementBeforeClose);
               if (idx !== -1) this.state.currentFocusIndex = idx;
             }
           }
@@ -472,10 +398,7 @@
     }
 
     _clearTimer(name) {
-      if (this.timers[name]) {
-        clearTimeout(this.timers[name]);
-        this.timers[name] = null;
-      }
+      if (this.timers[name]) { clearTimeout(this.timers[name]); this.timers[name] = null; }
     }
 
     _clearAllTimers() {
@@ -488,11 +411,7 @@
 
     _isMouseOverAnyElement() {
       const { mouseX, mouseY } = this.state;
-      const inRect = (r) =>
-        mouseX >= r.left &&
-        mouseX <= r.right &&
-        mouseY >= r.top &&
-        mouseY <= r.bottom;
+      const inRect = (r) => mouseX >= r.left && mouseX <= r.right && mouseY >= r.top && mouseY <= r.bottom;
 
       if (inRect(this.elements.content.getBoundingClientRect())) return true;
       if (inRect(this.elements.toggle.getBoundingClientRect())) return true;
@@ -501,13 +420,8 @@
 
       const { subToggle, subContent } = this.elements;
       if (subToggle && inRect(subToggle.getBoundingClientRect())) return true;
-      if (
-        subContent &&
-        subContent.style.display !== "none" &&
-        inRect(subContent.getBoundingClientRect())
-      )
-        return true;
-
+      if (subContent && subContent.style.display !== "none" && inRect(subContent.getBoundingClientRect())) return true;
+      
       return false;
     }
 
@@ -515,28 +429,18 @@
       const content = this.elements.content;
       if (!content) return;
 
-      const selector =
+      const selector = 
         'a, button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), span[tabindex]:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [role="button"], [role="menuitem"]';
-
+      
       const isVisible = (el) => {
         const s = window.getComputedStyle(el);
-        return (
-          el.offsetParent !== null &&
-          s.display !== "none" &&
-          s.visibility !== "hidden" &&
-          s.opacity !== "0"
-        );
+        return el.offsetParent !== null && s.display !== "none" && s.visibility !== "hidden" && s.opacity !== "0";
       };
 
-      const all = Array.from(content.querySelectorAll(selector)).filter(
-        isVisible,
-      );
+      const all = Array.from(content.querySelectorAll(selector)).filter(isVisible);
 
       // Pokud je subContent skrytý, vyřadíme jeho potomky z navigace šipkami
-      if (
-        !this.elements.subContent ||
-        this.elements.subContent.style.opacity !== "1"
-      ) {
+      if (!this.elements.subContent || this.elements.subContent.style.opacity !== "1") {
         this.state.focusableElements = this.elements.subContent
           ? all.filter((el) => {
               let p = el.parentElement;
@@ -564,9 +468,7 @@
       ) {
         const el = this.state.focusableElements[this.state.currentFocusIndex];
         el.classList.add("keyboard-hover");
-        el.style.backgroundColor = el.classList.contains("active")
-          ? "#388E3C"
-          : "#309ce5";
+        el.style.backgroundColor = el.classList.contains("active") ? "#388E3C" : "#309ce5";
         el.style.color = "white";
       }
     }
@@ -605,10 +507,7 @@
       this.state.isSubKeyboardOpened = false;
       this.state.isClickOpenedSub = false;
       this._hideSubMenu();
-      if (
-        this.elements.subContent &&
-        this.elements.subContent.contains(document.activeElement)
-      ) {
+      if (this.elements.subContent && this.elements.subContent.contains(document.activeElement)) {
         setTimeout(() => this.elements.subToggle.focus(), 50);
       }
     }
@@ -620,20 +519,15 @@
         this._clearTimer("hide");
         if (window._stickyCloseAllExcept) window._stickyCloseAllExcept(this.id);
         if (subContent && !this.state.isClickOpenedSub) this._hideSubMenu();
-        if (!this.state.isClickOpened)
-          requestAnimationFrame(() => this._showMenu());
+        if (!this.state.isClickOpened) requestAnimationFrame(() => this._showMenu());
       });
 
       toggle.addEventListener("mouseleave", (e) => {
-        if (this.state.isClickOpened) {
-          this._startClickInactivityTimer();
-          return;
-        }
+        if (this.state.isClickOpened) { this._startClickInactivityTimer(); return; }
         const to = e.relatedTarget;
         if (to !== content && !content.contains(to)) {
           this.timers.hide = setTimeout(() => {
-            if (!this.state.isClickOpened && !this._isMouseInDeadzone())
-              this._hideMenu();
+            if (!this.state.isClickOpened && !this._isMouseInDeadzone()) this._hideMenu();
           }, 250);
         }
       });
@@ -648,8 +542,7 @@
           this._hideMenu();
           this.state.isClickOpened = false;
         } else {
-          if (window._stickyCloseAllExcept)
-            window._stickyCloseAllExcept(this.id);
+          if (window._stickyCloseAllExcept) window._stickyCloseAllExcept(this.id);
           this.state.isClickOpened = true;
           this.elements.toggle.classList.add("is-open");
           content.style.display = "block";
@@ -671,14 +564,9 @@
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           e.stopPropagation();
-          content.style.opacity === "1"
-            ? this._hideMenuKeyboard()
-            : this._showMenuKeyboard();
+          content.style.opacity === "1" ? this._hideMenuKeyboard() : this._showMenuKeyboard();
         }
-        if (e.key === "Escape") {
-          e.preventDefault();
-          this._hideMenuKeyboard();
-        }
+        if (e.key === "Escape") { e.preventDefault(); this._hideMenuKeyboard(); }
       });
 
       toggle.addEventListener("blur", () => {
@@ -687,7 +575,7 @@
           if (
             !content.contains(active) &&
             !toggle.contains(active) &&
-            !(subToggle && subToggle.contains(active)) &&
+            !(subToggle && subToggle.contains(active)) && 
             !(subContent && subContent.contains(active))
           ) {
             if (this.state.isKeyboardOpened) this._hideMenuKeyboard();
@@ -723,8 +611,7 @@
         if (to === toggle || toggle.contains(to)) return;
         if (!this.state.isClickOpened) {
           this.timers.hide = setTimeout(() => {
-            if (!this._isMouseInDeadzone() && !this._isMouseOverAnyElement())
-              this._hideMenu();
+            if (!this._isMouseInDeadzone() && !this._isMouseOverAnyElement()) this._hideMenu();
           }, this.config.hoverHideDelay);
         } else {
           this._startClickInactivityTimer();
@@ -755,29 +642,27 @@
       });
 
       const container = this.elements.toggle.closest(".button-container");
-      if (container) {
-        const mainButton = container.querySelector(
-          ".main-button, .main-button-second",
-        );
-        if (mainButton) {
-          mainButton.addEventListener("focus", (e) => {
-            if (e.target.classList.contains("active")) {
-              e.target.classList.add("keyboard-focus");
-            } else {
-              e.target.style.backgroundColor = "#309ce5";
-              e.target.style.color = "white";
-            }
-          });
-
-          mainButton.addEventListener("blur", (e) => {
-            setTimeout(() => {
-              e.target.classList.remove("keyboard-focus");
-              e.target.style.backgroundColor = "";
-              e.target.style.color = "";
-            }, 10);
-          });
-        }
+if (container) {
+  const mainButton = container.querySelector(".main-button, .main-button-second");
+  if (mainButton) {
+    mainButton.addEventListener("focus", (e) => {
+      if (e.target.classList.contains("active")) {
+        e.target.classList.add("keyboard-focus");
+      } else {
+        e.target.style.backgroundColor = "#309ce5";
+        e.target.style.color = "white";
       }
+    });
+
+    mainButton.addEventListener("blur", (e) => {
+      setTimeout(() => {
+        e.target.classList.remove("keyboard-focus");
+        e.target.style.backgroundColor = "";
+        e.target.style.color = "";
+      }, 10);
+    });
+  }
+}
 
       content.addEventListener("focusout", () => {
         setTimeout(() => {
@@ -788,79 +673,53 @@
             !(subToggle && subToggle.contains(active)) &&
             !(subContent && subContent.contains(active))
           ) {
-            content
-              .querySelectorAll("a, button, span, [tabindex]")
-              .forEach((el) => {
-                el.style.backgroundColor = "";
-                el.style.color = "";
-                el.classList.remove("keyboard-hover");
-              });
+            content.querySelectorAll("a, button, span, [tabindex]").forEach((el) => {
+              el.style.backgroundColor = "";
+              el.style.color = "";
+              el.classList.remove("keyboard-hover");
+            });
             this._removeKeyboardHoverStyles();
             if (this.state.isKeyboardOpened) this._hideMenuKeyboard();
           }
         }, 10);
       });
 
-      content
-        .querySelectorAll("input, select, textarea, button")
-        .forEach((el) => {
-          el.addEventListener("focus", () => {
-            if (this.state.isClickOpened) {
-              this._clearTimer("clickInactivity");
-              this._clearTimer("inactivity");
-            }
-          });
-          el.addEventListener("input", () => {
-            if (this.state.isClickOpened) {
-              this._clearTimer("clickInactivity");
-              this._clearTimer("inactivity");
-            }
-          });
-          el.addEventListener("click", (e) => {
-            if (this.state.isClickOpened) {
-              this._startInactivityTimer();
-              e.stopPropagation();
-            }
-          });
-          el.addEventListener("mouseenter", () =>
-            this._removeKeyboardHoverStyles(),
-          );
+      content.querySelectorAll("input, select, textarea, button").forEach((el) => {
+        el.addEventListener("focus", () => {
+          if (this.state.isClickOpened) { this._clearTimer("clickInactivity"); this._clearTimer("inactivity"); }
+        });
+        el.addEventListener("input", () => {
+          if (this.state.isClickOpened) { this._clearTimer("clickInactivity"); this._clearTimer("inactivity"); }
+        });
+        el.addEventListener("click", (e) => {
+          if (this.state.isClickOpened) { this._startInactivityTimer(); e.stopPropagation(); }
+        });
+        el.addEventListener("mouseenter", () => this._removeKeyboardHoverStyles());
+      });
+
+      content.querySelectorAll(
+        "a, button, input, select, textarea, span[tabindex], [tabindex]:not([tabindex='-1'])"
+      ).forEach((el) => {
+        if (el.tagName === "A") el.addEventListener("click", () => this._clearStorageKeys());
+
+        el.addEventListener("focus", (e) => {
+          setTimeout(() => {
+            if (document.body.classList.contains("using-mouse")) return;
+            content.querySelectorAll("a, button, span, [tabindex]").forEach((other) => {
+              if (other !== e.target) {
+                other.style.backgroundColor = "";
+                other.style.color = "";
+                other.classList.remove("keyboard-hover");
+              }
+            });
+            e.target.classList.add("keyboard-hover");
+            e.target.style.backgroundColor = e.target.classList.contains("active") ? "#388E3C" : "#309ce5";
+            e.target.style.color = "white";
+          }, 0);
         });
 
-      content
-        .querySelectorAll(
-          "a, button, input, select, textarea, span[tabindex], [tabindex]:not([tabindex='-1'])",
-        )
-        .forEach((el) => {
-          if (el.tagName === "A")
-            el.addEventListener("click", () => this._clearStorageKeys());
-
-          el.addEventListener("focus", (e) => {
-            setTimeout(() => {
-              if (document.body.classList.contains("using-mouse")) return;
-              content
-                .querySelectorAll("a, button, span, [tabindex]")
-                .forEach((other) => {
-                  if (other !== e.target) {
-                    other.style.backgroundColor = "";
-                    other.style.color = "";
-                    other.classList.remove("keyboard-hover");
-                  }
-                });
-              e.target.classList.add("keyboard-hover");
-              e.target.style.backgroundColor = e.target.classList.contains(
-                "active",
-              )
-                ? "#388E3C"
-                : "#309ce5";
-              e.target.style.color = "white";
-            }, 0);
-          });
-
-          el.addEventListener("mouseenter", () =>
-            this._removeKeyboardHoverStyles(),
-          );
-        });
+        el.addEventListener("mouseenter", () => this._removeKeyboardHoverStyles());
+      });
 
       if (subToggle && subContent) this._bindSubEvents();
 
@@ -904,10 +763,7 @@
         }
       });
 
-      subToggle.addEventListener(
-        "keydown",
-        this._onSubToggleKeyDown.bind(this),
-      );
+      subToggle.addEventListener("keydown", this._onSubToggleKeyDown.bind(this));
       subToggle.addEventListener("focus", this._onSubToggleFocus.bind(this));
       subToggle.addEventListener("blur", this._onSubToggleBlur.bind(this));
 
@@ -925,14 +781,8 @@
         }
       });
 
-      subContent.addEventListener(
-        "focusin",
-        this._onSubContentFocusIn.bind(this),
-      );
-      subContent.addEventListener(
-        "focusout",
-        this._onSubContentFocusOut.bind(this),
-      );
+      subContent.addEventListener("focusin", this._onSubContentFocusIn.bind(this));
+      subContent.addEventListener("focusout", this._onSubContentFocusOut.bind(this));
 
       content.addEventListener("mousemove", (e) => {
         const el = document.elementFromPoint(e.clientX, e.clientY);
@@ -943,25 +793,16 @@
           !this._isMouseInSubDeadzone()
         ) {
           this.state.isMouseOverMenuSub = false;
-          if (subContent.style.opacity === "1" && !this.state.isClickOpenedSub)
-            this._hideSubMenu();
+          if (subContent.style.opacity === "1" && !this.state.isClickOpenedSub) this._hideSubMenu();
         }
       });
 
-      const arrow = subToggle.querySelector(
-        ".arrow, .dropdown-arrow, .caret, .arrow-icon, i.fa-chevron-down",
-      );
+      const arrow = subToggle.querySelector(".arrow, .dropdown-arrow, .caret, .arrow-icon, i.fa-chevron-down");
       if (arrow) {
         arrow.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          subToggle.dispatchEvent(
-            new MouseEvent("click", {
-              bubbles: true,
-              cancelable: true,
-              view: window,
-            }),
-          );
+          subToggle.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
         });
       }
     }
@@ -975,17 +816,11 @@
           ? this._hideSubMenuKeyboard()
           : this._showSubMenuKeyboard();
       }
-      if (e.key === "Escape") {
-        e.preventDefault();
-        this._hideSubMenuKeyboard();
-      }
+      if (e.key === "Escape") { e.preventDefault(); this._hideSubMenuKeyboard(); }
     }
 
     _onSubToggleFocus() {
-      if (
-        this.elements.subContent &&
-        this.elements.subContent.style.opacity !== "1"
-      ) {
+      if (this.elements.subContent && this.elements.subContent.style.opacity !== "1") {
         this._showSubMenuKeyboard();
       }
     }
@@ -994,13 +829,8 @@
       setTimeout(() => {
         const active = document.activeElement;
         if (
-          !(
-            this.elements.subToggle && this.elements.subToggle.contains(active)
-          ) &&
-          !(
-            this.elements.subContent &&
-            this.elements.subContent.contains(active)
-          )
+          !(this.elements.subToggle && this.elements.subToggle.contains(active)) &&
+          !(this.elements.subContent && this.elements.subContent.contains(active))
         ) {
           if (this.state.isSubKeyboardOpened) this._hideSubMenuKeyboard();
         }
@@ -1008,8 +838,7 @@
     }
 
     _onSubContentFocusIn() {
-      if (this.state.isSubKeyboardOpened || this.state.isClickOpenedSub)
-        this._clearTimer("subHide");
+      if (this.state.isSubKeyboardOpened || this.state.isClickOpenedSub) this._clearTimer("subHide");
     }
 
     _onSubContentFocusOut() {
@@ -1018,22 +847,15 @@
 
         const active = document.activeElement;
         if (
-          !(
-            this.elements.subToggle && this.elements.subToggle.contains(active)
-          ) &&
-          !(
-            this.elements.subContent &&
-            this.elements.subContent.contains(active)
-          )
+          !(this.elements.subToggle && this.elements.subToggle.contains(active)) &&
+          !(this.elements.subContent && this.elements.subContent.contains(active))
         ) {
           if (this.elements.subContent) {
-            this.elements.subContent
-              .querySelectorAll("a, button, span, [tabindex]")
-              .forEach((el) => {
-                el.style.backgroundColor = "";
-                el.style.color = "";
-                el.classList.remove("keyboard-hover");
-              });
+            this.elements.subContent.querySelectorAll("a, button, span, [tabindex]").forEach((el) => {
+              el.style.backgroundColor = "";
+              el.style.color = "";
+              el.classList.remove("keyboard-hover");
+            });
           }
           this._removeKeyboardHoverStyles();
           if (this.state.isSubKeyboardOpened) this._hideSubMenuKeyboard();
@@ -1047,10 +869,7 @@
 
       if (this.elements.content.style.opacity === "1") {
         this._updateDeadzone();
-        if (
-          this.elements.subContent &&
-          this.elements.subContent.style.opacity === "1"
-        ) {
+        if (this.elements.subContent && this.elements.subContent.style.opacity === "1") {
           this._updateSubDeadzone();
         }
 
@@ -1106,21 +925,17 @@
 
         if (e.key === "ArrowDown") {
           this.state.currentFocusIndex++;
-          if (
-            this.state.currentFocusIndex >= this.state.focusableElements.length
-          ) {
+          if (this.state.currentFocusIndex >= this.state.focusableElements.length) {
             this.state.currentFocusIndex = 0;
           }
         } else {
           this.state.currentFocusIndex--;
           if (this.state.currentFocusIndex < 0) {
-            this.state.currentFocusIndex =
-              this.state.focusableElements.length - 1;
+            this.state.currentFocusIndex = this.state.focusableElements.length - 1;
           }
         }
 
-        const current =
-          this.state.focusableElements[this.state.currentFocusIndex];
+        const current = this.state.focusableElements[this.state.currentFocusIndex];
         if (!current) return;
 
         if (this.elements.subToggle && current === this.elements.subToggle) {
@@ -1129,7 +944,7 @@
           this.state.isClosingInProgressSub = false;
           this.state.isClickOpenedSub = true;
           if (this.elements.subContent.style.display === "none") {
-            this.elements.subContent.style.display = "block";
+           this.elements.subContent.style.display = "block";
             setTimeout(() => {
               this.elements.subContent.style.opacity = "1";
               this.elements.subContent.style.visibility = "visible";
@@ -1142,13 +957,8 @@
           }
         }
 
-        if (
-          this.elements.subContent &&
-          this.elements.subContent.style.opacity === "1"
-        ) {
-          const inSub =
-            this.elements.subContent.contains(current) ||
-            current === this.elements.subToggle;
+        if (this.elements.subContent && this.elements.subContent.style.opacity === "1") {
+          const inSub = this.elements.subContent.contains(current) || current === this.elements.subToggle;
           if (!inSub) {
             this.state.isClickOpenedSub = false;
             localStorage.removeItem(this.config.storageKeys.isSubMenuOpen);
@@ -1161,8 +971,7 @@
               if (newIdx !== -1) this.state.currentFocusIndex = newIdx;
             });
             setTimeout(() => {
-              if (!this.state.isClickOpenedSub)
-                this.elements.subContent.style.display = "none";
+              if (!this.state.isClickOpenedSub) this.elements.subContent.style.display = "none";
             }, 300);
           }
         }
@@ -1185,8 +994,7 @@
         e.preventDefault();
         this._updateFocusableElements();
         if (this.state.focusableElements.length) {
-          this.state.currentFocusIndex =
-            this.state.focusableElements.length - 1;
+          this.state.currentFocusIndex = this.state.focusableElements.length - 1;
           this._applyKeyboardHoverStyle();
           this.state.focusableElements[this.state.currentFocusIndex].focus();
         }
@@ -1196,10 +1004,7 @@
     _onWindowResize() {
       if (this.elements.content.style.opacity === "1") {
         this._updateDeadzone();
-        if (
-          this.elements.subContent &&
-          this.elements.subContent.style.opacity === "1"
-        ) {
+        if (this.elements.subContent && this.elements.subContent.style.opacity === "1") {
           this._updateSubDeadzone();
         }
       }
@@ -1208,30 +1013,17 @@
     _onWindowScroll() {
       if (this.elements.content.style.opacity === "1") {
         this._updateDeadzone();
-        if (
-          this.elements.subContent &&
-          this.elements.subContent.style.opacity === "1"
-        ) {
+        if (this.elements.subContent && this.elements.subContent.style.opacity === "1") {
           this._updateSubDeadzone();
         }
       }
     }
 
-    open() {
-      this.state.isClickOpened = true;
-      this._showMenu();
-    }
-    close() {
-      this._hideMenu();
-      this.state.isClickOpened = false;
-    }
-    toggle() {
-      this.isOpen() ? this.close() : this.open();
-    }
-    // Stav odvozujeme z opacity, protože display a visibility se mění asynchronně přes přechod
-    isOpen() {
-      return this.elements.content.style.opacity === "1";
-    }
+    open() { this.state.isClickOpened = true; this._showMenu(); }
+    close() { this._hideMenu(); this.state.isClickOpened = false; }
+    toggle() { this.isOpen() ? this.close() : this.open(); }
+    // Stav odvozujeme z opacity protože display a visibility se mění asynchronně přes přechod
+    isOpen() { return this.elements.content.style.opacity === "1"; }
 
     destroy() {
       document.removeEventListener("click", this.handleDocumentClick);
@@ -1268,8 +1060,7 @@
   class StickyHeader {
     constructor(options = {}) {
       this.config = {
-        focusableSelectors:
-          options.focusableSelectors || "a, button, [tabindex]",
+        focusableSelectors: options.focusableSelectors || "a, button, [tabindex]",
       };
 
       this.mainHeader = null;
@@ -1317,8 +1108,7 @@
 
     _cacheElements() {
       this.mainHeader = document.querySelector("header");
-      if (!this.mainHeader)
-        throw new Error("StickyHeader: original header not found");
+      if (!this.mainHeader) throw new Error("StickyHeader: original header not found");
     }
 
     _buildDOM() {
@@ -1332,21 +1122,17 @@
 
       this._moveMobileNavToBody(headerContent);
 
-      headerContent
-        .querySelectorAll(
-          ".menu-overlay, .mobile-nav-container, #menuOverlay, #mobileNav, .mobile-nav",
-        )
-        .forEach((el) => el.remove());
+      headerContent.querySelectorAll(
+        ".menu-overlay, .mobile-nav-container, #menuOverlay, #mobileNav, .mobile-nav"
+      ).forEach((el) => el.remove());
 
       const originalStyles = window.getComputedStyle(originalHeader);
       this.stickyHeader.style.overflowX = originalStyles.overflowX;
       this.stickyHeader.style.overflowY = originalStyles.overflowY;
 
-      headerContent
-        .querySelectorAll(
-          ".dropdown, .dropdown-toggle, .dropdown-content, .dropdown-content-second, .dropdown-content-third, .sub-dropdown-toggle, .sub-dropdown-content",
-        )
-        .forEach((el) => el.classList.add("sticky-clone"));
+      headerContent.querySelectorAll(
+        ".dropdown, .dropdown-toggle, .dropdown-content, .dropdown-content-second, .dropdown-content-third, .sub-dropdown-toggle, .sub-dropdown-content"
+      ).forEach((el) => el.classList.add("sticky-clone"));
 
       const burgerMenu = headerContent.querySelector(".burger-menu");
       if (burgerMenu) burgerMenu.setAttribute("id", "sticky-burgerMenu");
@@ -1356,21 +1142,16 @@
       document.body.appendChild(this.stickyHeader);
 
       // Dokud není sticky header viditelný, vyřadíme jeho prvky z pořadí focus
-      this.stickyHeader
-        .querySelectorAll("a, button, [tabindex]")
+      this.stickyHeader.querySelectorAll("a, button, [tabindex]")
         .forEach((el) => el.setAttribute("tabindex", "-1"));
-
+      
       const stickyUl = this.stickyHeader.querySelector("ul");
       if (stickyUl) stickyUl.setAttribute("aria-hidden", "true");
     }
 
     _moveMobileNavToBody(headerContent) {
-      const mobileNav = headerContent.querySelector(
-        "#mobileNav, .mobile-nav-container, .mobile-nav",
-      );
-      const menuOverlay = headerContent.querySelector(
-        "#menuOverlay, .menu-overlay",
-      );
+      const mobileNav = headerContent.querySelector("#mobileNav, .mobile-nav-container, .mobile-nav");
+      const menuOverlay = headerContent.querySelector("#menuOverlay, .menu-overlay");
 
       if (mobileNav) {
         const stickyMobileNav = mobileNav.cloneNode(true);
@@ -1378,8 +1159,7 @@
         stickyMobileNav.classList.add("sticky-mobile-nav");
         stickyMobileNav.querySelectorAll("[id]").forEach((el) => {
           const origId = el.getAttribute("id");
-          if (origId !== "sticky-mobileNav")
-            el.setAttribute("id", "sticky-" + origId);
+          if (origId !== "sticky-mobileNav") el.setAttribute("id", "sticky-" + origId);
         });
         document.body.appendChild(stickyMobileNav);
       }
@@ -1401,8 +1181,7 @@
         if (ulElement) {
           this.stickyHeader.appendChild(ulElement);
         } else {
-          const buttonContainers =
-            headerContent.querySelectorAll(".button-container");
+          const buttonContainers = headerContent.querySelectorAll(".button-container");
           if (buttonContainers.length > 0) {
             const nc = document.createElement("div");
             nc.className = "sticky-nav-container";
@@ -1412,9 +1191,7 @@
         }
       }
 
-      const burgerInContainer = this.stickyHeader.querySelector(
-        ".header-nav-container .burger-menu",
-      );
+      const burgerInContainer = this.stickyHeader.querySelector(".header-nav-container .burger-menu");
       if (burgerInContainer) {
         burgerInContainer.parentNode.removeChild(burgerInContainer);
         this.stickyHeader.appendChild(burgerInContainer);
@@ -1427,12 +1204,8 @@
       const { mainHeader, stickyHeader } = this;
       if (!mainHeader || !stickyHeader) return;
 
-      const mainNavContainer = mainHeader.querySelector(
-        ".header-nav-container",
-      );
-      const stickyNavContainer = stickyHeader.querySelector(
-        ".header-nav-container",
-      );
+      const mainNavContainer = mainHeader.querySelector(".header-nav-container");
+      const stickyNavContainer = stickyHeader.querySelector(".header-nav-container");
 
       if (!mainNavContainer || !stickyNavContainer) return;
 
@@ -1452,11 +1225,7 @@
       if (window.innerWidth <= 940) {
         this._applyMobileLayout(stickyNavContainer, stickyLogo, mainLogo);
       } else {
-        this._applyDesktopLayout(
-          stickyNavContainer,
-          stickyLogo,
-          mainNavContainer,
-        );
+        this._applyDesktopLayout(stickyNavContainer, stickyLogo, mainNavContainer);
       }
     }
 
@@ -1486,7 +1255,7 @@
         if (mainBurger && stickyBurger) {
           const burgerRect = mainBurger.getBoundingClientRect();
           const hRect = this.stickyHeader.getBoundingClientRect();
-          stickyBurger.style.right = hRect.right - burgerRect.right + "px";
+          stickyBurger.style.right = (hRect.right - burgerRect.right) + "px";
           stickyBurger.style.left = "auto";
         }
       });
@@ -1530,9 +1299,7 @@
         window.addEventListener("touchstart", endRestoring);
         window.addEventListener("keydown", endRestoring);
         window.addEventListener("wheel", endRestoring);
-        setTimeout(() => {
-          this.isScrollRestoring = false;
-        }, 3000);
+        setTimeout(() => { this.isScrollRestoring = false; }, 3000);
       });
     }
 
@@ -1559,12 +1326,8 @@
             scrollY > mainHeaderHeight + 100
               ? this.stickyHeader.classList.add("scrolled")
               : this.stickyHeader.classList.remove("scrolled");
-            // lastScrollY > 0 zamezí skrytí při inicializaci, kdy je lastScrollY ještě 0
-          } else if (
-            scrollY > this.lastScrollY &&
-            this.lastScrollY > 0 &&
-            !this.isScrollRestoring
-          ) {
+          // lastScrollY > 0 zamezí skrytí při inicializaci kdy je lastScrollY ještě 0
+          } else if (scrollY > this.lastScrollY && this.lastScrollY > 0 && !this.isScrollRestoring) {
             this._hideStickyHeader(false);
           }
         }
@@ -1590,8 +1353,7 @@
           this.stickyHeader.classList.add("visible");
           this.stickyHeader.setAttribute("aria-hidden", "false");
           this._enableFocus();
-          if (scrollY > mainHeaderHeight + 100)
-            this.stickyHeader.classList.add("scrolled");
+          if (scrollY > mainHeaderHeight + 100) this.stickyHeader.classList.add("scrolled");
         }, 50);
       }
     }
@@ -1616,12 +1378,8 @@
     }
 
     _enableFocus() {
-      const stickyEls = this.stickyHeader.querySelectorAll(
-        this.config.focusableSelectors,
-      );
-      const originalEls = this.mainHeader.querySelectorAll(
-        this.config.focusableSelectors,
-      );
+      const stickyEls = this.stickyHeader.querySelectorAll(this.config.focusableSelectors);
+      const originalEls = this.mainHeader.querySelectorAll(this.config.focusableSelectors);
 
       stickyEls.forEach((stickyEl) => {
         const originalIndex = stickyEl.getAttribute("data-original-index");
@@ -1629,10 +1387,7 @@
           const matching = originalEls[parseInt(originalIndex)];
           if (matching) {
             matching.hasAttribute("tabindex")
-              ? stickyEl.setAttribute(
-                  "tabindex",
-                  matching.getAttribute("tabindex"),
-                )
+              ? stickyEl.setAttribute("tabindex", matching.getAttribute("tabindex"))
               : stickyEl.removeAttribute("tabindex");
             return;
           }
@@ -1640,18 +1395,13 @@
 
         const text = stickyEl.textContent.trim();
         const href = stickyEl.getAttribute("href");
-        const matching = Array.from(originalEls).find(
-          (origEl) =>
-            text === origEl.textContent.trim() ||
-            (href && href === origEl.getAttribute("href")),
+        const matching = Array.from(originalEls).find((origEl) =>
+          text === origEl.textContent.trim() || (href && href === origEl.getAttribute("href"))
         );
 
         if (matching) {
           matching.hasAttribute("tabindex")
-            ? stickyEl.setAttribute(
-                "tabindex",
-                matching.getAttribute("tabindex"),
-              )
+            ? stickyEl.setAttribute("tabindex", matching.getAttribute("tabindex"))
             : stickyEl.removeAttribute("tabindex");
         } else {
           stickyEl.removeAttribute("tabindex");
@@ -1664,10 +1414,7 @@
       this.stickyHeader.querySelectorAll(".home-icon").forEach((el) => {
         const originalHomeIcon = this.mainHeader.querySelector(".home-icon");
         if (originalHomeIcon && originalHomeIcon.hasAttribute("tabindex")) {
-          el.setAttribute(
-            "tabindex",
-            originalHomeIcon.getAttribute("tabindex"),
-          );
+          el.setAttribute("tabindex", originalHomeIcon.getAttribute("tabindex"));
         } else {
           el.removeAttribute("tabindex");
         }
@@ -1690,19 +1437,16 @@
         mutations.forEach((mutation) => {
           if (
             mutation.type === "attributes" &&
-            (mutation.attributeName === "class" ||
-              mutation.attributeName === "data-theme")
+            (mutation.attributeName === "class" || mutation.attributeName === "data-theme")
           ) {
             clearTimeout(themeChangeTimeout);
-            const scrollY =
-              window.scrollY || document.documentElement.scrollTop;
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
             const wasVisible = this.stickyHeader.classList.contains("visible");
 
             // Změna třídy nebo data-theme může způsobit vizuální zmizení sticky headeru, obnovíme opacity a transform
             if (wasVisible && scrollY > 50) {
               themeChangeTimeout = setTimeout(() => {
-                const currentScrollY =
-                  window.scrollY || document.documentElement.scrollTop;
+                const currentScrollY = window.scrollY || document.documentElement.scrollTop;
                 if (this.stickyHeader && currentScrollY > 50) {
                   this.stickyHeader.classList.add("visible");
                   this.stickyHeader.style.opacity = "1";
@@ -1714,10 +1458,7 @@
         });
       });
 
-      observer.observe(document.documentElement, {
-        attributes: true,
-        subtree: false,
-      });
+      observer.observe(document.documentElement, { attributes: true, subtree: false });
       observer.observe(document.body, { attributes: true, subtree: false });
     }
 
@@ -1727,8 +1468,7 @@
         if (el) return el.getAttribute("href") || "./";
         for (const link of document.querySelectorAll("header a[href]")) {
           const href = (link.getAttribute("href") || "").replace("/", "");
-          if (href === "" || href === "index.html" || href === "index.php")
-            return link.getAttribute("href");
+          if (href === "" || href === "index.html" || href === "index.php") return link.getAttribute("href");
         }
         return "./";
       };
@@ -1737,15 +1477,12 @@
         const originalHomeIcon = document.querySelector("header .home-icon");
 
         if (originalHomeIcon && originalHomeIcon.hasAttribute("tabindex")) {
-          homeIcon.setAttribute(
-            "tabindex",
-            originalHomeIcon.getAttribute("tabindex"),
-          );
+          homeIcon.setAttribute("tabindex", originalHomeIcon.getAttribute("tabindex"));
         } else {
           homeIcon.setAttribute("tabindex", "0");
         }
 
-        // Wrapper může přesahovat přes okolní prvky, proto events je jen na samotném img
+        // Wrapper může přesahovat přes okolní prvky, proto events jen na samotném img
         homeIcon.style.cursor = "default";
         homeIcon.style.pointerEvents = "none";
 
@@ -1761,18 +1498,13 @@
           e.stopPropagation();
           e.preventDefault();
           if (window.clearAllDropdownStates) window.clearAllDropdownStates();
-          setTimeout(() => {
-            window.location.href = findHomepageUrl();
-          }, 50);
+          setTimeout(() => { window.location.href = findHomepageUrl(); }, 50);
         };
 
         target.addEventListener("click", navigateHome);
         if (imgElement) homeIcon.addEventListener("click", navigateHome);
         homeIcon.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            navigateHome(e);
-          }
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigateHome(e); }
         });
       });
     }
@@ -1785,13 +1517,11 @@
       const stickyMenuOverlay = document.getElementById("sticky-menuOverlay");
 
       if (!stickyMobileNav || !stickyMenuOverlay) {
-        console.error(
-          "StickyHeader: sticky mobile navigation elements not found",
-        );
+        console.error("StickyHeader: sticky mobile navigation elements not found");
         return;
       }
 
-      // Klon odstraní listenery přidané při vytvoření sticky headeru
+      // Klon odstraní listenery přidané při stavbě sticky headeru
       const newBurger = stickyBurgerMenu.cloneNode(true);
       stickyBurgerMenu.parentNode.replaceChild(newBurger, stickyBurgerMenu);
 
@@ -1808,9 +1538,7 @@
         }
       });
 
-      const stickyCloseButton = stickyMobileNav.querySelector(
-        '#closeButton, .close-button, [id*="close"]',
-      );
+      const stickyCloseButton = stickyMobileNav.querySelector('#closeButton, .close-button, [id*="close"]');
       if (stickyCloseButton) {
         const newClose = stickyCloseButton.cloneNode(true);
         stickyCloseButton.parentNode.replaceChild(newClose, stickyCloseButton);
@@ -1857,20 +1585,14 @@
           id: "sticky-dropdown-content",
           toggleEl: toggle1,
           contentEl: content1,
-          subToggleEl:
-            this.stickyHeader.querySelector(".sub-dropdown-toggle") || null,
-          subContentEl:
-            this.stickyHeader.querySelector(".sub-dropdown-content") || null,
+          subToggleEl: this.stickyHeader.querySelector(".sub-dropdown-toggle") || null,
+          subContentEl: this.stickyHeader.querySelector(".sub-dropdown-content") || null,
           storagePrefix: "sticky-dropdown-content",
         });
       }
 
-      const toggle2 = this.stickyHeader.querySelector(
-        ".dropdown-toggle-second",
-      );
-      const content2 = this.stickyHeader.querySelector(
-        ".dropdown-content-second",
-      );
+      const toggle2 = this.stickyHeader.querySelector(".dropdown-toggle-second");
+      const content2 = this.stickyHeader.querySelector(".dropdown-content-second");
       if (toggle2 && content2) {
         this.dropdownManager2 = new StickyDropdownManager({
           id: "sticky-dropdown-content-second",
@@ -1881,9 +1603,7 @@
       }
 
       const toggle3 = this.stickyHeader.querySelector(".dropdown-toggle-third");
-      const content3 = this.stickyHeader.querySelector(
-        ".dropdown-content-third",
-      );
+      const content3 = this.stickyHeader.querySelector(".dropdown-content-third");
       if (toggle3 && content3) {
         this.dropdownManager3 = new StickyDropdownManager({
           id: "sticky-dropdown-content-third",
@@ -1899,7 +1619,7 @@
 
       setTimeout(() => this._applyLayout(), 100);
       const stickyItems = this.stickyHeader.querySelectorAll(
-        ".main-button, .main-button-second, .dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a",
+        ".main-button, .main-button-second, .dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a"
       );
 
       stickyItems.forEach((el) => {
@@ -1914,24 +1634,16 @@
       });
     }
 
-    // Fokus přes TAB dovnitř obsahu zruší timery, aby se dropdown předčasně nezavřel
+    // Fokus přes Tab dovnitř obsahu zruší timery, aby se dropdown předčasně nezavřel
     _bindFocusInMonitor() {
       document.addEventListener("focusin", (e) => {
-        if (
-          !this.stickyHeader ||
-          !this.stickyHeader.classList.contains("visible")
-        )
-          return;
+        if (!this.stickyHeader || !this.stickyHeader.classList.contains("visible")) return;
 
         const dropdownContent = e.target.closest(
-          ".dropdown-content, .dropdown-content-second, .dropdown-content-third",
+          ".dropdown-content, .dropdown-content-second, .dropdown-content-third"
         );
         if (dropdownContent && this.stickyHeader.contains(dropdownContent)) {
-          const managers = [
-            this.dropdownManager1,
-            this.dropdownManager2,
-            this.dropdownManager3,
-          ].filter(Boolean);
+          const managers = [this.dropdownManager1, this.dropdownManager2, this.dropdownManager3].filter(Boolean);
           managers.forEach((dm) => {
             dm._clearTimer("hide");
             dm._clearTimer("inactivity");
@@ -1946,19 +1658,11 @@
     }
 
     _exposeGlobals() {
-      const managers = [
-        this.dropdownManager1,
-        this.dropdownManager2,
-        this.dropdownManager3,
-      ].filter(Boolean);
+      const managers = [this.dropdownManager1, this.dropdownManager2, this.dropdownManager3].filter(Boolean);
 
       window._stickyCloseAllExcept = function (exceptId) {
         managers.forEach((dm) => {
-          if (dm.id !== exceptId) {
-            try {
-              dm.close();
-            } catch (e) {}
-          }
+          if (dm.id !== exceptId) { try { dm.close(); } catch (e) {} }
         });
       };
 
@@ -1972,11 +1676,7 @@
             localStorage.removeItem(key);
           }
         });
-        managers.forEach((dm) => {
-          try {
-            dm.close();
-          } catch (e) {}
-        });
+        managers.forEach((dm) => { try { dm.close(); } catch (e) {} });
       };
 
       window._stickyDropdownManagers = managers;
@@ -1986,16 +1686,8 @@
     destroy() {
       window.removeEventListener("scroll", this.handleScroll);
       window.removeEventListener("resize", this.handleResize);
-      [
-        this.dropdownManager1,
-        this.dropdownManager2,
-        this.dropdownManager3,
-      ].forEach((dm) => {
-        if (dm) {
-          try {
-            dm.destroy();
-          } catch (e) {}
-        }
+      [this.dropdownManager1, this.dropdownManager2, this.dropdownManager3].forEach((dm) => {
+        if (dm) { try { dm.destroy(); } catch (e) {} }
       });
       this.isInitialized = false;
     }
@@ -2017,5 +1709,3 @@
     window.stickyHeader = stickyHeader;
   }
 })();
-
-/* (tento script používá formátování prettier) */

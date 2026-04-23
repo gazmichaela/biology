@@ -1,116 +1,199 @@
 # sticky-header.js
 
 ## Úvod
-Tento skript implementuje sticky header, který se zobrazuje při scrollování nahoru a skrývá při scrollování dolů.
-Obsahuje navigaci s dropdown menu, burger menu pro mobilní zařízení a podporu klávesové navigace.
-Cílem je zajistit stálý přístup k navigaci, aniž by zabírala zbytečné místo na stránce.
+Tento script řeší zobrazení sticky headeru jako navigační lišty, která se zobrazí při scrollování nahoru a skryje při scrollování dolů. Automaticky přebírá obsah původního headeru včetně dropdownů a mobilní navigace.
 
-## Jak to funguje:
-Sticky header pracuje na principu klonování původního `<header>` a jeho zobrazení/skrývání se řídí směrem scrollování a pozicí na stránce.
+## Jak to funguje: 
+Script vytváří kopii původního `<header>` a používá ji jako sticky navigační lištu.
 
-Script: 
+Hlavní třída `StickyHeader` kontroluje pozici scrollu a podle směru pohybu rozhoduje, zda se má sticky header zobrazit nebo skrýt.
 
-- Klonuje obsah původního headeru včetně navigace a mobilních prvků
+Součástí je i správa dropdownů ve sticky verzi, kterou zajišťuje třída `StickyDropdownManager`. Ta má vlastní logiku, takže dropdowny fungují stejně jako v normálním headeru (hover, kliknutí i klávesnice).
 
--  Sleduje směr scrollování a pozici stránky
-
-- Implementuje vlastní logiku dropdown menu pro sticky verzi
-
-- Vytváří samostatné mobilní menu pro sticky header
-
-- Řídí přístupnost (`tabindex`, `aria` atributy)
+Navíc se ukládá pozice scrollu při obnovení stránky za pomocí třídy `ScrollStateManager`, aby se uživatel vrátil na stejné místo.
 
 ## Požadavky a kompatibilita:
-- JavaScript ES6+ 
+- JavaScript ES6+
 
 - Funguje bez externích knihoven
 
 - Testováno v:
 
-    - Chrome (139.0.7258.67),
+    - Chrome (147.0.7727.102),
 
-    - Firefox (141.0.3),
+    - Firefox (149.0),
 
-    - Edge (139.0.3405.102)
+    - Edge (147.0.3912.72)
 
-## Požadavky na HTML:
+## Požadavky na HTML: 
 Script očekává určitou strukturu:
 
-- `<header>` element s navigací
+- `<header>` jako hlavní navigaci
 
-- Dropdown menu s třídami `.dropdown`, `.dropdown-toggle`, `.dropdown-content`
+- Dropdown prvky (`.dropdown-toggle`, `.dropdown-content`)
 
-- Druhé dropdown menu s `.dropdown-toggle-second`, `.dropdown-content-second`
+- Varianty pro další menu (`.dropdown-content-second`, `.dropdown-toggle-second`, `.dropdown-content-third`, `.dropdown-toggle-third`)
 
-- Subdropdown s třídami `.sub-dropdown-toggle`, `.sub-dropdown-content`
+- Volitelně subdropdown (`.sub-dropdown-toggle`, `.sub-dropdown-content`)
 
-- Mobilní navigace s  `id="mobileNav"` a overlay `id="menuOverlay"`
+- Mobilní navigaci (`.burger-menu`, `#mobileNav`, `#menuOverlay`)
 
-- Burger menu s třídou `.burger-menu`
+## Proč OOP?
+Některé mé scripty jsou napsané jen jako funkce.
 
-## Proč není použité OOP?
-Na rozdíl od jiných skriptů zde nebylo použité objektově orientované programování. Sticky header pracuje s více nezávislými subsystémy: scroll handling, dropdown menu, mobilní navigace a accessibility.
+Tady ale dává smysl použít třídy jako `StickyHeader`, `StickyDropdownManager` a `ScrollStateManager` objektově orientovaného programování, protože:
 
-Místo jedné třídy je proto použit funkcionální přístup – jednotlivé části logiky jsou řešeny pomocí samostatných funkcí a listenerů. Kód je sice rozsáhlejší, ale díky tomuto rozdělení je flexibilní a snadno se dá rozšiřovat (např. o další úrovně menu nebo speciální chování).
+- header má stav (viditelnost, scroll pozice, inicializace),
 
-Použití OOP by vedlo k vytvoření velké třídy s mnoha odpovědnostmi nebo k množství propojených tříd, což by kód zbytečně komplikovalo.
+- dropdowny uvnitř mají vlastní logiku a chování,
+
+- část logiky je oddělená (scroll, dropdowny, samotný header),
+
+- metody jako `destroy()` nebo `getState()` pracují se stavem konkrétní instance, takže mají jasné místo v rámci třídy,
+
+Díky tomu je kód přehlednější a lépe rozdělený.
 
 ## Instalace:
-Do HTML vložte:
+Do HTML stačí vložit:
 
 ```html
 <script src="sticky-header.js"></script>
 ```
 
-Skript se spustí automaticky po načtení stránky.
+Script se spustí automaticky po načtení stránky.
 
 ## Použití:
-Pro ruční ovládání sticky headeru a jeho dropdown menu slouží:
+Pro ruční ovládání sticky headeru slouží:
 
 ```javascript
-window.clearAllDropdownStates();
-window.initializeStickyDropdowns();
-window.closeStickyDropdown_X();
-window.closeStickySubDropdown_X();
+// třída StickyHeader
+window.stickyHeader.destroy();
+window.stickyHeader.getState();
+
+// dropdownManager1 = sticky-dropdown-content
+window.stickyHeader.dropdownManager1.open();
+window.stickyHeader.dropdownManager1.close();
+window.stickyHeader.dropdownManager1.toggle();
+window.stickyHeader.dropdownManager1.isOpen();
+window.stickyHeader.dropdownManager1.destroy();
+window.stickyHeader.dropdownManager1.getState();
+
+// dropdownManager2 = sticky-dropdown-content-second
+window.stickyHeader.dropdownManager2.open();
+window.stickyHeader.dropdownManager2.close();
+window.stickyHeader.dropdownManager2.toggle();
+window.stickyHeader.dropdownManager2.isOpen();
+window.stickyHeader.dropdownManager2.destroy();
+window.stickyHeader.dropdownManager2.getState();
+
+// dropdownManager3 = sticky-dropdown-content-third
+window.stickyHeader.dropdownManager3.open();
+window.stickyHeader.dropdownManager3.close();
+window.stickyHeader.dropdownManager3.toggle();
+window.stickyHeader.dropdownManager3.isOpen();
+window.stickyHeader.dropdownManager3.destroy();
+window.stickyHeader.dropdownManager3.getState();
 ```
 
-Pro jiná nastavení upravte:
+Pro jiná nastavení si můžete vytvořit vlastní instanci:
 
 ```javascript
-const inactivityDelay = 2000;
-const clickInactivityDelay = 2000;
+class StickyDropdownManager {
+    constructor(options = {}) {
+      this.id = options.id || "sticky-default";
+
+      this.config = {
+        clickInactivityDelay: options.clickInactivityDelay || 2000,
+        inactivityDelay: options.inactivityDelay || 2000,
+        hoverHideDelay: options.hoverHideDelay || 200,
+        transitionDuration: options.transitionDuration || 300,
+        deadzoneMatchContent: options.deadzoneMatchContent || false,
+        storagePrefix: options.storagePrefix || options.id || "sticky-default",
+      };
+      ... další 
+    }
+  }
 ```
-například změněním hodnoty ___2000___ na ___3000___ u clickInactivityDelay
+
+například změněním hodnoty ___200___ u hoverHideDelay na ___500___.
+
+K dispozici jsou i globální funkce:
+
+```javascript
+window.stickyHeader;                                      
+window._stickyCloseAllExcept("sticky-dropdown-content"); 
+window.clearAllDropdownStates();                          
+window._stickyDropdownManagers;                          
+window.StickyDropdownManager; 
+```
+
+Script také počítá s tím, že následující globální proměnné nastavuje jiný script:
+
+```javascript
+window.tabNavigationActive;
+window.openMenu;
+window.closeMenu;
+```
 
 ## API Reference:
-Metody :
+Metody třídy `StickyHeader`:
 
-- clearAllDropdownStates() – zavře všechna dropdown menu.
+- init() - inicializuje sticky header
 
-- initializeStickyDropdowns() – inicializuje dropdown logiku pro sticky header.
+- destroy() - odpojí eventy a zruší instance dropdownů
 
-- insertStickyHeaderStyles() – vloží potřebné CSS styly.
+- getState() - vrátí aktuální stav
 
-- createStickyHeader() – vytvoří sticky header element.
+Třída `StickyDropdownManager`:
 
-- initStickyHeaderFunctionality() – inicializuje scroll a event listenery.
+- open() - otevře dropdown
+
+- close() - zavře dropdown
+
+- toggle() - přepne stav dropdownu
+
+- isOpen() - vrátí, zda je dropdown otevřený
+
+- destroy() - odpojí eventy a odstraní pomocné prvky
+
+- getState() - vrátí stav instance
+
+___Chování při scrollování:___
+
+Sticky header reaguje na směr scrollu:
+
+- při scrollování nahoru se __zobrazí__,
+
+- při scrollování dolů se __skryje__,
+
+- po překročení určité vzdálenosti od vrchu stránky se přidá třída `.scrolled`.
+
+___Klávesnicová navigace:___
+
+Dropdowny podporují ovládání klávesnicí:
+
+- Enter / Mezerník - otevře nebo zavře dropdown
+
+- Šipky - pohyb v dropdownu mezi položkami
+
+- Home / End - přesune focus na první nebo poslední položku
+
+- Escape - zavře dropdown
 
 ## Bezpečnostní poznámky:
-Kontrola existence elementů (`if (!element) return`) zajišťuje, že skript neběží na neexistujících prvcích.
+Script kontroluje existenci potřebných elementů, takže nedojde k chybám při chybějícím HTML.
 
-Každý subsystém má vlastní stav, aby se event listenery nemíchaly a logika zůstávala přehledná.
+Každá instance dropdownu má vlastní stav a timery, aby se eventy nemíchaly.
 
-Timeouty a intervaly jsou čištěny, aby se zabránilo opakovanému nebo nekontrolovanému volání funkcí.
-
-Animace a scroll handling používají requestAnimationFrame pro plynulý výkon a minimalizaci zátěže CPU.
+Kvůli IIFE (uzavření do anonymní funkce) se interní proměnné nedostanou do globálního scope.
 
 ## Další informace:
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
 
-__Autor:__ Michaela Gažová
+__Autor:__ Michaela Gažová 
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.22.0
+__Verze:__ 3.0.0
 
-__Datum:__ 2025-09-11
+__Datum:__ 2026-04-23

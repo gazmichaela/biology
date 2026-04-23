@@ -1,14 +1,14 @@
 /**
  * NavigationManager - Správa aktivních stavů navigace
- * 
+ *
  * Automaticky detekuje aktuální stránku podle URL a označuje příslušné tlačítko.
  * Funguje responsivně - rozlišuje desktop a mobilní verzi navigace.
- * 
+ *
  * @fileoverview Univerzální řešení pro webovou navigaci s podporou dropdownů
  * @author Michaela Gažová
- * @version 3.0.0
+ * @version 3.0.2
  * @since 2025-03-23
- * @updated 2025-08-17
+ * @updated 2026-04-23
  * @license MIT
  */
 
@@ -23,15 +23,16 @@
       this.debounceDelay = options.debounceDelay || 150;
 
       this.selectors = {
-        main: ".main-button, .main-button-second",
-        dropdown: ".dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a",
+        main: ".main-button, .main-button-second, .main-button-third",
+        dropdown:
+          ".dropdown-content a, .dropdown-content-second a, .dropdown-content-third a, .sub-dropdown-content a",
         mobile: ".mobile-nav-button",
       };
 
       this.elements = {};
       this.handleResize = this._debounce(
         this._onResize.bind(this),
-        this.debounceDelay
+        this.debounceDelay,
       );
       this.handleClick = this._onClick.bind(this);
 
@@ -44,11 +45,11 @@
       if (!this.elements.all.length) return;
 
       this.elements.all.forEach((el) =>
-        el.addEventListener("click", this.handleClick)
+        el.addEventListener("click", this.handleClick),
       );
       window.addEventListener("resize", this.handleResize);
       window.addEventListener("DOMContentLoaded", () =>
-        this.setActiveFromUrl()
+        this.setActiveFromUrl(),
       );
       window.addEventListener("popstate", () => this.setActiveFromUrl());
       this.setActiveFromUrl();
@@ -57,13 +58,13 @@
 
     _cacheElements() {
       this.elements.main = Array.from(
-        document.querySelectorAll(this.selectors.main)
+        document.querySelectorAll(this.selectors.main),
       );
       this.elements.dropdown = Array.from(
-        document.querySelectorAll(this.selectors.dropdown)
+        document.querySelectorAll(this.selectors.dropdown),
       );
       this.elements.mobile = Array.from(
-        document.querySelectorAll(this.selectors.mobile)
+        document.querySelectorAll(this.selectors.mobile),
       );
       this.elements.desktop = this.elements.main.concat(this.elements.dropdown);
       this.elements.all = this.elements.desktop.concat(this.elements.mobile);
@@ -84,6 +85,9 @@
         if (el === button) {
           el.classList.add(this.activeClass);
           el.setAttribute("aria-current", "page");
+        } else {
+          el.classList.remove(this.activeClass);
+          el.removeAttribute("aria-current");
         }
       });
     }
@@ -148,11 +152,11 @@
     refresh() {
       // Listenery přidáváme znovu po refreshi
       this.elements.all.forEach((el) =>
-        el.removeEventListener("click", this.handleClick)
+        el.removeEventListener("click", this.handleClick),
       );
       this._cacheElements();
       this.elements.all.forEach((el) =>
-        el.addEventListener("click", this.handleClick)
+        el.addEventListener("click", this.handleClick),
       );
       this.setActiveFromUrl();
     }
@@ -160,7 +164,7 @@
     destroy() {
       if (!this.elements || !this.elements.all) return;
       this.elements.all.forEach((el) =>
-        el.removeEventListener("click", this.handleClick)
+        el.removeEventListener("click", this.handleClick),
       );
       window.removeEventListener("resize", this.handleResize);
       this.elements = {};

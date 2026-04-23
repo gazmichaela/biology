@@ -1,7 +1,7 @@
 /* MOBILNÍ NAVIGACE
-    Mobilní navigace je zde myšlena jako navigace, která se zobrazí při šířce 1175px a méně.
+    Mobilní navigace je zde myšlena jako navigace, která se zobrazí při šířce 1026px a méně.
     Mírně odlišná navigace pro velmi široké obrazovky (tj. nad 2000px) zde není, je v responsiveness.css! (jiné mezery mezi tlačítky)
-    Pro sticky header se nacházejí styly v sticky-header.js.
+    Pro sticky header se nacházejí styly v sticky-header.css.
 */
 
 /*
@@ -9,7 +9,7 @@ OBSAH:
  1. Burger menu
  2. Mobilní navigace
  3. Responzivita mobilní navigace:
-    - do 1175px (zde jsou ještě nektěré klíčové prvky pro správné fungování navigace)
+    - do 940px (zde jsou ještě nektěré klíčové prvky pro správné fungování navigace)
     - do 480px
 */
 
@@ -22,10 +22,10 @@ OBSAH:
     display: none;
     flex-direction: column;
     cursor: pointer;
-    position: absolute;
+    /* position: absolute;
     top: 15px;
     right: 20px;
-    z-index: 1000;
+    z-index: 1000; */
     width: 25px; /* Délka čar */
     height: 20px; /* Vzdálenost mezi jednotlivými čarami */
     justify-content: space-between;
@@ -37,6 +37,20 @@ OBSAH:
 
 }
 
+.mobile-nav-logo {
+    display: flex;
+    align-items: center;
+    padding: 0 0 15px 0;
+    margin-bottom: 5px;
+    border-bottom: 1px solid grey;
+    text-decoration: none;
+}
+
+.mobile-nav-logo .logo {
+    width: 120px;
+    height: auto;
+    margin: 0;
+}
 /* Tři čárky v burger menu tlačítku */
 .burger-menu .burger-line {
     width: 100%;
@@ -212,7 +226,7 @@ html.menu-open body {
 
 
 /* ==== 3. RESPONZIVITA MOBILNÍ NAVIGACE ==== */
-@media screen and (max-width: 1175px) {
+@media screen and (max-width: 940px) {
     header .nav-desktop {
         visibility: hidden;
     }
@@ -221,7 +235,7 @@ html.menu-open body {
         display: none !important;
     }
 
-    /* Zobrazí burger menu jen při šířce 1175px a méně */
+    /* Zobrazí burger menu jen při šířce 1026px a méně */
     .burger-menu {
         display: flex;
     }
@@ -310,3 +324,4 @@ html.menu-open body {
         top: 12px;
     }
 }
+

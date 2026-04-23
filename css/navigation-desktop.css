@@ -1,12 +1,11 @@
 /* DESKTOP NAVIGACE 
-    Desktop navigace je zde myšlena jako navigace, která se zobrazí při šířce > 1175px.
-    Navigace zobrazená při šířce ≤ 1175px je v navigation-mobile.css.
+    Desktop navigace je zde myšlena jako navigace, která se zobrazí při šířce > 1026px.
+    Navigace zobrazená při šířce ≤ 1026px je v navigation-mobile.css.
 */
 
 /*
 OBSAH:
  1. Header nav-desktop
-    - logo
     - domeček
 
  2. Tlačítka v navigaci, dropdown
@@ -18,36 +17,18 @@ OBSAH:
 
 
 /* ==== 1. HEADER NAV-DESKTOP ==== */
-header .nav-desktop {
+.nav-desktop {
     list-style: none;
-    margin: 12px auto 12px auto;
+    margin: 0;
     display: flex;
     align-items: center;
     padding: 0;
     position: relative;
-    width: 80vw;
-    min-width: 1075px; /* Mít cca 100px méně než minimální šířku desktop navigace, než se objeví mobilní navigace (kvůli mezeře) */
-    max-width: 1800px;
+    width: auto;
 }
 
 header .nav-desktop a {
     text-decoration: none;
-}
-
-/* Logo */
-header .nav-desktop .logo {
-    height: 43px; /* Jako výška navigace */
-    display: block;
-    opacity: 0; /* Na začátku je obrázek neviditelný */
-    animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
-}
-@keyframes showImage {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
 }
 
 /* Domeček */
@@ -81,16 +62,12 @@ header .nav-desktop .nav-home a:hover img {
     color: #025227;
 }
 
-.nav-left {
-    margin-right: auto;
-}
-
-.nav-right {
+.header-nav-container nav ul.nav-desktop > li {
     margin: 0 min(1.8vw, 50px);
 }
 
-.nav-right:last-of-type {
-    margin-right: 0; /* Poslední tlačítko nebude mít mezeru vpravo */
+.header-nav-container nav ul.nav-desktop > li:last-of-type {
+    margin-right: 0;
 }
 
 .nav-home {
@@ -318,3 +295,4 @@ body:not(.using-mouse) .dropdown-toggle-third:focus .arrow,
     color: white;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
+

@@ -70,7 +70,7 @@ window.setSubmenuActive(active);
 window.dropdownMenu = window.dropdownMenus.first;
 ```
 
-Pro jiné nastavení si můžete vytvořit vlastní instanci:
+Pro jiná nastavení si můžete vytvořit vlastní instanci:
 
 ``` javascript
 class DropdownManager {
@@ -156,13 +156,13 @@ Script podporuje ovládání klávesnicí:
 </li>
 ```
 
-## Další informace:
+## Další informace
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
 
 __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.6.0
+__Verze:__ 2.7.1
 
-__Datum:__ 2026-03-31
+__Datum:__ 2026-04-18

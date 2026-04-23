@@ -7,8 +7,8 @@
 /*
 OBSAH:
  1. Obecné
-    - do 1175px
     - do 1023px
+    - do 940px
     - do 768px
     - do 568px
     - do 480px
@@ -40,42 +40,31 @@ OBSAH:
  6. Další media queries pro přístupnost
 */
 
-
+@media screen and (min-width: 2000px) {
+    .sticky-header .nav-right {
+        margin: 0 2vw;
+    }
+}
 
 /* ===== 1. OBECNÉ ===== */
-@media screen and (max-width: 1175px) {
-    /* Zajistí, že se stránka neprolí horizontálně */
+@media screen and (max-width: 1023px) {
     html,
     body {
         max-width: 100vw;
     }
 
-    header {
-        height: auto;
-        max-height: 150px;
-    }
-
-    .logo {
-        width: 150px; 
-        margin: 15px 0px 0px 20px;
-    }
-
-    .table-wrapper {
-        max-height: min(20rem + 40vh, 800px, 85vh);
-    }
-}
-
-
-@media screen and (max-width: 1023px) {
     body {
         font-size: 1.2em;
     }
 
-    .logo {
-        width: 130px;
-        margin: 15px 0px 0px 20px;
+    body header {
+        padding: 0 20px;
     }
-    
+
+    .sticky-header .header-nav-container {
+        padding: 12px 20px;
+    }
+
     article section {
         margin-left: 50px;
         margin-right: 50px;
@@ -94,6 +83,10 @@ OBSAH:
     
     .video-wrapper {
         width: 85%;
+    }
+
+    .table-wrapper {
+        max-height: min(20rem + 40vh, 800px, 85vh);
     }
     
     table th,
@@ -115,6 +108,35 @@ OBSAH:
     }
 }
 
+@media screen and (max-width: 940px) {
+    body header {
+        padding: 0 4vw;
+    }
+
+        .sticky-header {
+        padding: 1px 4vw;  
+    }
+
+    .sticky-header .header-nav-container {
+        padding: 12px 4vw;
+    }
+
+    .sticky-header .nav-desktop {
+        visibility: hidden;
+    }
+
+    .sticky-header .nav-desktop * {
+        display: none !important;
+    }
+
+    .sticky-header .button-container {
+        display: none !important;
+    }
+
+    .sticky-header > .burger-menu {
+        display: flex !important;
+    }
+}
 
 @media screen and (max-width: 768px) {
     body {
@@ -135,9 +157,12 @@ OBSAH:
         font-size: 16px;
     }
 
-    .logo {
-        width: 130px;
-        margin: 15px 0px 0px 20px;
+    .sticky-header {
+        padding: 9px 0;
+    }
+
+    .sticky-header .header-nav-container {
+        padding: 9px 20px;
     }
     
     article section {
@@ -240,11 +265,6 @@ OBSAH:
         margin: 6px 0;
         font-size: 15px;
     }
-
-    .logo {
-        width: 115px;
-        margin: 10px 0px 0px 15px;
-    }
     
     article section {
         margin-left: 20px;
@@ -342,6 +362,24 @@ OBSAH:
 
 
 @media screen and (max-width: 480px) {
+    header .logo {
+        height: 34px;
+    }
+
+    .sticky-header > .burger-menu {
+        right: 15px;
+        top: 50%;
+    }
+
+    .sticky-header {
+        padding: 15px 0;
+        min-height: 10px;
+    }
+
+    .sticky-header .header-nav-container {
+        padding: 15px 15px;
+    }
+
     .cookies-mini-notice {
         max-width: 280px;
     }
@@ -356,10 +394,9 @@ OBSAH:
     header {
         max-height: 80px;
     }
-    
-    .logo {
-        width: 93px;
-        margin: 8px 0px 0px 10px;
+
+    header .logo {
+        height: 30px;
     }
     
     article section {

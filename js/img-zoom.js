@@ -6,9 +6,9 @@
  *
  * @fileoverview Modální prohlížeč obrázků s možností zoomu
  * @author Michaela Gažová
- * @version 2.0.0
+ * @version 2.0.1
  * @since 2025-05-05
- * @updated 2025-09-09
+ * @updated 2026-04-05
  * @license MIT
  */
 
@@ -66,13 +66,13 @@
 
       this.isMobile =
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
+          navigator.userAgent,
         );
       this.isInitialized = false;
 
       this.handleResize = this._debounce(
         this._onResize.bind(this),
-        this.debounceDelay
+        this.debounceDelay,
       );
       this.handleKeydown = this._onKeydown.bind(this);
       this.handleDocumentClick = this._onDocumentClick.bind(this);
@@ -290,19 +290,19 @@
       this.elements.modal = document.querySelector(this.selectors.modal);
       this.elements.modalImg = document.querySelector(this.selectors.modalImg);
       this.elements.closeButton = document.querySelector(
-        this.selectors.closeButton
+        this.selectors.closeButton,
       );
       this.elements.sourceContainer = document.querySelector(
-        this.selectors.sourceContainer
+        this.selectors.sourceContainer,
       );
       this.elements.imageContainer = document.querySelector(
-        this.selectors.imageContainer
+        this.selectors.imageContainer,
       );
       this.elements.mainContainer = document.querySelector(
-        this.selectors.mainContainer
+        this.selectors.mainContainer,
       );
       this.elements.closeBtnContainer = document.querySelector(
-        this.selectors.closeBtnContainer
+        this.selectors.closeBtnContainer,
       );
       this.elements.body = document.body;
     }
@@ -392,7 +392,7 @@
             this.elements.modalImg.style.transition = "none";
           }
         },
-        { passive: true }
+        { passive: true },
       );
 
       this.elements.modalImg.addEventListener(
@@ -413,7 +413,7 @@
             e.preventDefault();
           }
         },
-        { passive: false }
+        { passive: false },
       );
 
       this.elements.modalImg.addEventListener("touchend", () => {
@@ -483,7 +483,7 @@
             this.resetZoom();
           }
         },
-        { passive: false }
+        { passive: false },
       );
     }
 
@@ -577,7 +577,7 @@
             baseTranslateY * correctionFactors.y + correctionFactors.fixY;
 
           const finalTransform = `translate3d(${Math.round(
-            this.state.translateX
+            this.state.translateX,
           )}px, ${Math.round(this.state.translateY)}px, 0) scale(${
             this.state.currentScale
           })`;
@@ -822,11 +822,17 @@
       this.resetZoom();
       this._toggleSourceVisibility(true);
       this.elements.modal.style.display = "none";
-      this.elements.body.style.overflow = "";
+
+      const scrollY = this.scrollY || 0;
+
       document.body.style.position = "";
       document.body.style.width = "";
       document.body.style.top = "";
-      window.scrollTo(0, this.scrollY);
+      this.elements.body.style.overflow = "";
+
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo(0, scrollY);
+      document.documentElement.style.scrollBehavior = "";
     }
 
     resetZoom() {
@@ -850,7 +856,7 @@
       this.elements.modalImg.style.setProperty("image-rendering", "smooth");
       this.elements.modalImg.style.setProperty(
         "image-rendering",
-        "-webkit-optimize-contrast"
+        "-webkit-optimize-contrast",
       );
       this.elements.modalImg.style.background = "transparent";
       this.elements.modalImg.style.willChange = "transform";
@@ -863,12 +869,12 @@
         }
         this.elements.modalImg.removeEventListener(
           "transitionend",
-          handleTransitionEnd
+          handleTransitionEnd,
         );
       };
       this.elements.modalImg.addEventListener(
         "transitionend",
-        handleTransitionEnd
+        handleTransitionEnd,
       );
     }
 

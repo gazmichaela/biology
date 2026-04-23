@@ -131,16 +131,47 @@ body button {
 body header {
     background-color: #77afe0ee;
     text-align: center;
-    padding: 1px 0;
     color: white;
     z-index: 993;
     position: sticky;
+    padding: 0 5vw;
+}
+
+.header-nav-container {
+    margin: 0 auto;
+    padding: 12px 0;
+    max-width: 1800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-nav-right {
+    margin-left: auto
 }
 
 header p {
     font-weight: 600;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+
+/* Logo */
+header .logo {
+    height: 43px; /* Jako výška .button-container */
+    display: block;
+    opacity: 0; /* Na začátku je obrázek neviditelný */
+    animation: showImage 1s ease 0.3s forwards; /* Animace trvá 1s, začne po 0.3 sekundách */
+    width: auto;
+}
+@keyframes showImage {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
 }
 
 noscript h2 {
@@ -568,7 +599,7 @@ table td:first-child {
 
 
 /* ==== 7. TMAVÝ REŽIM ==== */
-/* Styly pro tmavý režim se nachází v dark-moe.js */
+/* Styly pro tmavý režim se nachází v dark-mode.js */
 
 /* Tlačítko ve světlém režimu */
 .dark-mode-toggle {

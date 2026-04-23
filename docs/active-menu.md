@@ -76,15 +76,15 @@ například změněním hodnoty ___1175___ u mobileBreakpoint.
 ## API Reference:
 Metody třídy __NavigationManager__:
 
-- init() - spustí správu navigace.
+- init() - spustí správu navigace
 
-- setActiveButton(button) - ručně nastaví aktivní odkaz.
+- setActiveButton(button) - ručně nastaví aktivní odkaz
 
-- setActiveFromUrl() - nastaví aktivní tlačítko podle adresy stránky.
+- setActiveFromUrl() - nastaví aktivní tlačítko podle adresy stránky
 
-- refresh() - znovu načte elementy a obnoví listenery (užitečné, když se obsah menu změní).
+- refresh() - znovu načte elementy a obnoví listenery (užitečné, když se obsah menu změní)
 
-- destroy() - odpojí všechny eventy a smaže stav (např. před odstraněním navigace).
+- destroy() - odpojí všechny eventy a smaže stav (např. před odstraněním navigace)
 
 ## Bezpečnostní poznámky:
 Kód počítá s tím, že nějaký element nemusí existovat (kontroly if (!el) return).
@@ -177,6 +177,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 3.0.0
+__Verze:__ 3.0.2
 
-__Datum:__ 2025-08-18
+__Datum:__ 2026-04-23
