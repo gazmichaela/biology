@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
  * @author Michaela Gažová
- * @version 2.1.3
+ * @version 2.1.4
  * @since 2025-05-28
- * @updated 2026-04-04
+ * @updated 2026-04-24
  * @license MIT
  */
 
@@ -235,6 +235,7 @@
         document.documentElement.classList.add("dark-mode");
         document.body.classList.add("dark-mode");
       }
+      this._applyColorScheme(this.isDarkMode ? "dark" : "light");
       setTimeout(() => {
         style.remove();
       }, 300);
@@ -607,6 +608,18 @@
         body.classList.remove("dark-mode");
         document.documentElement.classList.remove("dark-mode");
       }
+      this._applyColorScheme(isDark ? "dark" : "light");
+    }
+
+    _applyColorScheme(scheme) {
+      const styleId = "darkmode-color-scheme";
+      let styleEl = document.getElementById(styleId);
+      if (!styleEl) {
+        styleEl = document.createElement("style");
+        styleEl.id = styleId;
+        document.head.appendChild(styleEl);
+      }
+      styleEl.textContent = `:root { color-scheme: ${scheme}; }`;
     }
 
     _animateIcon() {

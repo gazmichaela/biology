@@ -6,9 +6,9 @@
  *
  * @fileoverview Modální prohlížeč obrázků s možností zoomu
  * @author Michaela Gažová
- * @version 2.0.1
+ * @version 2.0.2
  * @since 2025-05-05
- * @updated 2026-04-05
+ * @updated 2026-04-24
  * @license MIT
  */
 
@@ -582,6 +582,9 @@
             this.state.currentScale
           })`;
 
+          if (this._prefersReducedMotion()) {
+            this.elements.modalImg.style.transition = "none";
+          }
           this.elements.modalImg.style.transform = finalTransform;
           this.elements.modalImg.style.webkitTransform = finalTransform;
         });
@@ -777,6 +780,10 @@
       };
     }
 
+    _prefersReducedMotion() {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
     openModal(imgSrc, sourceText, thumbSrc = null, fallbackSrc = null) {
       this.elements.modal.style.display = "flex";
       this.elements.sourceContainer.innerHTML = sourceText || "";
@@ -849,8 +856,9 @@
       this.elements.modalImg.style.borderRadius = "10px";
       this.elements.modalImg.style.transformOrigin = "center";
       this.elements.modalImg.style.transform = "translate(0px, 0px) scale(1)";
-      this.elements.modalImg.style.transition =
-        "transform 0.4s ease, border-radius 0.4s ease";
+      this.elements.modalImg.style.transition = this._prefersReducedMotion()
+        ? "none"
+        : "transform 0.4s ease, border-radius 0.4s ease";
 
       this.elements.modalImg.style.imageRendering = "auto";
       this.elements.modalImg.style.setProperty("image-rendering", "smooth");

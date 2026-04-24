@@ -169,6 +169,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl 
 
-__Verze:__ 2.0.1
+__Verze:__ 2.0.2
 
-__Datum:__ 2026-04-05
+__Datum:__ 2026-04-24
