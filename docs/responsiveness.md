@@ -12,7 +12,7 @@ Po načtení stránky (`DOMContentLoaded`) script:
 
 - aktivuje se `MutationObserver` pro detekci sticky headeru a jeho inicializaci.
 
-Script reaguje na resize okna a automaticky zavírá menu, pokud šířka překročí definovaný __mobileBreakpoint__ (výchozích 1175px).
+Script reaguje na resize okna a automaticky zavírá menu, pokud šířka překročí definovaný __mobileBreakpoint__ (výchozích 940px).
 
 ## Požadavky a kompatibilita:
 - JavaScript ES6+
@@ -86,14 +86,14 @@ Pro jiná nastavení při inicializaci upravte:
   class BurgerMenuManager {
     constructor(options) {
       options = options || {};
-      this.mobileBreakpoint = options.mobileBreakpoint || 1175;
+      this.mobileBreakpoint = options.mobileBreakpoint || 940;
       this.debounceDelay = options.debounceDelay || 150;
       this.menuTransitionDelay = options.menuTransitionDelay || 50;
       .... další 
     }  
   }    
 ```
-například změněním hodnoty ___1175___ u mobileBreakpoint.
+například změněním hodnoty ___940___ u mobileBreakpoint.
 
 ## API Reference:
 Metody třídy __BurgerMenuManager__:
@@ -121,7 +121,7 @@ Interní proměnné a event listenery jsou uzavřené v IIFE (uzavřené do anon
 
 ## Příklad HTML:
 ```html
-<!-- NAVIGACE PRO ŠÍŘKU POD 1175PX (mobilní)-->
+<!-- NAVIGACE PRO ŠÍŘKU POD 940PX (mobilní)-->
 <!-- Burger menu tlačítko -->
 <div class="burger-menu" id="burgerMenu">
     <div class="burger-line"></div>
@@ -154,7 +154,7 @@ Interní proměnné a event listenery jsou uzavřené v IIFE (uzavřené do anon
         </div>
     </div>
 </nav>
-<!-- konec navigace pro šířku pod 1175px -->
+<!-- konec navigace pro šířku pod 940px -->
 ```
 
 ## Další informace:
@@ -164,6 +164,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.1.0
+__Verze:__ 2.1.1
 
-__Datum:__ 2026-04-08
+__Datum:__ 2026-04-27

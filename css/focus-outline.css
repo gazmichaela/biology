@@ -1,4 +1,9 @@
-/* Při (prefers-contrast: more) anebo při (forced-colors: active) se používají styly uložené v responsiveness.css */
+/* OUTLINE PŘI FOCUS
+    Třídá .using-mouse je řízena pomocí JS, viz focus-outline.md
+    Při (prefers-contrast: more) anebo při (forced-colors: active) se používají styly uložené v responsiveness.css
+*/
+
+
 
 /* Vypnutí výchozího outline pro všechny prvky */
 *:focus,

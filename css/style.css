@@ -118,6 +118,7 @@ body {
     font-family: 'Inter', 'Arial', sans-serif;
     font-size: 1.3em;
     background-color: #f0f9f0;
+    max-width: 100%;
     min-width: 248px;
     overflow-x: hidden;
     margin: 0;

@@ -6,9 +6,9 @@
  *
  * @fileoverview Univerzální řešení pro webovou navigaci s podporou dropdownů
  * @author Michaela Gažová
- * @version 3.0.2
+ * @version 3.0.3
  * @since 2025-03-23
- * @updated 2026-04-23
+ * @updated 2026-04-27
  * @license MIT
  */
 
@@ -18,7 +18,7 @@
   class NavigationManager {
     constructor(options) {
       options = options || {};
-      this.mobileBreakpoint = options.mobileBreakpoint || 1175;
+      this.mobileBreakpoint = options.mobileBreakpoint || 940;
       this.activeClass = options.activeClass || "active";
       this.debounceDelay = options.debounceDelay || 150;
 

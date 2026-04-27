@@ -1,3 +1,10 @@
+/* STICKY HEADER
+    Sticky header je řízen JS, podrobnosti v souboru sticky-header.md.
+    Většina stylů vychází z navigation-desktop.css a z navigation-mobile.css (může se mírně lišit pro správné funkování sticky headeru.
+*/
+
+
+
 /* ==== STICKY HEADER ==== */
 .sticky-header {
     position: fixed;
@@ -485,13 +492,4 @@ body.sticky-menu-open {
     touch-action: none !important;
     -webkit-overflow-scrolling: auto !important;
     overscroll-behavior: none !important;
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-    .sticky-mobile-nav,
-    .sticky-menu-overlay {
-        transition-duration: 0.1s !important;
-        transition-timing-function: linear !important;
-    }
 }

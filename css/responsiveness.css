@@ -40,19 +40,10 @@ OBSAH:
  6. Další media queries pro přístupnost
 */
 
-@media screen and (min-width: 2000px) {
-    .sticky-header .nav-right {
-        margin: 0 2vw;
-    }
-}
+
 
 /* ===== 1. OBECNÉ ===== */
 @media screen and (max-width: 1023px) {
-    html,
-    body {
-        max-width: 100vw;
-    }
-
     body {
         font-size: 1.2em;
     }
@@ -142,20 +133,6 @@ OBSAH:
     body {
         font-size: 1.1em;
     }
-    
-    header {
-        max-height: 130px;
-    }
-    
-    header ul {
-        flex-direction: column;
-        padding: 10px 0;
-    }
-    
-    header ul li {
-        margin: 8px 0;
-        font-size: 16px;
-    }
 
     .sticky-header {
         padding: 9px 0;
@@ -212,7 +189,7 @@ OBSAH:
     table {
         width: 95%;
         font-size: 0.9em;
-        margin: 20px auto 30px 2.5%;
+        margin: 20px 2vw;
     }
     
     table th,
@@ -229,7 +206,7 @@ OBSAH:
     }
     
     .tooltip .tooltiptext {
-        font-size: small;
+        font-size: 0.75em;
         white-space: normal;
         max-width: 300px;
         left: 0;
@@ -324,7 +301,7 @@ OBSAH:
     
     table {
         font-size: 0.8em;
-        margin: 15px auto 25px 1%;
+        margin: 20px 1vw;
     }
     
     table th,
@@ -454,10 +431,6 @@ OBSAH:
 
 /* Landscape orientace pro mobily */
 @media screen and (max-height: 500px) and (orientation: landscape) {
-    header {
-        position: static;
-    }
-    
     header ul {
         padding: 5px 0;
     }
@@ -508,13 +481,13 @@ OBSAH:
         font-size: 0.9em;
         border-radius: 5px;
         margin-bottom: 5px;
-        line-height: 1.4;
+        line-height: 1.5;
     }
     
     .answer {
         padding: 5px 8px;
         font-size: 0.85em;
-        line-height: 1.4;
+        line-height: 1.5;
     }
     
     #toggle-questions-btn {
@@ -532,7 +505,6 @@ OBSAH:
         font-size: 0.92em;
         border-radius: 6px;
         margin-bottom: 3px;
-        line-height: 1.5;
         touch-action: manipulation; /* Lepší dotyková odezva */
     }
     
@@ -540,7 +512,6 @@ OBSAH:
         padding: 5px 10px;
         border-left-width: 4px;
         font-size: 0.87em;
-        line-height: 1.5;
         margin-bottom: 6px;
         margin-top: 2px;
     }
@@ -581,46 +552,25 @@ OBSAH:
 /* ===== 3. PDF ===== */
 @media screen and (max-width: 768px) {
     .pdf-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
         background-color: rgba(0, 0, 0, 0.9);
-        z-index: 9999;
     }
     
     .pdf-viewer-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         width: 95%;
         height: 90%;
-        background-color: #2a2a2a;
         border-radius: 6px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
     }
     
     .pdf-close-button {
-        position: absolute;
         top: -15px;
         right: -15px;
         width: 40px;
         height: 40px;
-        background-color: white;
-        border-radius: 50%;
         font-size: 24px;
         line-height: 40px;
-        text-align: center;
-        cursor: pointer;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         z-index: 1009;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         touch-action: manipulation;
     }
 }
@@ -628,47 +578,25 @@ OBSAH:
 
 @media screen and (max-width: 568px) {
     .pdf-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
         background-color: rgba(0, 0, 0, 0.95);
-        z-index: 9999;
     }
     
     .pdf-viewer-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         width: 98%;
         height: 95%;
-        background-color: #2a2a2a;
         border-radius: 4px;
         box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
     }
     
     .pdf-close-button {
-        position: absolute;
         top: -4px;
         right: -4px;
         width: 25px;
         height: 25px;
-        background-color: white;
-        border-radius: 50%;
         font-size: 26px;
         line-height: 45px;
-        text-align: center;
-        cursor: pointer;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         z-index: 1009;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        touch-action: manipulation;
         border: 2px solid #f0f0f0;
     }
 }
@@ -1266,6 +1194,8 @@ OBSAH:
 
 /* ===== 6. DALŠÍ MEDIA QUERIES PRO PŘÍSTUPNOST ===== */
 @media (prefers-reduced-motion: reduce) or (update: slow) {
+    /* Pro animaci při zvětšení rozkliknutých obrázků jsou styly v img-zoom.js */
+
     * {
         animation: none !important;
     }
@@ -1282,6 +1212,8 @@ OBSAH:
     .question,
     .answer,
     .sticky-header,
+    .sticky-mobile-nav,
+    .sticky-menu-overlay,
     .tooltip .tooltiptext,
     .dark-mode-toggle,
     .dark-mode-toggle .icon-anim,
@@ -1368,12 +1300,12 @@ OBSAH:
         z-index: 1;
     }
 
-    .nav-desktop .nav-right a:not(.home-icon):is(:hover, :focus, :focus-visible),
+    .nav-desktop a:not(.home-icon):is(:hover, :focus, :focus-visible),
     .nav-desktop :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third):is(:hover, :focus, :focus-visible) {
         background-color: blue !important;
     }
 
-    .nav-desktop .nav-right a.active:is(:hover, :focus, :focus-visible) {
+    .nav-desktop a.active:is(:hover, :focus, :focus-visible) {
         background-color: #098809 !important;
     }
     
@@ -1517,7 +1449,7 @@ OBSAH:
         border-bottom: 2px solid CanvasText;
     }
 
-    .nav-right :is(a, :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third) span) {
+    .nav-desktop :is(a, :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third) span) {
         color: LinkText !important;
     }
 
@@ -1525,11 +1457,11 @@ OBSAH:
         filter: none !important;
     }
 
-    .nav-right .sub-dropdown-toggle::before {
+    .nav-desktop .sub-dropdown-toggle::before {
         color: LinkText !important;
     }
 
-    .nav-right :is(.dropdown-content, .dropdown-content-second, .dropdown-content-third) {
+    .nav-desktop :is(.dropdown-content, .dropdown-content-second, .dropdown-content-third) {
         border: 2px solid CanvasText;
     }
 

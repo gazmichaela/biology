@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy dropdown menu s cross-tab synchronizací a podporou subdropdownů
  * @author Michaela Gažová
- * @version 2.7.1
+ * @version 2.7.2
  * @since 2026-02-07
- * @updated 2026-04-18
+ * @updated 2026-04-27
  * @license MIT
  */
 

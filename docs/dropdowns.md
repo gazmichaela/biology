@@ -135,14 +135,14 @@ Script podporuje ovládání klávesnicí:
 ## Příklad HTML:
 
 ```html
-<li class="nav-right dropdown">
+<li class="dropdown">
     <div class="button-container">
-        <a href="system.html" class="main-button" tabindex="0">Úvod</a>
+        <a href="introduction.html" class="main-button" tabindex="0">Úvod</a>
         <button class="dropdown-toggle" aria-label="Rozbalit" tabindex="0"><span class="arrow">&#9662;</span></button>
     </div>
     <div class="dropdown-content" id="dropdown-content" tabindex="-1">
         <div class="sub-dropdown">
-            <a href="system-introduction.html" class="centered" tabindex="0">Základní principy</a>
+            <a href="basic-principles.html" class="centered" tabindex="0">Základní principy</a>
             <span class="sub-dropdown-toggle" aria-label="Dvě položky pod základními principy jsou rozbaleny" tabindex="0">&#9656;</span>
             <div class="sub-dropdown-content">
                 <a href="system-approach.html" tabindex="0">Systémový přístup</a>
@@ -163,6 +163,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.7.1
+__Verze:__ 2.7.2
 
-__Datum:__ 2026-04-18
+__Datum:__ 2026-04-27

@@ -6,7 +6,7 @@ Tento script řeší správu navigačních tlačítek na webu (hlavní menu, dro
 ## Jak to funguje:
 `NavigationManager` hlídá, která navigační položka má být zrovna aktivní - podle toho, co je v URL, nebo když uživatel klikne na tlačítko.
 
-Součástí je i responzivní logika - při určité šířce okna (výchozí hranice 1175 px) se přepne z desktopové navigace na mobilní, takže aktivní stav se udržuje v obou variantách.
+Součástí je i responzivní logika - při určité šířce okna (výchozí hranice 940 px) se přepne z desktopové navigace na mobilní, takže aktivní stav se udržuje v obou variantách.
 
 ## Požadavky a kompatibilita:
 - JavaScript ES6+ 
@@ -65,13 +65,13 @@ Pro jiná nastavení si vytvořte vlastní instanci:
 class NavigationManager {
     constructor(options) {
       options = options || {};
-      this.mobileBreakpoint = options.mobileBreakpoint || 1175 ;
+      this.mobileBreakpoint = options.mobileBreakpoint || 940;
       this.activeClass = options.activeClass || "active";
       .... další 
     }
 } 
 ```
-například změněním hodnoty ___1175___ u mobileBreakpoint.
+například změněním hodnoty ___940___ u mobileBreakpoint.
 
 ## API Reference:
 Metody třídy __NavigationManager__:
@@ -177,6 +177,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 3.0.2
+__Verze:__ 3.0.3
 
-__Datum:__ 2026-04-23
+__Datum:__ 2026-04-27

@@ -6,9 +6,9 @@
  *
  * @fileoverview Mobilní menu manager pro responzivní burger navigaci
  * @author Michaela Gažová
- * @version 2.1.0
+ * @version 2.1.1
  * @since 2025-06-05
- * @updated 2026-04-08
+ * @updated 2026-04-27
  * @license MIT
  */
 
