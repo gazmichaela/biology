@@ -1200,7 +1200,7 @@ OBSAH:
         animation: none !important;
     }
 
-    header .nav-desktop .logo {
+    header .logo {
         opacity: 1;
     }
 
@@ -1378,6 +1378,11 @@ OBSAH:
         border: 2px solid currentColor;
     }
 
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+        outline: 1px dotted currentColor;
+    }
+
     .info-box .info-box-link {
         color: #4ecdff !important;
     }
@@ -1424,10 +1429,6 @@ OBSAH:
 }
 
 @media screen and (forced-colors: active) {
-    * {
-        forced-color-adjust: auto;
-    }
-
     *:focus,
     *:focus-visible {
         outline: 3px solid Highlight !important;
@@ -1435,34 +1436,7 @@ OBSAH:
 
     a:hover,
     .reset-preferences-btn:hover {
-        text-decoration: underline Highlight;
-    }
-
-    :is(.button, .button-light, #toggle-questions-btn, #acceptCookies):hover,
-    :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third):hover,
-    .sub-dropdown-toggle:hover::before {
-        outline: 2px solid Highlight !important;
-    }
-
-    body header,
-    .sticky-header {
-        border-bottom: 2px solid CanvasText;
-    }
-
-    .nav-desktop :is(a, :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third) span) {
-        color: LinkText !important;
-    }
-
-    .nav-desktop .nav-home a:hover img {
-        filter: none !important;
-    }
-
-    .nav-desktop .sub-dropdown-toggle::before {
-        color: LinkText !important;
-    }
-
-    .nav-desktop :is(.dropdown-content, .dropdown-content-second, .dropdown-content-third) {
-        border: 2px solid CanvasText;
+        text-decoration: underline Highlight 3px;
     }
 
     button,
@@ -1474,8 +1448,62 @@ OBSAH:
         color: ButtonText !important;
     }
 
+    body header,
+    .sticky-header {
+        border-bottom: 2px solid CanvasText;
+    }
+
+    .dropdown-toggle,
+    .dropdown-toggle-second,
+    .dropdown-toggle-third,
+    .main-button,
+    .dropdown-content a,
+    .dropdown-content-second a,
+    .dropdown-content-third a {
+        outline: 1px dashed ButtonText;
+    }
+
+    .nav-desktop :is(a, :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third) span, .sub-dropdown-toggle) {
+        color: LinkText !important;
+    }
+
+    .nav-desktop .nav-home a img,
+    header img.logo {
+        forced-color-adjust: none; /* Pro případ, kdyby byl Canvas bílý, */
+        background-color: black; /* čímž zůstanou tyto elementy čitelné */
+    }
+
+    .nav-desktop .nav-home a:hover {
+        outline: 2px solid LinkText !important;
+        outline-offset: 3px;
+        border-radius: 3px;
+    }
+
+    .nav-desktop .nav-home a:hover img {
+        filter: none !important;
+    }
+
+    .nav-desktop :is(.dropdown-content, .dropdown-content-second, .dropdown-content-third, .sub-dropdown-content) {
+        border: 2px solid CanvasText;
+    }
+
+    :is(.button, .button-light, #toggle-questions-btn, #acceptCookies):hover,
+    .nav-desktop :is(.dropdown-toggle, .dropdown-toggle-second, .dropdown-toggle-third, .main-button, .dropdown-content a, .dropdown-content-second a, .dropdown-content-third a):hover,
+    .nav-desktop .sub-dropdown-toggle:hover::before {
+        outline: 2px solid LinkText !important;
+    }
+
+    .nav-desktop a.active {
+        background-color: initial;
+        text-decoration: underline;
+    }
+
     article section h2 {
         text-decoration: underline solid CanvasText 5px;
+    }
+
+    .img-wrapper img {
+        border: 1px solid CanvasText;
     }
 
     .question {
@@ -1488,6 +1516,15 @@ OBSAH:
 
     .tooltip .tooltiptext {
         border: 3px dashed CanvasText;
+    }
+
+    .info-box:hover:not(.force-close),
+    .info-box.active {
+        border: 1px dotted CanvasText;
+    }
+
+    thead th {
+        outline: 2px solid CanvasText !important;
     }
 
     #darkModeToggle {

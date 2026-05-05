@@ -129,6 +129,34 @@ body button {
     font-family: inherit; /* Zajistí všem tlačítkům, že se použije výchozí font a nebude to přepsáno user agentem */
 }
 
+.skip-to-content {
+    position: absolute;
+    transform: translateY(-100%);
+    transition: transform 0.1s;
+    z-index: 1000;
+    width: 100%;
+    padding: 6px 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    background-color: #3f7093;
+    color: white;
+    text-decoration: none;
+    outline: none !important;
+    border-bottom: 1px solid white;
+}
+
+.skip-to-content:focus {
+    transform: translateY(0);
+}
+
+.skip-to-content:focus:hover {
+    text-decoration: underline;
+}
+
+.skip-to-content:focus + header {
+    top: calc(1.4rem + 12px + 1px); /* velikost písma + padding + border */
+}
+
 body header {
     background-color: #77afe0ee;
     text-align: center;
@@ -136,6 +164,7 @@ body header {
     z-index: 993;
     position: sticky;
     padding: 0 5vw;
+    transition: top 0.1s;
 }
 
 .header-nav-container {
@@ -237,6 +266,32 @@ article section h2 {
     text-align: left;
     box-decoration-break: clone;
 }
+
+article section h2 + a {
+    opacity: 0;
+    color: #bbb;
+    text-decoration: none;
+    padding: 0 0.3em;
+    font-size: 1.4em;
+    font-weight: 500;
+    transition: opacity 0.2s ease-out 0.1s, color 0.15s ease-out 0.1s, font-weight 0.15s linear 0.1s;
+}
+
+article section h2:hover + a {
+    opacity: 1;
+}
+
+article section h2 + a:hover,
+article section h2 + a:focus,
+article section h2 + a:focus-visible {
+    opacity: 1;
+    color: #309ce5;
+    font-weight: 700;
+    outline-offset: 0 !important;
+    transition-duration: 0.15s, 0.1s, 0.1s;
+    transition-delay: 0s, 0s, 0s;
+}
+
 
 article section .h2 {
     margin-left: 0;
