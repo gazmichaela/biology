@@ -3,7 +3,7 @@
 ## Úvod
 Tento script řeší interaktivní zobrazení otázek a odpovědí (FAQ) na webu. Hlavním cílem je umožnit uživateli pohodlně zobrazit nebo skrýt seznam otázek a jednotlivé odpovědi.
 
-Otázky jsou obvykle zobrazeny jako tlačítka (`.question`), po jejichž kliknutí se zobrazí související odpověď (`.answer`).
+Otázky jsou obvykle zobrazeny jako tlačítka (`.question`), po jejichž kliknutí nebo tapnutí se zobrazí související odpověď (`.answer`).
 
 ## Jak to funguje:
 Po načtení stránky (`DOMContentLoaded`) script: 
@@ -104,6 +104,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.1.0
+__Verze:__ 2.1.1
 
-__Datum:__ 2025-08-19
+__Datum:__ 2026-05-08

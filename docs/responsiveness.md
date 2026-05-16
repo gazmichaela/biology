@@ -122,39 +122,75 @@ Interní proměnné a event listenery jsou uzavřené v IIFE (uzavřené do anon
 ## Příklad HTML:
 ```html
 <!-- NAVIGACE PRO ŠÍŘKU POD 940PX (mobilní)-->
-<!-- Burger menu tlačítko -->
-<div class="burger-menu" id="burgerMenu">
-    <div class="burger-line"></div>
-    <div class="burger-line"></div>
-    <div class="burger-line"></div>
-</div>
 
-<!-- Overlay pro zavření menu -->
-<div class="menu-overlay" id="menuOverlay"></div>
+            <!-- Overlay pro zavření menu -->
+            <div class="menu-overlay" id="menuOverlay"></div>
 
+            <!-- Položky v mobilní navigaci -->
+            <div class="mobile-nav-container" id="mobileNav">
+                <div class="mobile-nav-list">
+                            
+                        <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
 
-<!-- Mobilní navigace -->
-<nav class="mobile-nav-container" id="mobileNav">
-    <button class="menu-close-button" id="closeButton"></button><!-- Křížek pro zavření -->
-    <div class="mobile-nav-list">
+                        <div class="mobile-accordion">
 
-        <!-- Domů -->
-        <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+                            <div class="mobile-acc-item">
+                                <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Úvod <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                </button>
+                                <div class="mobile-acc-sub">
+                                    <a href="introduction.html" class="mobile-acc-link mobile-acc-link-parent">→ Přejít na Úvod</a>
+                                    <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Základní principy <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                    </button>
+                                    <div class="mobile-acc-sub">
+                                    <a href="basic-principles.html" class="mobile-acc-link mobile-acc-link-parent">→ Přejít na Základní principy</a>
+                                        <a href="system-approach.html" class="mobile-acc-link mobile-acc-link-deep">Systémový přístup</a>
+                                        <a href="system-thinking.html" class="mobile-acc-link mobile-acc-link-deep">Systémové myšlení</a>
+                                    </div>
+                                    <a href="system-theory.html" class="mobile-acc-link">Teorie systémů</a>
+                                    <a href="life-properties.html" class="mobile-acc-link">Vlastnosti živých soustav</a>
+                                    <a href="life-origin.html" class="mobile-acc-link">Vznik života</a>
+                                </div>
+                             </div>
 
-        <div class="mobile-expandable">
+                            <div class="mobile-acc-item">
+                                <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Člověk <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                </button>
+                                <div class="mobile-acc-sub">
+                                    <a href="human.html" class="mobile-acc-link mobile-acc-link-parent">→ Přejít na Člověk</a>
+                                    <a href="cell.html" class="mobile-acc-link">Buněčné a nebuněčné organismy</a>
+                                    <a href="tissues.html" class="mobile-acc-link">Tkáně</a>
+                                    <a href="organ-system.html" class="mobile-acc-link">Orgánové soustavy</a>
+                                    <a href="genetics.html" class="mobile-acc-link">Genetika</a>
+                                </div>
+                            </div>
 
-            <!-- Základy systémového myšlení -->
-            <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
-                <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
-                    <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
-                <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
- 
-            <!-- Buňka -->
-            <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
-        </div>
+                            <div class="mobile-acc-item">
+                                <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Životní prostředí <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                </button>
+                                <div class="mobile-acc-sub">
+                                    <a href="environment.html" class="mobile-acc-link mobile-acc-link-parent">→ Přejít na Životní prostředí</a>
+                                    <a href="ecology-introduction.html" class="mobile-acc-link">Základy ekologie</a>
+                                    <a href="ecosystems.html" class="mobile-acc-link">Ekosystémy</a>
+                                    <a href="climate-change.html" class="mobile-acc-link">Klimatická změna</a>
+                                    <a href="environmental-protection.html" class="mobile-acc-link">Ochrana prostředí</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </nav>
+            <!-- Burger menu tlačítko -->
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+        <!-- konec navigace pro šířku pod 940px -->
     </div>
-</nav>
-<!-- konec navigace pro šířku pod 940px -->
 ```
 
 ## Další informace:
@@ -164,6 +200,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.1.1
+__Verze:__ 2.2.2
 
-__Datum:__ 2026-04-27
+__Datum:__ 2026-05-16

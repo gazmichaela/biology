@@ -6,9 +6,9 @@
  *
  * @fileoverview Mobilní menu manager pro responzivní burger navigaci
  * @author Michaela Gažová
- * @version 2.1.1
+ * @version 2.2.2
  * @since 2025-06-05
- * @updated 2026-04-27
+ * @updated 2026-05-16
  * @license MIT
  */
 
@@ -51,7 +51,7 @@
 
       this.handleResize = this._debounce(
         this._onResize.bind(this),
-        this.debounceDelay
+        this.debounceDelay,
       );
       this.handleDocumentClick = this._onDocumentClick.bind(this);
       this.handleKeydown = this._onKeyDown.bind(this);
@@ -84,7 +84,11 @@
         this.elements.burgerMenu.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          this.openMenu(false);
+          if (this.elements.burgerMenu.classList.contains("is-open")) {
+            this.closeMenu(false);
+          } else {
+            this.openMenu(false);
+          }
         });
       }
 
@@ -124,7 +128,7 @@
               ) {
                 setTimeout(
                   () => this._initializeStickyBurgerMenu(),
-                  this.observerInitDelay
+                  this.observerInitDelay,
                 );
               }
             }
@@ -138,7 +142,7 @@
       if (document.querySelector(this.selectors.stickyHeader)) {
         setTimeout(
           () => this._initializeStickyBurgerMenu(),
-          this.stickyInitDelay
+          this.stickyInitDelay,
         );
       }
     }
@@ -167,23 +171,25 @@
     }
 
     closeAllMenusClean() {
+      this._unlockScroll();
       if (this.elements.mobileNav && this.elements.menuOverlay) {
         this.elements.mobileNav.classList.remove(
-          this.cssClasses.mobileMenuActive
+          this.cssClasses.mobileMenuActive,
         );
         this.elements.menuOverlay.classList.remove(this.cssClasses.active);
+        this.elements.burgerMenu?.classList.remove("is-open");
       }
 
       const stickyMobileNav = document.querySelector(
-        this.selectors.stickyMobileNav
+        this.selectors.stickyMobileNav,
       );
       const stickyMenuOverlay = document.querySelector(
-        this.selectors.stickyMenuOverlay
+        this.selectors.stickyMenuOverlay,
       );
       if (stickyMobileNav && stickyMenuOverlay) {
         stickyMobileNav.classList.remove(
           this.cssClasses.mobileMenuActive,
-          this.cssClasses.active
+          this.cssClasses.active,
         );
         stickyMenuOverlay.classList.remove(this.cssClasses.active);
       }
@@ -191,59 +197,101 @@
       this.elements.body.classList.remove(
         this.cssClasses.menuOpen,
         this.cssClasses.mainMenuOpen,
-        this.cssClasses.stickyMenuOpen
+        this.cssClasses.stickyMenuOpen,
       );
+
+      document.querySelectorAll(".mobile-acc-toggle").forEach(function (btn) {
+        btn.setAttribute("aria-expanded", "false");
+        btn.nextElementSibling.classList.remove("open");
+      });
+    }
+    _lockScroll() {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.paddingRight = scrollbarWidth + "px";
+      const toggleBtn = document.getElementById("darkModeToggle");
+      if (toggleBtn) {
+        toggleBtn.style.transition = "none";
+        toggleBtn.style.right = 20 + scrollbarWidth + "px";
+        toggleBtn.offsetHeight;
+        toggleBtn.style.transition = "";
+      }
     }
 
+    _unlockScroll() {
+      document.documentElement.style.overflow = "";
+      document.body.style.paddingRight = "";
+      const toggleBtn = document.getElementById("darkModeToggle");
+      if (toggleBtn) {
+        toggleBtn.style.transition = "none";
+        toggleBtn.style.right = "";
+        toggleBtn.offsetHeight;
+        toggleBtn.style.transition = "";
+      }
+    }
     _openMainMenu() {
       if (this.elements.mobileNav && this.elements.menuOverlay) {
+        this._lockScroll(); 
         this.elements.body.classList.add(this.cssClasses.mainMenuOpen);
         this.elements.mobileNav.classList.add(this.cssClasses.mobileMenuActive);
         this.elements.menuOverlay.classList.add(this.cssClasses.active);
+        this.elements.burgerMenu?.classList.add("is-open");
       }
     }
 
     _closeMainMenu() {
       if (this.elements.mobileNav && this.elements.menuOverlay) {
+        this._unlockScroll();
         this.elements.mobileNav.classList.remove(
-          this.cssClasses.mobileMenuActive
+          this.cssClasses.mobileMenuActive,
         );
         this.elements.menuOverlay.classList.remove(this.cssClasses.active);
         this.elements.body.classList.remove(this.cssClasses.mainMenuOpen);
+        this.elements.burgerMenu?.classList.remove("is-open");
       }
     }
 
     _openStickyMenu() {
       const stickyMobileNav = document.querySelector(
-        this.selectors.stickyMobileNav
+        this.selectors.stickyMobileNav,
       );
       const stickyMenuOverlay = document.querySelector(
-        this.selectors.stickyMenuOverlay
+        this.selectors.stickyMenuOverlay,
       );
+      const stickyBurger = document.querySelector("#sticky-burgerMenu");
       if (stickyMobileNav && stickyMenuOverlay) {
+        this._lockScroll();
         this.elements.body.classList.add(this.cssClasses.stickyMenuOpen);
         stickyMobileNav.classList.add(
           this.cssClasses.mobileMenuActive,
-          this.cssClasses.active
+          this.cssClasses.active,
         );
         stickyMenuOverlay.classList.add(this.cssClasses.active);
+        stickyBurger?.classList.add("is-open");
       }
     }
 
     _closeStickyMenu() {
       const stickyMobileNav = document.querySelector(
-        this.selectors.stickyMobileNav
+        this.selectors.stickyMobileNav,
       );
       const stickyMenuOverlay = document.querySelector(
-        this.selectors.stickyMenuOverlay
+        this.selectors.stickyMenuOverlay,
       );
+      const stickyBurger = document.querySelector("#sticky-burgerMenu");
+
       if (stickyMobileNav && stickyMenuOverlay) {
+        this._unlockScroll();
         stickyMobileNav.classList.remove(
           this.cssClasses.mobileMenuActive,
-          this.cssClasses.active
+          this.cssClasses.active,
         );
         stickyMenuOverlay.classList.remove(this.cssClasses.active);
-        this.elements.body.classList.remove(this.cssClasses.stickyMenuOpen);
+        stickyBurger?.classList.remove("is-open"); // nejdřív animace
+        setTimeout(() => {
+          this.elements.body.classList.remove(this.cssClasses.stickyMenuOpen); // pak MutationObserver
+        }, 320);
       }
     }
 
@@ -252,86 +300,134 @@
       if (!stickyHeader) return;
 
       let stickyBurgerMenu = stickyHeader.querySelector(
-        this.selectors.stickyBurgerMenu
+        this.selectors.stickyBurgerMenu,
       );
       if (!stickyBurgerMenu) return;
 
       const stickyMobileNav = document.querySelector(
-        this.selectors.stickyMobileNav
+        this.selectors.stickyMobileNav,
       );
       const stickyMenuOverlay = document.querySelector(
-        this.selectors.stickyMenuOverlay
+        this.selectors.stickyMenuOverlay,
       );
       if (!stickyMobileNav || !stickyMenuOverlay) return;
 
-      // Close button může být pod různými selektory
+      const body = document.body;
+      let savedRect = null;
+
+      const detachBurger = () => {
+        savedRect = stickyBurgerMenu.getBoundingClientRect();
+        body.appendChild(stickyBurgerMenu);
+        stickyBurgerMenu.style.cssText = `
+            position: fixed !important;
+            z-index: 9999 !important;
+            top: ${savedRect.top}px !important;
+            left: ${savedRect.left}px !important;
+            width: ${savedRect.width}px !important;
+            height: ${savedRect.height}px !important;
+            right: auto !important;
+            margin: 0 !important;
+            transform: none !important;
+        `;
+      };
+
+      const returnBurgerToHeader = () => {
+        if (stickyBurgerMenu.parentElement !== stickyHeader) {
+          setTimeout(() => {
+            if (body.classList.contains(this.cssClasses.stickyMenuOpen)) return;
+            stickyHeader.appendChild(stickyBurgerMenu);
+            stickyBurgerMenu.style.cssText = `
+        position: absolute !important;
+        top: ${savedRect.top}px !important;
+        left: ${savedRect.left}px !important;
+        width: ${savedRect.width}px !important;
+        height: ${savedRect.height}px !important;
+        right: auto !important;
+        margin: 0 !important;
+        transform: none !important;
+      `;
+          }, 320);
+        }
+      };
+
+      let isAnimating = false;
+
+      stickyBurgerMenu.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isAnimating) return;
+        isAnimating = true;
+        setTimeout(() => {
+          isAnimating = false;
+        }, 400);
+
+        if (body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+          returnBurgerToHeader();
+          this._closeStickyMenu();
+        } else {
+          detachBurger();
+          this._openStickyMenu();
+        }
+      });
+
+      new MutationObserver(() => {
+        if (!body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+          returnBurgerToHeader();
+        }
+      }).observe(body, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+
+      // Close button
       let stickyCloseButton =
         stickyMobileNav.querySelector(this.selectors.stickyCloseButton) ||
         stickyMobileNav.querySelector(
-          '#closeButton, .close-button, [id*="close"]'
+          '#closeButton, .close-button, [id*="close"]',
         );
 
-      this._setupStickyBurgerMenu(stickyBurgerMenu);
-      this._setupStickyCloseButton(stickyCloseButton);
-      this._setupStickyOverlay(stickyMenuOverlay);
-    }
-
-    _setupStickyBurgerMenu(stickyBurgerMenu) {
-      // Klonování odstraní staré event listenery
-      const newStickyBurgerMenu = stickyBurgerMenu.cloneNode(true);
-      stickyBurgerMenu.parentNode.replaceChild(
-        newStickyBurgerMenu,
-        stickyBurgerMenu
-      );
-      newStickyBurgerMenu.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.openMenu(true);
-      });
-    }
-
-    _setupStickyCloseButton(stickyCloseButton) {
       if (stickyCloseButton) {
         const newCloseButton = stickyCloseButton.cloneNode(true);
         stickyCloseButton.parentNode.replaceChild(
           newCloseButton,
-          stickyCloseButton
+          stickyCloseButton,
         );
         newCloseButton.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          this.closeMenu(true);
+          this._closeStickyMenu();
         });
       }
-    }
 
-    _setupStickyOverlay(stickyMenuOverlay) {
+      // Overlay
       const newStickyMenuOverlay = stickyMenuOverlay.cloneNode(true);
       stickyMenuOverlay.parentNode.replaceChild(
         newStickyMenuOverlay,
-        stickyMenuOverlay
+        stickyMenuOverlay,
       );
       newStickyMenuOverlay.addEventListener("click", (e) => {
         if (e.target === newStickyMenuOverlay) {
-          this.closeMenu(true);
+          this._closeStickyMenu();
         }
       });
     }
 
     _onResize() {
       if (window.innerWidth > this.mobileBreakpoint) {
+        this._unlockScroll();
         this.closeAllMenus();
       }
     }
 
     _onDocumentClick(e) {
       const isMainBurger = this.elements.burgerMenu?.contains(e.target);
-      const isStickyBurger = e.target.closest(".sticky-header .burger-menu");
+      const stickyBurger = document.querySelector("#sticky-burgerMenu");
+      const isStickyBurger = stickyBurger?.contains(e.target);
       const isInsideMobileNav = e.target.closest(
-        "#mobileNav, #sticky-mobileNav"
+        "#mobileNav, #sticky-mobileNav",
       );
 
-      // Zavřeme menu při kliku mimo oblast menu
       if (!isMainBurger && !isStickyBurger && !isInsideMobileNav) {
         this.closeAllMenus();
       }
@@ -340,10 +436,13 @@
     _onKeyDown(e) {
       if (e.key === "Escape") {
         if (
-          this.elements.body.classList.contains(this.cssClasses.mainMenuOpen) ||
+          this.elements.body.classList.contains(this.cssClasses.mainMenuOpen)
+        ) {
+          this.closeMenu(false);
+        } else if (
           this.elements.body.classList.contains(this.cssClasses.stickyMenuOpen)
         ) {
-          this.closeAllMenus();
+          this.closeMenu(true);
         }
       }
     }
@@ -354,7 +453,7 @@
         this.elements.body.classList.contains(this.cssClasses.stickyMenuOpen)
       ) {
         const isInsideMobileNav = e.target.closest(
-          "#mobileNav, #sticky-mobileNav"
+          "#mobileNav, #sticky-mobileNav",
         );
         // Blokování scrollu pozadí (tedy oblasti stránky mimo menu)
         if (!isInsideMobileNav) {
@@ -407,6 +506,38 @@
       burgerMenuManager._initializeStickyBurgerMenu();
     window.reinitializeStickyMenu = () =>
       burgerMenuManager.reinitializeStickyMenu();
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    function initAccordion() {
+      document.querySelectorAll(".mobile-acc-toggle").forEach(function (btn) {
+        if (btn.dataset.accInit) return;
+        btn.dataset.accInit = "true";
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          const sub = btn.nextElementSibling;
+          const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+          // Zavři všechny toggle na celé stránce kromě aktuálního a jeho předků
+          document.querySelectorAll(".mobile-acc-toggle").forEach(function (b) {
+            if (b !== btn && !b.nextElementSibling.contains(btn)) {
+              b.setAttribute("aria-expanded", "false");
+              b.nextElementSibling.classList.remove("open");
+            }
+          });
+
+          btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+          sub.classList.toggle("open", !isOpen);
+        });
+      });
+    }
+
+    initAccordion();
+
+    const observer = new MutationObserver(function () {
+      initAccordion();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   });
 })();
 

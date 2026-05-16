@@ -6,9 +6,9 @@
  *
  * @fileoverview FAQ handler pro interaktivní otázky a odpovědi
  * @author Michaela Gažová
- * @version 2.1.0
+ * @version 2.1.1
  * @since 2025-04-03
- * @updated 2025-08-26
+ * @updated 2026-05-08
  * @license MIT
  */
 
@@ -19,7 +19,7 @@
     // requestAnimationFrame zajišťuje vykreslení před spuštěním nastavování event listenerů
     requestAnimationFrame(() => {
       const toggleQuestionsBtn = document.getElementById(
-        "toggle-questions-btn"
+        "toggle-questions-btn",
       );
       const faqContainer = document.getElementById("faq-container");
       const questionsHeading = document.getElementById("questions-heading");

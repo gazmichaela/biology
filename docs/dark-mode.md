@@ -133,9 +133,9 @@ Metody třídy `DarkModeManager`:
 <div id="resetSystemPreferences" class="reset-preferences-btn">Preferovat světlý/tmavý režim prohlížeče</div>
 ```
 
-Po kliknutí na tlačítko (`darkModeToggle`) se režim změní a preference se uloží.
+Po stisknutí tlačítka (`darkModeToggle`) se režim změní a preference se uloží.
 
-Po kliknutí na reset (`resetSystemPreferences`) se režim vrátí k systémové preferenci a tlačítko lze skrýt nebo zobrazit.
+Po resetování (element s `#resetSystemPreferences`) se režim vrátí k systémové preferenci a tlačítko lze skrýt nebo zobrazit.
 
 ## Další informace:
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
@@ -144,6 +144,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.1.5
+__Verze:__ 2.1.7
 
-__Datum:__ 2026-05-05
+__Datum:__ 2026-05-16

@@ -108,6 +108,11 @@ OBSAH:
         padding: 1px 4vw;  
     }
 
+        .breadcrumb {
+        margin: 0 20px;
+        padding: 20px 0 0 0;
+    }
+    
     .sticky-header .header-nav-container {
         padding: 12px 4vw;
     }

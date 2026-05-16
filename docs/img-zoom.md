@@ -1,7 +1,7 @@
 # img-zoom.js
 
 ## Úvod
-Tento script řeší interaktivní zvětšení obrázků na webu. Po kliknutí nebo dotyku se obrázek otevře v modálním okně, kde je možné jej přibližovat, posouvat a zobrazit zdroje. Podporuje desktop i mobilní zařízení a automaticky přizpůsobuje ovládání podle zařížení.
+Tento script řeší interaktivní zvětšení obrázků na webu. Po kliknutí nebo tapnutí se obrázek otevře v modálním okně, kde je možné jej přibližovat, posouvat a zobrazit zdroje. Podporuje desktop i mobilní zařízení a automaticky přizpůsobuje ovládání podle zařížení.
 
 ## Jak to funguje:
 `ModalImageViewer` sleduje všechny obrázky s třídou `.zoomable` a při rozkliknutí je zobrazuje v modálním okně.
@@ -160,7 +160,7 @@ Interní metody:
 </div>
 ```
 
-Po kliknutí se obrázek zobrazí v modálním okně, kde je možné ho přiblížit a posouvat.
+Po kliknutí nebo tapnutí se obrázek zobrazí v modálním okně, kde je možné ho přiblížit a posouvat.
 
 ## Další informace:
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
@@ -169,6 +169,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl 
 
-__Verze:__ 2.0.2
+__Verze:__ 2.0.3
 
-__Datum:__ 2026-04-24
+__Datum:__ 2026-05-08

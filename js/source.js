@@ -6,9 +6,9 @@
  *
  * @fileoverview Systém pro hover/click informační panely s link managementem
  * @author Michaela Gažová
- * @version 2.0.1
+ * @version 2.0.2
  * @since 2025-05-16
- * @updated 2025-08-26
+ * @updated 2026-05-08
  * @license MIT
  */
 
@@ -106,7 +106,7 @@
 
     _bindEvents() {
       this.elements.forEach((element) =>
-        element.addEventListener("click", this.handleClick)
+        element.addEventListener("click", this.handleClick),
       );
       document.addEventListener("click", this.handleDocClick);
       document.addEventListener("touchstart", this.handleDocTouch);
@@ -210,7 +210,7 @@
         .concat(
           this.variants
             .filter((v) => v.startsWith("info-icon"))
-            .map((v) => `.${v}`)
+            .map((v) => `.${v}`),
         )
         .join(", ");
       return element.querySelector(iconSelectors);
@@ -218,7 +218,7 @@
 
     _hasClassStartingWith(element, prefix) {
       return Array.from(element.classList).some((cls) =>
-        cls.startsWith(prefix)
+        cls.startsWith(prefix),
       );
     }
 
@@ -258,12 +258,12 @@
 
     refresh() {
       this.elements.forEach((el) =>
-        el.removeEventListener("click", this.handleClick)
+        el.removeEventListener("click", this.handleClick),
       );
       this._cacheElements();
       this._setupElements();
       this.elements.forEach((el) =>
-        el.addEventListener("click", this.handleClick)
+        el.addEventListener("click", this.handleClick),
       );
     }
 

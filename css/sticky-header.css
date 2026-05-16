@@ -1,6 +1,6 @@
 /* STICKY HEADER
     Sticky header je řízen JS, podrobnosti v souboru sticky-header.md.
-    Většina stylů vychází z navigation-desktop.css a z navigation-mobile.css (může se mírně lišit pro správné funkování sticky headeru.
+    Většina stylů vychází z navigation-desktop.css a z navigation-mobile.css (může se mírně lišit pro správné funkování sticky headeru).
 */
 
 
@@ -24,7 +24,7 @@
     overflow: hidden;
 }
 .sticky-header.visible {
-    transform: translateY(0);
+    transform: none;
 }
 
 .sticky-header .main-button:active,
@@ -417,6 +417,25 @@ body:not(.using-mouse) .sticky-header .main-button-second:focus {
     transition: all 0.3s ease;
 }
 
+#sticky-burgerMenu.is-open .burger-line:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+}
+
+#sticky-burgerMenu.is-open .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+#sticky-burgerMenu.is-open .burger-line:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+}
+
+html:not(.dark-mode) #sticky-burgerMenu.is-open .burger-line {
+    background-color: #025227;
+}
+
+html.dark-mode #sticky-burgerMenu.is-open .burger-line {
+    background-color: #c8c1b5;
+}
 
 /* ==== STICKY MOBILNÍ NAVIGACE ==== */
 .sticky-mobile-nav {

@@ -6,9 +6,9 @@
  *
  * @fileoverview Modální prohlížeč obrázků s možností zoomu
  * @author Michaela Gažová
- * @version 2.0.2
+ * @version 2.0.3
  * @since 2025-05-05
- * @updated 2026-04-24
+ * @updated 2026-05-08
  * @license MIT
  */
 

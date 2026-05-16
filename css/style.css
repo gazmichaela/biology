@@ -157,6 +157,11 @@ body button {
     top: calc(1.4rem + 12px + 1px); /* velikost písma + padding + border */
 }
 
+.skip-to-content:focus + header + article .breadcrumb,
+.skip-to-content:focus ~ article .breadcrumb {
+    margin-top: calc(1.4rem + 12px + 1px);
+}
+
 body header {
     background-color: #77afe0ee;
     text-align: center;
@@ -219,6 +224,50 @@ noscript p {
 article {
     max-width: 2000px;
     margin: auto; /* Při širokých obrazovkách s kombinací max-width: bude zarovnáno na střed */
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 0;
+    list-style: none;
+    padding: 30px 0 0 0;
+    margin: 0 60px;
+    font-size: 1.125rem;
+    color: #023f1e;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb li + li::before {
+    content: none;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: "\203A"; /* Inicode pro ">" */
+    margin: 0 10px;
+    color: #023f1e;
+    font-size: 1.125rem;
+    font-weight: 300;
+}
+
+.breadcrumb a {
+    color: #023f1e;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb [aria-current="page"] {
+    color: #023f1e;
+    font-weight: 600;
 }
 
 section {

@@ -6,9 +6,9 @@
  *
  * @fileoverview Systém správy sticky headeru s integrovanými dropdown menu a podporou mobilního i desktopového zobrazení
  * @author Michaela Gažová
- * @version 3.0.0
+ * @version 3.1.0
  * @since 2026-04-02
- * @updated 2026-04-23
+ * @updated 2026-05-16
  * @license MIT
  */
 
@@ -1458,6 +1458,7 @@
           mainNavContainer,
         );
       }
+      this._syncBurgerPosition();
     }
 
     _applyMobileLayout(stickyNavCont, stickyLogo, mainLogo) {
@@ -1514,6 +1515,23 @@
         stickyBurger.style.right = "";
         stickyBurger.style.left = "";
       }
+    }
+
+    _syncBurgerPosition() {
+      const mainBurger = this.mainHeader.querySelector(".burger-menu");
+      const stickyBurger = this.stickyHeader.querySelector(".burger-menu");
+      if (!mainBurger || !stickyBurger) return;
+
+      stickyBurger.style.transition = "none";
+      stickyBurger.style.marginTop = "";
+
+      const mB = mainBurger.getBoundingClientRect();
+      const sB = stickyBurger.getBoundingClientRect();
+      const mH = this.mainHeader.getBoundingClientRect();
+      const sH = this.stickyHeader.getBoundingClientRect();
+
+      const diffTop = mB.top - mH.top - (sB.top - sH.top);
+      stickyBurger.style.marginTop = diffTop + "px";
     }
 
     // Při obnově pozice po refreshi ignorujeme scroll eventy, aby se sticky header nezobrazil předčasně
@@ -1583,10 +1601,10 @@
       if (scrollY > mainHeaderHeight) {
         setTimeout(() => {
           this.stickyHeader.style.cssText += `
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-          `;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+`;
           this.stickyHeader.classList.add("visible");
           this.stickyHeader.setAttribute("aria-hidden", "false");
           this._enableFocus();
@@ -1597,15 +1615,20 @@
     }
 
     _showStickyHeader() {
-      this.stickyHeader.classList.add("visible");
-      this.stickyHeader.style.transition = "";
+      if (this.stickyHeader.classList.contains("visible")) return;
       this.stickyHeader.style.transform = "";
-      this.stickyHeader.style.opacity = "1";
+      this.stickyHeader.style.opacity = "";
+      this.stickyHeader.style.transition = "";
+      void this.stickyHeader.offsetHeight;
+      this.stickyHeader.classList.add("visible");
       this.stickyHeader.setAttribute("aria-hidden", "false");
       this._enableFocus();
     }
 
     _hideStickyHeader(animate = false) {
+      this.stickyHeader.style.transform = "";
+      this.stickyHeader.style.opacity = "";
+      this.stickyHeader.style.transition = "";
       this.stickyHeader.classList.remove("visible");
       if (window.clearAllDropdownStates) window.clearAllDropdownStates();
       if (animate) {
@@ -1795,19 +1818,6 @@
       const newBurger = stickyBurgerMenu.cloneNode(true);
       stickyBurgerMenu.parentNode.replaceChild(newBurger, stickyBurgerMenu);
 
-      newBurger.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (window.clearAllDropdownStates) window.clearAllDropdownStates();
-        if (window.openMenu) {
-          window.openMenu(true);
-        } else {
-          stickyMobileNav.classList.add("active");
-          stickyMenuOverlay.classList.add("active");
-          document.body.classList.add("menu-open");
-        }
-      });
-
       const stickyCloseButton = stickyMobileNav.querySelector(
         '#closeButton, .close-button, [id*="close"]',
       );
@@ -1897,7 +1907,7 @@
       this._exposeGlobals();
       this._bindFocusInMonitor();
 
-      setTimeout(() => this._applyLayout(), 100);
+      setTimeout(() => this._syncBurgerPosition(), 150);
       const stickyItems = this.stickyHeader.querySelectorAll(
         ".main-button, .main-button-second, .dropdown-content a, .dropdown-content-second a, .sub-dropdown-content a",
       );

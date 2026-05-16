@@ -8,7 +8,7 @@
  * @author Michaela Gažová
  * @version 3.0.3
  * @since 2025-03-23
- * @updated 2026-04-27
+ * @updated 2026-05-08
  * @license MIT
  */
 
@@ -26,7 +26,7 @@
         main: ".main-button, .main-button-second, .main-button-third",
         dropdown:
           ".dropdown-content a, .dropdown-content-second a, .dropdown-content-third a, .sub-dropdown-content a",
-        mobile: ".mobile-nav-button",
+        mobile: ".mobile-nav-button, .mobile-acc-link",
       };
 
       this.elements = {};
@@ -125,7 +125,11 @@
     }
 
     _isMobileButton(button) {
-      return !!button && button.classList.contains("mobile-nav-button");
+      return (
+        !!button &&
+        (button.classList.contains("mobile-nav-button") ||
+          button.classList.contains("mobile-acc-link"))
+      );
     }
 
     _isMobileView() {

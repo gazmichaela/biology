@@ -168,7 +168,7 @@ Kvůli IIFE (uzavření do anonymní funkce) se nedostávájí interní věci do
 </div>
 ```
 
-Po kliknutí na libovolný odkaz se správně označí aktivní stránka. Je ale nutné mít správně nastavené kaskádové styly.
+Po kliknutí nebo tapnutí na libovolný odkaz se správně označí aktivní stránka. Je ale nutné mít správně nastavené kaskádové styly.
 
 ## Další informace
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
@@ -179,4 +179,4 @@ __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
 __Verze:__ 3.0.3
 
-__Datum:__ 2026-04-27
+__Datum:__ 2026-05-08

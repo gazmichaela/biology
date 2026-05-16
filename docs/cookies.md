@@ -128,7 +128,7 @@ V anonymním režimu se používá __sessionStorage__, pokud není možné zapis
 </div>
 ```
 
-Po kliknutí na tlačítko __Rozumím__ se upozornění skryje a stav uloží. Pokud uživatel otevře novou záložku, notifikace zůstane skrytá díky synchronizaci.
+Po stisknutí na tlačítka __Rozumím__ se upozornění skryje a stav uloží. Pokud uživatel otevře novou záložku, notifikace zůstane skrytá díky synchronizaci.
 
 ## Další informace:
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
@@ -139,4 +139,4 @@ __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
 __Verze:__ 3.2.2
 
-__Datum:__ 2026-03-15
+__Datum:__ 2026-05-08

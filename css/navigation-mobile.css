@@ -34,7 +34,31 @@ OBSAH:
     -webkit-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+        transition: all 0.3s ease;
+    z-index: 1003;
+    isolation: isolate;
 
+}
+
+/* Křížek když je menu otevřené */
+.burger-menu.is-open .burger-line:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+}
+
+.burger-menu.is-open .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.is-open .burger-line:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
+}
+
+html:not(.dark-mode) .burger-menu.is-open .burger-line {
+    background-color: #025227;
+}
+
+html.dark-mode .burger-menu.is-open .burger-line {
+    background-color: #c8c1b5;
 }
 
 .mobile-nav-logo {
@@ -51,6 +75,7 @@ OBSAH:
     height: auto;
     margin: 0;
 }
+
 /* Tři čárky v burger menu tlačítku */
 .burger-menu .burger-line {
     width: 100%;
@@ -108,12 +133,14 @@ OBSAH:
     width: 60vw;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    pointer-events: none;
 }
 
 .mobile-nav-container.mobile-menu-active {
     right: 0 !important;
     visibility: visible !important;
     touch-action: pan-y !important;
+    pointer-events: auto;
 }
 
 html.menu-open,
@@ -183,35 +210,35 @@ html.menu-open body {
 }
 
 /* Podtržení tmavé (většina položek) */
-.mobile-nav-button-big {
+/*.mobile-nav-button-big {
     border-bottom: 1px solid grey;
     margin-bottom: clamp(10px, 5%, 40px); /* nikdy méně než 10px, ideálně 5%, ale max 40px */ 
-}
+/*}*/
 
 /* Podtržení pod "Úvod" */
-.mobile-nav-button-mid {
+/*.mobile-nav-button-mid {
     border-bottom: 1px solid rgb(151, 151, 151);
     margin-bottom: 3%;
-}
+}*/
 
 /* Bod 2. úrovně */
-.mobile-nav-button-two {
+/*.mobile-nav-button-two {
     margin-left: 20px;
-}
+}*/
 
 /* Bod 3. úrovně */
-.mobile-nav-button-three {
+/*.mobile-nav-button-three {
     margin-left: 40px;
-}
+}*/
 
 /* Hover  */
-.mobile-nav-button:hover {
+/*.mobile-nav-button:hover {
     background-color: #e8f5e8;
     color: #034a33;
-}
+}*/
 
 /* Aktivní položky */
-.mobile-expandable .mobile-nav-button.active,
+/*.mobile-expandable .mobile-nav-button.active,
 .mobile-nav-button.mobile-nav-button-big.active,
 .mobile-nav-button.mobile-nav-button-mid.active,
 .mobile-nav-button.mobile-nav-button-two.active,
@@ -221,9 +248,101 @@ html.menu-open body {
     color: #012d16  !important;
     background-color: rgba(186, 218, 85, 0.1) !important;
     border-left: 4px solid #012d16  !important;
+}*/
+/* === ACCORDION MOBILNÍ MENU === */
+.mobile-accordion {
+    width: 100%;
 }
 
+.mobile-acc-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid grey;
+    color: #025227;
+    font-size: 0.8em;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: clamp(10px, 5%, 40px);
+    line-height: 1;
+}
 
+.mobile-acc-chevron {
+    display: inline-block;
+    transform: rotate(90deg);
+    flex-shrink: 0;
+    margin-left: 8px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    transition: transform 0.25s ease;
+    width: 1em;
+    text-align: center;
+}
+
+.mobile-acc-toggle[aria-expanded="true"] .mobile-acc-chevron {
+    transform: rotate(270deg);
+}
+
+.mobile-acc-toggle[aria-expanded="true"] {
+    margin-bottom: 0;
+}
+
+.mobile-acc-sub {
+    display: none;
+    flex-direction: column;
+    margin-bottom: clamp(10px, 5%, 40px);
+}
+
+.mobile-acc-sub.open {
+    display: flex;
+}
+
+.mobile-acc-link {
+    padding: 12px 15px 12px 20px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #025227;
+    text-decoration: none;
+    border-bottom: 1px solid #b6b6b6;
+    display: block;
+    text-align: left;
+    line-height: 1.4;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.mobile-acc-link-parent {
+    font-size: 0.8em;
+    color: #034a33;
+    background-color: rgba(186, 218, 85, 0.08);
+    border-bottom: 1px solid grey;
+    padding-left: 20px;
+}
+
+.mobile-acc-link-deep {
+    padding-left: 40px;
+}
+
+.mobile-acc-link:hover {
+    background-color: #e8f5e8;
+    color: #034a33;
+}
+
+.mobile-acc-link.active {
+    font-weight: 900;
+    color: #012d16;
+    background-color: rgba(186, 218, 85, 0.1);
+    border-left: 4px solid #012d16;
+    padding-left: 16px;
+}
+
+.mobile-acc-link-deep.active {
+    padding-left: 36px;
+}
 
 /* ==== 3. RESPONZIVITA MOBILNÍ NAVIGACE ==== */
 @media screen and (max-width: 940px) {
@@ -281,7 +400,7 @@ html.menu-open body {
     }
 
     /* Křížek pro zavření menu */
-    .menu-close-button {
+  /*  .menu-close-button {
         position: absolute;
         top: 15px;
         right: 15px;
@@ -296,7 +415,7 @@ html.menu-open body {
         justify-content: center;
         border-radius: 50%;
         transition: background-color 0.3s ease;
-    }
+    }*/
 
     .menu-close-button::before,
     .menu-close-button::after {

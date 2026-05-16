@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
  * @author Michaela Gažová
- * @version 2.1.5
+ * @version 2.1.7
  * @since 2025-05-28
- * @updated 2026-05-05
+ * @updated 2026-05-16
  * @license MIT
  */
 
@@ -287,6 +287,8 @@
             transition: none !important;
             background: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            will-change: right;
+            transform: translateZ(0);
           }
           
           .dark-mode-toggle.hidden {
@@ -359,6 +361,23 @@
 
         body.dark-mode article section .citace a:visited {
           color: cornflowerblue;
+        }
+
+        body.dark-mode .breadcrumb,
+        body.dark-mode .breadcrumb li:not(:last-child)::after {
+          color: #c8c1b5;
+        }
+
+        body.dark-mode .breadcrumb a {
+          color: #c8c1b5;
+        }
+
+        body.dark-mode .breadcrumb a:hover {
+          color: #c8c1b5;
+        }
+
+        body.dark-mode .breadcrumb [aria-current="page"] {
+          color: #c8c1b5;
         }
 
         body.dark-mode .cookies-mini-notice {
@@ -510,6 +529,46 @@
           }
 
         }
+          body.dark-mode .mobile-nav-container {
+    background-color: #2a2a2a;
+  }
+  body.dark-mode .mobile-acc-toggle {
+    color: #c8c1b5;
+    border-bottom-color: #444;
+  }
+  body.dark-mode .mobile-acc-sub {
+    background-color: transparent;
+  }
+  body.dark-mode .mobile-acc-link {
+    color: #c8c1b5;
+    border-bottom-color: #444;
+  }
+  body.dark-mode .mobile-acc-link-parent {
+    color: #c8c1b5;
+    background-color: rgba(186, 218, 85, 0.05);
+    border-bottom-color: #444;
+  }
+  body.dark-mode .mobile-acc-link:hover {
+    background-color: #333;
+    color: #e0deda;
+  }
+  body.dark-mode .mobile-nav-button {
+    color: #c8c1b5;
+    border-bottom-color: #444;
+  }
+  body.dark-mode .mobile-nav-button:hover {
+    background-color: #333;
+    color: #e0deda;
+  }
+  body.dark-mode .menu-close-button::before,
+  body.dark-mode .menu-close-button::after {
+    background-color: #c8c1b5;
+  }
+
+  .dark-mode-toggle .icon-anim {
+      will-change: transform, opacity;
+      transform: translateZ(0);
+    }
       `;
     }
 
@@ -601,6 +660,13 @@
       this._toggleBtn.title = this.isDarkMode
         ? "Přepnout na světlý režim"
         : "Přepnout na tmavý režim";
+
+      if (document.body.classList.contains("sticky-menu-open")) {
+        window.closeMenu(true);
+      }
+      if (document.body.classList.contains("main-menu-open")) {
+        window.closeMenu(false);
+      }
     }
 
     _applyMode(isDark) {
@@ -712,15 +778,18 @@
       document.documentElement.classList.add("ready");
       document.body.classList.add("ready");
 
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
-          }
+      document
+        .querySelectorAll('a[href^="#"]:not(.skip-to-content)')
+        .forEach((anchor) => {
+          if (anchor.previousElementSibling?.matches("h2, h3, h4")) return;
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          });
         });
-      });
     }
 
     _bindEvents() {

@@ -125,7 +125,7 @@ Kvůli IIFE (uzavření do anonymní funkce) se interní věci nedostávají do 
 
 ```
 
-Po kliknutí na ikonu se info-box otevře. Kliknutí mimo něj ho zavře.
+Po kliknutí nebo tapnutí na ikonu se info-box otevře. Kliknutím nebo tapnutím mimo něj se zavře.
 
 ## Další informace:
 Pro přístup k aktuálnímu kódu navštivte https://github.com/gazmichaela/biology/. Tento repozitář obsahuje zdrojový kód, příklady použití a dokumentaci k projektu. Můžete zde také nahlásit chyby nebo navrhnout vylepšení.
@@ -135,6 +135,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.0.1
+__Verze:__ 2.0.2
 
-__Datum:__ 2025-08-26
+__Datum:__ 2026-05-08

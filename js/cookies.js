@@ -8,7 +8,7 @@
  * @author Michaela Gažová
  * @version 3.2.2
  * @since 2025-05-10
- * @updated 2026-03-15
+ * @updated 2026-05-08
  * @license MIT
  */
 

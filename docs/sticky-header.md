@@ -194,6 +194,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 3.0.0
+__Verze:__ 3.1.0
 
-__Datum:__ 2026-04-23
+__Datum:__ 2026-05-16
