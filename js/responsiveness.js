@@ -350,26 +350,25 @@
         }
       };
 
-      let isAnimating = false;
+     let isAnimating = false;
 
-      stickyBurgerMenu.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+stickyBurgerMenu.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
 
-        if (isAnimating) return;
-        isAnimating = true;
-        setTimeout(() => {
-          isAnimating = false;
-        }, 400);
-
-        if (body.classList.contains(this.cssClasses.stickyMenuOpen)) {
-          returnBurgerToHeader();
-          this._closeStickyMenu();
-        } else {
-          detachBurger();
-          this._openStickyMenu();
-        }
-      });
+  if (body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+    // Zavírání — blokuj rychlé opakované klikání
+    if (isAnimating) return;
+    isAnimating = true;
+    setTimeout(() => { isAnimating = false; }, 400);
+    returnBurgerToHeader();
+    this._closeStickyMenu();
+  } else {
+    // Otevírání — neblokuj, ať jde menu zavřít i během animace
+    detachBurger();
+    this._openStickyMenu();
+  }
+});
 
       new MutationObserver(() => {
         if (!body.classList.contains(this.cssClasses.stickyMenuOpen)) {
