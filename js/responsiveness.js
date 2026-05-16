@@ -6,7 +6,7 @@
  *
  * @fileoverview Mobilní menu manager pro responzivní burger navigaci
  * @author Michaela Gažová
- * @version 2.2.2
+ * @version 2.2.3
  * @since 2025-06-05
  * @updated 2026-05-16
  * @license MIT
@@ -232,7 +232,7 @@
     }
     _openMainMenu() {
       if (this.elements.mobileNav && this.elements.menuOverlay) {
-        this._lockScroll(); 
+        this._lockScroll();
         this.elements.body.classList.add(this.cssClasses.mainMenuOpen);
         this.elements.mobileNav.classList.add(this.cssClasses.mobileMenuActive);
         this.elements.menuOverlay.classList.add(this.cssClasses.active);
@@ -350,25 +350,27 @@
         }
       };
 
-     let isAnimating = false;
+      let isAnimating = false;
 
-stickyBurgerMenu.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+      stickyBurgerMenu.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-  if (body.classList.contains(this.cssClasses.stickyMenuOpen)) {
-    // Zavírání — blokuj rychlé opakované klikání
-    if (isAnimating) return;
-    isAnimating = true;
-    setTimeout(() => { isAnimating = false; }, 400);
-    returnBurgerToHeader();
-    this._closeStickyMenu();
-  } else {
-    // Otevírání — neblokuj, ať jde menu zavřít i během animace
-    detachBurger();
-    this._openStickyMenu();
-  }
-});
+        if (body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+          // Zavírání — blokuje rychlé opakované klikání
+          if (isAnimating) return;
+          isAnimating = true;
+          setTimeout(() => {
+            isAnimating = false;
+          }, 400);
+          returnBurgerToHeader();
+          this._closeStickyMenu();
+        } else {
+          // Otevírání — neblokuje, ať jde menu zavřít i během animace
+          detachBurger();
+          this._openStickyMenu();
+        }
+      });
 
       new MutationObserver(() => {
         if (!body.classList.contains(this.cssClasses.stickyMenuOpen)) {
