@@ -6,9 +6,9 @@
  *
  * @fileoverview Systém správy sticky headeru s integrovanými dropdown menu a podporou mobilního i desktopového zobrazení
  * @author Michaela Gažová
- * @version 3.1.0
+ * @version 3.1.1
  * @since 2026-04-02
- * @updated 2026-05-16
+ * @updated 2026-05-18
  * @license MIT
  */
 
@@ -1927,37 +1927,49 @@
           el.setAttribute("aria-current", "page");
         });
       });
-      this.stickyHeader.addEventListener("keydown", (e) => {
-    if (e.key !== "Tab" || e.shiftKey) return;
-    
-    const focusableInSticky = [...this.stickyHeader.querySelectorAll(
-      'a:not([tabindex="-1"]), button:not([tabindex="-1"]), [tabindex="0"]'
-    )].filter(el => {
-      const style = window.getComputedStyle(el);
-      return el.offsetParent !== null &&
-             style.display !== 'none' &&
-             style.visibility !== 'hidden';
-    });
-    
-    const last = focusableInSticky[focusableInSticky.length - 1];
-    if (document.activeElement !== last) return;
-    
-    e.preventDefault();
-    const stickyBottom = this.stickyHeader.getBoundingClientRect().bottom;
-    const focusable = [...document.querySelectorAll(
-      'a:not([tabindex="-1"]), button:not([tabindex="-1"]), input:not([tabindex="-1"])'
-    )].filter(el => {
-      const rect = el.getBoundingClientRect();
-      const style = window.getComputedStyle(el);
-      return rect.top >= stickyBottom &&
-             !el.closest('.sticky-header') &&
-             !el.closest('header') &&
-             !el.classList.contains('skip-to-content') &&
-             style.display !== 'none' &&
-             style.visibility !== 'hidden';
-    });
-    if (focusable.length) focusable[0].focus();
-  }, true);
+      this.stickyHeader.addEventListener(
+        "keydown",
+        (e) => {
+          if (e.key !== "Tab" || e.shiftKey) return;
+
+          const focusableInSticky = [
+            ...this.stickyHeader.querySelectorAll(
+              'a:not([tabindex="-1"]), button:not([tabindex="-1"]), [tabindex="0"]',
+            ),
+          ].filter((el) => {
+            const style = window.getComputedStyle(el);
+            return (
+              el.offsetParent !== null &&
+              style.display !== "none" &&
+              style.visibility !== "hidden"
+            );
+          });
+
+          const last = focusableInSticky[focusableInSticky.length - 1];
+          if (document.activeElement !== last) return;
+
+          e.preventDefault();
+          const stickyBottom = this.stickyHeader.getBoundingClientRect().bottom;
+          const focusable = [
+            ...document.querySelectorAll(
+              'a:not([tabindex="-1"]), button:not([tabindex="-1"]), input:not([tabindex="-1"])',
+            ),
+          ].filter((el) => {
+            const rect = el.getBoundingClientRect();
+            const style = window.getComputedStyle(el);
+            return (
+              rect.top >= stickyBottom &&
+              !el.closest(".sticky-header") &&
+              !el.closest("header") &&
+              !el.classList.contains("skip-to-content") &&
+              style.display !== "none" &&
+              style.visibility !== "hidden"
+            );
+          });
+          if (focusable.length) focusable[0].focus();
+        },
+        true,
+      );
     }
 
     // Fokus přes TAB dovnitř obsahu zruší timery, aby se dropdown předčasně nezavřel
