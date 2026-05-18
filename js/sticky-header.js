@@ -1695,6 +1695,8 @@
           el.removeAttribute("tabindex");
         }
       });
+      const stickyBurger = document.querySelector("#sticky-burgerMenu");
+      if (stickyBurger) stickyBurger.setAttribute("tabindex", "0");
     }
 
     _disableFocus() {
@@ -1704,6 +1706,9 @@
 
       const stickyUl = this.stickyHeader.querySelector("ul");
       if (stickyUl) stickyUl.setAttribute("aria-hidden", "true");
+
+      const stickyBurger = document.querySelector("#sticky-burgerMenu");
+      if (stickyBurger) stickyBurger.setAttribute("tabindex", "-1");
     }
 
     _setupThemeObserver() {
@@ -1922,6 +1927,37 @@
           el.setAttribute("aria-current", "page");
         });
       });
+      this.stickyHeader.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab" || e.shiftKey) return;
+    
+    const focusableInSticky = [...this.stickyHeader.querySelectorAll(
+      'a:not([tabindex="-1"]), button:not([tabindex="-1"]), [tabindex="0"]'
+    )].filter(el => {
+      const style = window.getComputedStyle(el);
+      return el.offsetParent !== null &&
+             style.display !== 'none' &&
+             style.visibility !== 'hidden';
+    });
+    
+    const last = focusableInSticky[focusableInSticky.length - 1];
+    if (document.activeElement !== last) return;
+    
+    e.preventDefault();
+    const stickyBottom = this.stickyHeader.getBoundingClientRect().bottom;
+    const focusable = [...document.querySelectorAll(
+      'a:not([tabindex="-1"]), button:not([tabindex="-1"]), input:not([tabindex="-1"])'
+    )].filter(el => {
+      const rect = el.getBoundingClientRect();
+      const style = window.getComputedStyle(el);
+      return rect.top >= stickyBottom &&
+             !el.closest('.sticky-header') &&
+             !el.closest('header') &&
+             !el.classList.contains('skip-to-content') &&
+             style.display !== 'none' &&
+             style.visibility !== 'hidden';
+    });
+    if (focusable.length) focusable[0].focus();
+  }, true);
     }
 
     // Fokus přes TAB dovnitř obsahu zruší timery, aby se dropdown předčasně nezavřel

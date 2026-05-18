@@ -81,16 +81,54 @@
 
     _setupEventListeners() {
       if (this.elements.burgerMenu) {
-        this.elements.burgerMenu.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (this.elements.burgerMenu.classList.contains("is-open")) {
-            this.closeMenu(false);
-          } else {
-            this.openMenu(false);
-          }
-        });
+  this.elements.burgerMenu.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (this.elements.burgerMenu.classList.contains("is-open")) {
+      this.closeMenu(false);
+    } else {
+      this.openMenu(false);
+    }
+  });
+
+  this.elements.burgerMenu.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    this.elements.burgerMenu.click();
+  }
+  // Tab z otevřeného burgeru, přesune se na první položku menu
+  if (e.key === "Tab" && !e.shiftKey && this.elements.burgerMenu.classList.contains("is-open")) {
+    e.preventDefault();
+    const firstItem = this.elements.mobileNav?.querySelector('a, button, [tabindex="0"]');
+    if (firstItem) firstItem.focus();
+  }
+});
+
+  // Shift+Tab z první položky menu, přesune se focus zpět na burger
+  const firstItem = this.elements.mobileNav?.querySelector('a, button, [tabindex="0"]');
+  if (firstItem) {
+    firstItem.addEventListener("keydown", (e) => {
+      if (e.key === "Tab" && e.shiftKey && this.elements.burgerMenu.classList.contains("is-open")) {
+        e.preventDefault();
+        this.elements.burgerMenu.focus();
       }
+    });
+  }
+
+// Tab z poslední viditelné položky menu, zavře menu
+this.elements.mobileNav?.addEventListener("keydown", (e) => {
+  if (e.key === "Tab" && !e.shiftKey) {
+    const allItems = [...this.elements.mobileNav.querySelectorAll('a, button')].filter(el => {
+      const style = window.getComputedStyle(el);
+      return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null;
+    });
+    const lastVisible = allItems[allItems.length - 1];
+    if (document.activeElement === lastVisible) {
+      this.closeMenu(false);
+    }
+  }
+});
+}
 
       if (this.elements.closeButton) {
         this.elements.closeButton.addEventListener("click", (e) => {
@@ -269,6 +307,7 @@
         );
         stickyMenuOverlay.classList.add(this.cssClasses.active);
         stickyBurger?.classList.add("is-open");
+        stickyBurger?.setAttribute("tabindex", "0");
       }
     }
 
@@ -289,6 +328,10 @@
         );
         stickyMenuOverlay.classList.remove(this.cssClasses.active);
         stickyBurger?.classList.remove("is-open"); // nejdřív animace
+        stickyMobileNav.querySelectorAll(".mobile-acc-toggle").forEach((btn) => {
+  btn.setAttribute("aria-expanded", "false");
+  btn.nextElementSibling?.classList.remove("open");
+});
         setTimeout(() => {
           this.elements.body.classList.remove(this.cssClasses.stickyMenuOpen); // pak MutationObserver
         }, 320);
@@ -346,11 +389,16 @@
         margin: 0 !important;
         transform: none !important;
       `;
+      if (closeFromKeyboard) {
+        stickyBurgerMenu.focus(); // focus po návratu do headeru
+        closeFromKeyboard = false;
+      }
           }, 320);
         }
       };
 
       let isAnimating = false;
+      let closeFromKeyboard = false;
 
       stickyBurgerMenu.addEventListener("click", (e) => {
         e.preventDefault();
@@ -369,8 +417,64 @@
           // Otevírání — neblokuje, ať jde menu zavřít i během animace
           detachBurger();
           this._openStickyMenu();
+          stickyBurgerMenu.focus();
         }
       });
+      stickyBurgerMenu.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+      closeFromKeyboard = true; 
+    }
+          stickyBurgerMenu.click();
+          setTimeout(() => stickyBurgerMenu.focus(), 50);
+        }
+        if (e.key === "Tab" && !e.shiftKey && body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+          e.preventDefault();
+          const firstItem = stickyMobileNav?.querySelector('a, button, [tabindex="0"]');
+          if (firstItem) firstItem.focus();
+        }
+      });
+
+      const firstStickyItem = stickyMobileNav?.querySelector('a, button, [tabindex="0"]');
+      if (firstStickyItem) {
+        firstStickyItem.addEventListener("keydown", (e) => {
+          if (e.key === "Tab" && e.shiftKey && body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+            e.preventDefault();
+            stickyBurgerMenu.focus();
+          }
+        });
+      }
+
+      stickyMobileNav?.addEventListener("keydown", (e) => {
+        if (e.key === "Tab" && !e.shiftKey) {
+          const allItems = [...stickyMobileNav.querySelectorAll('a, button')].filter(el => {
+            const style = window.getComputedStyle(el);
+            return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null;
+          });
+          const lastVisible = allItems[allItems.length - 1];
+         if (document.activeElement === lastVisible) {
+  closeFromKeyboard = true;
+  this._closeStickyMenu();
+}
+        }
+      });
+// Tab ze zavřeného burgeru → první element na stránce pod sticky headerem
+      document.addEventListener("keydown", (e) => {
+        if (document.activeElement !== stickyBurgerMenu) return;
+        if (e.key === "Tab" && !e.shiftKey && !body.classList.contains(this.cssClasses.stickyMenuOpen)) {
+          e.preventDefault();
+          const stickyBottom = document.querySelector('.sticky-header').getBoundingClientRect().bottom;
+          const focusable = [...document.querySelectorAll('a:not([tabindex="-1"]), button:not([tabindex="-1"]), input:not([tabindex="-1"])')].filter(el => {
+            const rect = el.getBoundingClientRect();
+            return rect.top >= stickyBottom &&
+                   !el.closest('.sticky-header') &&
+                   !el.closest('header') &&
+                   !el.classList.contains('skip-to-content');
+          });
+          if (focusable.length) focusable[0].focus();
+        }
+      }, true);
 
       new MutationObserver(() => {
         if (!body.classList.contains(this.cssClasses.stickyMenuOpen)) {

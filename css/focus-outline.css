@@ -75,7 +75,6 @@ body.dark-mode:not(.using-mouse) .button-light:focus-visible {
     border-radius: 20px;
 }
 
-
 body:not(.using-mouse) .nav-home a:focus,
 body:not(.using-mouse) .nav-home a:focus-visible {
     outline: black solid 2px;
@@ -116,5 +115,43 @@ body:not(.using-mouse) .sub-dropdown-content a:focus,
 body:not(.using-mouse) .sub-dropdown-content a:focus-visible {
     outline: black solid 2px;
     outline-offset: -2px;
+    border-radius: 3px;
+}
+
+body:not(.using-mouse) .burger-menu:focus,
+body:not(.using-mouse) .burger-menu:focus-visible,
+body.dark-mode:not(.using-mouse) .burger-menu:focus,
+body.dark-mode:not(.using-mouse) .burger-menu:focus-visible {
+    outline: black solid 2px;
+    outline-offset: 6px;
+    border-radius: 1px;
+    transition: outline 0s, outline-offset 0s; /* Zrušení transition, aby se outline neanimoval */
+}
+
+body:not(.using-mouse) .mobile-nav-button:focus,
+body:not(.using-mouse) .mobile-nav-button:focus-visible,
+body:not(.using-mouse) .mobile-acc-toggle:focus,
+body:not(.using-mouse) .mobile-acc-toggle:focus-visible,
+body:not(.using-mouse) .mobile-acc-link:focus,
+body:not(.using-mouse) .mobile-acc-link:focus-visible {
+    outline: black solid 2px;
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
+/* komentář zde poprosím: jedná se o to že to změní barvu když se otevře menu v tmavém režimu při responzivitě aby to bylo viditelnější */
+body.dark-mode:not(.using-mouse) .burger-menu.is-open:focus,
+body.dark-mode:not(.using-mouse) .burger-menu.is-open:focus-visible {
+    outline: white solid 2px;
+}
+
+body.dark-mode:not(.using-mouse) .mobile-nav-button:focus,
+body.dark-mode:not(.using-mouse) .mobile-nav-button:focus-visible,
+body.dark-mode:not(.using-mouse) .mobile-acc-toggle:focus,
+body.dark-mode:not(.using-mouse) .mobile-acc-toggle:focus-visible,
+body.dark-mode:not(.using-mouse) .mobile-acc-link:focus,
+body.dark-mode:not(.using-mouse) .mobile-acc-link:focus-visible {
+    outline: white solid 2px;
+    outline-offset: 2px;
     border-radius: 3px;
 }
