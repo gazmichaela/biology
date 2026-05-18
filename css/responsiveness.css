@@ -916,7 +916,8 @@ OBSAH:
     .cookies-mini-notice,
     .dark-mode-toggle,
     #faq-container small,
-    #questions-heading + br {
+    #questions-heading + br,
+    .breadcrumb {
         display: none !important;
     }
 
@@ -936,11 +937,13 @@ OBSAH:
     html,
     html.dark-mode {
         background-color: white !important;
+        color-scheme: light !important;
     }
 
     body,
     body.dark-mode {
         background-color: white !important;
+        color: black !important; 
         font-size: 12pt;
         line-height: 1.4;
     }
