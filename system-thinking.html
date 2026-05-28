@@ -56,7 +56,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -111,6 +111,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -120,7 +121,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -193,8 +194,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -216,7 +216,7 @@
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="introduction.html">Úvod</a></li>
                 <li><a href="basic-principles.html">Základní principy</a></li>
-                <li><span aria-current="page">Systémové myšlení</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Systémové myšlení">Systémové myšlení</span></li>
             </ol>
         </nav>
         <section>
@@ -235,7 +235,7 @@
             </div>
 
             <div class="h2">
-                <h2 id="System-thinking__mysleni">Systémové myšlení</h2><a href="#System-thinking__mysleni" aria-label="Přejít na nadpis Systémové myšlení">#</a>
+                <h2 id="System-thinking__mysleni">Systémové myšlení</h2><a href="#System-thinking__mysleni" aria-label="Přejít na nadpis Systémové myšlení"><span aria-hidden="true">#</span></a>
             </div>
             <p>Systémové myšlení je způsob uvažování, který se zaměřuje na pochopení, jak jednotlivé části nějakého systému spolupracují a jak jsou
                 propojené. Místo toho, abychom se soustředili jen na jednotlivé prvky nebo události, snažíme se vidět větší celek – tedy celý systém.
@@ -243,7 +243,7 @@
                 které lze zkoumat pomocí systémového myšlení, zahrnují lidské tělo, ekosystémy, výrobní linky nebo třeba počítače.</p>
 
             <div class="h2">
-                <h2 id="System-thinking__praxe">Využití systémového myšlení v praxi</h2><a href="#System-thinking__praxe" aria-label="Přejít na nadpis Využití systémového myšlení v praxi">#</a>
+                <h2 id="System-thinking__praxe">Využití systémového myšlení v praxi</h2><a href="#System-thinking__praxe" aria-label="Přejít na nadpis Využití systémového myšlení v praxi"><span aria-hidden="true">#</span></a>
             </div>
             <ul>
                 <li>
@@ -284,17 +284,17 @@
 
         <section>
             <div class="h2 no-print" id="questions-heading">
-                <h2 id="System-thinking__otazky">Otestujte své znalosti:</h2><a href="#System-thinking__otazky" aria-label="Přejít na nadpis Otestujte své znalosti">#</a>
+                <h2 id="System-thinking__otazky">Otestujte své znalosti:</h2><a href="#System-thinking__otazky" aria-label="Přejít na nadpis Otestujte své znalosti"><span aria-hidden="true">#</span></a>
             </div>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn" 
-                title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+                title="Otázky k tématu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
   
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč je důležité brát v úvahu celé propojení systémů, místo
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč je důležité brát v úvahu celé propojení systémů, místo
                         soustředění se pouze na jednotlivé komponenty?</div>
                     <div class="answer">Zaměření se pouze na komponenty je jako snažit se pochopit auto zkoumáním samotného motoru, aniž bychom braliv úvahu
                         převodovku, kola, řízení nebo palivový systém.
@@ -302,20 +302,20 @@
                 </div>
   
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co by se stalo, kdybychom zapomněli na propojení mezi částmi
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co by se stalo, kdybychom zapomněli na propojení mezi částmi
                         systému při řešení velkých problémů, jako je například zdraví populace?</div>
                     <div class="answer">Ignorování propojení při řešení zdraví populace by vedlo k drahým, neefektivním a nespravedlivým řešením, která by léčila jen příznaky
                         a často by vytvářela nové problémy.</div>
                 </div>
   
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaké výhody přináší systémové myšlení ve zdravotnictví?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaké výhody přináší systémové myšlení ve zdravotnictví?</div>
                     <div class="answer">Systémové myšlení ve zdravotnictví zlepšuje péči a efektivitu tím, že se zaměřuje na vzájemné propojení všech jeho částí – například
                         zásadního propojení mezi fyzickým a psychickým stavem pacienta – a zaměřuje se na řešení příčin, ne jen příznaků.</div>
                 </div>
   
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Kde všude lze využít systémové myšlení?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Kde všude lze využít systémové myšlení?</div>
                     <div class="answer">Systémové myšlení nachází uplatnění v mnoha oblastech, jako například v <strong>medicíně</strong> (personalizovaná léčba,
                         pochopení komplexních onemocnení), <strong>biotechnologiích</strong> (metabolické inženýrství, syntetická biologie), <strong>ekologii</strong>
                         (modelování ekosystémů), <strong>zemědělství</strong> (optimalizace výnosů), <strong>farmakologii</strong> (vývoj léčiv),
@@ -328,7 +328,7 @@
 
         <section>
             <div class="h2">
-               <h2 id="System-thinking__literatura">Doporučená literatura</h2><a href="#System-thinking__literatura" aria-label="Přejít na nadpis Doporučená literatura">#</a>
+               <h2 id="System-thinking__literatura">Doporučená literatura</h2><a href="#System-thinking__literatura" aria-label="Přejít na nadpis Doporučená literatura"><span aria-hidden="true">#</span></a>
             </div>
             <div class="citace">
                 <ul>

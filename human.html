@@ -55,7 +55,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -110,6 +110,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -119,7 +120,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -192,8 +193,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -213,7 +213,7 @@
         <nav aria-label="Drobečková navigace">
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
-                <li><span aria-current="page">Člověk</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Člověk">Člověk</span></li>
             </ol>
         </nav>
         <section>
@@ -232,7 +232,7 @@
                 </div>
             </div>
             <div class="h2">
-                <h2 id="Human__tkáně">Tkáně</h2><a href="#Human__tkáně" aria-label="Přejít na nadpis Tkáně">#</a>
+                <h2 id="Human__tkáně">Tkáně</h2><a href="#Human__tkáně" aria-label="Přejít na nadpis Tkáně"><span aria-hidden="true">#</span></a>
             </div>
             <p>Tělesné tkáně jsou soubory buněk, které mají podobnou nebo stejnou strukturu a plní určitou funkci. Tvoří je především
                 voda (asi dvě třetiny) a bílkoviny.<br>
@@ -388,7 +388,7 @@
 
         <section>
             <div class="h2">
-                <h2 id="Human__soustavy">Orgánové soustavy</h2><a href="#Human__soustavy" aria-label="Přejít na nadpis Orgánové soustavy">#</a>
+                <h2 id="Human__soustavy">Orgánové soustavy</h2><a href="#Human__soustavy" aria-label="Přejít na nadpis Orgánové soustavy"><span aria-hidden="true">#</span></a>
             </div>
             <p>Lidské tělo je složeno z několika orgánových soustav, které spolupracují a zajišťují správné fungování celého organismu. Každá soustava se skládá z různých
                 orgánů, které plní určitou specifickou funkci – od zajištění pohybu a dýchání až po trávení, vylučování nebo řízení tělesných procesů. Vzájemná souhra
@@ -471,7 +471,7 @@
                     <div class="no-break">
                         <p>Například skupina A nese jiný koncový cukr než skupina B, zatímco skupina 0 obsahuje pouze základní strukturu bez specifického zakončení.
                         <br>
-                        <a href="https://youtu.be/Nnqp_3HMlDU?feature=shared" target="_blank" class="button">Video o krevních skupinách <span class="no-print">&#8599;</span> </a>
+                        <a href="https://youtu.be/Nnqp_3HMlDU?feature=shared" target="_blank" class="button">Video o krevních skupinách <span class="no-print">&#8599;</span></a>
                     </div>
                 </li>
 
@@ -591,7 +591,7 @@
             </ol>
 
             <div class="h2 new-page" aria-hidden="true">
-                <h2 id="Human__srovnání">Srovnání jednotlivých orgánových soustav</h2><a href="#Human__srovnání" aria-label="Přejít na nadpis Srovnání jednotlivých orgánových soustav">#</a>
+                <h2 id="Human__srovnání">Srovnání jednotlivých orgánových soustav</h2><a href="#Human__srovnání" aria-label="Přejít na nadpis Srovnání jednotlivých orgánových soustav"><span aria-hidden="true">#</span></a>
             </div>
             <div class="table-wrapper">
                 <table>
@@ -695,45 +695,45 @@
 
         <section>
             <div class="h2 no-print" id="questions-heading">
-                <h2 id="Human__otazky">Ověřte si své vědomosti:</h2><a href="#Human__otazky" aria-label="Přejít na nadpis Ověřte si své vědomosti:">#</a>
+                <h2 id="Human__otazky">Ověřte si své vědomosti:</h2><a href="#Human__otazky" aria-label="Přejít na nadpis Ověřte si své vědomosti:"><span aria-hidden="true">#</span></a>
             </div>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
-            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
-                title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+           <!--zeptat se ještě--> <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
+                title="Otázky k tématu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jakým způsobem se podílí kůže na vylučování?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jakým způsobem se podílí kůže na vylučování?</div>
                     <div class="answer">Kůže vylučuje odpadní látky, jako je voda, soli a močovina, prostřednictvím potních žláz – tento proces se nazývá perspirace
                         a je součástí termoregulace.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co znamená zdraví v kontextu propojení všech částí lidského těla?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co znamená zdraví v kontextu propojení všech částí lidského těla?</div>
                     <div class="answer">Zdraví v systémovém pojetí znamená harmonickou spolupráci všech tělesných subsystémů a dynamickou rovnováhu.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč tělo udržuje některé procesy zcela automaticky, zatímco
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč tělo udržuje některé procesy zcela automaticky, zatímco
                         jiné vyžadují vědomé řízení?</div>
                     <div class="answer">Automatizace kritických funkcí zajišťuje jejich spolehlivost, zatímco vědomé řízení umožňuje flexibilní reakce na změny prostředí.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak dýchací soustava spolupracuje s oběhovou při výměně plynů?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak dýchací soustava spolupracuje s oběhovou při výměně plynů?</div>
                     <div class="answer">V plicních sklípcích přechází kyslík do kapilár a oxid uhličitý opačným směrem – krev ho přivádí z buněk a odvádí zpět do plic k výdechu.</div>
                 </div>
 
                   <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak souvisí dýchací, oběhová a svalová soustava při sportu?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak souvisí dýchací, oběhová a svalová soustava při sportu?</div>
                     <div class="answer">Dýchací soustava nasává kyslík, oběhová ho rozvádí a svalová využívá pro kontrakce – jejich spolupráce je klíčová pro výkon
                         a udržení homeostázy během zátěže.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak reaguje tělo na stres díky nervové a endokrinní soustavě?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak reaguje tělo na stres díky nervové a endokrinní soustavě?</div>
                     <div class="answer">Mozek zaznamená stres, aktivuje hypotalamus, který stimuluje nadledviny k uvolnění adrenalinu a kortizolu – ty zvyšují srdeční
                         tep, tlak a pohotovost organismu.</div>
                 </div>
@@ -744,7 +744,7 @@
 
         <section>
             <div class="h2">
-                <h2 id="Human__literatura">Doporučená literatura</h2><a href="#Human__literatura" aria-label="Přejít na nadpis Doporučená literatura">#</a>
+                <h2 id="Human__literatura">Doporučená literatura</h2><a href="#Human__literatura" aria-label="Přejít na nadpis Doporučená literatura"><span aria-hidden="true">#</span></a>
             </div>
             <div class="citace">
                 <ul>

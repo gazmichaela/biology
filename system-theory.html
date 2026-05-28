@@ -55,7 +55,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -110,6 +110,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -119,7 +120,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -192,8 +193,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -214,7 +214,7 @@
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="introduction.html">Úvod</a></li>
-                <li><span aria-current="page">Teorie systémů</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Teorie systémů">Teorie systémů</span></li>
             </ol>
         </nav>
         <section>
@@ -233,7 +233,7 @@
             </div>
 
             <div class="h2">
-                <h2 id="System-theory__uvod">Úvod do teorie systémů</h2><a href="#System-theory__uvod" aria-label="Přejít na nadpis Úvod do teorie systémů">#</a>
+                <h2 id="System-theory__uvod">Úvod do teorie systémů</h2><a href="#System-theory__uvod" aria-label="Přejít na nadpis Úvod do teorie systémů"><span aria-hidden="true">#</span></a>
             </div>
             <p>
                 Teorie systémů je
@@ -407,32 +407,32 @@
 
         <section>
             <div class="h2 no-print" id="questions-heading">
-                <h2 id="System-theory__otazky">Projděte si kvíz a zjistěte, jak na tom jste:</h2><a href="#System-theory__otazky" aria-label="Přejít na nadpis Projděte si kvíz a zjistěte, jak na tom jste">#</a>
+                <h2 id="System-theory__otazky">Projděte si kvíz a zjistěte, jak na tom jste:</h2><a href="#System-theory__otazky" aria-label="Přejít na nadpis Projděte si kvíz a zjistěte, jak na tom jste"><span aria-hidden="true">#</span></a>
             </div>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
-                title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+                title="Otázky k tématu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku."> Co je systémový celek a jak vzniká?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku."> Co je systémový celek a jak vzniká?</div>
                     <div class="answer">Systémový celek vzniká propojením jednotlivých prvků, které spolu interagují a vytvářejí nové vlastnosti – celek je více než součet částí.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co je to subsystém a jaký má vztah k celku?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Co je to subsystém a jaký má vztah k celku?</div>
                     <div class="answer">Subsystém je menší část většího systému, která má vlastní strukturu a funkci – více subsystémů dohromady tvoří celý systém.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč se někdy systém zhroutí i když každá jeho část funguje perfektně?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Proč se někdy systém zhroutí i když každá jeho část funguje perfektně?</div>
                     <div class="answer">Problém je v interakcích mezi částmi, ne v částech samotných - špatná komunikace může zničit i dokonalé komponenty.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak poznáme, že systém funguje efektivně?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak poznáme, že systém funguje efektivně?</div>
                     <div class="answer">Efektivní systém dosahuje svých cílů s minimálními ztrátami energie, času a zdrojů, při zachování stability a schopnosti reagovat na změny.</div>
                 </div>
 
@@ -442,7 +442,7 @@
 
         <section>
             <div class="h2">
-                <h2 id="System-theory__literatura">Doporučená literatura</h2><a href="#System-theory__literatura" aria-label="Přejít na nadpis Doporučená literatura">#</a>
+                <h2 id="System-theory__literatura">Doporučená literatura</h2><a href="#System-theory__literatura" aria-label="Přejít na nadpis Doporučená literatura"><span aria-hidden="true">#</span></a>
             </div>
             <div class="citace">
                 <ul>

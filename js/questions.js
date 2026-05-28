@@ -6,9 +6,9 @@
  *
  * @fileoverview FAQ handler pro interaktivní otázky a odpovědi
  * @author Michaela Gažová
- * @version 2.1.1
+ * @version 2.1.4
  * @since 2025-04-03
- * @updated 2026-05-08
+ * @updated 2026-05-28
  * @license MIT
  */
 
@@ -33,6 +33,11 @@
 
         if (faqContainer.classList.contains("hidden")) {
           toggleQuestionsBtn.textContent = "Zobrazit otázky";
+          toggleQuestionsBtn.setAttribute(
+            "aria-label",
+            "Tlačítko pro zobrazení otázek",
+          );
+          toggleQuestionsBtn.setAttribute("aria-expanded", "false");
           // Přidání třídy no-print pro print verzi
           if (questionsHeading) {
             questionsHeading.classList.add("no-print");
@@ -46,6 +51,11 @@
           });
         } else {
           toggleQuestionsBtn.textContent = "Skrýt otázky";
+          toggleQuestionsBtn.setAttribute(
+            "aria-label",
+            "Tlačítko pro skrytí otázek",
+          );
+          toggleQuestionsBtn.setAttribute("aria-expanded", "true");
           // Odebrání třídy no-print pro print verzi
           if (questionsHeading) {
             questionsHeading.classList.remove("no-print");
@@ -74,8 +84,25 @@
             question.classList.add("open");
           }
         });
+
+        question.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            question.click();
+          }
+        });
       });
     });
+
+    // Mimo requestAnimationFrame - zajišťuje obnovení focus-outline při změně velikosti tlačítka
+    const toggleQuestionsBtn = document.getElementById("toggle-questions-btn");
+    if (toggleQuestionsBtn) {
+      toggleQuestionsBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          requestAnimationFrame(() => toggleQuestionsBtn.focus());
+        }
+      });
+    }
   });
 })();
 

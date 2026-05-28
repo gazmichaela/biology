@@ -57,7 +57,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -112,6 +112,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -121,7 +122,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -194,8 +195,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -216,12 +216,89 @@
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="environment.html">Životní prostředí</a></li>
-                <li><span aria-current="page">Základy ekologie</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Základy ekologie">Základy ekologie</span></li>
             </ol>
         </nav>
         <section>
             <p>Prostor pro text</p>
+            <div class="flashcard-container">
+                <input type="checkbox" id="FC1">
+                <label for="FC1" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">x</div>
+                        <div class="flashcard-back">x</div>
+                    </div>
+                </label>
+
+                <input type="checkbox" id="FC2">
+                <label for="FC2" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">x</div>
+                        <div class="flashcard-back">x</div>
+                    </div>
+                </label>
+
+                <input type="checkbox" id="FC3">
+                <label for="FC3" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">x</div>
+                        <div class="flashcard-back">x</div>
+                    </div>
+                </label>
+
+                <input type="checkbox" id="FC4">
+                <label for="FC4" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">x</div>
+                        <div class="flashcard-back">xxxx</div>
+                    </div>
+                </label>
+
+                <input type="checkbox" id="FC5">
+                <label for="FC5" class="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">x</div>
+                        <div class="flashcard-back">x</div>
+                    </div>
+                </label>
+
+            </div>
           <div class="zarazka"></div>
+        </section>
+
+        <section>
+            <div class="h2 no-print" id="questions-heading">
+                <h2 id="x">x</h2><a href="x" aria-label="Přejít na nadpis x"><span aria-hidden="true">#</span></a>
+            </div>
+
+            <!-- Tlačítko pro zobrazení/skrytí otázek -->
+            <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
+            title="Otázky k tématu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+
+            <!-- Kontejner pro otázky -->
+            <div id="faq-container" class="hidden">
+                <div class="faq-item">
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">x</div>
+                    <div class="answer">x</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">x</div>
+                    <div class="answer">x</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">x</div>
+                    <div class="answer">x</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">x</div>
+                    <div class="answer">x</div>
+                </div>
+                
+                <small><em>Poznámka: Jednotlivé odpovědi lze zobrazit po kliknutí na danou otázku.</em></small>
+            </div>
         </section>
     </article>
 

@@ -56,7 +56,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -111,6 +111,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -120,7 +121,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -193,8 +194,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -215,13 +215,13 @@
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="introduction.html">Úvod</a></li>
-                <li><span aria-current="page"> Základní principy</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Základní principy">Základní principy</span></li>
             </ol>
         </nav>
         <section>
             <!-- <h1>Úvod</h1> -->
             <div class="h2">
-                <h2 id="Basic-principles__biologie">Systémová biologie</h2><a href="#Basic-principles__biologie" aria-label="Přejít na nadpis Systémová biologie">#</a>
+                <h2 id="Basic-principles__biologie">Systémová biologie</h2><a href="#Basic-principles__biologie" aria-label="Přejít na nadpis Systémová biologie"><span aria-hidden="true">#</span></a>
             </div>
             <p>
                 Systémová biologie je vědní obor, který se zabývá zkoumáním 
@@ -275,14 +275,14 @@
             <br>
 
             <div class="h2">
-                <h2 id="Basic-principles__pristup">Systémový přístup</h2><a href="#Basic-principles__pristup" aria-label="Přejít na nadpis Systémový přístup">#</a>
+                <h2 id="Basic-principles__pristup">Systémový přístup</h2><a href="#Basic-principles__pristup" aria-label="Přejít na nadpis Systémový přístup"><span aria-hidden="true">#</span></a>
             </div>
             <p>Při práci v systémové biologii se často využivá systémový přístup. Jak se postupuje se můžete dozvědět zde.</p>
             <a href="system-approach.html" class="button" aria-label="Více informací o systémovém přístupu">Více informací zde </a>
             <br>
 
             <div class="h2">
-                <h2 id="Basic-principles__mysleni">Systémové myšlení</h2><a href="#Basic-principles__mysleni" aria-label="Přejít na nadpis Systémové myšlení">#</a>
+                <h2 id="Basic-principles__mysleni">Systémové myšlení</h2><a href="#Basic-principles__mysleni" aria-label="Přejít na nadpis Systémové myšlení"><span aria-hidden="true">#</span></a>
             </div>
             <p>Často souvisí se systémovým přístupem. Co obnáší systémové myšlení?</p>
             <a href="system-thinking.html" class="button" aria-label="Zjistit více informací o systémovém myšlení">Zjistit </a>

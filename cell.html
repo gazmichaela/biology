@@ -56,7 +56,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -111,6 +111,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -120,7 +121,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -193,8 +194,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -215,13 +215,13 @@
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="human.html">Člověk</a></li>
-                <li><span aria-current="page">Buněčné a nebuněčné organismy</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Buněčné a nebuněčné organismy">Buněčné a nebuněčné organismy</span></li>
             </ol>
         </nav>
         <section>
             <!-- <h1>Buněčné a nebuněčné organismy</h1> -->
             <div class="h2">
-                <h2 id="Cell__viry">Nebuněčné organismy – viry</h2><a href="#Cell__viry" aria-label="Přejít na nadpis Nebuněčné organismy – viry">#</a>
+                <h2 id="Cell__viry">Nebuněčné organismy – viry</h2><a href="#Cell__viry" aria-label="Přejít na nadpis Nebuněčné organismy – viry"><span aria-hidden="true">#</span></a>
             </div>
             <p>Viry jsou považovány za <strong>nebuněčné organismy</strong>, protože neobsahují buněčnou strukturu a nedokážou samostatně vykonávat životní funkce.</p>
             <div class="img-wrapper img-right-middle">
@@ -261,7 +261,7 @@
                 mají velmi složitý tvar.</p>
             
             <div class="h2">
-                <h2 id="Cell__organismy">Buněčné organismy</h2><a href="#Cell__organismy" aria-label="Přejít na nadpis Buněčné organismy">#</a>
+                <h2 id="Cell__organismy">Buněčné organismy</h2><a href="#Cell__organismy" aria-label="Přejít na nadpis Buněčné organismy"><span aria-hidden="true">#</span></a>
             </div>
             <h3>Buněčná teorie a role buněk i virů v živých organismech</h3>
             <p><strong>Podle buněčné teorie</strong> je buňka základní stavební a funkční jednotkou každého živého organismu, 
@@ -478,7 +478,7 @@
             <div class="zarazka"></div>
 
             <div class="h2 new-page">
-                <h2 id="Cell__eukaryota">Jednotlivé typy eukaryotických buněk</h2><a href="#Cell__eukaryota" aria-label="Přejít na nadpis Jednotlivé typy eukaryotických buněk">#</a>
+                <h2 id="Cell__eukaryota">Jednotlivé typy eukaryotických buněk</h2><a href="#Cell__eukaryota" aria-label="Přejít na nadpis Jednotlivé typy eukaryotických buněk"><span aria-hidden="true">#</span></a>
             </div>
             <h3>Rostlinná buňka</h3>
             <p>Rostlinné buňky jsou základní stavební a funkční jednotou všech rostlin a také hnědých řas.</p>
@@ -560,7 +560,7 @@
             
             <!-- Video -->
             <div class="h2 no-print">
-                <h2 id="Cell__doporucene-video">Doporučujeme se podívat na:</h2><a href="#Cell__doporucene-video" aria-label="Přejít na nadpis Doporučujeme se podívat na">#</a>
+                <h2 id="Cell__doporucene-video">Doporučujeme se podívat na:</h2><a href="#Cell__doporucene-video" aria-label="Přejít na nadpis Doporučujeme se podívat na"><span aria-hidden="true">#</span></a>
             </div>
             <br class="no-print">
             <div class="video-wrapper">
@@ -578,33 +578,33 @@
 
         <section>
             <div class="h2 no-print" id="questions-heading">
-                <h2 id="Cell__otazky">Jak dobře rozumíte tomuto tématu?</h2><a href="#Cell__otazky" aria-label="Přejít na nadpis Jak dobře rozumíte tomuto tématu?">#</a>
+                <h2 id="Cell__otazky">Jak dobře rozumíte tomuto tématu?</h2><a href="#Cell__otazky" aria-label="Přejít na nadpis Jak dobře rozumíte tomuto tématu?"><span aria-hidden="true">#</span></a>
             </div>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
-            title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+            title="Otázky k tématu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak byste stručně charakterizoval(a) princip fungování buňky? Jaká je
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak byste stručně charakterizoval(a) princip fungování buňky? Jaká je
                         její základní role ve vztahu k okolnímu prostředí?</div>
                     <div class="answer">Buňka je samostatně řídící jednotka závislá na prostředí.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Je jednodušší rostlinná, nebo živočišná buňka? A proč?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Je jednodušší rostlinná, nebo živočišná buňka? A proč?</div>
                     <div class="answer">Rostlinná, neboť má omezenou komunikaci s vnějším prostředím.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký význam mají enzymy v buněčných procesech?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký význam mají enzymy v buněčných procesech?</div>
                     <div class="answer">Enzymy jsou bílkoviny, které urychlují biochemické reakce v buňkách tím, že snižují aktivační energii – umožňují efektivní metabolismus.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Můžeme považovat viry za živé, i když nemají buňku?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Můžeme považovat viry za živé, i když nemají buňku?</div>
                     <div class="answer">Viry jsou na pomezí živého a neživého – postrádají metabolismus a samostatnou reprodukci, ale uvnitř hostitelské buňky vykazují známky života. 
                         <br>Na tuto otázku tedy neexistuje jednoznačná odpoveď – zda jsou živé, nebo neživé.</div>
                 </div>
@@ -615,7 +615,7 @@
 
         <section>
             <div class="h2">
-                <h2 id="Cell__literatura">Doporučená literatura</h2><a href="#Cell__literatura" aria-label="Přejít na nadpis Doporučená literatura">#</a>
+                <h2 id="Cell__literatura">Doporučená literatura</h2><a href="#Cell__literatura" aria-label="Přejít na nadpis Doporučená literatura"><span aria-hidden="true">#</span></a>
             </div>
             <div class="citace">
                 <ul>

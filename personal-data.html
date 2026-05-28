@@ -50,7 +50,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -105,6 +105,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -114,7 +115,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -187,8 +188,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -208,13 +208,13 @@
         <nav aria-label="Drobečková navigace">
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
-                <li><span aria-current="page">Zásady používání cookies</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Zásady používání cookies">Zásady používání cookies</span></li>
             </ol>
         </nav>
         <section>
           <!-- <h1>Zásady používání cookies</h1> -->
             <div class="h2">
-                <h2 id="Personal-data__cookies">Informace o používání cookies</h2><a href="#Personal-data__cookies" aria-label="Přejít na nadpis Informace o používání cookies">#</a>
+                <h2 id="Personal-data__cookies">Informace o používání cookies</h2><a href="#Personal-data__cookies" aria-label="Přejít na nadpis Informace o používání cookies"><span aria-hidden="true">#</span></a>
             </div>
             <p>Na webu používáme soubory cookies pouze k zajištění správného fungování našich stránek. Níže se dozvíte, jaké druhy cookies používáme,
                 k jakým účelům a jak je můžete spravovat.</p>

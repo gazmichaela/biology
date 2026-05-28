@@ -55,7 +55,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -110,6 +110,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -119,7 +120,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -192,8 +193,7 @@
                             <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -215,7 +215,7 @@
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="introduction.html">Úvod</a></li>
                 <li><a href="basic-principles.html">Základní principy</a></li>
-                <li><span aria-current="page">Systémový přístup</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Systémový přístup">Systémový přístup</span></li>
             </ol>
         </nav>
         <section>
@@ -234,7 +234,7 @@
             </div>
 
             <div class="h2">
-                <h2 id="System-approach__pristup">Systémový přístup</h2><a href="#System-approach__pristup" aria-label="Přejít na nadpis Systémový přístup">#</a>
+                <h2 id="System-approach__pristup">Systémový přístup</h2><a href="#System-approach__pristup" aria-label="Přejít na nadpis Systémový přístup"><span aria-hidden="true">#</span></a>
             </div>
             <p>
                 Systémový přístup je praktická metoda, která vychází ze systémového myšlení a pomáhá při navrhování a optimalizaci složitých
@@ -261,7 +261,7 @@
             </ul>
 
             <div class="h2">
-                <h2 id="System-approach__praxe">Využití systémového přístupu v praxi</h2><a href="#System-approach__praxe" aria-label="Přejít na nadpis Využití systémového přístupu v praxi">#</a>
+                <h2 id="System-approach__praxe">Využití systémového přístupu v praxi</h2><a href="#System-approach__praxe" aria-label="Přejít na nadpis Využití systémového přístupu v praxi"><span aria-hidden="true">#</span></a>
             </div>
              <ul>
                 <li>
@@ -285,7 +285,7 @@
             </ul>
 
             <div class="h2">
-                <h2 id="System-approach__poznamka">Poznámka</h2><a href="#System-approach__poznamka" aria-label="Přejít na nadpis Poznámka">#</a>
+                <h2 id="System-approach__poznamka">Poznámka</h2><a href="#System-approach__poznamka" aria-label="Přejít na nadpis Poznámka"><span aria-hidden="true">#</span></a>
             </div>
             <p>Systémové myšlení a systémový přístup spolu úzce souvisí. Systémové myšlení je spíše způsob uvažování, způsob, jak chápat svět a problémy.
                 Systémový přístup je konkrétní nástroj nebo metoda, kterou můžeme použít k praktickému řešení problémů vycházejícím ze systémového myšlení.</p>
@@ -295,36 +295,36 @@
 
         <section>
             <div class="h2 no-print" id="questions-heading">
-                <h2 id="System-approach__otazky">Kvíz:</h2><a href="#System-approach__otazky" aria-label="Přejít na nadpis Kvíz">#</a>
+                <h2 id="System-approach__otazky">Kvíz:</h2><a href="#System-approach__otazky" aria-label="Přejít na nadpis Kvíz"><span aria-hidden="true">#</span></a>
             </div>
             </div>
 
             <!-- Tlačítko pro zobrazení/skrytí otázek -->
             <button aria-label="Tlačítko pro zobrazení otázek" id="toggle-questions-btn"
-                title="Otázky k těmatu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
+                title="Otázky k tématu, na kterých si můžete vyzkoušet, zda tématu rozumíte, případně se můžete dozvědět něco nového.">Zobrazit otázky</button>
 
             <!-- Kontejner pro otázky -->
             <div id="faq-container" class="hidden">
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak se uplatní systémový přístup při navrhování léčby nemocí?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak se uplatní systémový přístup při navrhování léčby nemocí?</div>
                     <div class="answer">Léčba se neomezuje jen na nemocný orgán, ale zohledňuje i imunitní odpověď, psychický stav, životní styl a další faktory,
                         které mohou ovlivnit uzdravení.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak systémový přístup pomáhá při navrhování nových
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak systémový přístup pomáhá při navrhování nových
                         technologií, jako jsou elektromobily?</div>
                     <div class="answer">Při vývoji elektromobilů nesmíme myslet jen na motor a baterii. Systémový přístup zahrnuje infrastrukturu nabíjení, výrobu
                         elektřiny, recyklaci baterií, změny v dopravních návycích lidí i ekonomické dopady na automobilový průmysl. Všechny tyto části musí fungovat dohromady.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký je rozdíl mezi lineárním a systémovým pohledem na problém?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jaký je rozdíl mezi lineárním a systémovým pohledem na problém?</div>
                     <div class="answer">Lineární přístup hledá přímou příčinu a důsledek, zatímco systémový zkoumá více příčin, zpětné vazby, cykly a celkovou dynamiku problému.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="question" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak může systémový přístup pomoci při ochraně životního prostředí?</div>
+                    <div class="question" role="button" tabindex="0" title="Kliknutím lze zobrazit/skrýt odpověď na tuto otázku.">Jak může systémový přístup pomoci při ochraně životního prostředí?</div>
                     <div class="answer">Systémový přístup umožňuje zohlednit ekologické, ekonomické i sociální faktory a jejich vzájemné vlivy, což vede k udržitelným řešením
                         environmentálních problémů.</div>
                 </div>

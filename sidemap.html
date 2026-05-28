@@ -50,7 +50,7 @@
                     </picture>
                 </a>
             </div>
-            <nav class="header-nav-right">
+            <nav class="header-nav-right" aria-label="Primární navigace">
                 <!-- NAVIGACE PRO ŠÍŘKU NAD 940PX (desktop) -->
                 <ul class="nav-desktop">
                     <li class="nav-home">
@@ -105,6 +105,7 @@
                         </div>
                     </li>
                 </ul>
+            </nav>
                 <!-- konec navigace pro šířku nad 940px -->
 
 
@@ -114,7 +115,7 @@
                 <div class="menu-overlay" id="menuOverlay"></div>
 
                 <!-- Položky v mobilní navigaci -->
-                <div class="mobile-nav-container" id="mobileNav">
+                <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                         <div class="mobile-nav-list">
                             
                             <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
@@ -195,8 +196,7 @@
                                 
                         </div>
                     </div>-->
-                </div>
-            </nav>
+                </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
                     <div class="burger-line"></div>
@@ -216,13 +216,13 @@
         <nav aria-label="Drobečková navigace">
             <ol class="breadcrumb">
                 <li><a href="index.html">Domů</a></li>
-                <li><span aria-current="page">Mapa stránek</span></li>
+                <li><span aria-current="page" aria-label="aktuální stránka, Mapa stránek">Mapa stránek</span></li>
             </ol>
         </nav>
         <section class="sidemap">
            <!-- <h1>Mapa stránek</h1> -->
             <div class="h2">
-                <h2 id="Sidemap__mapa">Mapa webu</h2><a href="#Sidemap__mapa" aria-label="Přejít na nadpis Mapa webu">#</a>
+                <h2 id="Sidemap__mapa">Mapa webu</h2><a href="#Sidemap__mapa" aria-label="Přejít na nadpis Mapa webu"><span aria-hidden="true">#</span></a>
             </div>
             <ul>
                 <li><a href="index.html">Hlavní stránka</li></a>
