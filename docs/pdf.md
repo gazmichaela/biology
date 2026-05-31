@@ -160,6 +160,6 @@ __Autor:__ Michaela Gažová
 
 __Reviewer (documentation & JSDoc):__ Daniel Friedl
 
-__Verze:__ 2.2.1
+__Verze:__ 2.2.2
 
-__Datum:__ 2025-08-25
+__Datum:__ 2025-05-31

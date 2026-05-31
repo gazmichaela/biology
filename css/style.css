@@ -32,8 +32,6 @@ OBSAH:
     - ikona slunce
     - přepínání chování změny tmavého/světlého režimu ve footeru
     - pozn.: Styly během tmavého režimu se nacházejí v dark-mode.js
-
- 8. Flashcards
 */
 
 
@@ -133,6 +131,9 @@ body button {
 
 .skip-to-content {
     position: absolute;
+    left: 0;
+    right: 0;
+    box-sizing: border-box; /* Bez tohoto hrozí, že sránka přeteče doprava ve Firefoxu na mobilních zařízeních */
     transform: translateY(-100%);
     transition: transform 0.1s;
     z-index: 1000;
@@ -211,7 +212,7 @@ header .logo {
     }
 }
 
-noscript h2 {
+noscript h1 {
     font-size: 3em;
     font-weight: 900;
     background-color: #77afe0ee;
@@ -236,7 +237,7 @@ article {
     list-style: none;
     padding: 30px 0 0 0;
     margin: 0 60px;
-    font-size: 1.125rem;
+    font-size: 0.9em;
     color: #023f1e;
 }
 
@@ -308,7 +309,7 @@ article section p {
     overflow-wrap: break-word;
 }
 
-article section h2 {
+article section h1 {
     background: linear-gradient(to top, #309ce554 10%, transparent 60%); /* Tlusté podtržení */
     padding: 0 0.15em;
     font-size: 1.4em;
@@ -318,7 +319,7 @@ article section h2 {
     box-decoration-break: clone;
 }
 
-article section h2 + a {
+article section h1 + a {
     opacity: 0;
     color: #bbb;
     text-decoration: none;
@@ -328,13 +329,13 @@ article section h2 + a {
     transition: opacity 0.2s ease-out 0.1s, color 0.15s ease-out 0.1s, font-weight 0.15s linear 0.1s;
 }
 
-article section h2:hover + a {
+article section h1:hover + a {
     opacity: 1;
 }
 
-article section h2 + a:hover,
-article section h2 + a:focus,
-article section h2 + a:focus-visible {
+article section h1 + a:hover,
+article section h1 + a:focus,
+article section h1 + a:focus-visible {
     opacity: 1;
     color: #309ce5;
     font-weight: 700;
@@ -344,7 +345,7 @@ article section h2 + a:focus-visible {
 }
 
 
-article section .h2 {
+article section .h1 {
     margin-left: 0;
     margin-top: 100px; /* Mezera */
     margin-bottom: 0.9em;
@@ -352,7 +353,7 @@ article section .h2 {
     hyphens: none;
 }
 
-article section h3 {
+article section h2 {
     text-decoration: underline 10% #309ce584;
     font-weight: 600;
     font-size: 1.3em;
@@ -361,15 +362,15 @@ article section h3 {
     text-align: left;
 }
 
-article section ol h3,
-article section ul h3 {
+article section ol h2,
+article section ul h2 {
     text-decoration: none !important; /* !important kvůli dark-mode.js */
     font-size: 1.1em;
     margin-top: 2.5em;
     margin-bottom: 0.4em;
 }
 
-article section h4 {
+article section h3 {
     margin-top: 2.5em;
     margin-bottom: 0.4em;
     font-size: 1.1em;
@@ -377,15 +378,15 @@ article section h4 {
     text-align: left;
 }
 
-article section h2 > h4 {
+article section h1 > h3 {
     margin-top: 0;
 }
 
-.h4-small {
+.h3-small {
     margin-top: 2em;
 }
 
-article section h5 {
+article section h4 {
     margin-bottom: -10px;
     font-size: 1em;
     font-weight: 600;
@@ -393,8 +394,8 @@ article section h5 {
     text-align: left; 
 }
 
-article section h5 + ul,
-article section h5 + ol {
+article section h4 + ul,
+article section h4 + ol {
     margin-top: 0.5em;
 }
 
@@ -446,10 +447,11 @@ article section .button-light:hover {
 footer {
     box-sizing: border-box;
     text-align: left;
-    height: 300px;
     color: white;
     background: #3f7093;
-    padding: 50px 0px 0px 10px;
+    padding: 50px 0px 35px 10px;
+    border-bottom: 1px solid #3f7093; /* Sníží viditelnost pruhu, který může vzniknou mezi footerem a html */
+    box-shadow: 0 1px 0 -1px #3f7093; /* Také sníží viditelnost toho pruhu */
     font-size: 14px;
     margin-top: 30px;
     clip-path: polygon(0 30px, 100% 0, 100% 105%, 0 105%); /* Šikmý footer */
@@ -472,6 +474,12 @@ footer p {
     text-align: center;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+footer a.logo-container {
+    width: 10em;
+    margin: 2em auto 0.4em auto;
+    display: block;
 }
 
 .sidemap,
@@ -797,109 +805,3 @@ table td:first-child {
 .sun-icon .ray:nth-child(7) { transform: translate(-50%, -50%) rotate(225deg) translateY(-14px); }
 .sun-icon .ray:nth-child(8) { transform: translate(-50%, -50%) rotate(270deg) translateY(-14px); }
 .sun-icon .ray:nth-child(9) { transform: translate(-50%, -50%) rotate(315deg) translateY(-14px); }
-
-
-
-/* ==== 8. FLASHCARDS ==== */
-.flashcard-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin: 30px auto;
-    max-width: 1200px;
-}
-
-.flashcard-container input {
-    display: none;
-}
-
-label.flashcard .flashcard-inner {
-    position: relative;
-    width: 250px;
-    height: 150px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-label.flashcard .flashcard-front,
-label.flashcard .flashcard-back {
-    position: absolute;
-    width: 100%;
-    height: 100%; 
-    border: 2px solid pink;
-}
-
-label.flashcard .flashcard-front {
-    background-color: #f1f1f1;
-}
-
-label.flashcard .flashcard-back {
-    background-color: #dcdcdc;
-}
-
-/* Podle https://www.w3schools.com/howto/howto_css_flip_card.asp */
-@supports (backface-visibility: hidden) {
-    label.flashcard {
-        background-color: transparent;
-        perspective: 1000px;
-    }
-
-    label.flashcard .flashcard-inner {
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-    }
-
-    .flashcard-container input:checked + label.flashcard .flashcard-inner {
-        transform: rotateY(180deg);
-        transition: initial;
-        z-index: initial;
-    }
-
-    label.flashcard .flashcard-front,
-    label.flashcard .flashcard-back {
-        -webkit-backface-visibility: hidden; /* Safari */
-        backface-visibility: hidden;
-        transform: initial;
-        transition: initial;
-        z-index: initial;
-    }
-
-    label.flashcard .flashcard-back {
-        transform: rotateY(180deg);
-    }
-}
-
-@supports not (backface-visibility: hidden) {
-    label.flashcard .flashcard-front,
-    label.flashcard .flashcard-back {
-        transition: transform 0.6s, z-index 0s step-start, background-color 0s 0.3s;
-    }  
-
-    label.flashcard .flashcard-front {
-        transform: rotateY(0deg);
-        z-index: 2;
-    }
-
-    label.flashcard .flashcard-back {
-        transform: rotateY(180deg);
-        z-index: 1;
-    }
-
-    .flashcard-container input:checked + label.flashcard .flashcard-front {
-        transform: rotateY(-180deg);
-        z-index: 1;
-        transition: transform 0.6s, z-index 0s step-start, background-color 0s 0.3s;
-    }
-
-    .flashcard-container input:checked + label.flashcard .flashcard-back {
-        transform: rotateY(0deg);
-        z-index: 2;
-        transition: transform 0.6s, z-index 0s step-start, background-color 0s 0.3s;
-    }
-}

@@ -6,9 +6,9 @@
  *
  * @fileoverview Automatický systém správy tmavého režimu s dynamickým controllerem
  * @author Michaela Gažová
- * @version 2.1.7
+ * @version 2.1.8
  * @since 2025-05-28
- * @updated 2026-05-16
+ * @updated 2026-05-31
  * @license MIT
  */
 
@@ -330,15 +330,15 @@
           background: #77afe0ee;
         }
 
-        body.dark-mode article section h2 {
+        body.dark-mode article section h1 {
           background: linear-gradient(to top, #3f7093ee 10%, transparent 60%);
         }
 
-        body.dark-mode article section h2 > a:not(:hover):not(:focus):not(:focus-visible) {
+        body.dark-mode article section h1 > a:not(:hover):not(:focus):not(:focus-visible) {
           color: #777 !important;
         } 
 
-        body.dark-mode article section h3 {
+        body.dark-mode article section h2 {
           text-decoration-color: #3f7093ee;
         }
 
@@ -456,7 +456,7 @@
             color: #4ecdff;
           }
 
-          body.dark-mode article section h2 {
+          body.dark-mode article section h1 {
             background: linear-gradient(to top, #5b9ece 10%, transparent 40%);
           }
 
@@ -529,41 +529,45 @@
           }
 
         }
-          body.dark-mode .mobile-nav-container {
-    background-color: #2a2a2a;
-  }
-  body.dark-mode .mobile-acc-toggle {
-    color: #c8c1b5;
-    border-bottom-color: #444;
-  }
-  body.dark-mode .mobile-acc-sub {
-    background-color: transparent;
-  }
-  body.dark-mode .mobile-acc-link {
-    color: #c8c1b5;
-    border-bottom-color: #444;
-  }
-  body.dark-mode .mobile-acc-link-parent {
-    color: #c8c1b5;
-    background-color: rgba(186, 218, 85, 0.05);
-    border-bottom-color: #444;
-  }
-  body.dark-mode .mobile-acc-link:hover {
-    background-color: #333;
-    color: #e0deda;
-  }
-  body.dark-mode .mobile-nav-button {
-    color: #c8c1b5;
-    border-bottom-color: #444;
-  }
-  body.dark-mode .mobile-nav-button:hover {
-    background-color: #333;
-    color: #e0deda;
-  }
-  body.dark-mode .menu-close-button::before,
-  body.dark-mode .menu-close-button::after {
-    background-color: #c8c1b5;
-  }
+        
+        body.dark-mode .mobile-nav-container {
+          background-color: #2a2a2a;
+        }
+
+        body.dark-mode .mobile-accordion {
+          color: #c8c1b5;
+        }
+
+        body.dark-mode .mobile-acc-toggle {
+          border-bottom-color: #99948b;
+        }
+
+        body.dark-mode .mobile-acc-link {
+          border-bottom-color: #444;
+        }
+
+        body.dark-mode .mobile-acc-link.active,
+        body.dark-mode .mobile-nav-button.active {
+          border-left-color: #a8a299;
+        }
+
+        body.dark-mode .mobile-acc-link-parent {
+          background-color: #bbda550f;
+          border-bottom-color: #444;
+        }
+
+        body.dark-mode .mobile-acc-link-parent:hover {
+          background-color: #2e9ce52b;
+        } 
+
+        body.dark-mode .mobile-nav-button {
+          color: #c8c1b5;
+          border-bottom-color: #99948b;
+        }
+
+        body.dark-mode .mobile-acc-link.active:hover {
+          background-color: #388e3c66;
+        }
 
   .dark-mode-toggle .icon-anim {
       will-change: transform, opacity;
@@ -781,7 +785,7 @@
       document
         .querySelectorAll('a[href^="#"]:not(.skip-to-content)')
         .forEach((anchor) => {
-          if (anchor.previousElementSibling?.matches("h2, h3, h4")) return;
+          if (anchor.previousElementSibling?.matches("h1, h2, h3")) return;
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute("href"));

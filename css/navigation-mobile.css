@@ -34,7 +34,7 @@ OBSAH:
     -webkit-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-        transition: all 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 1003;
     isolation: isolate;
 
@@ -175,7 +175,7 @@ html.menu-open body {
 
 #mobileNav,
 #sticky-mobileNav {
-  padding-bottom: 90px !important;
+    padding-bottom: 90px !important;
 }
 
 /* Stylování scrollbaru pro Webkit browsery */
@@ -209,7 +209,7 @@ html.menu-open body {
     padding: 12px 15px;
     border: none;
     background: none;
-    color: #025227;
+    color: #023f1e;
     text-decoration: none;
     text-align: left;
     font-size: 0.8em;
@@ -217,8 +217,22 @@ html.menu-open body {
     transition: color 0.3s ease, background-color 0.3s ease;
     display: block;
     box-sizing: border-box;
-    border-bottom: 1px solid #b6b6b6; /* Podtržení pod "Systémový přístup, Systémové myšlení, Vlastnosti živých soustav"  */
+    border-bottom: 1px solid gray;
     line-height: 1;
+}
+
+.mobile-nav-button.active {
+    border-left: 4px solid #012d16;
+    padding-left: 11px;
+    background-color: #1c78e84d;    
+}
+
+.mobile-nav-button:hover {
+    background-color: #2e9ce52b;
+}
+
+.mobile-nav-button.active:hover {
+    background-color: #388e3c66;
 }
 
 /* Podtržení tmavé (většina položek) */
@@ -264,6 +278,7 @@ html.menu-open body {
 /* === ACCORDION MOBILNÍ MENU === */
 .mobile-accordion {
     width: 100%;
+    color: #023f1e;
 }
 
 .mobile-acc-toggle {
@@ -275,13 +290,17 @@ html.menu-open body {
     background: none;
     border: none;
     border-bottom: 1px solid grey;
-    color: #025227;
+    color: inherit;
     font-size: 0.8em;
     font-weight: 500;
     cursor: pointer;
     text-align: left;
     margin-bottom: clamp(10px, 5%, 40px);
     line-height: 1;
+}
+
+.mobile-acc-toggle ~ * .mobile-acc-toggle {
+    padding-left: 25px;
 }
 
 .mobile-acc-chevron {
@@ -315,12 +334,12 @@ html.menu-open body {
 }
 
 .mobile-acc-link {
-    padding: 12px 15px 12px 20px;
+    padding: 12px 30px;
     font-size: 0.8em;
     font-weight: 500;
-    color: #025227;
     text-decoration: none;
     border-bottom: 1px solid #b6b6b6;
+    color: inherit;
     display: block;
     text-align: left;
     line-height: 1.4;
@@ -329,31 +348,55 @@ html.menu-open body {
 
 .mobile-acc-link-parent {
     font-size: 0.8em;
-    color: #034a33;
-    background-color: rgba(186, 218, 85, 0.08);
-    border-bottom: 1px solid grey;
-    padding-left: 20px;
+    background-color: #bada551f;
+    border-bottom: 1px solid #b6b6b6;
+}
+
+.mobile-acc-link-parent::before {
+    content: '→';
+    position: absolute;
+    left: 35px;
+}
+
+.mobile-acc-sub .mobile-acc-sub .mobile-acc-link-parent {
+    padding-left: 50px;
+}
+
+.mobile-acc-sub .mobile-acc-sub .mobile-acc-link-parent::before {
+    content: '→';
+    position: absolute;
+    left: 55px;
 }
 
 .mobile-acc-link-deep {
-    padding-left: 40px;
+    padding-left: 50px;
 }
 
 .mobile-acc-link:hover {
-    background-color: #e8f5e8;
-    color: #034a33;
+    background-color: #2e9ce52b;
 }
 
 .mobile-acc-link.active {
-    font-weight: 900;
-    color: #012d16;
-    background-color: rgba(186, 218, 85, 0.1);
+    font-weight: 700;
+    background-color: #1c78e84d;
     border-left: 4px solid #012d16;
-    padding-left: 16px;
+    padding-left: 25px;
+}
+
+.mobile-acc-link-parent.active {
+    padding-left: 26px;
 }
 
 .mobile-acc-link-deep.active {
-    padding-left: 36px;
+    padding-left: 46px;
+}
+
+.mobile-acc-sub .mobile-acc-sub .mobile-acc-link-parent.active {
+    padding-left: 46px;
+}
+
+.mobile-acc-link.active:hover {
+    background-color: #388e3c66;
 }
 
 /* ==== 3. RESPONZIVITA MOBILNÍ NAVIGACE ==== */

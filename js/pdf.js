@@ -6,9 +6,9 @@
  *
  * @fileoverview PDF viewer s mobilní optimalizací
  * @author Michaela Gažová
- * @version 2.2.1
+ * @version 2.2.2
  * @since 2025-05-16
- * @updated 2025-08-24
+ * @updated 2026-05-31
  * @license MIT
  */
 
@@ -184,7 +184,7 @@
       loadingDiv.id = `${this.config.frameId}_loading`;
       loadingDiv.style.cssText =
         "position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(255,255,255,0.95); padding:30px; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.3); text-align:center; z-index:1003; max-width:90%; backdrop-filter:blur(10px);";
-      loadingDiv.innerHTML = `<div style="width:40px; height:40px; border:4px solid #f3f3f3; border-top:4px solid #007bff; border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 15px;"></div><h4 style="margin:0 0 10px 0; color: #333; font-size:16px;">Načítám PDF...</h4><p style="margin:0; color: #666; font-size:14px;">Pokud se PDF nenačte, zobrazí se alternativní možnost</p><style>@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>`;
+      loadingDiv.innerHTML = `<div style="width:40px; height:40px; border:4px solid #f3f3f3; border-top:4px solid #007bff; border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 15px;"></div><h3 style="margin:0 0 10px 0; color: #333; font-size:16px;">Načítám PDF...</h3><p style="margin:0; color: #666; font-size:14px;">Pokud se PDF nenačte, zobrazí se alternativní možnost</p><style>@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>`;
       return loadingDiv;
     }
 
@@ -200,7 +200,7 @@
       else if (mobile.isAndroid) deviceType = "Android zařízení";
       else if (mobile.isTablet) deviceType = "tablet";
       else if (mobile.isMobile) deviceType = "mobilní telefon";
-      fallbackDiv.innerHTML = `<h3 style="margin:0 0 15px 0; color: #333; font-size:18px; text-align:center;">PDF viewer</h3>
+      fallbackDiv.innerHTML = `<h2 style="margin:0 0 15px 0; color: #333; font-size:18px; text-align:center;">PDF viewer</h2>
       <p style="margin: 0 0 20px 0; font-size:15px; color: #555; line-height:1.4;">Vaše ${deviceType} může mít problémy se zobrazováním PDF přímo na stránce. Vyberte si způsob zobrazení:</p>
       <div style="display:flex; flex-direction:column; gap:12px;">
         <a href="${downloadUrl}" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:14px 20px; background: #007bff; color:white; text-decoration:none; border-radius:8px; font-weight:500; transition:all 0.3s; width:100%; box-sizing:border-box; font-size:15px;">Otevřít v novém okně</a>

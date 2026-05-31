@@ -1,0 +1,130 @@
+/* FLASHCARD
+    Interaktivní karty se 3D otáčením včetně fallbacku pro starší prohlížeče jsou řešeny čistě přes CSS díky checkboxu a nevyužívá se JS
+    Media queries pro přístupnost a tisk v responsiveness.css
+    Pokud není na stránce žádný flashcard, tenhle CSS se nemusí dávat jako link v HTML.
+*/
+
+/*
+OBSAH:
+ 1. Obecně vzhled
+
+ 2. Řešení funkčnosti
+    - moderní způsob
+    - fallback
+*/
+
+
+
+/* ==== 1. OBECNĚ VZHLED ==== */
+.flashcard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+.flashcard-container input {
+    display: none;
+}
+
+label.flashcard {
+    width: 200px;
+    height: 250px;
+}
+
+label.flashcard .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+label.flashcard .flashcard-front,
+label.flashcard .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    border: 1px solid black;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+label.flashcard .flashcard-front {
+    background-color: #309ce5;
+}
+
+label.flashcard .flashcard-back {
+    background-color: #1c77e8;
+}
+
+
+
+/* ==== 2. ŘEŠENÍ FUNKČNOSTI ==== */
+
+/* Moderní způsob: podle https://www.w3schools.com/howto/howto_css_flip_card.asp */
+@supports (backface-visibility: hidden) {
+    label.flashcard {
+        perspective: 400px;
+        width: 150px;
+        height: 200px;
+    }
+
+    label.flashcard .flashcard-inner {
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+
+    .flashcard-container input:checked + label.flashcard .flashcard-inner {
+        transform: rotateY(180deg);
+        z-index: initial;
+    }
+
+    label.flashcard .flashcard-front,
+    label.flashcard .flashcard-back {
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+        z-index: initial;
+    }
+
+    label.flashcard .flashcard-back {
+        transform: rotateY(180deg);
+    }
+}
+
+
+/* Fallback */
+@supports not (backface-visibility: hidden) {
+    label.flashcard .flashcard-front,
+    label.flashcard .flashcard-back {
+        transition: transform 0.6s linear, z-index 0s step-end 0.3s;
+    }  
+
+    label.flashcard .flashcard-front {
+        transform: rotateY(0deg);
+        z-index: 2;
+    }
+
+    label.flashcard .flashcard-back {
+        transform: rotateY(180deg);
+        z-index: 1;
+    }
+
+    .flashcard-container input:checked + label.flashcard .flashcard-front {
+        transform: rotateY(-180deg);
+        z-index: 1;
+        transition: transform 0.6s linear, z-index 0s step-start 0.3s;
+    }
+
+    .flashcard-container input:checked + label.flashcard .flashcard-back {
+        transform: rotateY(0deg);
+        z-index: 2;
+        transition: transform 0.6s linear, z-index 0s step-start 0.3s;
+    }
+}

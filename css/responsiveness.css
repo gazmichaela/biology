@@ -56,18 +56,22 @@ OBSAH:
         padding: 12px 20px;
     }
 
+    .breadcrumb {
+        margin: 0 50px;
+    }
+
     article section {
         margin-left: 50px;
         margin-right: 50px;
         padding: 15px 0px 40px 0px;
     }
     
-    article section h2 {
+    article section h1 {
         font-size: 1.3em;
         margin-top: 80px;
     }
     
-    article section h3 {
+    article section h2 {
         font-size: 1.2em;
         margin-top: 50px;
     }
@@ -89,10 +93,6 @@ OBSAH:
         max-width: 390px;
     }
 
-    footer {
-        height: 310px;
-    }
-
     footer p {
         margin-left: 70px;
         margin-right: 70px;
@@ -104,17 +104,16 @@ OBSAH:
         padding: 0 4vw;
     }
 
-        .sticky-header {
+    .sticky-header {
         padding: 1px 4vw;  
-    }
-
-        .breadcrumb {
-        margin: 0 20px;
-        padding: 20px 0 0 0;
     }
     
     .sticky-header .header-nav-container {
         padding: 12px 4vw;
+    }
+
+    .breadcrumb {
+        padding-top: 20px;
     }
 
     .sticky-header .nav-desktop {
@@ -146,6 +145,10 @@ OBSAH:
     .sticky-header .header-nav-container {
         padding: 9px 20px;
     }
+
+    .breadcrumb {
+        margin: 0 25px;
+    }
     
     article section {
         margin-left: 25px;
@@ -154,24 +157,24 @@ OBSAH:
     }
     
     
-    article section h2 {
+    article section h1 {
         font-size: 1.4em;
         margin-top: 60px;
         margin-bottom: 0.7em;
     }
     
-    article section h3 {
+    article section h2 {
         font-size: 1.1em;
         margin-top: 40px;
         margin-bottom: 0.6em;
     }
 
-    article section ol h3,
-    article section ul h3 {
+    article section ol h2,
+    article section ul h2 {
         margin-top: 2em;
     }
     
-    article section h4 {
+    article section h3 {
         margin-top: 2em;
     }
 
@@ -221,9 +224,8 @@ OBSAH:
     }
 
     footer {
-        padding: 30px 10px 0px 10px;
+        padding: 30px 10px 30px 10px;
         font-size: 0.8em;
-        height: 290px;
         clip-path: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
     }
 
@@ -247,6 +249,10 @@ OBSAH:
         margin: 6px 0;
         font-size: 15px;
     }
+
+    .breadcrumb {
+        margin: 0 20px;
+    }
     
     article section {
         margin-left: 20px;
@@ -267,31 +273,31 @@ OBSAH:
         padding-left: 20px !important; /* Je nutné 20px pro správné centrování obrázků v seznamech, pro změnu upravit i .img-list */
     }
     
-    article section h2 {
+    article section h1 {
         font-size: 1.4em;
         margin-top: 50px;
         margin-bottom: 0.6em;
         padding: 0 0.1em;
     }
     
-    article section h3 {
+    article section h2 {
         font-size: 1.05em;
         margin-top: 35px;
         margin-bottom: 0.5em;
         padding: 2px 3px;
     }
 
-    article section ol h3,
-    article section ul h3 {
+    article section ol h2,
+    article section ul h2 {
         margin-bottom: 0.2em;
     }
     
-    article section h4 {
+    article section h3 {
         font-size: 1em;
         margin-top: 1.5em;
     }
     
-    article section h5 {
+    article section h4 {
         font-size: 0.95em;
     }
     
@@ -335,9 +341,8 @@ OBSAH:
 }
 
     footer {
-        padding: 20px 8px 0px 8px;
+        padding: 20px 8px 20px 8px;
         font-size: 0.75em;
-        height: 300px;
         clip-path: polygon(0 15px, 100% 0, 100% 100%, 0 100%);
     }
 }
@@ -380,6 +385,10 @@ OBSAH:
     header .logo {
         height: 30px;
     }
+
+    .breadcrumb {
+        padding-top: 15px;
+    }
     
     article section {
         margin-left: 15px;
@@ -407,8 +416,8 @@ OBSAH:
     }
 
 
-    article section ol h3,
-    article section ul h3 {
+    article section ol h2,
+    article section ul h2 {
         margin-bottom: 0;
     }
 
@@ -424,7 +433,7 @@ OBSAH:
     }
 
     footer {
-        height: 280px;
+        padding-bottom: 15px;
     }
 
     footer p {
@@ -445,16 +454,16 @@ OBSAH:
         font-size: 14px;
     }
 
-    article section h2 {
+    article section h1 {
         margin-top: 30px;
     }
     
-    article section h3 {
+    article section h2 {
         margin-top: 25px;
     }
     
     footer {
-        padding: 15px 8px 0px 8px;
+        padding: 40px 8px 20px 8px;
     }
 }
 
@@ -929,7 +938,7 @@ OBSAH:
     .no-break,
     table tr,
     .citace ul li,
-    article section .h2 {
+    article section .h1 {
         page-break-inside: avoid; /* Fallback */
         break-inside: avoid; /* Moderní standard */
     }
@@ -970,13 +979,13 @@ OBSAH:
         color: black;
     }
 
-    article section .h2 + ol,
-    article section .h2 + ul,
-    article section h3 + ol,
-    article section h3 + ul,
+    article section .h1 + ol,
+    article section .h1 + ul,
+    article section h2 + ol,
+    article section h2 + ul,
     article section p + ol,
     article section p + ul
-    .h2 + .citace {
+    .h1 + .citace {
         page-break-before: avoid; /* Fallback */
         break-before: avoid; /* Moderní standard */
     }
@@ -985,14 +994,14 @@ OBSAH:
         hyphens: none;
     }
 
-    article section .h2,
-    article section h3,
-    article section h4 {
+    article section .h1,
+    article section h2,
+    article section h3 {
         page-break-after: avoid; /* Fallback */
         break-after: avoid; /* Modení standard */
     }
 
-    article section h2 {
+    article section h1 {
         text-decoration: underline 3pt #309ce554 !important;
         text-decoration-skip-ink: none; /* Zabrání přerušování podtržení */
         background: transparent !important;
@@ -1000,25 +1009,51 @@ OBSAH:
         font-weight: 800;
     }
 
-    article section .h2 {
+    article section .h1 {
         margin-top: 3cm;
     }
 
-    article > section > .h2:first-of-type,
-    article > section > .img-right-top + .h2,
-    article > section > .img-responsive + .h2 {
+    article > section > .h1:first-of-type,
+    article > section > .img-right-top + .h1,
+    article > section > .img-responsive + .h1 {
         margin-top: 0;
     }
 
-    article section h3 {
+    article section h2 {
         margin-top: 15mm;
         color: black;
         text-decoration: underline #309ce584 !important;
     }
 
-    article section .h2.new-page,
-    article section h3.new-page {
+    article section .h1.new-page,
+    article section h2.new-page {
         margin-top: 0;
+    }
+
+    label.flashcard .flashcard-inner {
+        transform: rotateY(0deg) !important;
+    }
+
+    label.flashcard .flashcard-front {
+        height: 5cm;
+        background-color: transparent;
+        font-size: 14pt;
+        color: black;
+        transform: rotateY(0deg);
+        align-items: flex-start;
+        text-align: center;
+        border-radius: 2mm;
+    }
+
+    label.flashcard .flashcard-back {
+        height: 5cm;
+        background-color: transparent;
+        font-size: 12pt;
+        color: #888;
+        transform: rotateY(0deg);
+        align-items: flex-end;
+        text-align: center;
+        border-radius: 2mm;
     }
 
     .tooltip {
@@ -1247,7 +1282,8 @@ OBSAH:
     .info-box,
     .info-box .icon-circle,
     .info-box::before,
-    .info-box span {
+    .info-box span,
+    label.flashcard .flashcard-inner {
         transition-duration: 0s !important;
         transition-delay: 0s !important;
     }
@@ -1321,11 +1357,11 @@ OBSAH:
         filter: brightness(0) saturate(100%) invert(10%) sepia(100%) saturate(9950%) hue-rotate(251deg) brightness(128%) contrast(138%);
     }
 
-    article section h2 {
+    article section h1 {
         background: linear-gradient(to top, #309de5b6 10%, transparent 40%);
     }
 
-    article section h3 {
+    article section h2 {
         text-decoration-color: #309de5b6;
         text-decoration-thickness: 15%;
     }
@@ -1347,6 +1383,14 @@ OBSAH:
         font-weight: 800;
         border-width: 3px;
         margin-bottom: -2px; /* Aby se nehýbal zbytek stránky */
+    }
+
+    label.flashcard .flashcard-front {
+        background-color: #0049e7;
+    }
+
+    label.flashcard .flashcard-back {
+        background-color: #671eee;
     }
 
     .question {
@@ -1506,12 +1550,21 @@ OBSAH:
         text-decoration: underline;
     }
 
-    article section h2 {
+    article section h1 {
         text-decoration: underline solid CanvasText 5px;
     }
 
     .img-wrapper img {
         border: 1px solid CanvasText;
+    }
+
+    label.flashcard .flashcard-front {
+        border-width: 2px;
+    }
+
+    label.flashcard .flashcard-back {
+        border-width: 3px;
+        border-color: HighLight;
     }
 
     .question {
@@ -1541,6 +1594,7 @@ OBSAH:
 
     footer {
         border-top: 2px solid CanvasText;
+        border-bottom: none;
         clip-path: none;
     }
 
