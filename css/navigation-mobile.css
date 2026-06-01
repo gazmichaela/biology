@@ -299,8 +299,8 @@ html.menu-open body {
     line-height: 1;
 }
 
-.mobile-acc-toggle ~ * .mobile-acc-toggle {
-    padding-left: 25px;
+.mobile-acc-sub .mobile-acc-toggle {
+    padding-left: 30px;
 }
 
 .mobile-acc-chevron {
