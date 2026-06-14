@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/navigation-desktop.css">
     <link rel="stylesheet" href="css/navigation-mobile.css">
     <link rel="stylesheet" href="css/sticky-header.css">
+    <link rel="stylesheet" href="css/pdf.css">
     <link rel="stylesheet" href="css/questions.css">
     <link rel="stylesheet" href="css/responsiveness.css">
     <link rel="stylesheet" href="css/focus-outline.css">
@@ -22,6 +23,7 @@
     <script src="js/active-menu.js" defer></script>
     <script src="js/cookies.js" defer></script>
     <script src="js/dark-mode.js" defer></script>
+    <script src="js/pdf.js" defer></script>
     <script src="js/questions.js" defer></script>
     <script src="js/img-zoom.js" defer></script>
     <script src="js/source.js" defer></script>
@@ -107,8 +109,8 @@
                         <div class="dropdown-content-third" id="dropdown-content-third" tabindex="-1">
                             <a href="ecology-introduction.html" tabindex="0">Základy ekologie</a>
                             <a href="ecosystems.html" tabindex="0">Ekosystémy</a>
-                            <a href="climate-change.html" tabindex="0">Klimatická změna</a>
                             <a href="environmental-protection.html" tabindex="0">Ochrana přírody</a>
+                            <a href="climate-change.html" tabindex="0">Klimatická změna</a>
                         </div>
                     </li>
                 </ul>
@@ -125,76 +127,57 @@
                 <nav class="mobile-nav-container" id="mobileNav" aria-label="Primární navigace">
                     <div class="mobile-nav-list">
                             
-                            <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
+                        <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
 
-                            <div class="mobile-accordion">
+                        <div class="mobile-accordion">
 
-                                <div class="mobile-acc-item">
+                            <div class="mobile-acc-item">
+                                <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Úvod <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                </button>
+                                <div class="mobile-acc-sub">
+                                    <a href="introduction.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Úvod</a>
                                     <button class="mobile-acc-toggle" aria-expanded="false">
-                                        Úvod <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
-                                    </button>
-                                    <div class="mobile-acc-sub">
-                                        <a href="introduction.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Úvod</a>
-                                        <button class="mobile-acc-toggle" aria-expanded="false">
                                         Základní principy <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
-                                        </button>
-                                        <div class="mobile-acc-sub">
-                                        <a href="basic-principles.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Základní principy</a>
-                                            <a href="system-approach.html" class="mobile-acc-link mobile-acc-link-deep">Systémový přístup</a>
-                                            <a href="system-thinking.html" class="mobile-acc-link mobile-acc-link-deep">Systémové myšlení</a>
-                                        </div>
-                                        <a href="system-theory.html" class="mobile-acc-link">Teorie systémů</a>
-                                        <a href="life-properties.html" class="mobile-acc-link">Vlastnosti živých soustav</a>
-                                        <a href="life-origin.html" class="mobile-acc-link">Vznik života</a>
-                                    </div>
-                                </div>
-
-                                <div class="mobile-acc-item">
-                                    <button class="mobile-acc-toggle" aria-expanded="false">
-                                        Člověk <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
                                     </button>
                                     <div class="mobile-acc-sub">
-                                        <a href="human.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Člověk</a>
-                                        <a href="cell.html" class="mobile-acc-link">Buněčné a nebuněčné organismy</a>
-                                        <a href="tissues.html" class="mobile-acc-link">Tkáně</a>
-                                        <a href="organ-system.html" class="mobile-acc-link">Orgánové soustavy</a>
-                                        <a href="genetics.html" class="mobile-acc-link">Genetika</a>
+                                    <a href="basic-principles.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Základní principy</a>
+                                        <a href="system-approach.html" class="mobile-acc-link mobile-acc-link-deep">Systémový přístup</a>
+                                        <a href="system-thinking.html" class="mobile-acc-link mobile-acc-link-deep">Systémové myšlení</a>
                                     </div>
+                                    <a href="system-theory.html" class="mobile-acc-link">Teorie systémů</a>
+                                    <a href="life-properties.html" class="mobile-acc-link">Vlastnosti živých soustav</a>
+                                    <a href="life-origin.html" class="mobile-acc-link">Vznik života</a>
                                 </div>
+                            </div>
 
-                                <div class="mobile-acc-item">
-                                    <button class="mobile-acc-toggle" aria-expanded="false">
-                                        Životní prostředí <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
-                                    </button>
-                                    <div class="mobile-acc-sub">
-                                        <a href="environment.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Životní prostředí</a>
-                                        <a href="ecology-introduction.html" class="mobile-acc-link">Základy ekologie</a>
-                                        <a href="ecosystems.html" class="mobile-acc-link">Ekosystémy</a>
-                                        <a href="climate-change.html" class="mobile-acc-link">Klimatická změna</a>
-                                        <a href="environmental-protection.html" class="mobile-acc-link">Ochrana přírody</a>
-                                    </div>
+                            <div class="mobile-acc-item">
+                                <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Člověk <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                </button>
+                                <div class="mobile-acc-sub">
+                                    <a href="human.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Člověk</a>
+                                    <a href="cell.html" class="mobile-acc-link">Buněčné a nebuněčné organismy</a>
+                                    <a href="tissues.html" class="mobile-acc-link">Tkáně</a>
+                                    <a href="organ-system.html" class="mobile-acc-link">Orgánové soustavy</a>
+                                    <a href="genetics.html" class="mobile-acc-link">Genetika</a>
+                                </div>
+                            </div>
+
+                            <div class="mobile-acc-item">
+                                <button class="mobile-acc-toggle" aria-expanded="false">
+                                    Životní prostředí <span class="mobile-acc-chevron" aria-hidden="true">❯</span>
+                                </button>
+                                <div class="mobile-acc-sub">
+                                    <a href="environment.html" class="mobile-acc-link mobile-acc-link-parent"> Přejít na Životní prostředí</a>
+                                    <a href="ecology-introduction.html" class="mobile-acc-link">Základy ekologie</a>
+                                    <a href="ecosystems.html" class="mobile-acc-link">Ekosystémy</a>
+                                    <a href="environmental-protection.html" class="mobile-acc-link">Ochrana přírody</a>
+                                    <a href="climate-change.html" class="mobile-acc-link">Klimatická změna</a>
                                 </div>
                             </div>
                         </div>
-                    <!--<div class="mobile-nav-list">
-
-                        <a href="index.html" class="mobile-nav-button mobile-nav-button-big">Domů</a>
-
-                        <div class="mobile-expandable">
-                            <a href="system.html" class="mobile-nav-button mobile-nav-button-big">Základy systémového myšlení</a>
-                                <a href="system-introduction.html" class="mobile-nav-button mobile-nav-button-two mobile-nav-button-mid">Úvod</a>
-                                    <a href="system-approach.html" class="mobile-nav-button mobile-nav-button-three">Systémový přístup</a>
-                                    <a href="system-thinking.html" class="mobile-nav-button mobile-nav-button-three">Systémové myšlení</a>
-                                <a href="system-theory.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Teorie systémů</a>
-                
-                            <a href="life.html" class="mobile-nav-button mobile-nav-button-big">Základy živých soustav</a>
-                                <a href="life-properties.html" class="mobile-nav-button mobile-nav-button-two">Vlastnosti živých soustav</a>
-                                <a href="life-origin.html" class="mobile-nav-button mobile-nav-button-big mobile-nav-button-two">Vznik života na Zemi</a>
-                
-                            <a href="cell.html" class="mobile-nav-button mobile-nav-button-big">Buněčné a nebuněčné organismy</a>
-                            <a href="human.html" class="mobile-nav-button mobile-nav-button-big">Člověk</a>
-                        </div>
-                    </div>-->
+                    </div>
                 </nav>
                 <!-- Burger menu tlačítko -->
                 <div class="burger-menu" id="burgerMenu" tabindex="0">
@@ -227,17 +210,18 @@
                 této doby do prostředí téměř nezasahoval. Lidská populace byla nízká a lidé navíc neměli prostředky, které by jim umožňovaly zásadně měnit okolní přírodu. </p>
             <p>Od 17. století ale začal počet obyvatel prudce stoupat. Hlavním důvodem byl zejména rozvoj zemědělství, díky němuž bylo k dispozici více potravy,
                 a také zlepšování hygieny i lékařských znalostí, které omezovalo epidemie, hlavně mor. Kolem roku 1650 měla Země asi 500 milionů obyvatel, v roce 1950 už 2,4 miliardy
-                a během dalších padesáti let dosáhl celkový počet lidí na Zemi 6 miliard. (Doporučujeme se podívat na <a href="https://www.worldometers.info/cs/svetova-populace/" target="_blank">https://www.worldometers.info/cs/svetova-populace/</a>). </p>
+                a během dalších padesáti let dosáhl celkový počet lidí na Zemi 6 miliard. Doporučujeme se podívat na stránku Worldometers, kde najdete odhad aktuálního počtu obyvatel na Zemi. </p>
+                <a href="https://www.worldometers.info/cs/svetova-populace/" target="_blank" class="button" aria-label="Otevřít odhad aktuálního počtu obyvatel">Počet obyvatel na Worldometers</a>
             <p>S rostoucím počtem obyvatel se zvyšují i nároky na potravu, spotřební zboží, bydlení, dopravu a další oblasti. To zákonitě znamená větší tlak na prostředí. Rozsáhlé odlesnění (a tedy vodní a větrná eroze a změna vodního režimu krajiny a klimatu)
                 nastalo již během starověku, neboť docházelo k rozvoji zemědělství. Po průmyslové revoluci v 18. století se navíc rozběhla intenzivnější těžba dřeva, uhlí, ropy a rud, rozšiřovala se města, vznikala nová sídla a budovaly se komunikace i další dopravní stavby.
                 Tyto zásahy vedly k výraznému poškození ekosystémů, k vyhubení nebo oslabení mnoha druhů organismů, ale i k šíření některých jiných druhů, například prasete, ovce, slepice, pšenice, rýže, brambor, potkana, vrabce nebo mouchy. </p>
             <p>
                 V posledních desetiletích se navíc projevují globální problémy, které jsou nejvážnější hlavně v rozvojových zemích. Mezi nejzávažnější patří energetická krize a 
                 <dfn class="tooltip" role="presentation">populační exploze<span class="tooltiptext">rychlý nárůst počtu obyvatel</span></dfn>,
-                s níž souvisí i krize potravinová. Objevují se také ekologické katastrofy,
-                například havárie tankerů, lesní požáry, kácení tropických lesů nebo rozsáhlé havárie chemických továren.
-            </p>
-          <div class="zarazka"></div>
+                s níž souvisí i krize potravinová. Objevují se také ekologické katastrofy, například havárie tankerů, lesní požáry, kácení tropických lesů nebo rozsáhlé havárie chemických továren.
+                Klimatické změně se věnujeme v samostatné kapitole:</p>
+            <a href="climate-change.html" class="button" aria-label="Přejít na kapitolu Klimatická změna">Klimatická změna</a>
+            <div class="zarazka"></div>
         </section>
 
         <section>
@@ -348,7 +332,20 @@
                 <li>
                     <h2>Další problémy</h2>
                     <p>V posledních desetiletích <strong>prudce roste produkce odpadů</strong>. Přibývá zejména odpadů biologicky neodbouratelných, například plastů nebo ropných látek. Ideálním řešením je vzniku odpadů předcházet, podporovat výrobky s dlouhou životností
-                        a odpady správně zpracovávat, tedy recyklovat kovy, plasty, sklo, papír i elektroniku, případně organické odpady kompostovat nebo je využít jako energii spalováním ve spalovnách. Nejhorší možností je skládkování odpadů. </p>
+                        a odpady správně zpracovávat, tedy recyklovat kovy, plasty, sklo, papír i elektroniku, případně organické odpady kompostovat nebo je využít jako energii spalováním ve spalovnách. Nejhorší možností je skládkování odpadů. Více 
+                        o odpadech a odpadovém hospodářství naleznete v přiloze:</p>
+
+                    <!-- <a class="button-light no-print" id="showPdfBtn" aria-label="Otevřít zde soubor PDF o odpadovém hospodářství">Otevřít zde (pdf)</a> -->
+                    <!-- Překryvná vrstva pro PDF -->
+                    <div class="pdf-overlay no-print" id="pdfOverlay">
+                        <div class="pdf-viewer-container">
+                            <div class="pdf-close-button" id="pdfCloseBtn">&times;</div>
+                            <iframe class="pdf-iframe" id="pdfFrame"></iframe>
+                        </div>
+                    </div>
+                    <br>
+                    <a href="pdf/odpady.pdf" target="_blank" class="button no-print" aria-label="Otevřít na nové kartě soubor PDF o odpadovém hospodářství">Otevřít na nové kartě (pdf) &#8599;</a>
+
                     <p>Dalším problémem je <strong>poškození lesů</strong>, které je způsobeno emisemi. Potíže může vyvolávat i nevhodná skladba vysazovaných porostů. Typickým příkladem jsou smrkové monokultury,
                         které tvoří nestabilní ekosystém a snadno podléhají škůdcům (viz kůrovec). Velmi vážný problém je kácení tropických deštných lesů, kvůli němuž vymírají živočišné i rostlinné druhy. Velké škody působí také požáry.
                         Je proto důležité snižovat emise, dodržovat šetrnou těžbu a vytvářet stabilní lesní ekosystémy. </p>
@@ -396,7 +393,7 @@
                         <li>Ministerstvo životního prostředí,</li>
                         <li>Česká inspekce životního prostředí,</li>
                         <li>Greenpeace ČR,</li>
-                        <li>Duha aj.</li>>
+                        <li>Duha aj.</li>
                     </ul>
                     <p>V ČR zároveň přibývá chráněných území. Patří sem národní parky, například Krkonošský NP, NP Šumava, NP Podyjí a NP České Švýcarsko, dále chráněné krajinné oblasti, například CHKO Beskydy, Jeseníky
                         nebo České středohoří, a také národní přírodní rezervace a další typy území. </p>
@@ -407,16 +404,33 @@
                 <h1 id="Environmental-protection__krajiny">Typy krajiny a její stabilita</h1><a href="#Environmental-protection__krajiny" aria-label="Přejít na nadpis Typy krajiny a její stabilita"><span aria-hidden="true">#</span></a>
             </div>
             <p>Podle intenzity vlivu člověka existuje krajina přírodní a kulturní. </p>
-            <ul class="no-break">
+            <ol class="no-break" style="list-style-type: lower-alpha;">
                 <li><strong>Přírodní krajina</strong>: Její podobu určují hlavně přírodní vlivy, působení člověka je jen nepatrné (dálkový přenos emisí).
                     Patří sem krajiny bez hospodářského využití, jako jsou polární oblasti, vysokohorské krajiny, tundry, horské louky, tajga nebo tropické lesy.</li>
                 <li><strong>Kulturní krajina</strong>: Jde o krajinu přetvořenou člověkem pro určitý účel. Podle míry přeměny může jít o oblasti s menší hustotou obyvatel,
                     kde člověk ještě nezničil regulační schopnost krajiny, o oblasti se zemědělským využitím, komunikační sítí nebo průmyslovými objekty, i o krajiny výrazně
                     přeměněné <dfn class="tooltip" role="presentation">urbanizací<span class="tooltiptext">soustředění obyvatel a <br> hospodářského i kulturního <br> života do měst</span></dfn>
                     (domy, ulice, regulované vodní toky) a průmyslovou činností (továrny, doly). </li>
-            </ul>
+            </ol>
             <p>Stabilní krajina je ekologicky vyvážená a tvořená stabilními ekosystémy. Obsahuje biocentra s vysokou druhovou pestrostí, například lesy, rybníky nebo mokřady, a biokoridory, které jednotlivá
                 biocentra propojují a umožňují migraci mezi nimi, například břehové porosty, meze nebo stromořadí. </p>
+
+            <div class="h1">
+                <h1 id="Environmental-protection__rozvoj">Trvale udržitelný rozvoj</h1><a href="#Environmental-protection__rozvoj" aria-label="Přejít na nadpis Trvale udržitelný rozvoj"><span aria-hidden="true">#</span></a>
+            </div>
+            <p>Trvale udržitelný rozvoj je způsob fungování společnosti, který naplňuje potřeby dnešní generace, aniž by ohrozil možnost budoucích generací žít plnohodnotný život. Nejde o pouhou ochranu přírody. Spojují se v něm ekologické,
+                ekonomické, technologické a sociální pohledy na životní prostředí. Cílem je zlepšovat životní úroveň lidí, ale nepřekračovat přitom možnosti naší planety. V praxi to znamená využívat moderní a šetrné technologie, hospodařit
+                odpovědně a dbát na spravedlivá společenská pravidla. </p>
+            <p>Celé toto úsilí stojí na třech základních pilířích: <strong>ekologickém</strong>, <strong>ekonomickém</strong> a <strong>sociálním</strong>. Tyto oblasti v této podobě jasně popsal například Sociální summit v Kodani v roce 1995.</p>
+            <ol>
+                <li><strong>Ekologický pilíř</strong> se zaměřuje na snižování znečištění, ochranu rozmanitosti přírody a šetrné využívání zdrojů</li>
+                <li><strong>Ekonomický pilíř</strong> řeší stabilní hospodářství, které respektuje přírodní limity.</li>
+                <li><strong>Sociální pilíř</strong> klade důraz na lidská práva, rovný přístup ke vzdělání a spokojenost lidí.</li>
+            </ol>
+            <p>Pouze rovnováha mezi těmito třemi směry dokáže dlouhodobě zabránit chudobě, společenskému napětí nebo ničení životního prostředí.</p>
+            <p>Hlavním celosvětovým plánem pro uskutečnění těchto vizí je Agenda 2030, kterou v roce 2015 přijala Organizace spojených národů. Její nejdůležitější část tvoří 17 Cílů udržitelného rozvoje. Tyto konkrétní závazky sahají
+                od odstraňování chudoby a hladu pres rozvoj čistých technologií až po ochranu klimatu. Hlavní myšlenkou je nenechat nikoho stranou a vytvořit bezpečný a prosperující svět pro současné i příští generace. </p>
+
 
             <div class="h1">
                 <h1 id="Environmental-protection__zajimavost">Zajímavost k pesticidům: </h1><a href="#Environmental-protection__krajiny" aria-label="Přejít na nadpis Zajímavost k pesticidům"><span aria-hidden="true">#</span></a>
