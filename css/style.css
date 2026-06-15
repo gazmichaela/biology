@@ -599,6 +599,11 @@ table {
     margin: 1em;
     min-width: 600px;
 }
+
+.table-small table {
+    min-width: fit-content;
+}
+
 /* Pro čtečky, neviditelné */
 table caption {
     position: absolute;
@@ -657,8 +662,19 @@ table td:first-child {
     scroll-padding: 20px;
 }
 
+.table-small {
+    min-height: min-content;
+}
+
 .extra-bunka {
     text-align: left !important;
+}
+
+th.table-center,
+td.table-center,
+table.table-center th,
+table.table-center td {
+    text-align: center;
 }
 
 
