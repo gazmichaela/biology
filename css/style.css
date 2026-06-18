@@ -244,6 +244,7 @@ article {
 .breadcrumb li {
     display: flex;
     align-items: center;
+    line-height: calc(0.9em * 1.4);
 }
 
 .breadcrumb li + li::before {
@@ -347,7 +348,7 @@ article section h1 + a:focus-visible {
 
 article section .h1 {
     margin-left: 0;
-    margin-top: 100px; /* Mezera */
+    margin-top: 5em; /* Mezera */
     margin-bottom: 0.9em;
     text-align: left; /* zajistí, že se mezery nebudou natahovat */
     hyphens: none;
@@ -364,8 +365,7 @@ article section h2 {
 
 article section ol h2,
 article section ul h2 {
-    text-decoration: none !important; /* !important kvůli dark-mode.js */
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin-top: 2.5em;
     margin-bottom: 0.4em;
 }
@@ -480,6 +480,10 @@ footer a.logo-container {
     width: 10em;
     margin: 2em auto 0.4em auto;
     display: block;
+}
+
+footer a.logo-container img {
+    max-width: 100%; /* Sice je v img.css nastaveno pro všechny obrázky, ale tento CSS není nezbytný */
 }
 
 .sidemap,
@@ -601,7 +605,9 @@ table {
 }
 
 .table-small table {
-    min-width: fit-content;
+    min-width: 240px;
+    max-width: 600px;
+    width: 50%;
 }
 
 /* Pro čtečky, neviditelné */
