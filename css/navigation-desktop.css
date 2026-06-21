@@ -89,6 +89,7 @@ header .nav-desktop .nav-home a:hover img {
     align-items: center; 
     justify-content: center;
     padding: 12px 20px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .main-button {
@@ -118,6 +119,7 @@ header .nav-desktop .nav-home a:hover img {
     position: relative;
     -webkit-user-select: none;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .sub-dropdown-toggle::before {

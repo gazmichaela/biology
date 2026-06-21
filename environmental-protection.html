@@ -335,12 +335,12 @@
                         a odpady správně zpracovávat, tedy recyklovat kovy, plasty, sklo, papír i elektroniku, případně organické odpady kompostovat nebo je využít jako energii spalováním ve spalovnách. Nejhorší možností je skládkování odpadů. Více 
                         o odpadech a odpadovém hospodářství naleznete v přiloze:</p>
 
-                    <!-- <a class="button-light no-print" id="showPdfBtn" aria-label="Otevřít zde soubor PDF o odpadovém hospodářství">Otevřít zde (pdf)</a> -->
+                    <a class="button-light no-print" id="showOdpadyPdfBtn" aria-label="Otevřít zde soubor PDF o odpadovém hospodářství">Otevřít zde (pdf)</a> 
                     <!-- Překryvná vrstva pro PDF -->
-                    <div class="pdf-overlay no-print" id="pdfOverlay">
+                    <div class="pdf-overlay no-print" id="odpadyPdfOverlay">
                         <div class="pdf-viewer-container">
-                            <div class="pdf-close-button" id="pdfCloseBtn">&times;</div>
-                            <iframe class="pdf-iframe" id="pdfFrame"></iframe>
+                            <div class="pdf-close-button" id="odpadyPdfCloseBtn">&times;</div>
+                            <iframe class="pdf-iframe" id="odpadyPdfFrame"></iframe>
                         </div>
                     </div>
                     <br>
@@ -625,7 +625,7 @@
     <script>
         if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-            navigator.serviceWorker.register('pwa/service-worker.js')
+            navigator.serviceWorker.register('./service-worker.js')
             .then(function(registration) {})
             .catch(function(registrationError) {});
         });

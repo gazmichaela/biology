@@ -779,6 +779,11 @@ table.table-center td {
     outline: none;
 }
 
+section > p:nth-last-of-type(2) {
+    text-align: left !important;
+    letter-spacing: normal;
+    word-spacing: normal;
+}
 
 /* --- Ikona slunce --- */
 .sun-icon {

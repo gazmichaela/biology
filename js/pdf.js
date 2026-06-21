@@ -6,9 +6,9 @@
  *
  * @fileoverview PDF viewer s mobilní optimalizací
  * @author Michaela Gažová
- * @version 2.2.2
+ * @version 2.2.3
  * @since 2025-05-16
- * @updated 2026-05-31
+ * @updated 2026-06-21
  * @license MIT
  */
 
@@ -69,7 +69,7 @@
       } catch (error) {
         console.error(
           `PDF viewer "${this.config.viewerName}" initialization failed:`,
-          error
+          error,
         );
       }
     }
@@ -102,7 +102,7 @@
       const isMobile = /mobile|phone|mobi|mini/.test(ua);
       const isTablet =
         /tablet|ipad|playbook|silk|(puffin(?!.*(IP|AP|WP)))|kindle|nook|kobo/.test(
-          ua
+          ua,
         );
       const isTouchDevice =
         "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -273,7 +273,7 @@
 
     hideLoadingIndicator() {
       const loadingDiv = document.getElementById(
-        `${this.config.frameId}_loading`
+        `${this.config.frameId}_loading`,
       );
       if (loadingDiv) loadingDiv.remove();
       if (this.timeouts.loading) {
@@ -284,7 +284,7 @@
 
     hideFallbackOptions() {
       const fallbackDiv = document.getElementById(
-        `${this.config.frameId}_fallback`
+        `${this.config.frameId}_fallback`,
       );
       if (fallbackDiv) fallbackDiv.remove();
       this.state.fallbackShown = false;
@@ -431,23 +431,23 @@
       if (this.elements.overlay) {
         this.elements.overlay.addEventListener(
           "click",
-          this.handleOverlayClick
+          this.handleOverlayClick,
         );
         if (this.config.enableTouch) {
           this.elements.overlay.addEventListener(
             "touchstart",
             this.handleTouchStart,
-            { passive: true }
+            { passive: true },
           );
           this.elements.overlay.addEventListener(
             "touchmove",
             this.handleTouchMove,
-            { passive: true }
+            { passive: true },
           );
           this.elements.overlay.addEventListener(
             "touchend",
             this.handleTouchEnd,
-            { passive: true }
+            { passive: true },
           );
         }
       }
@@ -465,25 +465,25 @@
       if (this.elements.closeBtn) {
         this.elements.closeBtn.removeEventListener(
           "click",
-          this.closePdfViewer
+          this.closePdfViewer,
         );
       }
       if (this.elements.overlay) {
         this.elements.overlay.removeEventListener(
           "click",
-          this.handleOverlayClick
+          this.handleOverlayClick,
         );
         this.elements.overlay.removeEventListener(
           "touchstart",
-          this.handleTouchStart
+          this.handleTouchStart,
         );
         this.elements.overlay.removeEventListener(
           "touchmove",
-          this.handleTouchMove
+          this.handleTouchMove,
         );
         this.elements.overlay.removeEventListener(
           "touchend",
-          this.handleTouchEnd
+          this.handleTouchEnd,
         );
       }
       document.removeEventListener("keydown", this.handleKeydown, true);
@@ -551,7 +551,7 @@
         } catch (error) {
           console.error(
             `Failed to initialize PDF viewer ${config.viewerName}:`,
-            error
+            error,
           );
         }
       });
@@ -626,6 +626,14 @@
         frameId: "presahPdfFrame",
         pdfPath: "pdf/presah.pdf",
         viewerName: "Presah",
+      },
+      {
+        showBtnId: "showOdpadyPdfBtn",
+        overlayId: "odpadyPdfOverlay",
+        closeBtnId: "odpadyPdfCloseBtn",
+        frameId: "odpadyPdfFrame",
+        pdfPath: "pdf/odpady.pdf",
+        viewerName: "Odpady",
       },
     ];
     pdfViewerCollection = new PdfViewerManagerCollection(pdfViewers, {
