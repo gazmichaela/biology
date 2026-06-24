@@ -278,6 +278,10 @@ OBSAH:
         margin-bottom: 0.6em;
         padding: 0 0.1em;
     }
+
+    article section .img-responsive + .h1 {
+        margin-top: 7em;
+    }
     
     article section h2 {
         font-size: 1.05em;
@@ -714,7 +718,7 @@ OBSAH:
         margin-left: -30px;
     }
 
-    .img-responsive {
+    .img-responsive { /* pro img-right-big/top */
         display: flex;
         justify-self: center;
         margin: 10px auto;
