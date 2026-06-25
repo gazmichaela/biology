@@ -252,7 +252,8 @@ article {
 }
 
 .breadcrumb li:not(:last-child)::after {
-    content: "\203A"; /* Inicode pro ">" */
+    content: "\203A"; /* Fallback, když prohlížeč nepodporuje "/" */
+    content: "\203A" / ""; /* Inicode pro ">", lomítko "/" => čtečka to nebude číst (v případě potřeby lze napsat do uvozovek za lomítko to, co má přečíst čtečka) */
     margin: 0 10px;
     color: #023f1e;
     font-size: 1.125rem;
@@ -328,6 +329,10 @@ article section h1 + a {
     font-size: 1.4em;
     font-weight: 500;
     transition: opacity 0.2s ease-out 0.1s, color 0.15s ease-out 0.1s, font-weight 0.15s linear 0.1s;
+}
+
+article section h1 + a span {
+    user-select: none;
 }
 
 article section h1:hover + a {
@@ -413,8 +418,7 @@ article section .button,
 article section .button-light {
     border-radius: 20px;
     padding: 9px 20px;
-    margin-left: 30px;
-    margin-top: 25px;
+    margin: 1em 1.5em 1.2em 1.5em;
     display: inline-block;  
     cursor: pointer;        
     text-align: center;

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!-- Dopsat description prosím! -->
-    <meta name="description" content="x">
+    <meta name="description" content="Ekologie se zabývá vztahy mezi organismy a jejich prostředím (jak biotickým, tak abiotickým). S ní souvisí plno pojmů, jako je společenstvo a populace.">
     <title>Základy ekologie</title>
     <script>
     (function(){let d=false;try{d=localStorage.getItem('darkMode')==='true'}catch(e){}document.write('<style>html{visibility:hidden;}body{visibility:hidden;background:'+(d?'#2a2a2a':'#f0f9f0')+';color:'+(d?'#c8c1b5':'#023f1e')+'}html.ready{visibility:visible}body.ready{visibility:visible}</style>');if(d)document.documentElement.className+=' dark-mode';})();
@@ -179,7 +178,7 @@
                     </div>
                 </nav>
                 <!-- Burger menu tlačítko -->
-                <div class="burger-menu" id="burgerMenu" tabindex="0">
+                <div class="burger-menu" id="burgerMenu" tabindex="0" aria-label="Tlačítko menu pro otevření navigace">
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
                     <div class="burger-line"></div>
@@ -222,6 +221,8 @@
             <div class="h1">
                 <h1 id="Ecology-introduction__pojmy">Vybrané pojmy z ekologie</h1><a href="#Ecology-introduction__pojmy" aria-label="Přejít na nadpis Vybrané pojmy z ekologie"><span aria-hidden="true">#</span></a>
             </div>
+            <input type="checkbox" id="FC-show">
+            
             <div class="flashcard-container">
                 <input type="checkbox" id="FC1">
                 <label for="FC1" class="flashcard">
@@ -456,7 +457,11 @@
             <small><em>*= Poznámka:</em> Pojem nika se v ekologii často používá nesprávně — například k označení místa, kde organismus žije („lesy jsou nikou veverek“). Pro popis místa
                 se správně užívá termín habitat nebo stanoviště.  Nika není popisem konkrétního místa, nika je myšlenkový koncept představující souhrn všech faktorů potřebných k životu
                 určitého organismu, spolu s jeho nároky na zdroje a dalšími potřebami.  Nika tedy spíše popisuje, jak organismus žije, než kde žije.</small>
-          <div class="zarazka"></div>
+            <div class="FC-show-container">
+                <label for="FC-show" title="Pro použití kartiček klikněte na Rozbalit">Rozbalit</label>
+                <label for="FC-show">Sbalit</label>
+            </div>
+            <div class="zarazka"></div>
         </section>
 
         <section>

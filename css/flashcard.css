@@ -78,6 +78,95 @@ label.flashcard .flashcard-back p {
 
 /* ==== 2. ŘEŠENÍ FUNKČNOSTI ==== */
 
+input#FC-show {
+    display: none;
+}
+
+.FC-show-container {
+    position: relative;
+    top: -40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1em;
+    padding: 0 1.1em;
+}
+
+.FC-show-container label {
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.FC-show-container::after,
+.FC-show-container::before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: currentColor;
+    max-width: 600px;
+}
+
+.flashcard-container {
+    height: 25vh;
+    min-height: 140px;
+    max-height: 200px;
+    overflow-y: hidden;
+    pointer-events: none;
+    position: relative;
+}
+
+.flashcard-container::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(
+        to bottom,
+        #f0f9f000,
+        #f0f9f0
+    );
+}
+
+
+input#FC-show:checked + .flashcard-container::after {
+    display: none;
+}
+
+input#FC-show + .flashcard-container + small{
+    display: none;
+}
+
+input#FC-show:checked + .flashcard-container {
+    height: auto;
+    max-height: inherit;
+    pointer-events: auto;
+    overflow-y: visible;
+}
+
+input#FC-show:checked + .flashcard-container + small{
+    display: initial;
+}
+
+input#FC-show:checked ~ .FC-show-container {
+    top: 30px;
+}
+
+input#FC-show:checked ~ .FC-show-container::after,
+input#FC-show:checked ~ .FC-show-container::before {
+    max-width: 800px;
+}
+
+input#FC-show:not(:checked) ~ .FC-show-container > label:last-of-type {
+    display: none; /* Skryje "Sbalit", na "Rozbalit" není žádný nastavený styl a použije se výchozí block */
+}
+
+input#FC-show:checked ~ .FC-show-container > label:first-of-type {
+    display: none; /* Skryje "Rozbalit", na "Sbalit" není žádný nastavený styl a použije se výchozí block */
+}
+
 /* Moderní způsob: podle https://www.w3schools.com/howto/howto_css_flip_card.asp */
 @supports (backface-visibility: hidden) {
     label.flashcard {
