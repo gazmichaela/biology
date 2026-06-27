@@ -593,57 +593,80 @@
 
     // Každý obrázek má jiné korekční faktory
     _getCorrectionFactors() {
-      const imgWidth = this.state.imgNaturalWidth;
-      const imgHeight = this.state.imgNaturalHeight;
+  const imgWidth = this.state.imgNaturalWidth;
+  const imgHeight = this.state.imgNaturalHeight;
 
-      if (imgWidth === 5780 && imgHeight === 3987) {
-        return { x: 0.49, y: 0.49, fixX: 0, fixY: 0 };
-      } else if (imgWidth === 2200 && imgHeight === 1772) {
-        return { x: 0.65, y: 0.65, fixX: 0, fixY: 0 };
-      } else if (imgWidth === 2052 && imgHeight === 1508) {
-        return { x: 0.75, y: 0.75, fixX: 0, fixY: 0 };
-      } else if (imgWidth === 505 && imgHeight === 448) {
-        return { x: 2.0, y: 2.0, fixX: 0, fixY: 0 };
-      } else if (imgWidth === 679 && imgHeight === 416) {
-        return { x: 2.0, y: 2.0, fixX: 0, fixY: 0 };
-      } else if (imgWidth === 1076 && imgHeight === 1064) {
-        return { x: 0.7, y: 0.7, fixX: 0, fixY: 0 };
-      } else {
-        return { x: 0.58, y: 0.58, fixX: 0, fixY: 0 };
-      }
+  if (imgWidth === 5780 && imgHeight === 3987) {
+    return { x: 0.49, y: 0.49, fixX: 0, fixY: 0 };
+  } else if (imgWidth === 2200 && imgHeight === 1772) {
+    return { x: 0.65, y: 0.65, fixX: 0, fixY: 0 };
+  } else if (imgWidth === 2052 && imgHeight === 1508) {
+    return { x: 0.75, y: 0.75, fixX: 0, fixY: 0 };
+  } else if (imgWidth === 505 && imgHeight === 448) {
+    return { x: 2.0, y: 2.0, fixX: 0, fixY: 0 };
+  } else if (imgWidth === 679 && imgHeight === 416) {
+    return { x: 2.0, y: 2.0, fixX: 0, fixY: 0 };
+ } else if (imgWidth === 1076 && imgHeight === 1064) {
+  return { x: 0.7, y: 0.7, fixX: 0, fixY: 0 };
+} else if (imgWidth === 4500 && imgHeight === 3800) {
+  return { x: 0.49, y: 0.49, fixX: 0, fixY: 0 };
+} else {
+  return { x: 0.58, y: 0.58, fixX: 0, fixY: 0 };
+}
+}
+
+   _setZoomFactor() {
+  const width = this.state.imgNaturalWidth;
+  const height = this.state.imgNaturalHeight;
+
+  if (width === 5780 && height === 3987) {
+    this.zoomFactor = 0.5;
+  } else if (width === 2200 && height === 1772) {
+    this.zoomFactor = 0.7;
+  } else if (width === 2052 && height === 1508) {
+    this.zoomFactor = 0.8;
+  } else if (width === 505 && height === 448) {
+    this.zoomFactor = 2.0;
+  } else if (width === 679 && height === 416) {
+    this.zoomFactor = 2.0;
+  } else if (width === 1076 && height === 1064) {
+    this.zoomFactor = 0.8;
+  } else if (width === 4500 && height === 3800) {
+    this.zoomFactor = 0.55;
+  } else if (width === 2800 && height === 2800) {
+    this.zoomFactor = 0.7;
+  } else if (width === 1920 && height === 1358) {
+    this.zoomFactor = 0.9;
+  } else if (width === 1900 && height === 1069) {
+    this.zoomFactor = 0.9;
+  } else if (width === 1868 && height === 1297) {
+    this.zoomFactor = 0.9;
+  } else if (width === 1774 && height === 887) {
+    this.zoomFactor = 0.9;
+  } else if (width === 1578 && height === 1263) {
+    this.zoomFactor = 0.9;
+  } else if (width === 1469 && height === 822) {
+    this.zoomFactor = 1.0;
+  } else if (width === 1330 && height === 704) {
+    this.zoomFactor = 1.0;
+  } else if (width === 972 && height === 547) {
+    this.zoomFactor = 1.2;
+  } else if (width === 811 && height === 586) {
+    this.zoomFactor = 1.2;
+  } else {
+    if (width > 3000) {
+      this.zoomFactor = 0.6;
+    } else if (width > 1500) {
+      this.zoomFactor = 3.0;
+    } else if (width > 800) {
+      this.zoomFactor = 2.5;
+    } else if (width > 400) {
+      this.zoomFactor = 2.0;
+    } else {
+      this.zoomFactor = 1.8;
     }
-
-    _setZoomFactor() {
-      const width = this.state.imgNaturalWidth;
-      const height = this.state.imgNaturalHeight;
-
-      if (width === 5780 && height === 3987) {
-        this.zoomFactor = 0.5;
-      } else if (width === 2200 && height === 1772) {
-        this.zoomFactor = 0.7;
-      } else if (width === 2052 && height === 1508) {
-        this.zoomFactor = 0.8;
-      } else if (width === 505 && height === 448) {
-        this.zoomFactor = 2.0;
-      } else if (width === 679 && height === 416) {
-        this.zoomFactor = 2.0;
-      } else if (width === 1076 && height === 1064) {
-        this.zoomFactor = 0.8;
-      } else {
-        if (width > 3000) {
-          this.zoomFactor = 0.6;
-        } else if (width > 1500) {
-          this.zoomFactor = 3.0;
-        } else if (width > 800) {
-          this.zoomFactor = 2.5;
-        } else if (width > 400) {
-          this.zoomFactor = 2.0;
-        } else {
-          this.zoomFactor = 1.8;
-        }
-      }
-    }
-
+  }
+}
     _toggleSourceVisibility(visible) {
       if (this.elements.sourceContainer) {
         this.elements.sourceContainer.style.opacity = visible ? "1" : "0";
