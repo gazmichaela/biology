@@ -370,7 +370,6 @@ article section h2 {
 
 article section ol h2,
 article section ul h2 {
-    font-size: 1.2em;
     margin-top: 2.5em;
     margin-bottom: 0.4em;
 }
@@ -430,6 +429,7 @@ article section .button-light {
     outline: 0px solid transparent; /* Příprava pro hover efekt */
     box-sizing: border-box;
     position: relative;
+    text-wrap: pretty;
 }
 
 article section .button {

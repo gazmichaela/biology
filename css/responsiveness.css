@@ -158,6 +158,10 @@ OBSAH:
     article section .h1 {
         margin-top: 4em;
     }
+
+    article section .img-responsive + .h1 {
+        margin-top: 7em;
+    }
     
     
     article section h1 {
@@ -189,7 +193,7 @@ OBSAH:
     article section .button,
     article section .button-light {
         margin-left: 10px;
-        margin-top: 15px;
+        margin-top: 14px;
         padding: 8px 16px;
     }
     
@@ -282,10 +286,6 @@ OBSAH:
         margin-bottom: 0.6em;
         padding: 0 0.1em;
     }
-
-    article section .img-responsive + .h1 {
-        margin-top: 7em;
-    }
     
     article section h2 {
         font-size: 1.05em;
@@ -311,9 +311,7 @@ OBSAH:
     article section .button,
     article section .button-light {
         margin-left: 5px;
-        margin-top: 12px;
-        padding: 7px 14px;
-        font-size: 0.85em;
+        margin-top: 10px;
         border-radius: 15px;
     }
     
@@ -431,8 +429,8 @@ OBSAH:
     article section .button,
     article section .button-light {
         margin-left: 2px;
+        margin-top: 8px;
         padding: 6px 12px;
-        font-size: 0.8em;
     }
     
     .cookies-mini-notice {
@@ -512,7 +510,6 @@ OBSAH:
     }
     
     #toggle-questions-btn {
-        padding: 12px 18px;
         font-size: 1em;
         border-radius: 5px;
         margin-bottom: 25px;
@@ -538,8 +535,7 @@ OBSAH:
     }
     
     #toggle-questions-btn {
-        font-size: 1.05em;
-        border-radius: 6px;
+        padding: 10px 16px;
         margin-top: 20px;
         height: 5%;
         touch-action: manipulation;
@@ -561,8 +557,7 @@ OBSAH:
     }
     
     #toggle-questions-btn {
-        padding: 12px 16px;
-        font-size: 1em;
+        padding: 10px 14px;
         margin-bottom: 25px;
         margin-top: 15px;
     }
@@ -961,30 +956,57 @@ OBSAH:
     body.dark-mode {
         background-color: white !important;
         color: black !important; 
-        font-size: 12pt;
+        font-size: 11pt;
         line-height: 1.4;
+        overflow: visible; /* Zabrání případnému zobrazování scrollbaru */
     }
 
     article {
         max-width: none;
-        margin: 2mm;
+        margin: 1mm 2mm;
     }
 
     section {
         margin: auto;
-        padding: 0 0 2cm 0;
+        padding: 1cm 0 0 0;
+    }
+
+    section:first-of-type {
+        padding-top: 0;
+    }
+
+    section.literatura {
+        display: none;
+    }
+
+    section:has(#questions-heading.no-print) {
+        padding: 0;
     }
 
     article section p {
         hyphens: auto;
         widows: 2;  /* Minimálně 2 řádky na konci stránky */
         orphans: 2; /* Minimálně 2 řádky na začátku stránky */
+        line-height: 1.4;
     }
 
     article section p,
     article section ol,
     article section ul {
         color: black;
+        font-size: 100%;
+    }
+
+    article section li {
+        line-height: 1.4;
+    }
+
+    article section li li {
+        line-height: 1.35;
+    }
+
+    article section li li li {
+        line-height: 1.3;
     }
 
     article section .h1 + ol,
@@ -1009,16 +1031,17 @@ OBSAH:
         break-after: avoid; /* Modení standard */
     }
 
+    article section .h1 {
+        margin-top: 15mm;
+    }
+
     article section h1 {
         text-decoration: underline 3pt #309ce554 !important;
         text-decoration-skip-ink: none; /* Zabrání přerušování podtržení */
         background: transparent !important;
         color: black;
         font-weight: 800;
-    }
-
-    article section .h1 {
-        margin-top: 3cm;
+        font-size: 15pt;
     }
 
     article > section > .h1:first-of-type,
@@ -1028,9 +1051,20 @@ OBSAH:
     }
 
     article section h2 {
-        margin-top: 15mm;
+        font-size: 14pt;
+        margin-top: 2em !important;
         color: black;
         text-decoration: underline #309ce584 !important;
+    }
+
+    article section h3 {
+        font-size: 13pt;
+        margin-top: 1.75em !important;
+        margin-bottom: 0;
+    }
+
+    article section h4 {
+        font-size: 11.5pt;
     }
 
     article section .h1.new-page,
@@ -1038,30 +1072,52 @@ OBSAH:
         margin-top: 0;
     }
 
+    input#FC-show:not(:checked) + .h1,
+    input#FC-show:not(:checked) ~ .flashcard-container,
+    .FC-show-container {
+        display: none;
+    }
+
+    label.flashcard {
+        height: 7cm;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
     label.flashcard .flashcard-inner {
         transform: rotateY(0deg) !important;
     }
 
     label.flashcard .flashcard-front {
-        height: 5cm;
+        height: 3.5cm;
         background-color: transparent;
-        font-size: 14pt;
-        color: black;
         transform: rotateY(0deg);
-        align-items: flex-start;
+        align-items: center;
         text-align: center;
-        border-radius: 2mm;
+        border-radius: 2mm 2mm 0 0;
+        border: 0.75mm solid black;
+        border-bottom: none
+    }
+
+    label.flashcard .flashcard-front p {
+        font-size: 12pt;
+        font-weight: 600;
     }
 
     label.flashcard .flashcard-back {
-        height: 5cm;
+        height: 3.5cm;
+        margin-top: 3.5cm;
         background-color: transparent;
-        font-size: 12pt;
-        color: #888;
         transform: rotateY(0deg);
-        align-items: flex-end;
+        align-items: center;
         text-align: center;
-        border-radius: 2mm;
+        border-radius: 0 0 2mm 2mm;
+        border: 0.75mm solid black;
+        border-top: 0.5mm dashed black;
+    }
+
+    label.flashcard .flashcard-back p {
+        font-size: 9pt;
     }
 
     .tooltip {
@@ -1097,14 +1153,20 @@ OBSAH:
         break-before: avoid; /* Moderní standard */
     }
 
+    a {
+        color: black !important;
+        font-size: 9.5pt;
+    }
+
     a.button {
         background-color: transparent !important;
         color: black !important;
         padding: 0 !important;
         border: none !important;
         border-radius: 0 !important;
-        margin: 0 !important;
-        font-size: 10pt !important;
+        margin: 1em 0 0 0 !important;
+        font-size: 9pt !important;
+        font-weight: normal !important;
     }
 
     a.button[href]::after {
@@ -1114,16 +1176,20 @@ OBSAH:
         font-weight: normal;
     }
 
-    .a-print[href]::after {
+    a.a-print {
+        text-decoration: none;
+    }
+
+    a.a-print[href]::after {
         content: " (" attr(href) ")";
         font-style: italic;
         text-decoration: underline;
         font-weight: normal;
-        font-size: 0.8em;
+        font-size: 9pt
     }
 
-    a:link:not(.button):not(.sidemap a):not(.no-a-style) {
-        color: -webkit-link !important; /* Výchozí barva odkazů v prohlížeči */
+    .skip-to-content {
+        display: none;
     }
 
     table {
@@ -1159,6 +1225,15 @@ OBSAH:
         color: black !important;
     }
 
+    .close-btn-container,
+    .source-container {
+        display: none !important; /* Kdyby někdo chtěl tisknout rozkliknutý obrázek */
+    }
+
+    .img-wrapper {
+        display: block;
+    }
+
     .img-wrapper img {
         border-radius: 0 !important;
     }
@@ -1192,13 +1267,15 @@ OBSAH:
     }
 
     .img-next {
-        width: 65%;
+        width: 75%;
         margin: 5mm auto 0 auto;
+        max-width: 18cm;
     }
 
     .img-bottom {
-        width: 90%;
+        width: 70%;
         margin: 5mm auto;
+        max-width: 20cm;
     }
 
     .img-left {
@@ -1225,7 +1302,7 @@ OBSAH:
     }
 
     .img-right-big {
-        width: 45%;
+        width: 40%;
     }
 
     .img-next {
@@ -1233,7 +1310,7 @@ OBSAH:
     }
 
     .img-bottom {
-        width: 80%;
+        width: 40%;
     }
 
     .img-left {

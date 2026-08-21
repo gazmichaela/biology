@@ -32,6 +32,7 @@ OBSAH:
 label.flashcard {
     width: 180px;
     height: 220px;
+    cursor: pointer;
 }
 
 label.flashcard .flashcard-inner {
@@ -96,6 +97,7 @@ input#FC-show {
     text-align: center;
     font-weight: 500;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .FC-show-container::after,
@@ -131,22 +133,36 @@ input#FC-show {
 }
 
 
-input#FC-show:checked + .flashcard-container::after {
+.flashcard-container > label[for="FC-show"]:first-of-type {
+    height: calc(100% + 20px);
+    width: 100%;
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+input#FC-show:checked ~ .flashcard-container > label[for="FC-show"]:first-of-type {
     display: none;
 }
 
-input#FC-show + .flashcard-container + small{
+input#FC-show:checked ~ .flashcard-container::after {
     display: none;
 }
 
-input#FC-show:checked + .flashcard-container {
+input#FC-show ~ .flashcard-container + small{
+    display: none;
+}
+
+input#FC-show:checked ~ .flashcard-container {
     height: auto;
-    max-height: inherit;
+    max-height: none;
     pointer-events: auto;
     overflow-y: visible;
 }
 
-input#FC-show:checked + .flashcard-container + small{
+input#FC-show:checked ~ .flashcard-container + small{
     display: initial;
 }
 
@@ -178,7 +194,7 @@ input#FC-show:checked ~ .FC-show-container > label:first-of-type {
         transform-style: preserve-3d;
     }
 
-    .flashcard-container input:checked + label.flashcard .flashcard-inner {
+    input#FC-show:checked ~ .flashcard-container input:checked + label.flashcard .flashcard-inner {
         transform: rotateY(180deg);
         z-index: initial;
     }
@@ -213,13 +229,13 @@ input#FC-show:checked ~ .FC-show-container > label:first-of-type {
         z-index: 1;
     }
 
-    .flashcard-container input:checked + label.flashcard .flashcard-front {
+    input#FC-show:checked ~ .flashcard-container input:checked + label.flashcard .flashcard-front {
         transform: rotateY(-180deg);
         z-index: 1;
         transition: transform 0.6s linear, z-index 0s step-start 0.3s;
     }
 
-    .flashcard-container input:checked + label.flashcard .flashcard-back {
+    input#FC-show:checked ~ .flashcard-container input:checked + label.flashcard .flashcard-back {
         transform: rotateY(0deg);
         z-index: 2;
         transition: transform 0.6s linear, z-index 0s step-start 0.3s;
